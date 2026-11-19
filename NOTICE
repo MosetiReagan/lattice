@@ -1,0 +1,16 @@
+Lattice
+Copyright 2026 Lattice contributors
+
+Original Lattice code is licensed under Apache License 2.0.
+
+The CPU runtime executes llama.cpp, an independent MIT-licensed project.
+Its code, algorithms and kernels remain the work of its upstream contributors.
+The separately provisioned backend includes its own third-party notices; consult
+.local/llama.cpp/LICENSE and its vendor licenses for the exact pinned checkout.
+
+Model weights are not included in Lattice distributions. The initial model
+artifact is Qwen/Qwen2.5-0.5B-Instruct-GGUF, licensed separately under Apache-2.0.
+See artifacts/model-LICENSE.txt and the pinned upstream model card.
+
+Python runtime dependencies retain their respective licenses. Lattice's license
+does not replace upstream model, backend or dependency license obligations.

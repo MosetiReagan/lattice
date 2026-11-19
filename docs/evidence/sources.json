@@ -1,0 +1,317 @@
+[
+  {
+    "name": "llama-readme",
+    "url": "https://raw.githubusercontent.com/ggml-org/llama.cpp/master/README.md",
+    "retrieved_utc": "2026-11-19T21:07:50.101065+00:00",
+    "status": 200,
+    "final_url": "https://raw.githubusercontent.com/ggml-org/llama.cpp/master/README.md",
+    "sha256": "461b38efc8ce48e8c752e38daba1aaf6169aba4ed81c2651d6e2e031d708f771",
+    "file": "llama-readme.txt"
+  },
+  {
+    "name": "llama-server",
+    "url": "https://raw.githubusercontent.com/ggml-org/llama.cpp/master/tools/server/README.md",
+    "retrieved_utc": "2026-11-19T21:07:50.101711+00:00",
+    "status": 200,
+    "final_url": "https://raw.githubusercontent.com/ggml-org/llama.cpp/master/tools/server/README.md",
+    "sha256": "de4e460d5c6d3a7de9a9ccb9464366f7772d8f27317432267f02472c9acd4f5b",
+    "file": "llama-server.txt"
+  },
+  {
+    "name": "vllm-readme",
+    "url": "https://raw.githubusercontent.com/vllm-project/vllm/main/README.md",
+    "retrieved_utc": "2026-11-19T21:07:50.102196+00:00",
+    "status": 200,
+    "final_url": "https://raw.githubusercontent.com/vllm-project/vllm/main/README.md",
+    "sha256": "ba4998a8520051250ec81c60187203745e6bc0b9c197af6e1b6a73143f5e575e",
+    "file": "vllm-readme.txt"
+  },
+  {
+    "name": "sglang-readme",
+    "url": "https://raw.githubusercontent.com/sgl-project/sglang/main/README.md",
+    "retrieved_utc": "2026-11-19T21:07:50.102484+00:00",
+    "status": 200,
+    "final_url": "https://raw.githubusercontent.com/sgl-project/sglang/main/README.md",
+    "sha256": "8aebfb101fa473f3842483d03c14b140c546c39ae2af464c0cd49d14b22be90f",
+    "file": "sglang-readme.txt"
+  },
+  {
+    "name": "transformers-readme",
+    "url": "https://raw.githubusercontent.com/huggingface/transformers/main/README.md",
+    "retrieved_utc": "2026-11-19T21:07:50.102687+00:00",
+    "status": 200,
+    "final_url": "https://raw.githubusercontent.com/huggingface/transformers/main/README.md",
+    "sha256": "b9f1f01787738eab63e57aea1081b560e90b2880e1555395b3a683198dd474c6",
+    "file": "transformers-readme.txt"
+  },
+  {
+    "name": "TGI-readme",
+    "url": "https://raw.githubusercontent.com/huggingface/text-generation-inference/main/README.md",
+    "retrieved_utc": "2026-11-19T21:07:50.103003+00:00",
+    "status": 200,
+    "final_url": "https://raw.githubusercontent.com/huggingface/text-generation-inference/main/README.md",
+    "sha256": "cc6b8a68200acc247cbd1d3cf5ca6c54b5b043040cc6193b58ff16afd80ee040",
+    "file": "TGI-readme.txt"
+  },
+  {
+    "name": "TensorRT-LLM-readme",
+    "url": "https://raw.githubusercontent.com/NVIDIA/TensorRT-LLM/main/README.md",
+    "retrieved_utc": "2026-11-19T21:07:50.111615+00:00",
+    "status": 200,
+    "final_url": "https://raw.githubusercontent.com/NVIDIA/TensorRT-LLM/main/README.md",
+    "sha256": "1733d768f2ce4e3a41735bec50414697bc10bfb00010c68a42bb2b7d2c004f47",
+    "file": "TensorRT-LLM-readme.txt"
+  },
+  {
+    "name": "ONNX-readme",
+    "url": "https://raw.githubusercontent.com/microsoft/onnxruntime/main/README.md",
+    "retrieved_utc": "2026-11-19T21:07:50.112378+00:00",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "name": "bitsandbytes-readme",
+    "url": "https://raw.githubusercontent.com/bitsandbytes-foundation/bitsandbytes/main/README.md",
+    "retrieved_utc": "2026-11-19T21:07:50.166685+00:00",
+    "status": 200,
+    "final_url": "https://raw.githubusercontent.com/bitsandbytes-foundation/bitsandbytes/main/README.md",
+    "sha256": "68fc2df60317162ca34ba4a1aa0ff3dbc195634391ddeff326b3b109ff7d5ea3",
+    "file": "bitsandbytes-readme.txt"
+  },
+  {
+    "name": "GPTQ-readme",
+    "url": "https://raw.githubusercontent.com/IST-DASLab/gptq/main/README.md",
+    "retrieved_utc": "2026-11-19T21:07:50.217155+00:00",
+    "status": 200,
+    "final_url": "https://raw.githubusercontent.com/IST-DASLab/gptq/main/README.md",
+    "sha256": "c67e5fe08d7cceb1f2bd0b5c2ad4055c3b4fd87e1def15b949844d31c8e51686",
+    "file": "GPTQ-readme.txt"
+  },
+  {
+    "name": "AWQ-readme",
+    "url": "https://raw.githubusercontent.com/mit-han-lab/llm-awq/main/README.md",
+    "retrieved_utc": "2026-11-19T21:07:50.245946+00:00",
+    "status": 200,
+    "final_url": "https://raw.githubusercontent.com/mit-han-lab/llm-awq/main/README.md",
+    "sha256": "98c1caabd48369d81b527df210b01886d1b103534925374e5bdf6ff3b73b66e0",
+    "file": "AWQ-readme.txt"
+  },
+  {
+    "name": "FlashAttention-readme",
+    "url": "https://raw.githubusercontent.com/Dao-AILab/flash-attention/main/README.md",
+    "retrieved_utc": "2026-11-19T21:07:50.247041+00:00",
+    "status": 200,
+    "final_url": "https://raw.githubusercontent.com/Dao-AILab/flash-attention/main/README.md",
+    "sha256": "0dbaba56da1c8372d460956e2609bfb89acf8f3aadd65d132b1697d221069619",
+    "file": "FlashAttention-readme.txt"
+  },
+  {
+    "name": "SDPA",
+    "url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.functional.scaled_dot_product_attention.html",
+    "retrieved_utc": "2026-11-19T21:07:50.248854+00:00",
+    "status": 200,
+    "final_url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.functional.scaled_dot_product_attention.html",
+    "sha256": "f89bd0b4a4e9528b68d8891b70c3fadead521fe15061fe934d1b4f063dce299a",
+    "file": "SDPA.txt"
+  },
+  {
+    "name": "speculative-paper",
+    "url": "https://arxiv.org/abs/2211.17192",
+    "retrieved_utc": "2026-11-19T21:07:50.251137+00:00",
+    "status": 200,
+    "final_url": "https://arxiv.org/abs/2211.17192",
+    "sha256": "08f8aa4e225c2951d0e21553da31643c5954d1efcb1a603bf4e48659857bafa5",
+    "file": "speculative-paper.txt"
+  },
+  {
+    "name": "pagedattention-paper",
+    "url": "https://arxiv.org/abs/2309.06180",
+    "retrieved_utc": "2026-11-19T21:07:50.256808+00:00",
+    "status": 200,
+    "final_url": "https://arxiv.org/abs/2309.06180",
+    "sha256": "de9353854db4e16af0c63f73502f7e463f03bdc4f3c98f3fcd377fe1c625ed08",
+    "file": "pagedattention-paper.txt"
+  },
+  {
+    "name": "radixattention-paper",
+    "url": "https://arxiv.org/abs/2312.07104",
+    "retrieved_utc": "2026-11-19T21:07:50.294507+00:00",
+    "status": 200,
+    "final_url": "https://arxiv.org/abs/2312.07104",
+    "sha256": "d7bd2c78de970ccca49fd9cc53795489ada62a0555967655c760859a72005b0a",
+    "file": "radixattention-paper.txt"
+  },
+  {
+    "name": "multitoken-paper",
+    "url": "https://arxiv.org/abs/2404.19737",
+    "retrieved_utc": "2026-11-19T21:07:50.300502+00:00",
+    "status": 200,
+    "final_url": "https://arxiv.org/abs/2404.19737",
+    "sha256": "f5c7dcab971989b5f0c1bd06e2e400a95967c693c8490dd4e010518b71838440",
+    "file": "multitoken-paper.txt"
+  },
+  {
+    "name": "h2o-paper",
+    "url": "https://arxiv.org/abs/2306.14048",
+    "retrieved_utc": "2026-11-19T21:07:50.342664+00:00",
+    "status": 200,
+    "final_url": "https://arxiv.org/abs/2306.14048",
+    "sha256": "134309b5b70d8f0fef7506c810593d479cbfcea82d34293e33e167657c2ff78f",
+    "file": "h2o-paper.txt"
+  },
+  {
+    "name": "earlyexit-paper",
+    "url": "https://arxiv.org/abs/2207.07061",
+    "retrieved_utc": "2026-11-19T21:07:50.347781+00:00",
+    "status": 200,
+    "final_url": "https://arxiv.org/abs/2207.07061",
+    "sha256": "af6d2516b3645a74a9646041c51c7c72e9b28d4a78e6f2d566d45fd112704a43",
+    "file": "earlyexit-paper.txt"
+  },
+  {
+    "name": "frugalgpt-paper",
+    "url": "https://arxiv.org/abs/2305.05176",
+    "retrieved_utc": "2026-11-19T21:07:50.371571+00:00",
+    "status": 200,
+    "final_url": "https://arxiv.org/abs/2305.05176",
+    "sha256": "22212d50a0aa3f04d0b72db871c27d4b700e78f832fd969e8f32a395e329f3f7",
+    "file": "frugalgpt-paper.txt"
+  },
+  {
+    "name": "energy-paper",
+    "url": "https://arxiv.org/abs/2311.16863",
+    "retrieved_utc": "2026-11-19T21:07:50.371735+00:00",
+    "status": 200,
+    "final_url": "https://arxiv.org/abs/2311.16863",
+    "sha256": "9b8aa3a9d2540e47f1d63f4f269175f837536405fdbdf6c005806664274d55c1",
+    "file": "energy-paper.txt"
+  },
+  {
+    "name": "Qwen--Qwen2.5-0.5B-Instruct-metadata",
+    "url": "https://huggingface.co/api/models/Qwen/Qwen2.5-0.5B-Instruct",
+    "retrieved_utc": "2026-11-19T21:07:50.385825+00:00",
+    "status": 200,
+    "final_url": "https://huggingface.co/api/models/Qwen/Qwen2.5-0.5B-Instruct",
+    "sha256": "7203d9e3f4dd464aa53c06b65a15f043a30906cdd6beb741e0d7d56e9d0c358e",
+    "file": "Qwen--Qwen2.5-0.5B-Instruct-metadata.json"
+  },
+  {
+    "name": "Qwen--Qwen2.5-0.5B-Instruct-config",
+    "url": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct/raw/main/config.json",
+    "retrieved_utc": "2026-11-19T21:07:50.405207+00:00",
+    "status": 200,
+    "final_url": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct/raw/main/config.json",
+    "sha256": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+    "file": "Qwen--Qwen2.5-0.5B-Instruct-config.json"
+  },
+  {
+    "name": "Qwen--Qwen2.5-1.5B-Instruct-metadata",
+    "url": "https://huggingface.co/api/models/Qwen/Qwen2.5-1.5B-Instruct",
+    "retrieved_utc": "2026-11-19T21:07:50.432489+00:00",
+    "status": 200,
+    "final_url": "https://huggingface.co/api/models/Qwen/Qwen2.5-1.5B-Instruct",
+    "sha256": "253bc9cc98b29e6c0b0c50ac4582b3f78858e40cd17ced0e1bd3c79017027ba5",
+    "file": "Qwen--Qwen2.5-1.5B-Instruct-metadata.json"
+  },
+  {
+    "name": "Qwen--Qwen2.5-1.5B-Instruct-config",
+    "url": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct/raw/main/config.json",
+    "retrieved_utc": "2026-11-19T21:07:50.432657+00:00",
+    "status": 200,
+    "final_url": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct/raw/main/config.json",
+    "sha256": "98d2ff8cc47488d08a2b0b3acf4eb99ef210779b42bd48605f6b8e36acdbf670",
+    "file": "Qwen--Qwen2.5-1.5B-Instruct-config.json"
+  },
+  {
+    "name": "HuggingFaceTB--SmolLM2-135M-Instruct-metadata",
+    "url": "https://huggingface.co/api/models/HuggingFaceTB/SmolLM2-135M-Instruct",
+    "retrieved_utc": "2026-11-19T21:07:50.474408+00:00",
+    "status": 200,
+    "final_url": "https://huggingface.co/api/models/HuggingFaceTB/SmolLM2-135M-Instruct",
+    "sha256": "3d8898c077f42920a3fe711a5798f9903112110de5d4f381cce5f127b543e130",
+    "file": "HuggingFaceTB--SmolLM2-135M-Instruct-metadata.json"
+  },
+  {
+    "name": "HuggingFaceTB--SmolLM2-135M-Instruct-config",
+    "url": "https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct/raw/main/config.json",
+    "retrieved_utc": "2026-11-19T21:07:50.487880+00:00",
+    "status": 200,
+    "final_url": "https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct/raw/main/config.json",
+    "sha256": "8eb740e8bbe4cff95ea7b4588d17a2432deb16e8075bc5828ff7ba9be94d982a",
+    "file": "HuggingFaceTB--SmolLM2-135M-Instruct-config.json"
+  },
+  {
+    "name": "ggml-org--llama.cpp-release",
+    "url": "https://api.github.com/repos/ggml-org/llama.cpp/releases/latest",
+    "retrieved_utc": "2026-11-19T21:07:50.537320+00:00",
+    "status": 200,
+    "final_url": "https://api.github.com/repos/ggml-org/llama.cpp/releases/latest",
+    "sha256": "fed2e3e91fbee2d24caf184eb579e8710eafbad23c07fdb8710552eeda2e87b5",
+    "file": "ggml-org--llama.cpp-release.json"
+  },
+  {
+    "name": "vllm-project--vllm-release",
+    "url": "https://api.github.com/repos/vllm-project/vllm/releases/latest",
+    "retrieved_utc": "2026-11-19T21:07:50.546684+00:00",
+    "status": 200,
+    "final_url": "https://api.github.com/repos/vllm-project/vllm/releases/latest",
+    "sha256": "55cc059672eefc338b5fc3c80f476b8229f47afe4f16371348bdbf0064d87688",
+    "file": "vllm-project--vllm-release.json"
+  },
+  {
+    "name": "sgl-project--sglang-release",
+    "url": "https://api.github.com/repos/sgl-project/sglang/releases/latest",
+    "retrieved_utc": "2026-11-19T21:07:50.571206+00:00",
+    "status": 200,
+    "final_url": "https://api.github.com/repos/sgl-project/sglang/releases/latest",
+    "sha256": "2b40d81ce35a145438ada1d9eb9a39f438a4dad4b1f283e4828752aa2a869cd0",
+    "file": "sgl-project--sglang-release.json"
+  },
+  {
+    "name": "kivi-paper",
+    "url": "https://arxiv.org/abs/2402.02750",
+    "status": 200,
+    "retrieved_utc": "2026-11-19T21:08:13.808527+00:00",
+    "file": "kivi-paper.txt",
+    "sha256": "4e8022a25f8baec407478a8e615138daf608c4180b8b8a32ebe6c64f6d66f672"
+  },
+  {
+    "name": "orca-paper",
+    "url": "https://www.usenix.org/conference/osdi22/presentation/yu",
+    "status": 200,
+    "retrieved_utc": "2026-11-19T21:08:14.305360+00:00",
+    "file": "orca-paper.txt",
+    "sha256": "31a187407a3c9438e5929ca4a4d4ebb59fdd0ec2935ab2373ab71ed0baeeccce"
+  },
+  {
+    "name": "llama-license",
+    "url": "https://raw.githubusercontent.com/ggml-org/llama.cpp/master/LICENSE",
+    "status": 200,
+    "retrieved_utc": "2026-11-19T21:08:14.453254+00:00",
+    "file": "llama-license.txt",
+    "sha256": "94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d"
+  },
+  {
+    "name": "onnx-overview",
+    "url": "https://onnxruntime.ai/docs/",
+    "status": 200,
+    "file": "onnx-overview.txt",
+    "retrieved_utc": "2026-11-19T21:08:23.312444+00:00",
+    "sha256": "cd1377e6187389f045e573942219a8b1e9e31749e56299baa8f14e772370b582"
+  },
+  {
+    "name": "qwen05-card",
+    "url": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct/raw/main/README.md",
+    "status": 200,
+    "file": "qwen05-card.txt",
+    "retrieved_utc": "2026-11-19T21:08:23.570662+00:00",
+    "sha256": "b19c806a904db6dc878a0462e70b551f6b7ac78dfbb88c2eb966ca2b9109ae15"
+  },
+  {
+    "name": "qwen15-card",
+    "url": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct/raw/main/README.md",
+    "status": 200,
+    "file": "qwen15-card.txt",
+    "retrieved_utc": "2026-11-19T21:08:23.679829+00:00",
+    "sha256": "2e1bcd8bd964728a820be709fa0f7b9dd54817a94fd2254c535df70c5e67fada"
+  }
+]

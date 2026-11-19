@@ -1,0 +1,114 @@
+warning: no usable GPU found, --gpu-layers option will be ignored
+warning: one possible reason is that llama.cpp was compiled without GPU support
+warning: consult docs/build.md for compilation instructions
+0.00.001.593 I srv  llama_server: initializing ...
+0.00.001.610 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.001.685 I srv  init_listene: The UI is disabled
+0.00.001.689 I srv  init_listene: Use --ui/--no-ui (or deprecated --webui/--no-webui) to enable/disable
+0.00.003.079 I srv    load_model: loading model '/data/workspace/lattice/models/qwen2.5-0.5b-instruct-fp16.gguf'
+0.00.218.060 W load: control-looking token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden
+0.00.256.908 I cmn          init: llama threadpool init, n_threads = 4
+0.00.277.725 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 2048, kv_unified = 'false'
+0.00.280.868 I srv  server_run_i: model loaded
+0.00.280.875 I srv  server_on_li: listening on http://127.0.0.1:33621
+0.00.331.012 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 0, t_last = -1
+0.00.331.084 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.00.677.734 I slot print_timing: id  0 | task 0 | prompt eval time =      55.70 ms /    35 tokens (    1.59 ms per token,   628.39 tokens per second)
+0.00.677.745 I slot print_timing: id  0 | task 0 |        eval time =     290.73 ms /    16 tokens (   19.38 ms per token,    51.59 tokens per second)
+0.00.677.746 I slot print_timing: id  0 | task 0 |       total time =     346.43 ms /    51 tokens
+0.00.677.754 I slot print_timing: id  0 | task 0 |    graphs reused =         14
+0.00.677.755 I slot print_timing: id  0 | task 0 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.00.677.950 I slot      release: id  0 | task 0 | stop processing: n_tokens = 50, truncated = 0
+0.00.685.506 I slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, f_sim_best = 1.000 (> 0.100 thold), f_keep = 0.700
+0.00.685.552 I slot launch_slot_: id  0 | task 17 | processing task, is_child = 0
+0.00.989.268 I slot print_timing: id  0 | task 17 | prompt eval time =      50.02 ms /    35 tokens (    1.43 ms per token,   699.79 tokens per second)
+0.00.989.278 I slot print_timing: id  0 | task 17 |        eval time =     253.66 ms /    16 tokens (   16.91 ms per token,    59.14 tokens per second)
+0.00.989.279 I slot print_timing: id  0 | task 17 |       total time =     303.67 ms /    51 tokens
+0.00.989.281 I slot print_timing: id  0 | task 17 |    graphs reused =         28
+0.00.989.282 I slot print_timing: id  0 | task 17 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.00.989.298 I slot      release: id  0 | task 17 | stop processing: n_tokens = 50, truncated = 0
+0.00.997.926 I slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, f_sim_best = 0.829 (> 0.100 thold), f_keep = 0.580
+0.00.997.961 I slot launch_slot_: id  0 | task 34 | processing task, is_child = 0
+0.01.291.504 I slot print_timing: id  0 | task 34 | prompt eval time =      51.07 ms /    35 tokens (    1.46 ms per token,   685.39 tokens per second)
+0.01.291.518 I slot print_timing: id  0 | task 34 |        eval time =     241.92 ms /    16 tokens (   16.13 ms per token,    62.00 tokens per second)
+0.01.291.519 I slot print_timing: id  0 | task 34 |       total time =     292.98 ms /    51 tokens
+0.01.291.520 I slot print_timing: id  0 | task 34 |    graphs reused =         42
+0.01.291.521 I slot print_timing: id  0 | task 34 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.01.292.806 I slot      release: id  0 | task 34 | stop processing: n_tokens = 50, truncated = 0
+0.01.292.874 I srv    operator(): operator(): cleaning up before exit...
+warning: no usable GPU found, --gpu-layers option will be ignored
+warning: one possible reason is that llama.cpp was compiled without GPU support
+warning: consult docs/build.md for compilation instructions
+0.00.001.398 I srv  llama_server: initializing ...
+0.00.001.412 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.001.474 I srv  init_listene: The UI is disabled
+0.00.001.476 I srv  init_listene: Use --ui/--no-ui (or deprecated --webui/--no-webui) to enable/disable
+0.00.002.809 I srv    load_model: loading model '/data/workspace/lattice/models/qwen2.5-0.5b-instruct-fp16.gguf'
+0.00.182.977 W load: control-looking token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden
+0.00.216.839 I cmn          init: llama threadpool init, n_threads = 4
+0.00.240.962 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 2048, kv_unified = 'false'
+0.00.243.978 I srv  server_run_i: model loaded
+0.00.243.985 I srv  server_on_li: listening on http://127.0.0.1:56739
+0.00.304.785 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 0, t_last = -1
+0.00.304.827 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.00.737.943 I slot print_timing: id  0 | task 0 | prompt eval time =     185.27 ms /   149 tokens (    1.24 ms per token,   804.25 tokens per second)
+0.00.737.951 I slot print_timing: id  0 | task 0 |        eval time =     247.71 ms /    16 tokens (   16.51 ms per token,    60.55 tokens per second)
+0.00.737.952 I slot print_timing: id  0 | task 0 |       total time =     432.98 ms /   165 tokens
+0.00.737.960 I slot print_timing: id  0 | task 0 |    graphs reused =         14
+0.00.737.961 I slot print_timing: id  0 | task 0 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.00.738.200 I slot      release: id  0 | task 0 | stop processing: n_tokens = 164, truncated = 0
+0.00.745.961 I slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, f_sim_best = 1.000 (> 0.100 thold), f_keep = 0.909
+0.00.745.997 I slot launch_slot_: id  0 | task 17 | processing task, is_child = 0
+0.01.124.912 I slot print_timing: id  0 | task 17 | prompt eval time =     178.84 ms /   149 tokens (    1.20 ms per token,   833.17 tokens per second)
+0.01.124.958 I slot print_timing: id  0 | task 17 |        eval time =     200.05 ms /    16 tokens (   13.34 ms per token,    74.98 tokens per second)
+0.01.124.964 I slot print_timing: id  0 | task 17 |       total time =     378.88 ms /   165 tokens
+0.01.124.970 I slot print_timing: id  0 | task 17 |    graphs reused =         28
+0.01.124.977 I slot print_timing: id  0 | task 17 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.01.125.001 I slot      release: id  0 | task 17 | stop processing: n_tokens = 164, truncated = 0
+0.01.133.182 I slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, f_sim_best = 0.960 (> 0.100 thold), f_keep = 0.872
+0.01.133.292 I slot launch_slot_: id  0 | task 34 | processing task, is_child = 0
+0.01.525.236 I slot print_timing: id  0 | task 34 | prompt eval time =     187.29 ms /   149 tokens (    1.26 ms per token,   795.57 tokens per second)
+0.01.525.246 I slot print_timing: id  0 | task 34 |        eval time =     204.05 ms /    16 tokens (   13.60 ms per token,    73.51 tokens per second)
+0.01.525.247 I slot print_timing: id  0 | task 34 |       total time =     391.34 ms /   165 tokens
+0.01.525.249 I slot print_timing: id  0 | task 34 |    graphs reused =         42
+0.01.525.249 I slot print_timing: id  0 | task 34 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.01.526.602 I slot      release: id  0 | task 34 | stop processing: n_tokens = 164, truncated = 0
+0.01.526.701 I srv    operator(): operator(): cleaning up before exit...
+warning: no usable GPU found, --gpu-layers option will be ignored
+warning: one possible reason is that llama.cpp was compiled without GPU support
+warning: consult docs/build.md for compilation instructions
+0.00.001.476 I srv  llama_server: initializing ...
+0.00.001.492 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.001.567 I srv  init_listene: The UI is disabled
+0.00.001.570 I srv  init_listene: Use --ui/--no-ui (or deprecated --webui/--no-webui) to enable/disable
+0.00.002.946 I srv    load_model: loading model '/data/workspace/lattice/models/qwen2.5-0.5b-instruct-fp16.gguf'
+0.00.214.890 W load: control-looking token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden
+0.00.254.499 I cmn          init: llama threadpool init, n_threads = 4
+0.00.276.609 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 2048, kv_unified = 'false'
+0.00.279.681 I srv  server_run_i: model loaded
+0.00.279.695 I srv  server_on_li: listening on http://127.0.0.1:44859
+0.00.306.724 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 0, t_last = -1
+0.00.306.765 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.01.767.260 I slot print_timing: id  0 | task 0 | prompt eval time =    1200.06 ms /   994 tokens (    1.21 ms per token,   828.29 tokens per second)
+0.01.767.264 I slot print_timing: id  0 | task 0 |        eval time =     260.24 ms /    16 tokens (   17.35 ms per token,    57.64 tokens per second)
+0.01.767.265 I slot print_timing: id  0 | task 0 |       total time =    1460.30 ms /  1010 tokens
+0.01.767.273 I slot print_timing: id  0 | task 0 |    graphs reused =         14
+0.01.767.274 I slot print_timing: id  0 | task 0 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.01.767.462 I slot      release: id  0 | task 0 | stop processing: n_tokens = 1009, truncated = 0
+0.01.779.791 I slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, f_sim_best = 1.000 (> 0.100 thold), f_keep = 0.985
+0.01.779.826 I slot launch_slot_: id  0 | task 20 | processing task, is_child = 0
+0.03.325.785 I slot print_timing: id  0 | task 20 | prompt eval time =    1286.04 ms /   994 tokens (    1.29 ms per token,   772.92 tokens per second)
+0.03.325.789 I slot print_timing: id  0 | task 20 |        eval time =     259.88 ms /    16 tokens (   17.33 ms per token,    57.72 tokens per second)
+0.03.325.790 I slot print_timing: id  0 | task 20 |       total time =    1545.92 ms /  1010 tokens
+0.03.325.791 I slot print_timing: id  0 | task 20 |    graphs reused =         28
+0.03.325.792 I slot print_timing: id  0 | task 20 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.03.325.819 I slot      release: id  0 | task 20 | stop processing: n_tokens = 1009, truncated = 0
+0.03.335.297 I slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, f_sim_best = 0.994 (> 0.100 thold), f_keep = 0.979
+0.03.335.320 I slot launch_slot_: id  0 | task 40 | processing task, is_child = 0
+0.04.887.935 I slot print_timing: id  0 | task 40 | prompt eval time =    1278.88 ms /   994 tokens (    1.29 ms per token,   777.24 tokens per second)
+0.04.887.941 I slot print_timing: id  0 | task 40 |        eval time =     273.14 ms /    16 tokens (   18.21 ms per token,    54.92 tokens per second)
+0.04.887.942 I slot print_timing: id  0 | task 40 |       total time =    1552.02 ms /  1010 tokens
+0.04.887.944 I slot print_timing: id  0 | task 40 |    graphs reused =         42
+0.04.887.944 I slot print_timing: id  0 | task 40 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.04.889.286 I slot      release: id  0 | task 40 | stop processing: n_tokens = 1009, truncated = 0
+0.04.889.361 I srv    operator(): operator(): cleaning up before exit...

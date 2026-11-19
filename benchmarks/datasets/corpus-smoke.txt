@@ -1,0 +1,79 @@
+An inference service receives a prompt and returns generated tokens. Before comparing implementations, the engineer records the model checkpoint, tokenizer and sampling settings. A faster response is useful only when the result satisfies the task and its resource limits.
+
+A library can share a prefix of previous computation when the model and all relevant settings match. Reusing incompatible state can silently corrupt a response. Cache identity therefore includes exact token IDs, positional settings and the identity of the model artifact.
+
+In an experiment, the baseline and candidate receive identical inputs. Their order is randomized to reduce the effects of background load. Each observation is retained, including failures and timeouts. Repeated trials help distinguish consistent changes from measurement noise.
+
+A scheduler balances limited resources among requests. Long prompts need prefill work, and long responses occupy decode time. A small queue can reduce overload, but its policy must make waiting time and rejection visible to the operator.
+
+Quantization represents weights using a smaller numerical format. This can change memory consumption, computation and output quality. The smallest representation is not necessarily the best choice. Calibration and evaluation should be documented separately from a serving benchmark.
+
+An inference service receives a prompt and returns generated tokens. Before comparing implementations, the engineer records the model checkpoint, tokenizer and sampling settings. A faster response is useful only when the result satisfies the task and its resource limits.
+
+A library can share a prefix of previous computation when the model and all relevant settings match. Reusing incompatible state can silently corrupt a response. Cache identity therefore includes exact token IDs, positional settings and the identity of the model artifact.
+
+In an experiment, the baseline and candidate receive identical inputs. Their order is randomized to reduce the effects of background load. Each observation is retained, including failures and timeouts. Repeated trials help distinguish consistent changes from measurement noise.
+
+A scheduler balances limited resources among requests. Long prompts need prefill work, and long responses occupy decode time. A small queue can reduce overload, but its policy must make waiting time and rejection visible to the operator.
+
+Quantization represents weights using a smaller numerical format. This can change memory consumption, computation and output quality. The smallest representation is not necessarily the best choice. Calibration and evaluation should be documented separately from a serving benchmark.
+
+An inference service receives a prompt and returns generated tokens. Before comparing implementations, the engineer records the model checkpoint, tokenizer and sampling settings. A faster response is useful only when the result satisfies the task and its resource limits.
+
+A library can share a prefix of previous computation when the model and all relevant settings match. Reusing incompatible state can silently corrupt a response. Cache identity therefore includes exact token IDs, positional settings and the identity of the model artifact.
+
+In an experiment, the baseline and candidate receive identical inputs. Their order is randomized to reduce the effects of background load. Each observation is retained, including failures and timeouts. Repeated trials help distinguish consistent changes from measurement noise.
+
+A scheduler balances limited resources among requests. Long prompts need prefill work, and long responses occupy decode time. A small queue can reduce overload, but its policy must make waiting time and rejection visible to the operator.
+
+Quantization represents weights using a smaller numerical format. This can change memory consumption, computation and output quality. The smallest representation is not necessarily the best choice. Calibration and evaluation should be documented separately from a serving benchmark.
+
+An inference service receives a prompt and returns generated tokens. Before comparing implementations, the engineer records the model checkpoint, tokenizer and sampling settings. A faster response is useful only when the result satisfies the task and its resource limits.
+
+A library can share a prefix of previous computation when the model and all relevant settings match. Reusing incompatible state can silently corrupt a response. Cache identity therefore includes exact token IDs, positional settings and the identity of the model artifact.
+
+In an experiment, the baseline and candidate receive identical inputs. Their order is randomized to reduce the effects of background load. Each observation is retained, including failures and timeouts. Repeated trials help distinguish consistent changes from measurement noise.
+
+A scheduler balances limited resources among requests. Long prompts need prefill work, and long responses occupy decode time. A small queue can reduce overload, but its policy must make waiting time and rejection visible to the operator.
+
+Quantization represents weights using a smaller numerical format. This can change memory consumption, computation and output quality. The smallest representation is not necessarily the best choice. Calibration and evaluation should be documented separately from a serving benchmark.
+
+An inference service receives a prompt and returns generated tokens. Before comparing implementations, the engineer records the model checkpoint, tokenizer and sampling settings. A faster response is useful only when the result satisfies the task and its resource limits.
+
+A library can share a prefix of previous computation when the model and all relevant settings match. Reusing incompatible state can silently corrupt a response. Cache identity therefore includes exact token IDs, positional settings and the identity of the model artifact.
+
+In an experiment, the baseline and candidate receive identical inputs. Their order is randomized to reduce the effects of background load. Each observation is retained, including failures and timeouts. Repeated trials help distinguish consistent changes from measurement noise.
+
+A scheduler balances limited resources among requests. Long prompts need prefill work, and long responses occupy decode time. A small queue can reduce overload, but its policy must make waiting time and rejection visible to the operator.
+
+Quantization represents weights using a smaller numerical format. This can change memory consumption, computation and output quality. The smallest representation is not necessarily the best choice. Calibration and evaluation should be documented separately from a serving benchmark.
+
+An inference service receives a prompt and returns generated tokens. Before comparing implementations, the engineer records the model checkpoint, tokenizer and sampling settings. A faster response is useful only when the result satisfies the task and its resource limits.
+
+A library can share a prefix of previous computation when the model and all relevant settings match. Reusing incompatible state can silently corrupt a response. Cache identity therefore includes exact token IDs, positional settings and the identity of the model artifact.
+
+In an experiment, the baseline and candidate receive identical inputs. Their order is randomized to reduce the effects of background load. Each observation is retained, including failures and timeouts. Repeated trials help distinguish consistent changes from measurement noise.
+
+A scheduler balances limited resources among requests. Long prompts need prefill work, and long responses occupy decode time. A small queue can reduce overload, but its policy must make waiting time and rejection visible to the operator.
+
+Quantization represents weights using a smaller numerical format. This can change memory consumption, computation and output quality. The smallest representation is not necessarily the best choice. Calibration and evaluation should be documented separately from a serving benchmark.
+
+An inference service receives a prompt and returns generated tokens. Before comparing implementations, the engineer records the model checkpoint, tokenizer and sampling settings. A faster response is useful only when the result satisfies the task and its resource limits.
+
+A library can share a prefix of previous computation when the model and all relevant settings match. Reusing incompatible state can silently corrupt a response. Cache identity therefore includes exact token IDs, positional settings and the identity of the model artifact.
+
+In an experiment, the baseline and candidate receive identical inputs. Their order is randomized to reduce the effects of background load. Each observation is retained, including failures and timeouts. Repeated trials help distinguish consistent changes from measurement noise.
+
+A scheduler balances limited resources among requests. Long prompts need prefill work, and long responses occupy decode time. A small queue can reduce overload, but its policy must make waiting time and rejection visible to the operator.
+
+Quantization represents weights using a smaller numerical format. This can change memory consumption, computation and output quality. The smallest representation is not necessarily the best choice. Calibration and evaluation should be documented separately from a serving benchmark.
+
+An inference service receives a prompt and returns generated tokens. Before comparing implementations, the engineer records the model checkpoint, tokenizer and sampling settings. A faster response is useful only when the result satisfies the task and its resource limits.
+
+A library can share a prefix of previous computation when the model and all relevant settings match. Reusing incompatible state can silently corrupt a response. Cache identity therefore includes exact token IDs, positional settings and the identity of the model artifact.
+
+In an experiment, the baseline and candidate receive identical inputs. Their order is randomized to reduce the effects of background load. Each observation is retained, including failures and timeouts. Repeated trials help distinguish consistent changes from measurement noise.
+
+A scheduler balances limited resources among requests. Long prompts need prefill work, and long responses occupy decode time. A small queue can reduce overload, but its policy must make waiting time and rejection visible to the operator.
+
+Quantization represents weights using a smaller numerical format. This can change memory consumption, computation and output quality. The smallest representation is not necessarily the best choice. Calibration and evaluation should be documented separately from a serving benchmark.

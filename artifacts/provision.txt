@@ -1,0 +1,24 @@
+-- llama.cpp version: 1.0.0-dev
+CMAKE_BUILD_TYPE=Release
+-- Warning: ccache not found - consider installing it for faster compilation or disable this warning with GGML_CCACHE=OFF
+-- CMAKE_SYSTEM_PROCESSOR: x86_64
+-- GGML_SYSTEM_ARCH: x86
+-- Including CPU backend
+-- x86 detected
+-- Adding CPU backend variant ggml-cpu: -march=native 
+-- ggml version: 1.0.0
+-- ggml commit:  b1b770d
+-- Generating embedded license file for target: llama-app
+-- Configuring done (0.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: /data/workspace/lattice/.local/llama.cpp/build
+[1/6] Provisioning UI assets
+CMake Warning at /data/workspace/lattice/.local/llama.cpp/scripts/ui-assets.cmake:584 (message):
+  UI: no assets available - building without an embedded UI.  In a
+  disconnected environment, download the pre-built UI from a llama.cpp
+  release at https://github.com/ggml-org/llama.cpp/releases and extract to
+  tools/ui/dist.
+
+
+-- UI: assets unchanged, skipping embedding
+Provisioned verified CPU model and backend; registry: configs/local.json

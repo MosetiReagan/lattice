@@ -1,0 +1,565 @@
+{
+  "workloads": {
+    "short": {
+      "attempted": 2,
+      "completed": 2,
+      "failed": 0,
+      "latency_ms": {
+        "n": 2,
+        "mean": 306.3270595012,
+        "stddev": 7.575155044074385,
+        "median": 306.3270595012,
+        "p50": 306.3270595012,
+        "p90": 310.61221430136357,
+        "p95": 311.147858651384,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "ttft_ms": {
+        "n": 2,
+        "mean": 58.889587499834306,
+        "stddev": 2.546187573447792,
+        "median": 58.889587499834306,
+        "p50": 58.889587499834306,
+        "p90": 60.32992869932059,
+        "p95": 60.509971349256375,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "queue_ms": {
+        "n": 2,
+        "mean": 0.03758000093512237,
+        "stddev": 0.0032102655646836036,
+        "median": 0.03758000093512237,
+        "p50": 0.03758000093512237,
+        "p90": 0.03939600137528032,
+        "p95": 0.039623001430300064,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "sampled_worker_rss_bytes": {
+        "n": 2,
+        "mean": 1361518592,
+        "stddev": 40548.33126036138,
+        "median": 1361518592.0,
+        "p50": 1361518592.0,
+        "p90": 1361541529.6,
+        "p95": 1361544396.8,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "aggregate_generated_tokens_per_second": 52.141246354131084,
+      "aggregate_requests_per_second": 3.2588278971331928,
+      "output_tokens": {
+        "n": 2,
+        "mean": 16,
+        "stddev": 0.0,
+        "median": 16.0,
+        "p50": 16.0,
+        "p90": 16.0,
+        "p95": 16.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      }
+    },
+    "long_prompt": {
+      "attempted": 2,
+      "completed": 2,
+      "failed": 0,
+      "latency_ms": {
+        "n": 2,
+        "mean": 1559.9532804999399,
+        "stddev": 1.895069507895747,
+        "median": 1559.9532804999399,
+        "p50": 1559.9532804999399,
+        "p90": 1561.0252936998222,
+        "p95": 1561.1592953498075,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "ttft_ms": {
+        "n": 2,
+        "mean": 1292.476249000174,
+        "stddev": 7.6585448527448134,
+        "median": 1292.476249000174,
+        "p50": 1292.476249000174,
+        "p90": 1296.8085761996917,
+        "p95": 1297.3501170996315,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "queue_ms": {
+        "n": 2,
+        "mean": 0.03183999979228247,
+        "stddev": 0.00292742327094451,
+        "median": 0.03183999979228247,
+        "p50": 0.03183999979228247,
+        "p90": 0.033496000469313,
+        "p95": 0.03370300055394182,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "sampled_worker_rss_bytes": {
+        "n": 2,
+        "mean": 1377144832,
+        "stddev": 162193.32504144553,
+        "median": 1377144832.0,
+        "p50": 1377144832.0,
+        "p90": 1377236582.4,
+        "p95": 1377248051.2,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "aggregate_generated_tokens_per_second": 10.253521057364551,
+      "aggregate_requests_per_second": 0.6408450660852845,
+      "output_tokens": {
+        "n": 2,
+        "mean": 16,
+        "stddev": 0.0,
+        "median": 16.0,
+        "p50": 16.0,
+        "p90": 16.0,
+        "p95": 16.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      }
+    },
+    "memory_constrained": {
+      "attempted": 2,
+      "completed": 2,
+      "failed": 0,
+      "latency_ms": {
+        "n": 2,
+        "mean": 393.10299049884634,
+        "stddev": 8.977207783653231,
+        "median": 393.10299049884634,
+        "p50": 393.10299049884634,
+        "p90": 398.1812660987998,
+        "p95": 398.816050548794,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "ttft_ms": {
+        "n": 2,
+        "mean": 191.71146149983542,
+        "stddev": 6.894911248885664,
+        "median": 191.71146149983542,
+        "p50": 191.71146149983542,
+        "p90": 195.6118122996486,
+        "p95": 196.09935614962524,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "queue_ms": {
+        "n": 2,
+        "mean": 0.034779999623424374,
+        "stddev": 0.002955707243074471,
+        "median": 0.034779999623424374,
+        "p50": 0.034779999623424374,
+        "p90": 0.036452000131248496,
+        "p95": 0.03666100019472651,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "sampled_worker_rss_bytes": {
+        "n": 2,
+        "mean": 1368987648,
+        "stddev": 43444.64063610148,
+        "median": 1368987648.0,
+        "p50": 1368987648.0,
+        "p90": 1369012224.0,
+        "p95": 1369015296.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "aggregate_generated_tokens_per_second": 40.647358262040505,
+      "aggregate_requests_per_second": 2.5404598913775316,
+      "output_tokens": {
+        "n": 2,
+        "mean": 16,
+        "stddev": 0.0,
+        "median": 16.0,
+        "p50": 16.0,
+        "p90": 16.0,
+        "p95": 16.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      }
+    }
+  },
+  "load_observations": [
+    {
+      "workload": "short",
+      "status": "ready",
+      "worker_startup_ms": 991.8038989999332,
+      "measurement_makespan_seconds": 0.6137175890016806
+    },
+    {
+      "workload": "memory_constrained",
+      "status": "ready",
+      "worker_startup_ms": 958.9210060003097,
+      "measurement_makespan_seconds": 0.7872590339993621
+    },
+    {
+      "workload": "long_prompt",
+      "status": "ready",
+      "worker_startup_ms": 968.1396920004772,
+      "measurement_makespan_seconds": 3.120879142001286
+    }
+  ],
+  "quality": {
+    "dataset_sha256": "e12ca0ff7210dcb8d34eb39da8efd5ff511b01515505ced60fd452df8ab5d0c3",
+    "tasks": 22,
+    "passed": 11,
+    "outcomes": [
+      {
+        "id": "math-0",
+        "category": "mathematics",
+        "text": "The calculation 17 + 25 equals 42.",
+        "passed": false,
+        "token_ids": [
+          785,
+          21937,
+          220,
+          16,
+          22,
+          488,
+          220,
+          17,
+          20,
+          16819,
+          220,
+          19,
+          17,
+          13,
+          151645
+        ]
+      },
+      {
+        "id": "math-1",
+        "category": "mathematics",
+        "text": "The calculation 9 * 8 equals 72.",
+        "passed": false,
+        "token_ids": [
+          785,
+          21937,
+          220,
+          24,
+          353,
+          220,
+          23,
+          16819,
+          220,
+          22,
+          17,
+          13,
+          151645
+        ]
+      },
+      {
+        "id": "math-2",
+        "category": "mathematics",
+        "text": "The calculation 100 - 37 equals 63.",
+        "passed": false,
+        "token_ids": [
+          785,
+          21937,
+          220,
+          16,
+          15,
+          15,
+          481,
+          220,
+          18,
+          22,
+          16819,
+          220,
+          21,
+          18,
+          13,
+          151645
+        ]
+      },
+      {
+        "id": "math-3",
+        "category": "mathematics",
+        "text": "The calculation 48 / 6 equals 8.",
+        "passed": false,
+        "token_ids": [
+          785,
+          21937,
+          220,
+          19,
+          23,
+          608,
+          220,
+          21,
+          16819,
+          220,
+          23,
+          13,
+          151645
+        ]
+      },
+      {
+        "id": "reasoning-0",
+        "category": "reasoning",
+        "text": "Yes.",
+        "passed": false,
+        "token_ids": [
+          9454,
+          13,
+          151645
+        ]
+      },
+      {
+        "id": "reasoning-1",
+        "category": "reasoning",
+        "text": "Yes",
+        "passed": false,
+        "token_ids": [
+          9454,
+          151645
+        ]
+      },
+      {
+        "id": "reasoning-2",
+        "category": "reasoning",
+        "text": "Tomorrow is Tuesday.",
+        "passed": false,
+        "token_ids": [
+          90173,
+          374,
+          7589,
+          13,
+          151645
+        ]
+      },
+      {
+        "id": "reasoning-3",
+        "category": "reasoning",
+        "text": "Yes",
+        "passed": false,
+        "token_ids": [
+          9454,
+          151645
+        ]
+      },
+      {
+        "id": "json-0",
+        "category": "structured_output",
+        "text": "```json\n{\n  \"word\": \"alpha\"\n}\n```",
+        "passed": false,
+        "token_ids": [
+          73594,
+          2236,
+          198,
+          515,
+          220,
+          330,
+          1158,
+          788,
+          330,
+          7141,
+          698,
+          532,
+          73594,
+          151645
+        ]
+      },
+      {
+        "id": "json-1",
+        "category": "structured_output",
+        "text": "```json\n{\n  \"word\": \"blue\"\n}\n```",
+        "passed": false,
+        "token_ids": [
+          73594,
+          2236,
+          198,
+          515,
+          220,
+          330,
+          1158,
+          788,
+          330,
+          12203,
+          698,
+          532,
+          73594,
+          151645
+        ]
+      },
+      {
+        "id": "json-2",
+        "category": "structured_output",
+        "text": "```json\n{\n  \"number\": 7\n}\n```",
+        "passed": false,
+        "token_ids": [
+          73594,
+          2236,
+          198,
+          515,
+          220,
+          330,
+          4082,
+          788,
+          220,
+          22,
+          198,
+          532,
+          73594,
+          151645
+        ]
+      },
+      {
+        "id": "json-3",
+        "category": "structured_output",
+        "text": "{\n  \"enabled\": false\n}",
+        "passed": true,
+        "token_ids": [
+          515,
+          220,
+          330,
+          15868,
+          788,
+          895,
+          198,
+          92,
+          151645
+        ]
+      },
+      {
+        "id": "instruction-0",
+        "category": "instruction_following",
+        "text": "READY",
+        "passed": true,
+        "token_ids": [
+          45578,
+          151645
+        ]
+      },
+      {
+        "id": "instruction-1",
+        "category": "instruction_following",
+        "text": "DONE",
+        "passed": true,
+        "token_ids": [
+          70396,
+          151645
+        ]
+      },
+      {
+        "id": "instruction-2",
+        "category": "instruction_following",
+        "text": "HELLO",
+        "passed": true,
+        "token_ids": [
+          50712,
+          1593,
+          151645
+        ]
+      },
+      {
+        "id": "instruction-3",
+        "category": "instruction_following",
+        "text": "OK",
+        "passed": true,
+        "token_ids": [
+          3925,
+          151645
+        ]
+      },
+      {
+        "id": "retrieval-0",
+        "category": "retrieval",
+        "text": "blue",
+        "passed": true,
+        "token_ids": [
+          12203,
+          151645
+        ]
+      },
+      {
+        "id": "retrieval-1",
+        "category": "retrieval",
+        "text": "red",
+        "passed": true,
+        "token_ids": [
+          1151,
+          151645
+        ]
+      },
+      {
+        "id": "retrieval-2",
+        "category": "retrieval",
+        "text": "green",
+        "passed": true,
+        "token_ids": [
+          13250,
+          151645
+        ]
+      },
+      {
+        "id": "retrieval-3",
+        "category": "retrieval",
+        "text": "gold",
+        "passed": true,
+        "token_ids": [
+          34537,
+          151645
+        ]
+      },
+      {
+        "id": "coding-0",
+        "category": "coding_structure",
+        "text": "```python\ndef add(a, b):\n    return a + b\n```",
+        "passed": true,
+        "token_ids": [
+          73594,
+          12669,
+          198,
+          750,
+          912,
+          2877,
+          11,
+          293,
+          982,
+          262,
+          470,
+          264,
+          488,
+          293,
+          198,
+          73594,
+          151645
+        ]
+      },
+      {
+        "id": "coding-1",
+        "category": "coding_structure",
+        "text": "```python\ndef add(a, b):\n    return a + b\n```",
+        "passed": true,
+        "token_ids": [
+          73594,
+          12669,
+          198,
+          750,
+          912,
+          2877,
+          11,
+          293,
+          982,
+          262,
+          470,
+          264,
+          488,
+          293,
+          198,
+          73594,
+          151645
+        ]
+      }
+    ],
+    "scope": "Public self-authored smoke suite; no representative/held-out claim"
+  }
+}

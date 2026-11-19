@@ -1,0 +1,168 @@
+{
+  "license": "Apache-2.0",
+  "origin": "Lattice contributors, self-authored smoke tasks; public and not held out",
+  "tasks": [
+    {
+      "id": "math-0",
+      "category": "mathematics",
+      "scorer": "exact",
+      "prompt": "Calculate 17 + 25. Return only the integer, with no explanation.",
+      "expected": "42"
+    },
+    {
+      "id": "math-1",
+      "category": "mathematics",
+      "scorer": "exact",
+      "prompt": "Calculate 9 * 8. Return only the integer, with no explanation.",
+      "expected": "72"
+    },
+    {
+      "id": "math-2",
+      "category": "mathematics",
+      "scorer": "exact",
+      "prompt": "Calculate 100 - 37. Return only the integer, with no explanation.",
+      "expected": "63"
+    },
+    {
+      "id": "math-3",
+      "category": "mathematics",
+      "scorer": "exact",
+      "prompt": "Calculate 48 / 6. Return only the integer, with no explanation.",
+      "expected": "8"
+    },
+    {
+      "id": "reasoning-0",
+      "category": "reasoning",
+      "scorer": "exact",
+      "prompt": "All sparrows are birds. All birds are animals. Is every sparrow an animal? Return only the answer (yes/no, day name, or integer as appropriate).",
+      "expected": "yes"
+    },
+    {
+      "id": "reasoning-1",
+      "category": "reasoning",
+      "scorer": "exact",
+      "prompt": "A box is larger than a cup. The cup is larger than a coin. Is the box larger than the coin? Return only the answer (yes/no, day name, or integer as appropriate).",
+      "expected": "yes"
+    },
+    {
+      "id": "reasoning-2",
+      "category": "reasoning",
+      "scorer": "exact",
+      "prompt": "If today is Monday, what day is tomorrow? Return only the answer (yes/no, day name, or integer as appropriate).",
+      "expected": "Tuesday"
+    },
+    {
+      "id": "reasoning-3",
+      "category": "reasoning",
+      "scorer": "exact",
+      "prompt": "Ana has two pens and gives one away. How many pens remain? Return only the answer (yes/no, day name, or integer as appropriate).",
+      "expected": "1"
+    },
+    {
+      "id": "json-0",
+      "category": "structured_output",
+      "scorer": "json",
+      "prompt": "Return only valid JSON equal to {\"word\": \"alpha\"}, with no markdown or explanation.",
+      "expected": {
+        "word": "alpha"
+      }
+    },
+    {
+      "id": "json-1",
+      "category": "structured_output",
+      "scorer": "json",
+      "prompt": "Return only valid JSON equal to {\"word\": \"blue\"}, with no markdown or explanation.",
+      "expected": {
+        "word": "blue"
+      }
+    },
+    {
+      "id": "json-2",
+      "category": "structured_output",
+      "scorer": "json",
+      "prompt": "Return only valid JSON equal to {\"number\": 7}, with no markdown or explanation.",
+      "expected": {
+        "number": 7
+      }
+    },
+    {
+      "id": "json-3",
+      "category": "structured_output",
+      "scorer": "json",
+      "prompt": "Return only valid JSON equal to {\"enabled\": false}, with no markdown or explanation.",
+      "expected": {
+        "enabled": false
+      }
+    },
+    {
+      "id": "instruction-0",
+      "category": "instruction_following",
+      "scorer": "exact",
+      "prompt": "Reply with exactly the uppercase word READY and nothing else.",
+      "expected": "READY"
+    },
+    {
+      "id": "instruction-1",
+      "category": "instruction_following",
+      "scorer": "exact",
+      "prompt": "Reply with exactly the uppercase word DONE and nothing else.",
+      "expected": "DONE"
+    },
+    {
+      "id": "instruction-2",
+      "category": "instruction_following",
+      "scorer": "exact",
+      "prompt": "Reply with exactly the uppercase word HELLO and nothing else.",
+      "expected": "HELLO"
+    },
+    {
+      "id": "instruction-3",
+      "category": "instruction_following",
+      "scorer": "exact",
+      "prompt": "Reply with exactly the uppercase word OK and nothing else.",
+      "expected": "OK"
+    },
+    {
+      "id": "retrieval-0",
+      "category": "retrieval",
+      "scorer": "exact",
+      "prompt": "Records: Jun=white; Mira=blue; Sam=black. What color belongs to Mira? Return only the lowercase color.",
+      "expected": "blue"
+    },
+    {
+      "id": "retrieval-1",
+      "category": "retrieval",
+      "scorer": "exact",
+      "prompt": "Records: Jun=white; Tao=red; Sam=black. What color belongs to Tao? Return only the lowercase color.",
+      "expected": "red"
+    },
+    {
+      "id": "retrieval-2",
+      "category": "retrieval",
+      "scorer": "exact",
+      "prompt": "Records: Jun=white; Eli=green; Sam=black. What color belongs to Eli? Return only the lowercase color.",
+      "expected": "green"
+    },
+    {
+      "id": "retrieval-3",
+      "category": "retrieval",
+      "scorer": "exact",
+      "prompt": "Records: Jun=white; Nia=gold; Sam=black. What color belongs to Nia? Return only the lowercase color.",
+      "expected": "gold"
+    },
+    {
+      "id": "coding-0",
+      "category": "coding_structure",
+      "scorer": "python_add_ast",
+      "prompt": "Write only a Python function named add taking two arguments and returning their sum. No explanations.",
+      "expected": null
+    },
+    {
+      "id": "coding-1",
+      "category": "coding_structure",
+      "scorer": "python_add_ast",
+      "prompt": "Write only a Python function named add taking two arguments and returning their sum. No explanations.",
+      "expected": null
+    }
+  ]
+}

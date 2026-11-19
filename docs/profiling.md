@@ -1,0 +1,7 @@
+# Baseline profiling
+
+Each admitted request writes a JSONL record to the operator-configured log directory. The metrics endpoint returns counters, queue depth, active requests and up to 100 recent records. Fields include actual backend/model hashes, precision, CPU device, strategy, timestamp, request ID, queue wait, wall-clock TTFT, total request time, prompt/completion token counts, sampling settings, configured context and backend-native prompt/decode timings when returned.
+
+`worker_startup_ms` includes artifact hashing, process creation and readiness polling; it is not pure model load time. In a preloaded server, TTFT excludes server startup; one-shot CLI generation includes startup. Native `prompt_ms` and `predicted_ms` have upstream measurement semantics; retain raw names and do not equate them to total HTTP latency. TTFT is time to first nonempty text chunk. Chunk intervals are not token intervals when UTF-8 buffering combines tokens. Token counts come from native token IDs/final counters, not character heuristics.
+
+Unavailable: reliable per-request peak CPU/GPU memory, GPU utilization, energy, true per-token intervals, task quality and confidence bounds. Missing values must not become zero or simulated data. A worker address-space cap is not measured peak memory. Profiling is a Phase B instrumentation foundation; CSV export, repeated comparisons, dashboard and quality-cost analysis are planned for Phase C and later. Baseline smoke observations are not improvement evidence.

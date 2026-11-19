@@ -1,0 +1,10 @@
+.venv/
+.local/
+models/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+artifacts/*.log
+artifacts/requests.jsonl
