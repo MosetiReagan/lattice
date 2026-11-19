@@ -10,3 +10,7 @@
 | Transformers/vLLM/SGLang adapters | Not implemented |
 
 The worker explicitly disables GPU layers and uses F16 KV. Upstream backend platform support is not equivalent to Lattice hardware support. Do not reuse the native-ISA binary on other processors. Installation and verification commands are in baseline_runtime.md. No automatic accelerator capability selector is implemented yet.
+
+The repository now contains separate unit and manually requested real-CPU GitHub Actions jobs. They have not run remotely in this session and are not evidence of additional hardware support. Fresh backend builds have different hashes or CPU/thread fingerprints and must not inherit this VM's adaptive evidence automatically; integration tests accept the safe standard fallback until local experiments qualify that build.
+
+Current evidence also includes real Q8_0/Q4_K_M 0.5B CPU runs and the official 1.5B Q8 target with 0.5B FP16 draft. CPU capability/thread fingerprints bind adaptive profiles to this measured scope. No claim extends these results to other CPU models, accelerator kernels or runtime versions without rerunning compatibility and quality checks.

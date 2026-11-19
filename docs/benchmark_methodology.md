@@ -1,6 +1,16 @@
 # Proposed reproducible baseline protocol
 
-Status: protocol only; no benchmark runner or results yet. Freeze the Phase C baseline before introducing optimization code. First Phase B smoke test is not a speed result.
+Status: the standard runtime is frozen at commit 255e1e1 and the runner has executed repeated CPU workloads. The normative protocol below is retained; implemented workload details and deviations are listed here so they cannot be mistaken for fully completed acceptance conditions.
+
+## Executable protocol and deviations
+
+Run `uv run --no-sync lattice benchmark --model qwen2.5-0.5b-instruct-f16 --output benchmarks/results/new-standard --quality`. The `cpu-v1.json` workload file uses exact deterministic text constructed from word-count targets; actual tokenizer counts are recorded (not falsely reported as the original proposed token lengths). Eight categories, three warmups and 30 measured observations per category are supported. Three independent standard sessions and three paired warm-prefix sessions are preserved. The frozen standard source and manifest are archived under `benchmarks/baseline`; later control-plane code does not replace that snapshot.
+
+To execute the original implementation from the repository, use `PYTHONPATH=.local/frozen-standard/src .venv/bin/python scripts/run_baseline.py --config configs/frozen-baseline.json --output benchmarks/results/new-frozen-standard` after restoring that worktree/source archive. Source and config locks must both be fixed: a queued speculative run initially failed before generation because it read the evolving live registry. Its failure log is preserved and subsequent frozen experiments use `LATTICE_CONFIG=configs/experiments-frozen.json`. That failed startup is not a performance observation and was not counted as a successful trial.
+
+Warmed cache experiments prime both arms identically per trial and exclude priming symmetrically. They do not establish an amortized end-to-end gain including cold requests or superiority over already enabled native prefix caching. Speculative blocks randomize arm order per draft length rather than per individual observation; report this block-order confounding. Precision runs compare derived representations, not identical weight bytes, and use an external WikiText subset plus a public strict smoke suite.
+
+Development activity on this shared VM was not fully isolated. The original RSS sampler did not record worker swap history; new code does, and an inspected live worker had VmSwap=0, but that cannot retroactively certify old trials. No hardware clock lock, energy or accelerator measurements exist. These limits are material and remain visible even when a large warmed-prefix difference repeats. Missing measurements remain unavailable, not estimates inserted into result columns.
 
 ## Artifact and machine lock
 
@@ -17,7 +27,7 @@ llama-bench --help
 # Do not present placeholder model paths or untested flags as published commands.
 ```
 
-No copy/paste reproduction claim is made until Phase C ships the artifact lock, workloads and working commands. The server README snapshot documents changed speculative flags; do not rely on old `--draft-max` recipes.
+Artifact locks, source archive, workloads and tested commands now exist; independent external reproduction and a fully isolated benchmark host remain unverified. The server README snapshot documents changed speculative flags; do not rely on old `--draft-max` recipes.
 
 ## Workload matrix
 

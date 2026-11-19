@@ -1,5 +1,6 @@
 """Pure policy evaluation: unknown/experimental paths cannot override constraints."""
 
+import math
 from dataclasses import dataclass
 
 from lattice.scheduler.budget import Budget, ResourceSnapshot, feasible
@@ -17,6 +18,9 @@ class Features:
     backend_sha256: str
     temperature: float
     queue_depth: int
+    prompt_sha256: str | None = None
+    threads: int = 4
+    cpu_fingerprint: str | None = None
 
 
 @dataclass(frozen=True)
@@ -34,6 +38,24 @@ class PathEvidence:
     greedy_mismatches: int
     quality_qualified: bool
     evidence_id: str
+    qualified_prompt_sha256: frozenset[str] | None = None
+    threads: int | None = None
+    cpu_fingerprint: str | None = None
+
+    def __post_init__(self):
+        if not math.isfinite(self.median_latency_ms) or self.median_latency_ms <= 0:
+            raise ValueError("Profile latency must be positive and finite")
+        if (
+            self.memory_bound_mb < 1
+            or self.input_min < 0
+            or self.input_max < self.input_min
+        ):
+            raise ValueError("Invalid profile resource bounds")
+        if (
+            min(self.trials, self.sessions, self.greedy_mismatches) < 0
+            or self.greedy_mismatches > self.trials
+        ):
+            raise ValueError("Invalid profile evidence counts")
 
 
 @dataclass(frozen=True)
@@ -43,6 +65,8 @@ class Decision:
     evidence_id: str | None
     evidence_coverage: float
     policy_version: str = POLICY_VERSION
+    estimated_latency_ms: float | None = None
+    latency_target_met: bool | None = None
 
 
 class RuleController:
@@ -55,7 +79,14 @@ class RuleController:
         budget: Budget,
         resources: ResourceSnapshot,
         explicit: str = "adaptive",
+        preference: str = "balanced",
     ) -> Decision:
+        if preference == "lowest_compute":
+            raise LatticeError(
+                "A validated compute-cost model is not available; choose balanced or lowest_latency",
+                422,
+                "compute_model_unavailable",
+            )
         if features.output_limit > budget.max_output_tokens:
             raise LatticeError(
                 "Output exceeds hard token budget", 422, "budget_infeasible"
@@ -70,6 +101,18 @@ class RuleController:
             )
         eligible = []
         for profile in self.evidence:
+            if profile.threads is not None and features.threads != profile.threads:
+                continue
+            if (
+                profile.cpu_fingerprint is not None
+                and features.cpu_fingerprint != profile.cpu_fingerprint
+            ):
+                continue
+            if (
+                profile.qualified_prompt_sha256 is not None
+                and features.prompt_sha256 not in profile.qualified_prompt_sha256
+            ):
+                continue
             if (
                 profile.model_sha256 != features.model_sha256
                 or profile.backend_sha256 != features.backend_sha256
@@ -111,7 +154,14 @@ class RuleController:
             return Decision(
                 "standard", "No qualified measured compatible optimization", None, 0.0
             )
-        chosen = min(eligible, key=lambda p: (p.median_latency_ms, p.strategy))
+        chosen = min(
+            eligible,
+            key=lambda p: (
+                (p.memory_bound_mb, p.median_latency_ms, p.strategy)
+                if preference == "lowest_memory"
+                else (p.median_latency_ms, p.strategy)
+            ),
+        )
         standard = [p for p in eligible if p.strategy == "standard"]
         if chosen.strategy != "standard" and not standard:
             return Decision(
@@ -123,4 +173,8 @@ class RuleController:
             chosen.evidence_id,
             min(1.0, chosen.trials / 90),
             POLICY_VERSION,
+            chosen.median_latency_ms,
+            None
+            if budget.latency_budget_ms is None
+            else chosen.median_latency_ms <= budget.latency_budget_ms,
         )

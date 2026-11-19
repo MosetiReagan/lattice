@@ -1,0 +1,7 @@
+# Request admission and scheduling
+
+Implemented: one active request with a bounded queue, queue deadlines, output limits, overload 429 responses, cancellation cleanup and priority 0–3 with FIFO tie-breaking and aging. `scheduler/fair.py` explicitly handles cancellation both while waiting and immediately after ownership handoff so reservations cannot leak. Long-waiting lower-priority work can overtake newer high-priority work through aging.
+
+This is **non-preemptive admission**, not a custom continuous-batching engine. Once a generation starts, it occupies the single native slot until completion/cancellation/deadline. Native token batching is delegated to llama.cpp and multi-slot native serving is not enabled. One long active request can still delay all queued work; its timeout bounds that delay. This limitation keeps cancellation and model swapping isolated but is insufficient for claiming fully fair high-concurrency serving.
+
+Concurrency/mixed workloads report queue wait, TTFT, total latency and completion/failure counts. The frozen standard snapshot uses FIFO asyncio.Lock; the new priority queue needs independent mixed/priority stability validation before release. P99 is not reported for 30-trial runs. No mocked test is accelerator or production-throughput evidence.

@@ -27,6 +27,11 @@ async def test_real_http_stream_disconnect_and_recovery(tmp_path):
     root = Path(__file__).resolve().parents[1]
     settings = load_settings(root / "configs/local.json")
     settings.log_directory = str(tmp_path)
+    settings.models.append(
+        settings.models[0].model_copy(
+            update={"id": "broken-variant", "sha256": "0" * 64}
+        )
+    )
     config = tmp_path / "config.json"
     config.write_text(settings.model_dump_json())
     with socket.socket() as sock:
@@ -122,6 +127,31 @@ async def test_real_http_stream_disconnect_and_recovery(tmp_path):
                 assert reply.status_code == 200, reply.text
                 assert reply.json()["usage"]["completion_tokens"] <= 4
                 assert reply.json()["lattice"]["backend"]["device"] == "cpu"
+                variants = [
+                    m for m in settings.models if m.id == "qwen2.5-0.5b-instruct-q8_0"
+                ]
+                if variants:
+                    body["model"] = variants[0].id
+                    switched = await client.post("/v1/chat/completions", json=body)
+                    assert switched.status_code == 200, switched.text
+                    assert (
+                        switched.json()["lattice"]["backend"]["model_sha256"]
+                        == variants[0].sha256
+                    )
+                body["model"] = "broken-variant"
+                broken = await client.post("/v1/chat/completions", json=body)
+                assert (
+                    broken.status_code == 503
+                    and broken.json()["error"]["code"] == "artifact_mismatch"
+                )
+                body["model"] = model
+                restored = await client.post("/v1/chat/completions", json=body)
+                assert restored.status_code == 200, restored.text
+                assert (
+                    restored.json()["lattice"]["backend"]["model_sha256"]
+                    == settings.models[0].sha256
+                )
+
         finally:
             server.terminate()
             try:

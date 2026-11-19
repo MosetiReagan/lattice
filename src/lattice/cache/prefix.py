@@ -58,7 +58,11 @@ class PrefixCache:
         self.identity, self.tokens, self.created = None, (), 0.0
 
     def plan(
-        self, identity: CacheIdentity, tokens: tuple[int, ...], now: float | None = None
+        self,
+        identity: CacheIdentity,
+        tokens: tuple[int, ...],
+        now: float | None = None,
+        count: bool = True,
     ) -> CacheDecision:
         now = time.monotonic() if now is None else now
         if self.tokens and (
@@ -76,10 +80,11 @@ class PrefixCache:
             common, max(0, len(tokens) - 1), self.limit_bytes // self.bytes_per_token
         )
         reuse = common >= self.min_tokens
-        if reuse:
-            self.hits += 1
-        else:
-            self.misses += 1
+        if count:
+            if reuse:
+                self.hits += 1
+            else:
+                self.misses += 1
         return CacheDecision(
             reuse,
             common if reuse else 0,

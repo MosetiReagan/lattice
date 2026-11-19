@@ -1,6 +1,6 @@
 # Prioritized engineering roadmap and resource estimates
 
-Planning estimates, updated after Phase B. User authorized implementation with “begin now”; Phase A review gate is satisfied. The real CPU vertical slice and initial CLI/API tests are implemented. Phase C baseline freeze is next; no optimization phase has begun.
+Planning estimates, updated after Phase B. User authorized implementation with “begin now”; Phase A review gate is satisfied. The CPU vertical slice and benchmark freeze are complete. Independent speculation, prefix and precision studies now exist; the rule controller is restricted to exact measured prompt scope. Integrated evaluation and hardening remain bounded by the limitations below, and 1.0 release is not authorized by the evidence.
 
 ## Resource estimates (not measurements)
 
@@ -43,3 +43,15 @@ Implement the required API/CLI surface incrementally. Benchmark execution is an 
 ## Remaining risks
 
 Accepted initial design choices: llama.cpp CPU first, Qwen pair, one resident worker initially, approximate-path quality margins, and Apache-2.0 recommendation. Repository access remains unresolved; local work is reviewable without remote write access. Limited disk and target+draft RAM may force smaller experimental contexts or external hardware, never silent user-request truncation. Exact stochastic sampling over a server-only API is an explicit feasibility risk. No release date should precede G7 evidence of a repeatable resource improvement.
+
+## Current implementation audit
+
+- A/B: complete for the tested CPU vertical slice.
+- C: frozen executable source, manifests, raw JSONL/CSV, eight workloads and three standard sessions; shared-VM isolation remains a limitation.
+- D: native greedy speculation, logical prefix control and same-source quantized variants have independent tests/comparisons. Priority admission and explicit model switching work; continuous batching and broad learned/task routing do not.
+- E: deterministic rules-1 with identity/hardware/thread/input-scope gates, actual feedback and versioned evidence. Unknown quality/cost stays standard or fails explicitly under hard budgets.
+- F: three paired prefix sessions plus precision quality study; integrated adaptive ablation uses new executions of known prompts, not generalized held-out quality.
+- G: cancellation, timeouts, model/hash failure, parent death, request limits, auth/rate limits and queue handoff have tests. Multi-active fairness, GPU/MPS and external recovery audits remain incomplete.
+- H: no 1.0 tag/publication. Q4 quality loss, limited substitution evidence and non-preemptive serving remain real acceptance concerns.
+
+All earlier labor/storage figures were estimates. Actual artifact sizes, observations and failures appear in the experiment manifests/results; negative outcomes do not reduce acceptance criteria.

@@ -1,0 +1,24 @@
+{
+  "tests": "63 passed; see final-tests.txt",
+  "lint": "All checks passed!",
+  "format": "64 files already formatted",
+  "package_sha256": {
+    "dist/lattice_inference-0.2.0.dev0-py3-none-any.whl": "6e04a62c8b93c6b9c33da7d0d4f0752c7e0899694a728f20ec754947c1b0a9a8",
+    "dist/lattice_inference-0.2.0.dev0.tar.gz": "69f1104922957b8fb46fa209f3dacb27e91a14e45c45af068cc4f5d86b21a4e3"
+  },
+  "publication": "Local development artifacts only; no 1.0 tag or remote release",
+  "experiments": {
+    "standard_observations": 720,
+    "paired_cache_observations": 540,
+    "precision_performance_observations": 180,
+    "speculative_observations": 240,
+    "adaptive_observations": 180
+  },
+  "limits": [
+    "synthetic warm-prefix scope",
+    "small public task suite",
+    "single-active non-preemptive serving",
+    "shared VM isolation",
+    "no accelerator evidence"
+  ]
+}

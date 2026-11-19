@@ -40,3 +40,7 @@ Only the Qwen 0.5B FP16 GGUF/CPU path has now been tested; every other precision
 ## Deferred model families
 
 Llama, Gemma and Granite are candidates for later architecture/license review, not supported models. Llama and Gemma use model-specific terms that must not be called generally permissive; Granite and SmolLM licenses also require exact checkpoint verification. Qwen family licenses vary across checkpoints (do not extrapolate these two Apache model cards to every Qwen). 3B–4B tests require an explicit memory/storage plan. No third-party weight ownership is claimed.
+
+## Measured execution additions in 0.2.0.dev0
+
+On the audited Linux CPU host, real experiments now loaded/generated with the official 0.5B FP16 artifact, locally derived 0.5B Q8_0 and Q4_K_M artifacts, and official 1.5B Q8_0 target. Derivative hashes/provenance are in artifacts/quantization-*.json and target-download.json. The 0.5B/1.5B draft-target pair has identical bounded-GGUF tokenizer fingerprints and is tested only for native greedy speculation. These execution observations supersede the original candidate-only status for those exact cells, not for every Qwen architecture or precision/backend combination. Q4's tested execution does not mean acceptable quality: it fails the current automatic-selection tolerance.

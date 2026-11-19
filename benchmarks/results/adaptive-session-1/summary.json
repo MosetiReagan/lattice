@@ -1,0 +1,116 @@
+{
+  "short": {
+    "standard": {
+      "latency_ms": {
+        "n": 30,
+        "mean": 229.83019656658144,
+        "stddev": 25.962039295110028,
+        "median": 228.15716300010536,
+        "p50": 228.15716300010536,
+        "p90": 260.9198872994966,
+        "p95": 279.4224767000742,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "selected_paths": {
+        "standard": 30,
+        "cached": 0,
+        "speculative": 0
+      }
+    },
+    "adaptive": {
+      "latency_ms": {
+        "n": 30,
+        "mean": 232.11116756647243,
+        "stddev": 30.269805700198777,
+        "median": 220.12621199974092,
+        "p50": 220.12621199974092,
+        "p90": 281.22881569925084,
+        "p95": 302.65137284932274,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "selected_paths": {
+        "standard": 30,
+        "cached": 0,
+        "speculative": 0
+      }
+    }
+  },
+  "long_prompt": {
+    "standard": {
+      "latency_ms": {
+        "n": 30,
+        "mean": 1510.261808166494,
+        "stddev": 29.003556097100375,
+        "median": 1508.059188498919,
+        "p50": 1508.059188498919,
+        "p90": 1531.671618400469,
+        "p95": 1543.215804400188,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "selected_paths": {
+        "standard": 30,
+        "cached": 0,
+        "speculative": 0
+      }
+    },
+    "adaptive": {
+      "latency_ms": {
+        "n": 30,
+        "mean": 219.32333950001825,
+        "stddev": 23.040109802075072,
+        "median": 217.54832550050196,
+        "p50": 217.54832550050196,
+        "p90": 241.10951469920113,
+        "p95": 252.6931836494441,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "selected_paths": {
+        "standard": 0,
+        "cached": 30,
+        "speculative": 0
+      }
+    }
+  },
+  "repeated_prefix": {
+    "standard": {
+      "latency_ms": {
+        "n": 30,
+        "mean": 933.1107058333752,
+        "stddev": 19.06466069846696,
+        "median": 932.5015315007477,
+        "p50": 932.5015315007477,
+        "p90": 957.5807172001078,
+        "p95": 959.6055324995177,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "selected_paths": {
+        "standard": 30,
+        "cached": 0,
+        "speculative": 0
+      }
+    },
+    "adaptive": {
+      "latency_ms": {
+        "n": 30,
+        "mean": 214.85198066657176,
+        "stddev": 21.458119144655704,
+        "median": 212.95907249987067,
+        "p50": 212.95907249987067,
+        "p90": 238.88648550018843,
+        "p95": 246.13907000020845,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "selected_paths": {
+        "standard": 0,
+        "cached": 30,
+        "speculative": 0
+      }
+    }
+  }
+}

@@ -28,6 +28,7 @@ class Settings(BaseModel):
     backend_commit: str
     backend_files: dict[str, str] = Field(default_factory=dict)
     models: list[ModelEntry] = Field(min_length=1)
+    policy_file: str | None = None
     cache_limit_mb: int = Field(default=32, ge=1, le=4096)
     cache_min_tokens: int = Field(default=64, ge=1)
     draft_model_id: str | None = None
@@ -35,7 +36,7 @@ class Settings(BaseModel):
     context_tokens: int = Field(default=2048, ge=128, le=8192)
     threads: int = Field(default=4, ge=1, le=64)
     max_queue: int = Field(default=8, ge=0, le=128)
-    worker_address_space_mb: int = Field(default=5120, ge=1024)
+    worker_address_space_mb: int = Field(default=4096, ge=1024)
     host_reserve_mb: int = Field(default=2048, ge=256)
     startup_timeout_seconds: float = Field(default=120.0, gt=0, le=600)
     log_directory: str = "artifacts"
@@ -68,6 +69,10 @@ def load_settings(path: str | Path | None = None) -> Settings:
         str((config_path.parent / k).resolve()): v
         for k, v in settings.backend_files.items()
     }
+    if settings.policy_file is not None:
+        settings.policy_file = str(
+            (config_path.parent / settings.policy_file).resolve()
+        )
     settings.log_directory = str(
         (config_path.parent / settings.log_directory).resolve()
     )

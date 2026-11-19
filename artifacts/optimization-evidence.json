@@ -1,0 +1,135 @@
+{
+  "model": "qwen2.5-0.5b-instruct-f16",
+  "backend": "llama.cpp",
+  "default_strategy": "standard",
+  "qualified_profiles": [
+    {
+      "strategy": "standard",
+      "model_sha256": "8e0ae26000627ed62de0e78e41860af70094558b9d2913385c842a6aa06cf3fc",
+      "backend_sha256": "9e954cd7ced8851cbcd03170fb93ed864cdf5c7f38b743a5f8481e5235ea1b7b",
+      "input_min": 35,
+      "input_max": 35,
+      "max_output_tokens": 16,
+      "median_latency_ms": 251.36060450040532,
+      "memory_bound_mb": 4096,
+      "trials": 90,
+      "sessions": 3,
+      "greedy_mismatches": 0,
+      "quality_qualified": true,
+      "evidence_id": "cache-cpu-3sessions-v1",
+      "qualified_prompt_sha256": [
+        "600917d9e49c4625a2c09cab85b56239e4687d12ffb39598ec6df9fae748a17b",
+        "949149c514f222617c07b3b8edaa16dd41f8f28b8adb6c7a16f20b2f33e1ec51",
+        "c02c710eb9e87e14e572dcdede760ca6a7d070ca0bc06568e0f02808aba12c0d",
+        "c65a98102ab3e1e87673afec18b5e6976e546306557e8848699fdfdd15e6b05b"
+      ]
+    },
+    {
+      "strategy": "cached",
+      "model_sha256": "8e0ae26000627ed62de0e78e41860af70094558b9d2913385c842a6aa06cf3fc",
+      "backend_sha256": "9e954cd7ced8851cbcd03170fb93ed864cdf5c7f38b743a5f8481e5235ea1b7b",
+      "input_min": 35,
+      "input_max": 35,
+      "max_output_tokens": 16,
+      "median_latency_ms": 259.64654049948876,
+      "memory_bound_mb": 4096,
+      "trials": 90,
+      "sessions": 3,
+      "greedy_mismatches": 0,
+      "quality_qualified": true,
+      "evidence_id": "cache-cpu-3sessions-v1",
+      "qualified_prompt_sha256": [
+        "600917d9e49c4625a2c09cab85b56239e4687d12ffb39598ec6df9fae748a17b",
+        "949149c514f222617c07b3b8edaa16dd41f8f28b8adb6c7a16f20b2f33e1ec51",
+        "c02c710eb9e87e14e572dcdede760ca6a7d070ca0bc06568e0f02808aba12c0d",
+        "c65a98102ab3e1e87673afec18b5e6976e546306557e8848699fdfdd15e6b05b"
+      ]
+    },
+    {
+      "strategy": "standard",
+      "model_sha256": "8e0ae26000627ed62de0e78e41860af70094558b9d2913385c842a6aa06cf3fc",
+      "backend_sha256": "9e954cd7ced8851cbcd03170fb93ed864cdf5c7f38b743a5f8481e5235ea1b7b",
+      "input_min": 994,
+      "input_max": 994,
+      "max_output_tokens": 16,
+      "median_latency_ms": 1539.3452909993357,
+      "memory_bound_mb": 4096,
+      "trials": 90,
+      "sessions": 3,
+      "greedy_mismatches": 0,
+      "quality_qualified": true,
+      "evidence_id": "cache-cpu-3sessions-v1",
+      "qualified_prompt_sha256": [
+        "2214c506ab21f0014f35caf51094c40c37d4a8199b2d0395c2d1597f7d1e12f2",
+        "783d62e6ed105047a789245b1811938d96ed1c73036fe4183dbeb49c35cf7dd8",
+        "a143dbf64eeb5d46872ed440626c7e2ed7700f44ff6d045ecf47aa568fa93ded",
+        "bd84b68def0ae1b0ed2ad0baaa8bcf1513ed9b538214bfebc6c3c1fe3fa3de3b"
+      ]
+    },
+    {
+      "strategy": "cached",
+      "model_sha256": "8e0ae26000627ed62de0e78e41860af70094558b9d2913385c842a6aa06cf3fc",
+      "backend_sha256": "9e954cd7ced8851cbcd03170fb93ed864cdf5c7f38b743a5f8481e5235ea1b7b",
+      "input_min": 994,
+      "input_max": 994,
+      "max_output_tokens": 16,
+      "median_latency_ms": 232.76961149986164,
+      "memory_bound_mb": 4096,
+      "trials": 90,
+      "sessions": 3,
+      "greedy_mismatches": 0,
+      "quality_qualified": true,
+      "evidence_id": "cache-cpu-3sessions-v1",
+      "qualified_prompt_sha256": [
+        "2214c506ab21f0014f35caf51094c40c37d4a8199b2d0395c2d1597f7d1e12f2",
+        "783d62e6ed105047a789245b1811938d96ed1c73036fe4183dbeb49c35cf7dd8",
+        "a143dbf64eeb5d46872ed440626c7e2ed7700f44ff6d045ecf47aa568fa93ded",
+        "bd84b68def0ae1b0ed2ad0baaa8bcf1513ed9b538214bfebc6c3c1fe3fa3de3b"
+      ]
+    },
+    {
+      "strategy": "standard",
+      "model_sha256": "8e0ae26000627ed62de0e78e41860af70094558b9d2913385c842a6aa06cf3fc",
+      "backend_sha256": "9e954cd7ced8851cbcd03170fb93ed864cdf5c7f38b743a5f8481e5235ea1b7b",
+      "input_min": 569,
+      "input_max": 569,
+      "max_output_tokens": 16,
+      "median_latency_ms": 955.5789980004192,
+      "memory_bound_mb": 4096,
+      "trials": 90,
+      "sessions": 3,
+      "greedy_mismatches": 0,
+      "quality_qualified": true,
+      "evidence_id": "cache-cpu-3sessions-v1",
+      "qualified_prompt_sha256": [
+        "253db0de1ef1e756b15c8a7fc09b73e03fa4355ef49960351d937757dd51819f",
+        "5a4c4371e6c130592d8cc0920e6fd6f614ba6a3ef5bbbf25e0da9347d23c0284",
+        "8b5993a8fc60c400a829b649529e73f0d76e17594e6a65abd735bc2a84121000",
+        "f5acdf8ba92ff66f50395b0bbdbb7b3c94900ad9f137ca600f2513ddddd1c57d"
+      ]
+    },
+    {
+      "strategy": "cached",
+      "model_sha256": "8e0ae26000627ed62de0e78e41860af70094558b9d2913385c842a6aa06cf3fc",
+      "backend_sha256": "9e954cd7ced8851cbcd03170fb93ed864cdf5c7f38b743a5f8481e5235ea1b7b",
+      "input_min": 569,
+      "input_max": 569,
+      "max_output_tokens": 16,
+      "median_latency_ms": 219.68192699932843,
+      "memory_bound_mb": 4096,
+      "trials": 90,
+      "sessions": 3,
+      "greedy_mismatches": 0,
+      "quality_qualified": true,
+      "evidence_id": "cache-cpu-3sessions-v1",
+      "qualified_prompt_sha256": [
+        "253db0de1ef1e756b15c8a7fc09b73e03fa4355ef49960351d937757dd51819f",
+        "5a4c4371e6c130592d8cc0920e6fd6f614ba6a3ef5bbbf25e0da9347d23c0284",
+        "8b5993a8fc60c400a829b649529e73f0d76e17594e6a65abd735bc2a84121000",
+        "f5acdf8ba92ff66f50395b0bbdbb7b3c94900ad9f137ca600f2513ddddd1c57d"
+      ]
+    }
+  ],
+  "automatic_model_or_precision_substitution": false,
+  "note": "Evidence report only; does not modify configuration or relax quality constraints."
+}

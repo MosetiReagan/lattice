@@ -1,0 +1,495 @@
+{
+  "workloads": {
+    "short": {
+      "attempted": 30,
+      "completed": 30,
+      "failed": 0,
+      "latency_ms": {
+        "n": 30,
+        "mean": 248.4880399333027,
+        "stddev": 19.34032680190291,
+        "median": 245.17966500025068,
+        "p50": 245.17966500025068,
+        "p90": 260.3013500000088,
+        "p95": 263.1509317002383,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "ttft_ms": {
+        "n": 30,
+        "mean": 83.7159777999356,
+        "stddev": 12.12278866717211,
+        "median": 80.03411199933907,
+        "p50": 80.03411199933907,
+        "p90": 98.39822009962518,
+        "p95": 100.71925059974092,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "queue_ms": {
+        "n": 30,
+        "mean": 0.03692036674086315,
+        "stddev": 0.004422078460424082,
+        "median": 0.03549499979271786,
+        "p50": 0.03549499979271786,
+        "p90": 0.04516700100793969,
+        "p95": 0.0456834995020472,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "sampled_worker_rss_bytes": {
+        "n": 30,
+        "mean": 770906112,
+        "stddev": 16304.35815653446,
+        "median": 770908160.0,
+        "p50": 770908160.0,
+        "p90": 770916352.0,
+        "p95": 770916352.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "aggregate_generated_tokens_per_second": 64.24898895554881,
+      "aggregate_requests_per_second": 4.015561809721801,
+      "output_tokens": {
+        "n": 30,
+        "mean": 16,
+        "stddev": 0.0,
+        "median": 16.0,
+        "p50": 16.0,
+        "p90": 16.0,
+        "p95": 16.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      }
+    },
+    "long_prompt": {
+      "attempted": 30,
+      "completed": 30,
+      "failed": 0,
+      "latency_ms": {
+        "n": 30,
+        "mean": 1838.4358932335697,
+        "stddev": 55.82637183155669,
+        "median": 1822.608528501405,
+        "p50": 1822.608528501405,
+        "p90": 1911.1198337988753,
+        "p95": 1927.8292123998654,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "ttft_ms": {
+        "n": 30,
+        "mean": 1646.8246337335586,
+        "stddev": 49.97249779406522,
+        "median": 1638.327981500879,
+        "p50": 1638.327981500879,
+        "p90": 1694.4334129999334,
+        "p95": 1717.9857819994138,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "queue_ms": {
+        "n": 30,
+        "mean": 0.03630833361967234,
+        "stddev": 0.005109868035247847,
+        "median": 0.0349750007444527,
+        "p50": 0.0349750007444527,
+        "p90": 0.038933000178076334,
+        "p95": 0.044608999905904036,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "sampled_worker_rss_bytes": {
+        "n": 30,
+        "mean": 787119854.9333333,
+        "stddev": 77170.30529086338,
+        "median": 787152896.0,
+        "p50": 787152896.0,
+        "p90": 787152896.0,
+        "p95": 787152896.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "aggregate_generated_tokens_per_second": 8.70017378646618,
+      "aggregate_requests_per_second": 0.5437608616541363,
+      "output_tokens": {
+        "n": 30,
+        "mean": 16,
+        "stddev": 0.0,
+        "median": 16.0,
+        "p50": 16.0,
+        "p90": 16.0,
+        "p95": 16.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      }
+    }
+  },
+  "load_observations": [
+    {
+      "workload": "short",
+      "status": "ready",
+      "worker_startup_ms": 804.6217860010074,
+      "measurement_makespan_seconds": 7.470934684000895
+    },
+    {
+      "workload": "long_prompt",
+      "status": "ready",
+      "worker_startup_ms": 802.9053740010568,
+      "measurement_makespan_seconds": 55.171311721000166
+    }
+  ],
+  "quality": {
+    "dataset_sha256": "e12ca0ff7210dcb8d34eb39da8efd5ff511b01515505ced60fd452df8ab5d0c3",
+    "tasks": 22,
+    "passed": 11,
+    "outcomes": [
+      {
+        "id": "math-0",
+        "category": "mathematics",
+        "text": "The calculation 17 + 25 equals 42.",
+        "passed": false,
+        "token_ids": [
+          785,
+          21937,
+          220,
+          16,
+          22,
+          488,
+          220,
+          17,
+          20,
+          16819,
+          220,
+          19,
+          17,
+          13,
+          151645
+        ]
+      },
+      {
+        "id": "math-1",
+        "category": "mathematics",
+        "text": "The calculation 9 * 8 equals 72.",
+        "passed": false,
+        "token_ids": [
+          785,
+          21937,
+          220,
+          24,
+          353,
+          220,
+          23,
+          16819,
+          220,
+          22,
+          17,
+          13,
+          151645
+        ]
+      },
+      {
+        "id": "math-2",
+        "category": "mathematics",
+        "text": "The calculation 100 - 37 equals 63.",
+        "passed": false,
+        "token_ids": [
+          785,
+          21937,
+          220,
+          16,
+          15,
+          15,
+          481,
+          220,
+          18,
+          22,
+          16819,
+          220,
+          21,
+          18,
+          13,
+          151645
+        ]
+      },
+      {
+        "id": "math-3",
+        "category": "mathematics",
+        "text": "The calculation 48 / 6 equals 8.",
+        "passed": false,
+        "token_ids": [
+          785,
+          21937,
+          220,
+          19,
+          23,
+          608,
+          220,
+          21,
+          16819,
+          220,
+          23,
+          13,
+          151645
+        ]
+      },
+      {
+        "id": "reasoning-0",
+        "category": "reasoning",
+        "text": "Yes.",
+        "passed": false,
+        "token_ids": [
+          9454,
+          13,
+          151645
+        ]
+      },
+      {
+        "id": "reasoning-1",
+        "category": "reasoning",
+        "text": "Yes.",
+        "passed": false,
+        "token_ids": [
+          9454,
+          13,
+          151645
+        ]
+      },
+      {
+        "id": "reasoning-2",
+        "category": "reasoning",
+        "text": "Yes",
+        "passed": false,
+        "token_ids": [
+          9454,
+          151645
+        ]
+      },
+      {
+        "id": "reasoning-3",
+        "category": "reasoning",
+        "text": "Yes",
+        "passed": false,
+        "token_ids": [
+          9454,
+          151645
+        ]
+      },
+      {
+        "id": "json-0",
+        "category": "structured_output",
+        "text": "```json\n{\n  \"word\": \"alpha\"\n}\n```",
+        "passed": false,
+        "token_ids": [
+          73594,
+          2236,
+          198,
+          515,
+          220,
+          330,
+          1158,
+          788,
+          330,
+          7141,
+          698,
+          532,
+          73594,
+          151645
+        ]
+      },
+      {
+        "id": "json-1",
+        "category": "structured_output",
+        "text": "```json\n{\n  \"word\": \"blue\"\n}\n```",
+        "passed": false,
+        "token_ids": [
+          73594,
+          2236,
+          198,
+          515,
+          220,
+          330,
+          1158,
+          788,
+          330,
+          12203,
+          698,
+          532,
+          73594,
+          151645
+        ]
+      },
+      {
+        "id": "json-2",
+        "category": "structured_output",
+        "text": "```json\n{\n  \"number\": 7\n}\n```",
+        "passed": false,
+        "token_ids": [
+          73594,
+          2236,
+          198,
+          515,
+          220,
+          330,
+          4082,
+          788,
+          220,
+          22,
+          198,
+          532,
+          73594,
+          151645
+        ]
+      },
+      {
+        "id": "json-3",
+        "category": "structured_output",
+        "text": "{\n  \"enabled\": false\n}",
+        "passed": true,
+        "token_ids": [
+          515,
+          220,
+          330,
+          15868,
+          788,
+          895,
+          198,
+          92,
+          151645
+        ]
+      },
+      {
+        "id": "instruction-0",
+        "category": "instruction_following",
+        "text": "READY",
+        "passed": true,
+        "token_ids": [
+          45578,
+          151645
+        ]
+      },
+      {
+        "id": "instruction-1",
+        "category": "instruction_following",
+        "text": "DONE",
+        "passed": true,
+        "token_ids": [
+          70396,
+          151645
+        ]
+      },
+      {
+        "id": "instruction-2",
+        "category": "instruction_following",
+        "text": "HELLO",
+        "passed": true,
+        "token_ids": [
+          50712,
+          1593,
+          151645
+        ]
+      },
+      {
+        "id": "instruction-3",
+        "category": "instruction_following",
+        "text": "OK",
+        "passed": true,
+        "token_ids": [
+          3925,
+          151645
+        ]
+      },
+      {
+        "id": "retrieval-0",
+        "category": "retrieval",
+        "text": "blue",
+        "passed": true,
+        "token_ids": [
+          12203,
+          151645
+        ]
+      },
+      {
+        "id": "retrieval-1",
+        "category": "retrieval",
+        "text": "red",
+        "passed": true,
+        "token_ids": [
+          1151,
+          151645
+        ]
+      },
+      {
+        "id": "retrieval-2",
+        "category": "retrieval",
+        "text": "green",
+        "passed": true,
+        "token_ids": [
+          13250,
+          151645
+        ]
+      },
+      {
+        "id": "retrieval-3",
+        "category": "retrieval",
+        "text": "gold",
+        "passed": true,
+        "token_ids": [
+          34537,
+          151645
+        ]
+      },
+      {
+        "id": "coding-0",
+        "category": "coding_structure",
+        "text": "```python\ndef add(a, b):\n    return a + b\n```",
+        "passed": true,
+        "token_ids": [
+          73594,
+          12669,
+          198,
+          750,
+          912,
+          2877,
+          11,
+          293,
+          982,
+          262,
+          470,
+          264,
+          488,
+          293,
+          198,
+          73594,
+          151645
+        ]
+      },
+      {
+        "id": "coding-1",
+        "category": "coding_structure",
+        "text": "```python\ndef add(a, b):\n    return a + b\n```",
+        "passed": true,
+        "token_ids": [
+          73594,
+          12669,
+          198,
+          750,
+          912,
+          2877,
+          11,
+          293,
+          982,
+          262,
+          470,
+          264,
+          488,
+          293,
+          198,
+          73594,
+          151645
+        ]
+      }
+    ],
+    "scope": "Public self-authored smoke suite; no representative/held-out claim"
+  }
+}

@@ -18,7 +18,7 @@ from lattice.types import GenerationRequest, LatticeError
         {"prompt": "x" * 32769},
         {"prompt": "界" * 12000},
         {"messages": [{"role": "user", "content": "hello"}]},
-        {"optimization": {"mode": "adaptive"}},
+        {"optimization": {"mode": "unknown"}},
         {"top_p": 0.5},
     ],
 )

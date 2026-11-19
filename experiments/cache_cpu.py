@@ -10,6 +10,7 @@ from pathlib import Path
 from lattice.backends.llama_cpp import LlamaCppBackend
 from lattice.config import load_settings
 from lattice.evaluation.benchmark import prompt_for, source_manifest
+from lattice.observability.hardware import cpu_fingerprint
 from lattice.observability.measure import RssSampler, export_csv, summarize
 from lattice.runtime import Runtime
 from lattice.types import GenerationRequest
@@ -35,6 +36,8 @@ async def main():
         json.dumps(
             {
                 "source": source_manifest(),
+                "cpu_fingerprint": cpu_fingerprint(),
+                "threads": settings.threads,
                 "trials": a.trials,
                 "model_sha256": settings.models[0].sha256,
                 "seed": 1701,

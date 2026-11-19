@@ -1,0 +1,1 @@
+speculative-session-1 failed; later jobs not launched

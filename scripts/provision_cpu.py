@@ -139,6 +139,7 @@ def main():
                 "source_revision": MODEL_REVISION,
                 "license": "Apache-2.0",
                 "precision": "GGUF F16 (mixed tensor types)",
+                "kv_bytes_per_token": 12288,
             }
         ],
         "log_directory": "../artifacts",

@@ -103,3 +103,54 @@ def test_router_requires_task_evidence_and_preserves_identity():
         route("balanced", candidates, alias="balanced", task_class="math")
     with pytest.raises(LatticeError):
         route("missing", candidates)
+
+
+def test_policy_does_not_generalize_beyond_qualified_prompt_hash():
+    cached = replace(
+        evidence("cached", 25), qualified_prompt_sha256=frozenset({"known"})
+    )
+    standard = evidence()
+    controller = RuleController([standard, cached])
+    assert (
+        controller.choose(
+            replace(features(), prompt_sha256="known"), Budget(16), resources()
+        ).strategy
+        == "cached"
+    )
+    assert (
+        controller.choose(
+            replace(features(), prompt_sha256="unknown"), Budget(16), resources()
+        ).strategy
+        == "standard"
+    )
+    with pytest.raises(LatticeError):
+        controller.choose(
+            features(), Budget(16), resources(), preference="lowest_compute"
+        )
+    with pytest.raises(ValueError):
+        replace(cached, median_latency_ms=float("nan"))
+
+
+def test_measured_policy_is_bound_to_cpu_and_thread_count():
+    cached = replace(evidence("cached", 25), threads=4, cpu_fingerprint="machine-a")
+    controller = RuleController([evidence(), cached])
+    assert (
+        controller.choose(
+            replace(features(), cpu_fingerprint="machine-a"), Budget(16), resources()
+        ).strategy
+        == "cached"
+    )
+    assert (
+        controller.choose(
+            replace(features(), cpu_fingerprint="machine-b"), Budget(16), resources()
+        ).strategy
+        == "standard"
+    )
+    assert (
+        controller.choose(
+            replace(features(), cpu_fingerprint="machine-a", threads=2),
+            Budget(16),
+            resources(),
+        ).strategy
+        == "standard"
+    )

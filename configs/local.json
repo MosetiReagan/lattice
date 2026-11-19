@@ -66,5 +66,6 @@
       "precision": "GGUF Q4_K_M"
     }
   ],
-  "log_directory": "../artifacts"
+  "log_directory": "../artifacts",
+  "policy_file": "measured-policy.json"
 }

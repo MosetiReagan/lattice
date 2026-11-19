@@ -19,7 +19,14 @@ class Message(BaseModel):
 
 class Optimization(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True)
-    mode: Literal["standard", "speculative", "cached"] = "standard"
+    mode: Literal["standard", "speculative", "cached", "adaptive"] = "standard"
+    profile: Literal[
+        "lowest_latency",
+        "balanced",
+        "highest_quality",
+        "lowest_memory",
+        "lowest_compute",
+    ] = "balanced"
     allow_fallback: bool = True
     draft_tokens: int | None = Field(default=None, ge=1, le=16)
 
@@ -33,7 +40,11 @@ class GenerationRequest(BaseModel):
     temperature: float = Field(default=0.0, ge=0, le=2)
     seed: int = Field(default=0, ge=0, le=2**32 - 2)
     stream: bool = False
+    priority: int = Field(default=0, ge=0, le=3)
     timeout_seconds: float = Field(default=60.0, ge=0.1, le=300)
+    max_memory_mb: int | None = Field(default=None, ge=1024, le=65536)
+    latency_budget_ms: float | None = Field(default=None, gt=0, le=300000)
+    max_estimated_compute_ms: float | None = Field(default=None, gt=0, le=300000)
     optimization: Optimization = Field(default_factory=Optimization)
 
     @model_validator(mode="after")

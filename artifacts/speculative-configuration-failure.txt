@@ -1,0 +1,38 @@
+Traceback (most recent call last):
+  File "/data/workspace/lattice/.local/frozen-experiments/src/lattice/config.py", line 58, in load_settings
+    settings = Settings.model_validate_json(config_path.read_text())
+  File "/data/workspace/lattice/.venv/lib/python3.13/site-packages/pydantic/main.py", line 847, in model_validate_json
+    return cls.__pydantic_validator__.validate_json(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        json_data, strict=strict, extra=extra, context=context, by_alias=by_alias, by_name=by_name
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for Settings
+policy_file
+  Extra inputs are not permitted [type=extra_forbidden, input_value='measured-policy.json', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.14/v/extra_forbidden
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/data/workspace/lattice/.local/frozen-experiments/experiments/speculative_blocks.py", line 130, in <module>
+    asyncio.run(main())
+    ~~~~~~~~~~~^^^^^^^^
+  File "/usr/lib/python3.13/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.13/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/data/workspace/lattice/.local/frozen-experiments/experiments/speculative_blocks.py", line 24, in main
+    settings = load_settings()
+  File "/data/workspace/lattice/.local/frozen-experiments/src/lattice/config.py", line 60, in load_settings
+    raise LatticeError(f"Cannot load registry {config_path}: {exc}") from exc
+lattice.types.LatticeError: Cannot load registry /data/workspace/lattice/configs/local.json: 1 validation error for Settings
+policy_file
+  Extra inputs are not permitted [type=extra_forbidden, input_value='measured-policy.json', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.14/v/extra_forbidden

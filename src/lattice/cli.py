@@ -31,6 +31,14 @@ def parser():
         sub = commands.add_parser(name)
         sub.add_argument("--model", required=True)
         if name == "generate":
+            sub.add_argument(
+                "--strategy",
+                choices=["standard", "cached", "speculative", "adaptive"],
+                default="standard",
+            )
+            sub.add_argument("--draft-model")
+            sub.add_argument("--draft-tokens", type=int, default=4)
+            sub.add_argument("--max-memory-mb", type=int)
             sub.add_argument("--prompt", required=True)
             sub.add_argument("--max-tokens", type=int, default=64)
             sub.add_argument("--temperature", type=float, default=0.0)
@@ -54,11 +62,21 @@ def parser():
             type=Path,
             default=Path("benchmarks/workloads/cpu-v1.json"),
         )
+    optimize = commands.add_parser("optimize")
+    optimize.add_argument("--model", required=True)
+    compare = commands.add_parser("compare")
+    compare.add_argument("model_a")
+    compare.add_argument("model_b")
+    compare.add_argument("--output", type=Path)
+    compare.add_argument("--trials", type=int, default=30)
+    compare.add_argument("--quality", action="store_true")
     commands.add_parser("system-info")
     return root
 
 
 async def run_generation(settings, entry, args):
+    if args.draft_model:
+        settings.draft_model_id = args.draft_model
     backend = LlamaCppBackend(settings, entry)
     runtime = Runtime(settings, entry.id, backend)
     request = GenerationRequest(
@@ -68,6 +86,8 @@ async def run_generation(settings, entry, args):
         temperature=args.temperature,
         seed=args.seed,
         timeout_seconds=args.timeout,
+        max_memory_mb=args.max_memory_mb,
+        optimization={"mode": args.strategy, "draft_tokens": args.draft_tokens},
     )
     try:
         if args.stream:
@@ -100,7 +120,11 @@ def main():
                         "platform": platform.platform(),
                         "python": platform.python_version(),
                         "cpu_count": os.cpu_count(),
-                        "tested_device": "cpu",
+                        "execution_target": "cpu",
+                        "nvidia_device_detected": any(
+                            Path("/dev").glob("nvidia[0-9]*")
+                        ),
+                        "cuda_enabled": False,
                         "gpu_support": "not tested",
                     },
                     indent=2,
@@ -116,7 +140,65 @@ def main():
             )
             print(json.dumps(data, indent=2))
             return
+        if args.command == "compare":
+            from .evaluation.benchmark import run_benchmark
+
+            output = args.output or Path("benchmarks/results") / datetime.datetime.now(
+                datetime.UTC
+            ).strftime("compare-%Y%m%dT%H%M%S%fZ")
+            output.mkdir(parents=True, exist_ok=False)
+            for label, model_id in [("a", args.model_a), ("b", args.model_b)]:
+                select_model(settings, model_id)
+                asyncio.run(
+                    run_benchmark(
+                        settings,
+                        model_id,
+                        Path("benchmarks/workloads/cpu-v1.json"),
+                        output / label,
+                        args.trials,
+                        3,
+                        ["short", "long_prompt"],
+                        Path("benchmarks/datasets/quality-smoke.json")
+                        if args.quality
+                        else None,
+                    )
+                )
+            print(
+                json.dumps(
+                    {
+                        "output": str(output),
+                        "note": "Different model IDs are not a same-weight optimization unless artifact provenance establishes that.",
+                    },
+                    indent=2,
+                )
+            )
+            return
         entry = select_model(settings, args.model)
+        if args.command == "optimize":
+            profiles = []
+            if settings.policy_file:
+                profiles = [
+                    p
+                    for p in json.loads(Path(settings.policy_file).read_text())[
+                        "profiles"
+                    ]
+                    if p["model_sha256"] == entry.sha256
+                    and p["backend_sha256"] == settings.backend_sha256
+                ]
+            print(
+                json.dumps(
+                    {
+                        "model": entry.id,
+                        "backend": "llama.cpp",
+                        "default_strategy": "standard",
+                        "qualified_profiles": profiles,
+                        "automatic_model_or_precision_substitution": False,
+                        "note": "Evidence report only; does not modify configuration or relax quality constraints.",
+                    },
+                    indent=2,
+                )
+            )
+            return
         if args.command in ("benchmark", "profile"):
             from .evaluation.benchmark import run_benchmark
 
@@ -168,7 +250,12 @@ def main():
                     "Set LATTICE_API_KEY before binding a non-loopback interface"
                 )
             backend = LlamaCppBackend(settings, entry)
-            runtime = Runtime(settings, entry.id, backend)
+            runtime = Runtime(
+                settings,
+                entry.id,
+                backend,
+                backend_factory=lambda model: LlamaCppBackend(settings, model),
+            )
             uvicorn.run(
                 create_app(settings, runtime, key),
                 host=args.host,

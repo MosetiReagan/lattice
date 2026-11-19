@@ -1,0 +1,7 @@
+# Model registry and routing
+
+The registry pins model files and checks hashes before native load. Explicit registered model IDs are preserved. The serving runtime can switch its single resident worker between registered variants under the same admission queue; load/reload time appears in end-to-end latency. An unknown model ID is not interpreted as a filesystem path or download URL. The public model list reports registered artifacts and upstream ownership.
+
+The deterministic router has a separate evidence-gated alias interface: it can choose minimum measured latency or memory only among quality-qualified candidates for an explicit task class. A smaller parameter count alone is not evidence. The current experiments do not establish representative task noninferiority for precision/model substitution, so automatic cross-model aliases are not enabled in the public API. Explicitly requesting a Q4 artifact is an experimental user choice, not an automatic quality-preserving fallback.
+
+Pure routing/evidence tests are distinct from real CPU worker-switch tests. No claim of understanding complexity, trained routing accuracy or generalized cost-quality improvement is made. Measured request statistics retain actual model/backend hashes, selected path and fallback reason. Failing variants cannot corrupt another worker's state; the baseline uses one resident worker and reloads rather than maintaining a multi-model memory pool.

@@ -1,6 +1,6 @@
 # Proposed architecture — Phase A
 
-Phase A design, updated after Phase B implementation. The minimal CPU vertical slice is working; see `baseline_runtime.md` for tested behavior. Extension boundaries below remain proposed, not implemented.
+Phase A design, updated after Phase B implementation. The CPU runtime, experiment foundation and initial policy/cache/precision/routing/admission modules are implemented; see baseline_runtime.md and component documents for tested scope. Physical native kernels/KV and token batching remain backend responsibilities. Learned policy, broad automatic routing and multi-active serving remain proposed.
 
 ## Minimal first vertical slice
 

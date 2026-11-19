@@ -39,6 +39,7 @@ class RssSampler:
         self.pid, self.interval = pid, interval
         self.samples = 0
         self.peak_bytes: int | None = None
+        self.swap_peak_bytes: int | None = None
         self.task = None
 
     async def _sample(self):
@@ -53,6 +54,8 @@ class RssSampler:
                 )
                 rss = int(values["VmRSS"].split()[0]) * 1024
                 self.peak_bytes = max(self.peak_bytes or 0, rss)
+                swap = int(values.get("VmSwap", "0 kB").split()[0]) * 1024
+                self.swap_peak_bytes = max(self.swap_peak_bytes or 0, swap)
                 self.samples += 1
             except (OSError, KeyError, ValueError):
                 return

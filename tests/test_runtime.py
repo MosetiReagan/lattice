@@ -106,3 +106,36 @@ async def test_error_isolation_and_model_identity(settings):
     backend.fail = False
     assert (await runtime.generate(request()))["text"] == "hello"
     assert not runtime.lock.locked()
+
+
+async def test_audit_disk_failure_does_not_crash_inference(settings, monkeypatch):
+    runtime = Runtime(settings, "test-model", FakeBackend())
+
+    def fail(*args, **kwargs):
+        raise OSError(28, "No space left")
+
+    monkeypatch.setattr("lattice.runtime.os.open", fail)
+    result = await runtime.generate(request())
+    assert result["text"] == "hello"
+    assert runtime.metrics()["counters"]["audit_write_failed"] == 1
+    assert not runtime.lock.locked()
+
+
+async def test_explicit_registry_switch_is_serialized(settings):
+    settings.models.append(settings.models[0].model_copy(update={"id": "second"}))
+    created = []
+
+    def factory(entry):
+        backend = FakeBackend()
+        backend.identity["registered_model"] = entry.id
+        created.append(entry.id)
+        return backend
+
+    runtime = Runtime(settings, "test-model", FakeBackend(), backend_factory=factory)
+    second = await runtime.generate(GenerationRequest(model="second", prompt="hello"))
+    assert second["metadata"]["model"] == "second" and created == ["second"]
+    first = await runtime.generate(request())
+    assert first["metadata"]["model"] == "test-model" and created == [
+        "second",
+        "test-model",
+    ]

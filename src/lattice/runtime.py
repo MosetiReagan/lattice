@@ -3,23 +3,32 @@
 import asyncio
 import datetime
 import json
+import logging
 import os
 import time
 import uuid
 from collections import Counter, deque
-from collections.abc import AsyncIterator
+from collections.abc import AsyncIterator, Callable
 from contextlib import aclosing
 from pathlib import Path
 
 from .backends import Backend
-from .config import Settings
+from .config import ModelEntry, Settings, select_model
+from .scheduler.fair import FairLock
 from .types import GenerationRequest, LatticeError
 
 
 class Runtime:
-    def __init__(self, settings: Settings, model_id: str, backend: Backend):
+    def __init__(
+        self,
+        settings: Settings,
+        model_id: str,
+        backend: Backend,
+        backend_factory: Callable[[ModelEntry], Backend] | None = None,
+    ):
         self.settings, self.model_id, self.backend = settings, model_id, backend
-        self.lock = asyncio.Lock()
+        self.backend_factory = backend_factory
+        self.lock = FairLock()
         self.waiting = 0
         self.counters: Counter = Counter()
         self.recent: deque = deque(maxlen=100)
@@ -42,18 +51,28 @@ class Runtime:
 
     def record(self, item: dict) -> None:
         # Contains no input/output text, native prompt fields, paths or credentials.
-        directory = Path(self.settings.log_directory)
-        directory.mkdir(parents=True, exist_ok=True)
-        fd = os.open(
-            directory / "requests.jsonl", os.O_WRONLY | os.O_CREAT | os.O_APPEND, 0o600
-        )
-        with os.fdopen(fd, "a") as output:
-            output.write(json.dumps(item, allow_nan=False) + "\n")
         self.recent.append(item)
         self.counters[item["status"]] += 1
+        try:
+            directory = Path(self.settings.log_directory)
+            directory.mkdir(parents=True, exist_ok=True)
+            fd = os.open(
+                directory / "requests.jsonl",
+                os.O_WRONLY | os.O_CREAT | os.O_APPEND,
+                0o600,
+            )
+            with os.fdopen(fd, "a") as output:
+                output.write(json.dumps(item, allow_nan=False) + "\n")
+        except OSError as exc:
+            self.counters["audit_write_failed"] += 1
+            logging.getLogger(__name__).error(
+                "Audit write failed with errno=%s", exc.errno
+            )
 
     async def events(self, request: GenerationRequest) -> AsyncIterator[dict]:
-        if request.model != self.model_id:
+        if self.backend_factory is not None:
+            select_model(self.settings, request.model)
+        elif request.model != self.model_id:
             raise LatticeError(
                 "This worker serves a different model; no routing was performed",
                 404,
@@ -80,6 +99,9 @@ class Runtime:
             "prompt_tokens": None,
             "completion_tokens": 0,
             "max_tokens": request.max_tokens,
+            "priority": request.priority,
+            "max_memory_mb": request.max_memory_mb,
+            "latency_budget_ms": request.latency_budget_ms,
             "temperature": request.temperature,
             "seed": request.seed,
             "context_tokens": self.settings.context_tokens,
@@ -90,10 +112,20 @@ class Runtime:
         previous_chunk = None
         try:
             async with asyncio.timeout(request.timeout_seconds):
-                await self.lock.acquire()
+                await self.lock.acquire(request.priority)
                 acquired = True
+                if request.model != self.model_id:
+                    self.backend.stop()
+                    self.backend = self.backend_factory(
+                        select_model(self.settings, request.model)
+                    )
+                    self.model_id = request.model
                 self.waiting -= 1
                 queued = False
+                record["queue_depth_at_admission"] = self.waiting
+                update_queue = getattr(self.backend, "set_queue_depth", None)
+                if update_queue:
+                    update_queue(self.waiting)
                 record["queue_wait_ms"] = (time.perf_counter() - start) * 1000
                 async with aclosing(self.backend.events(request)) as stream:
                     async for event in stream:
@@ -104,6 +136,7 @@ class Runtime:
                                 "backend", dict(self.backend.identity)
                             )
                             record["fallback_reason"] = event.get("fallback_reason")
+                            record["policy"] = event.get("policy")
                             record["worker_startup_ms"] = getattr(
                                 self.backend, "worker_startup_ms", None
                             )
@@ -166,6 +199,11 @@ class Runtime:
             if acquired:
                 self.lock.release()
             record["total_ms"] = (time.perf_counter() - start) * 1000
+            record["latency_budget_met"] = (
+                None
+                if request.latency_budget_ms is None
+                else record["total_ms"] <= request.latency_budget_ms
+            )
             self.record(record)
         yield {"type": "done", "record": record}
 

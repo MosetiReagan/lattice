@@ -1,0 +1,40 @@
+name: tests
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      real_cpu:
+        description: Build native CPU backend and download tested model artifacts
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  unit:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e
+        with:
+          version: '0.12.23'
+          python-version: '3.13.5'
+      - run: uv sync --frozen --extra dev
+      - run: uv run --no-sync ruff check src tests scripts experiments
+      - run: uv run --no-sync ruff format --check src tests scripts experiments
+      - run: uv run --no-sync pytest -q -m 'not integration'
+  cpu:
+    if: github.event_name == 'workflow_dispatch' && inputs.real_cpu
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e
+        with:
+          version: '0.12.23'
+          python-version: '3.13.5'
+      - run: uv sync --frozen --extra dev --extra provision
+      - run: uv run --no-sync python scripts/provision_cpu.py
+      - run: uv run --no-sync python scripts/provision_draft_target.py
+      - run: uv run --no-sync python scripts/quantize_cpu.py Q8_0
+      - run: LATTICE_INTEGRATION=1 uv run --no-sync pytest -q

@@ -1,38 +1,37 @@
 # Lattice
 
-A working CPU baseline for a planned adaptive, quality-aware inference engine.
+A CPU-tested inference research engine with evidence-scoped adaptive control.
 
-**Phase B development build:** real Qwen2.5 0.5B generation, streaming CLI/API, verified artifacts, bounded admission and JSONL timing records. No adaptive optimization or performance improvement is claimed. This is not Lattice 1.0.
-
-```bash
-# Already provisioned in this workspace:
-.venv/bin/lattice generate --model qwen2.5-0.5b-instruct-f16 \
-  --prompt "The capital of France is" --max-tokens 16
-.venv/bin/lattice serve --model qwen2.5-0.5b-instruct-f16
-```
-
-For a fresh Linux checkout:
+**Unreleased 0.2.0.dev0; not Lattice 1.0.** Real Qwen inference, streaming CLI/API, exact artifact checks, priority admission, native greedy speculation, logical prefix control, explicit precision variants and reproducible experiment records. The controller preserves explicit model/sampling constraints and only optimizes prompt scopes with measured quality/cost evidence.
 
 ```bash
-uv sync --frozen --extra dev --extra provision
+uv sync --frozen --extra dev --extra provision --extra evaluation
 uv run --no-sync python scripts/provision_cpu.py
 uv run --no-sync lattice generate --model qwen2.5-0.5b-instruct-f16 \
-  --prompt "Hello" --max-tokens 32 --stream
+  --prompt "The capital of France is" --max-tokens 16
+uv run --no-sync lattice serve --model qwen2.5-0.5b-instruct-f16
 ```
 
-Provisioning downloads approximately 1.2 GiB of official FP16 GGUF weights, checks their SHA-256 and builds pinned llama.cpp. Weights and backend binaries are not included in Python packages. Requires Python >=3.11, uv, git and GCC/G++ on Linux. Set `LATTICE_API_KEY` for bearer authentication; non-loopback CLI binding requires it.
+The present workspace is already provisioned. A fresh Linux checkout needs Python >=3.11, uv, git, GCC/G++, RAM admission and disk reserve. Backend/model downloads are operator actions; inference clients cannot request filesystem paths or downloads. Set `LATTICE_API_KEY` for bearer authentication; non-loopback CLI binding requires it.
 
-- [Working baseline, API examples and reproduction](docs/baseline_runtime.md)
-- [Architecture](docs/architecture.md) and [research](docs/research_landscape.md)
-- [Model/precision candidates](docs/model_compatibility.md) and [tested hardware](docs/hardware_compatibility.md)
-- [Profiling](docs/profiling.md), [security](docs/security.md) and [limitations](docs/limitations.md)
-- [Benchmark protocol](docs/benchmark_methodology.md), [current evidence/gates](docs/benchmark_results.md) and [roadmap](docs/roadmap.md)
+- [Measured results and acceptance gates](docs/benchmark_results.md), [comparison frame](docs/comparison_matrix.md)
+- [Run instructions and API](docs/baseline_runtime.md)
+- [Adaptive policy](docs/adaptive_inference.md), [prefix policy](docs/kv_cache_optimization.md) and [speculation](docs/speculative_decoding.md)
+- [Precision study](docs/quantization_analysis.md) and [quality contract](docs/quality_preservation.md)
+- [Budgeting](docs/compute_budgeting.md), [routing](docs/model_routing.md) and [scheduling](docs/request_scheduling.md)
+- [Research](docs/research_landscape.md), [architecture](docs/architecture.md), [compatibility](docs/hardware_compatibility.md)
+- [Profiling/dashboard](docs/profiling.md), [security](docs/security.md), [limitations](docs/limitations.md), [roadmap](docs/roadmap.md)
 
 ```bash
+uv run --no-sync lattice benchmark --model qwen2.5-0.5b-instruct-f16 --output benchmarks/results/new-run
+uv run --no-sync lattice profile --model qwen2.5-0.5b-instruct-f16 --workloads short
+uv run --no-sync lattice optimize --model qwen2.5-0.5b-instruct-f16
 uv run --no-sync pytest -q -m 'not integration'
 LATTICE_INTEGRATION=1 uv run --no-sync pytest -q
 ```
 
-Next milestone: freeze a reproducible measured baseline and quality evaluation before independent optimization experiments. No dashboard first. Native execution, sampling, KV and kernels are provided by llama.cpp; Lattice's original policy and evaluation work remains ahead.
+Native kernels, physical KV storage, quantized execution and draft verification are provided by llama.cpp. Lattice's work includes compatibility/constraint checks, isolated prefix lifecycle, measured policy qualification, execution feedback, resource admission and quality-cost/reproducibility infrastructure. A full-distribution speculative sampling reference is separately tested; native stochastic speculation is not claimed correct or enabled.
 
-Original code: [Apache-2.0](LICENSE). Third-party backends, dependencies and model weights retain their own licenses; see [NOTICE](NOTICE). No ownership of model weights is claimed. Repository target: `mosetireagan/lattice`; work remains local and unpublished.
+Current evidence has limits: Q4 fails the proposed PPL tolerance; the small task suite cannot qualify automatic Q8/model substitution; speculative decoding was slower in the CPU pilot; adaptive cache evidence is restricted to exact tested public prompts; serving remains single-active and non-preemptive. Warmed-prefix benefits are attributed to backend reuse and do not imply a general or kernel-level speedup. See the release gates before using any result as a 1.0 claim.
+
+Original code: [Apache-2.0](LICENSE). Backend/dependencies/models retain their licenses; see [NOTICE](NOTICE). Weights and native binaries are not packaged or owned by Lattice. Work remains local; no remote release or tag is published.

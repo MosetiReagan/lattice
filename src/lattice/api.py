@@ -4,12 +4,17 @@ import asyncio
 import hmac
 import json
 import time
+import uuid
 from collections import deque
 from contextlib import aclosing, asynccontextmanager
 
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse, StreamingResponse
+from pydantic import BaseModel, ConfigDict, Field
+
+from lattice.config import select_model
+from lattice.observability.measure import summarize
 
 from .config import Settings, public_model
 from .runtime import Runtime
@@ -86,19 +91,27 @@ class RequestLimits:
         except LatticeError as exc:
             return await error_response(exc)(scope, receive, send)
         body = bytearray()
-        while True:
-            message = await receive()
-            if message["type"] == "http.disconnect":
-                return
-            body.extend(message.get("body", b""))
-            if len(body) > 65536:
-                return await error_response(
-                    LatticeError(
-                        "Request body exceeds 65536 bytes", 413, "body_too_large"
-                    )
-                )(scope, receive, send)
-            if not message.get("more_body", False):
-                break
+        try:
+            async with asyncio.timeout(15):
+                while True:
+                    message = await receive()
+                    if message["type"] == "http.disconnect":
+                        return
+                    body.extend(message.get("body", b""))
+                    if len(body) > 65536:
+                        return await error_response(
+                            LatticeError(
+                                "Request body exceeds 65536 bytes",
+                                413,
+                                "body_too_large",
+                            )
+                        )(scope, receive, send)
+                    if not message.get("more_body", False):
+                        break
+        except TimeoutError:
+            return await error_response(
+                LatticeError("Request body receive timeout", 408, "body_timeout")
+            )(scope, receive, send)
         delivered = False
 
         async def replay():
@@ -111,12 +124,21 @@ class RequestLimits:
         await self.app(scope, replay, send)
 
 
+class BenchmarkJobRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid", strict=True)
+    model: str
+    trials: int = Field(default=3, ge=1, le=5)
+
+
 def create_app(
     settings: Settings,
     runtime: Runtime,
     api_key: str | None = None,
     preload: bool = True,
 ) -> FastAPI:
+    jobs = {}
+    job_tasks = set()
+
     @asynccontextmanager
     async def lifespan(app):
         try:
@@ -124,9 +146,13 @@ def create_app(
                 await runtime.backend.start()
             yield
         finally:
+            for task in list(job_tasks):
+                task.cancel()
+            if job_tasks:
+                await asyncio.gather(*job_tasks, return_exceptions=True)
             runtime.backend.stop()
 
-    app = FastAPI(title="Lattice baseline", version="0.1.0.dev0", lifespan=lifespan)
+    app = FastAPI(title="Lattice baseline", version="0.2.0.dev0", lifespan=lifespan)
     app.add_middleware(
         RequestLimits, api_key=api_key, rate=settings.requests_per_minute
     )
@@ -160,31 +186,91 @@ def create_app(
         return {
             "object": "list",
             "data": [
-                public_model(m) for m in settings.models if m.id == runtime.model_id
+                public_model(m)
+                for m in settings.models
+                if runtime.backend_factory is not None or m.id == runtime.model_id
             ],
         }
 
     @app.get("/v1/optimization/status")
     async def optimization_status():
         return {
-            "selected_strategy": "standard",
-            "adaptive": False,
-            "speculative": False,
-            "prefix_reuse": False,
-            "note": "Phase B baseline; no Lattice optimization implemented.",
+            "default_strategy": "standard",
+            "selected_strategy": runtime.backend.identity.get("strategy", "standard"),
+            "adaptive": bool(settings.policy_file),
+            "speculative": bool(settings.draft_model_id),
+            "prefix_reuse": True,
+            "native_stochastic_speculation": False,
+            "note": "Greedy, evidence-scoped paths only. Default is standard; quality-unqualified variants are explicit-only.",
         }
 
     @app.get("/v1/metrics")
     async def metrics():
         return runtime.metrics()
 
-    @app.post("/v1/benchmarks/run")
-    async def benchmarks():
-        raise LatticeError(
-            "Benchmark execution is not implemented; Phase C follows baseline",
-            501,
-            "not_implemented",
-        )
+    @app.post("/v1/benchmarks/run", status_code=202)
+    async def benchmarks(body: BenchmarkJobRequest):
+        if not api_key:
+            raise LatticeError(
+                "Configure operator API authentication before starting benchmark jobs",
+                401,
+                "operator_auth_required",
+            )
+        select_model(settings, body.model)
+        if runtime.backend_factory is None and body.model != runtime.model_id:
+            raise LatticeError(
+                "Model is not served by this worker", 404, "model_not_served"
+            )
+        if job_tasks:
+            raise LatticeError(
+                "A profiling job is already running", 429, "benchmark_busy"
+            )
+        job_id = "bench-" + uuid.uuid4().hex
+        if len(jobs) >= 16:
+            jobs.pop(next(iter(jobs)))
+        jobs[job_id] = {
+            "id": job_id,
+            "status": "queued",
+            "scope": "Bounded live-serving profile, not isolated research benchmark",
+            "model": body.model,
+        }
+
+        async def execute():
+            jobs[job_id]["status"] = "running"
+            rows = []
+            try:
+                for index in range(body.trials):
+                    result = await runtime.generate(
+                        GenerationRequest(
+                            model=body.model,
+                            prompt="The careful engineer records measurements before comparing results. The next step is",
+                            max_tokens=16,
+                            timeout_seconds=60.0,
+                        )
+                    )
+                    rows.append(result["metadata"])
+                jobs[job_id].update(
+                    status="completed",
+                    latency_ms=summarize([r["total_ms"] for r in rows]),
+                    records=rows,
+                    quality=None,
+                )
+            except asyncio.CancelledError:
+                jobs[job_id]["status"] = "cancelled"
+                raise
+            except LatticeError as exc:
+                jobs[job_id].update(status="failed", error_code=exc.code)
+
+        task = asyncio.create_task(execute())
+        job_tasks.add(task)
+        task.add_done_callback(job_tasks.discard)
+        return dict(jobs[job_id])
+
+    @app.get("/v1/benchmarks/jobs/{job_id}")
+    async def benchmark_status(job_id: str):
+        if job_id not in jobs:
+            raise LatticeError("Unknown profiling job", 404, "job_not_found")
+        return jobs[job_id]
 
     async def respond(body: GenerationRequest, chat: bool, request: Request):
         if chat and body.messages is None:

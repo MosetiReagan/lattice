@@ -31,5 +31,6 @@
   },
   "backend_sha256": "9e954cd7ced8851cbcd03170fb93ed864cdf5c7f38b743a5f8481e5235ea1b7b",
   "workload_sha256": "d7a612335e4f67159145ef4f2f9f6d941cddde236b8e70261e161f99f67ed941",
-  "note": "Frozen standard code remains executable via .local/frozen-standard; no optimizations in this snapshot."
+  "note": "Frozen standard code remains executable via .local/frozen-standard; no optimizations in this snapshot.",
+  "source_archive_sha256": "7bb48105c1432a070ef6f78cce6e7d2c77da7aa9859fca87a40084c4998ed476"
 }

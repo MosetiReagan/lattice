@@ -206,6 +206,7 @@ async def run_benchmark(
                         workload=workload["id"],
                         trial=index,
                         sampled_worker_rss_peak_bytes=memory.peak_bytes,
+                        sampled_worker_swap_peak_bytes=memory.swap_peak_bytes,
                         rss_samples=memory.samples,
                         input_sha256=hashlib.sha256(
                             request.prompt.encode()
@@ -268,6 +269,12 @@ async def run_benchmark(
             else None,
             "aggregate_requests_per_second": len(passed) / elapsed if elapsed else None,
             "output_tokens": summarize([r["completion_tokens"] for r in passed]),
+            "swap_sampled_trials": sum(
+                r.get("sampled_worker_swap_peak_bytes") is not None for r in passed
+            ),
+            "worker_swap_observed_trials": sum(
+                (r.get("sampled_worker_swap_peak_bytes") or 0) > 0 for r in passed
+            ),
         }
     if quality_file is not None:
         backend = LlamaCppBackend(settings, entry)

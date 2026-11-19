@@ -1,0 +1,7 @@
+# Compute-budget allocation
+
+Implemented: strict output-token caps; context-plus-output validation; request deadlines including queue wait; worker address-space ceilings; host memory reserve checks; and a pure feasibility/controller layer that rejects unknown costs under a hard estimated-compute limit. `max_memory_mb` can tighten the operator worker cap but cannot increase it. Model weights, draft weights and a working-memory estimate are checked before launch. Native allocation failure still returns an explicit error rather than silently changing output/context/model.
+
+Profiles lowest_latency, balanced, highest_quality and lowest_memory are execution preferences. The lowest_compute profile is explicitly rejected until a validated compute-cost model exists. The current qualified paths use the identical model/precision, so no profile authorizes a precision or model downgrade. The measured controller minimizes latency or the configured memory bound among quality-qualified same-artifact paths; richer profile objectives and calibrated compute/energy models remain incomplete. “Lowest compute” is not an energy measurement or guaranteed FLOP minimum.
+
+The pure allocator treats unknown memory/compute bounds as unknown, not zero. `latency_budget_ms` remains a target; `timeout_seconds` is the enforced deadline. Worker RLIMIT_AS bounds virtual address space (including model mappings), not GPU memory, per-token FLOPs or physical RSS. Public requests cannot override threads, model paths, backend flags or cache filenames.

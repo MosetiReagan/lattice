@@ -2,6 +2,7 @@
 
 import asyncio
 import contextlib
+import hashlib
 import json
 import os
 import secrets
@@ -11,13 +12,17 @@ import subprocess
 import sys
 import time
 from collections.abc import AsyncIterator
+from dataclasses import asdict
 from pathlib import Path
 
 import httpx
 
 from lattice.cache.prefix import CacheIdentity, PrefixCache
 from lattice.config import ModelEntry, Settings, file_hash, select_model
+from lattice.controller.policy import Features, PathEvidence, RuleController
+from lattice.observability.hardware import cpu_fingerprint
 from lattice.optimizations.speculative.compatibility import tokenizer_fingerprint
+from lattice.scheduler.budget import Budget, ResourceSnapshot
 from lattice.types import GenerationRequest, LatticeError
 
 
@@ -27,6 +32,21 @@ class LlamaCppBackend:
         self.process: subprocess.Popen | None = None
         self.base_url = ""
         self._strategy = "standard"
+        self._memory_cap = settings.worker_address_space_mb
+        self._queue_depth = 0
+        self._cpu_fingerprint = cpu_fingerprint()
+        profiles = []
+        if settings.policy_file:
+            for row in json.loads(Path(settings.policy_file).read_text())["profiles"]:
+                if row.get("qualified_prompt_sha256") is not None:
+                    row["qualified_prompt_sha256"] = frozenset(
+                        row["qualified_prompt_sha256"]
+                    )
+                profiles.append(PathEvidence(**row))
+        self.controller = RuleController(profiles)
+        self.policy_sha256 = (
+            file_hash(Path(settings.policy_file)) if settings.policy_file else None
+        )
         self._draft = None
         self._draft_tokens = settings.draft_tokens
         self._compatibility = {}
@@ -48,8 +68,26 @@ class LlamaCppBackend:
             "strategy": "standard",
         }
 
+    def set_queue_depth(self, depth: int) -> None:
+        self._queue_depth = depth
+
     async def configure(self, request: GenerationRequest) -> str | None:
+        if request.optimization.profile == "lowest_compute":
+            raise LatticeError(
+                "Compute-cost modeling is not yet qualified",
+                422,
+                "compute_model_unavailable",
+            )
         strategy = request.optimization.mode
+        if strategy == "adaptive":
+            strategy = "standard"
+        memory_cap = min(
+            request.max_memory_mb or self.settings.worker_address_space_mb,
+            self.settings.worker_address_space_mb,
+        )
+        if memory_cap != self._memory_cap:
+            self.stop()
+        self._memory_cap = memory_cap
         reason = None
         draft = None
         if strategy == "speculative":
@@ -60,16 +98,19 @@ class LlamaCppBackend:
             elif not self.settings.draft_model_id:
                 reason = "No draft model is configured"
             else:
-                draft = select_model(self.settings, self.settings.draft_model_id)
-                key = (self.model.sha256, draft.sha256)
-                if key not in self._compatibility:
-                    self._compatibility[key] = await asyncio.to_thread(
-                        tokenizer_fingerprint, Path(self.model.path)
-                    ) == await asyncio.to_thread(
-                        tokenizer_fingerprint, Path(draft.path)
-                    )
-                if not self._compatibility[key]:
-                    reason = "Draft and target tokenizer metadata are not identical"
+                try:
+                    draft = select_model(self.settings, self.settings.draft_model_id)
+                    key = (self.model.sha256, draft.sha256)
+                    if key not in self._compatibility:
+                        self._compatibility[key] = await asyncio.to_thread(
+                            tokenizer_fingerprint, Path(self.model.path)
+                        ) == await asyncio.to_thread(
+                            tokenizer_fingerprint, Path(draft.path)
+                        )
+                    if not self._compatibility[key]:
+                        reason = "Draft and target tokenizer metadata are not identical"
+                except (LatticeError, OSError, ValueError):
+                    reason = "Configured draft artifact is unavailable or incompatible"
             if reason:
                 if not request.optimization.allow_fallback:
                     raise LatticeError(reason, 422, "incompatible_strategy")
@@ -120,6 +161,12 @@ class LlamaCppBackend:
             Path(self.model.path).stat().st_size
             + (Path(self._draft.path).stat().st_size if self._draft else 0)
         ) // 1024 + 768 * 1024
+        if need_kb > self._memory_cap * 1024:
+            raise LatticeError(
+                "Weights plus working estimate exceed worker address-space cap",
+                422,
+                "budget_infeasible",
+            )
         if mem.get("MemAvailable", 0) < need_kb + self.settings.host_reserve_mb * 1024:
             raise LatticeError(
                 "Insufficient host memory for weights, working estimate and reserve",
@@ -196,7 +243,8 @@ class LlamaCppBackend:
                     sys.executable,
                     "-m",
                     "lattice.worker",
-                    str(self.settings.worker_address_space_mb),
+                    str(self._memory_cap),
+                    str(os.getpid()),
                     *args,
                 ],
                 stdin=subprocess.DEVNULL,
@@ -261,7 +309,21 @@ class LlamaCppBackend:
 
     async def events(self, request: GenerationRequest) -> AsyncIterator[dict]:
         fallback = await self.configure(request)
-        await self.start()
+        try:
+            await self.start()
+        except LatticeError as exc:
+            if (
+                self._strategy != "speculative"
+                or not request.optimization.allow_fallback
+                or exc.code not in ("budget_infeasible", "memory_admission_failed")
+            ):
+                raise
+            self.stop()
+            standard = request.model_copy(deep=True)
+            standard.optimization.mode = "standard"
+            await self.configure(standard)
+            await self.start()
+            fallback = "Draft exceeds available memory budget; target standard execution preserved"
         completed = False
         try:
             async with httpx.AsyncClient(
@@ -302,6 +364,50 @@ class LlamaCppBackend:
                     "f16",
                     "artifact-default-rope-mask",
                 )
+                policy = None
+                if request.optimization.mode == "adaptive":
+                    preview = self.prefix.plan(
+                        cache_identity, tuple(token_ids), count=False
+                    )
+                    meminfo = dict(
+                        line.split(":", 1)
+                        for line in Path("/proc/meminfo").read_text().splitlines()
+                    )
+                    resources = ResourceSnapshot(
+                        int(meminfo["MemAvailable"].split()[0]) // 1024,
+                        self.settings.host_reserve_mb,
+                        self._queue_depth,
+                    )
+                    policy = self.controller.choose(
+                        Features(
+                            len(token_ids),
+                            request.max_tokens,
+                            preview.prefix_tokens,
+                            self.model.sha256,
+                            self.settings.backend_sha256,
+                            request.temperature,
+                            self._queue_depth,
+                            hashlib.sha256(prompt.encode()).hexdigest(),
+                            self.settings.threads,
+                            self._cpu_fingerprint,
+                        ),
+                        Budget(
+                            request.max_tokens,
+                            request.max_memory_mb,
+                            request.latency_budget_ms,
+                            request.max_estimated_compute_ms,
+                        ),
+                        resources,
+                        preference=request.optimization.profile,
+                    )
+                    self._strategy = policy.strategy
+                    self.identity["strategy"] = self._strategy
+                if request.max_estimated_compute_ms is not None and policy is None:
+                    raise LatticeError(
+                        "An estimated-compute budget requires a qualified adaptive profile",
+                        422,
+                        "budget_infeasible",
+                    )
                 cache_allowed = (
                     self._strategy == "cached"
                     and self.model.kv_bytes_per_token is not None
@@ -325,6 +431,12 @@ class LlamaCppBackend:
                     "strategy": self._strategy,
                     "fallback_reason": fallback,
                     "backend": dict(self.identity),
+                    "policy": {
+                        **asdict(policy),
+                        "evidence_file_sha256": self.policy_sha256,
+                    }
+                    if policy
+                    else None,
                 }
                 # Pass exact token IDs: validation and inference use the same tokenization.
                 body = {
@@ -369,7 +481,7 @@ class LlamaCppBackend:
                                     "backend_limit_violation",
                                 )
                             completed = True
-                            if cache_allowed:
+                            if cache_allowed or request.optimization.mode == "adaptive":
                                 self.prefix.remember(cache_identity, tuple(token_ids))
                                 self.prefix.observe(
                                     raw.get("timings", {}).get("cache_n", 0)

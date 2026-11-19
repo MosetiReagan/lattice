@@ -35,7 +35,7 @@ async def test_auth_models_and_validation(app):
         assert bad.status_code == 422 and "secret" not in bad.text
         unknown = await c.post("/v1/generate", json={"model": "../bad", "prompt": "hi"})
         assert unknown.status_code == 404
-        assert (await c.post("/v1/benchmarks/run")).status_code == 501
+        assert (await c.post("/v1/benchmarks/run")).status_code == 422
 
 
 async def test_chat_stream_structure(app):
@@ -89,3 +89,28 @@ async def test_global_rate_limit(settings):
         assert (await c.get("/v1/models")).status_code == 200
         assert (await c.get("/v1/models")).status_code == 429
         assert (await c.get("/health")).status_code == 200
+
+
+async def test_bounded_benchmark_jobs(app):
+    import asyncio
+
+    async with httpx.AsyncClient(
+        transport=httpx.ASGITransport(app=app),
+        base_url="http://test",
+        headers={"Authorization": "Bearer test-key"},
+    ) as c:
+        invalid = await c.post(
+            "/v1/benchmarks/run", json={"model": "test-model", "trials": 1000}
+        )
+        assert invalid.status_code == 422
+        response = await c.post(
+            "/v1/benchmarks/run", json={"model": "test-model", "trials": 2}
+        )
+        assert response.status_code == 202
+        job_id = response.json()["id"]
+        for _ in range(20):
+            result = (await c.get("/v1/benchmarks/jobs/" + job_id)).json()
+            if result["status"] == "completed":
+                break
+            await asyncio.sleep(0)
+        assert result["status"] == "completed" and result["latency_ms"]["n"] == 2

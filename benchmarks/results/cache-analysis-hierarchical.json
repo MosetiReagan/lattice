@@ -1,0 +1,95 @@
+{
+  "short": {
+    "paired_trials": 90,
+    "bootstrap_method": "resample sessions, then paired trials within each selected session; only three session clusters",
+    "sessions": [
+      {
+        "session": 1,
+        "standard_median_ms": 248.27166799968836,
+        "cached_median_ms": 255.99002849958197
+      },
+      {
+        "session": 2,
+        "standard_median_ms": 273.90603099956934,
+        "cached_median_ms": 276.9158729997798
+      },
+      {
+        "session": 3,
+        "standard_median_ms": 233.68287199900806,
+        "cached_median_ms": 227.99324300012813
+      }
+    ],
+    "greedy_mismatches": 0,
+    "standard_mean_ms": 261.6045314444111,
+    "cached_mean_ms": 263.25580547765844,
+    "latency_change_percent": 0.6312100268791365,
+    "paired_bootstrap_95_percent_interval": [
+      -6.982737157742921,
+      9.268839363662106
+    ],
+    "scope": "Known warmed synthetic CPU prefixes. Priming excluded symmetrically. Backend-native reuse, not a custom kernel.",
+    "limitations": "Shared VM; development activity not isolated; no worker-swap history recorded in first runs. No production guarantee."
+  },
+  "long_prompt": {
+    "paired_trials": 90,
+    "bootstrap_method": "resample sessions, then paired trials within each selected session; only three session clusters",
+    "sessions": [
+      {
+        "session": 1,
+        "standard_median_ms": 1534.0873724999256,
+        "cached_median_ms": 231.52410100010457
+      },
+      {
+        "session": 2,
+        "standard_median_ms": 1571.240554000724,
+        "cached_median_ms": 246.14352099979442
+      },
+      {
+        "session": 3,
+        "standard_median_ms": 1533.430881499953,
+        "cached_median_ms": 214.45014300024923
+      }
+    ],
+    "greedy_mismatches": 0,
+    "standard_mean_ms": 1557.7844667554423,
+    "cached_mean_ms": 236.53439298895034,
+    "latency_change_percent": -84.81597435095725,
+    "paired_bootstrap_95_percent_interval": [
+      -85.59884899761998,
+      -83.84824598877829
+    ],
+    "scope": "Known warmed synthetic CPU prefixes. Priming excluded symmetrically. Backend-native reuse, not a custom kernel.",
+    "limitations": "Shared VM; development activity not isolated; no worker-swap history recorded in first runs. No production guarantee."
+  },
+  "repeated_prefix": {
+    "paired_trials": 90,
+    "bootstrap_method": "resample sessions, then paired trials within each selected session; only three session clusters",
+    "sessions": [
+      {
+        "session": 1,
+        "standard_median_ms": 1003.5981575001642,
+        "cached_median_ms": 249.2076984999585
+      },
+      {
+        "session": 2,
+        "standard_median_ms": 938.8952915005575,
+        "cached_median_ms": 206.71323799888341
+      },
+      {
+        "session": 3,
+        "standard_median_ms": 952.2613105000346,
+        "cached_median_ms": 217.97805099959078
+      }
+    ],
+    "greedy_mismatches": 0,
+    "standard_mean_ms": 977.3927809889857,
+    "cached_mean_ms": 234.151076488787,
+    "latency_change_percent": -76.04329794088936,
+    "paired_bootstrap_95_percent_interval": [
+      -77.34654802232299,
+      -74.50322134519816
+    ],
+    "scope": "Known warmed synthetic CPU prefixes. Priming excluded symmetrically. Backend-native reuse, not a custom kernel.",
+    "limitations": "Shared VM; development activity not isolated; no worker-swap history recorded in first runs. No production guarantee."
+  }
+}
