@@ -11,7 +11,7 @@ import sys
 import time
 from pathlib import Path
 
-from lattice.backends.llama_cpp import LlamaCppBackend
+from lattice.backends import create_backend
 from lattice.config import Settings, file_hash, select_model
 from lattice.observability.measure import RssSampler, export_csv, summarize
 from lattice.runtime import Runtime
@@ -134,7 +134,7 @@ async def run_benchmark(
             local.log_directory = str(output / "private")
             if "worker_limit_mb" in workload:
                 local.worker_address_space_mb = workload["worker_limit_mb"]
-            backend = LlamaCppBackend(local, entry)
+            backend = create_backend(local, entry)
             runtime = Runtime(local, model_id, backend)
             try:
                 started = time.perf_counter()
@@ -232,7 +232,11 @@ async def run_benchmark(
                 elapsed = time.perf_counter() - began
                 loads[-1]["measurement_makespan_seconds"] = elapsed
             finally:
-                backend.stop()
+                close = getattr(backend, "aclose", None)
+                if close:
+                    await close()
+                else:
+                    backend.stop()
     summary = {"workloads": {}, "load_observations": loads, "quality": None}
     for workload in workloads:
         rows = [r for r in records if r["workload"] == workload["id"]]
@@ -277,7 +281,7 @@ async def run_benchmark(
             ),
         }
     if quality_file is not None:
-        backend = LlamaCppBackend(settings, entry)
+        backend = create_backend(settings, entry)
         runtime = Runtime(settings, model_id, backend)
         tasks = json.loads(quality_file.read_text())["tasks"]
         outcomes = []
@@ -302,7 +306,11 @@ async def run_benchmark(
                     }
                 )
         finally:
-            backend.stop()
+            close = getattr(backend, "aclose", None)
+            if close:
+                await close()
+            else:
+                backend.stop()
         summary["quality"] = {
             "dataset_sha256": file_hash(quality_file),
             "tasks": len(outcomes),

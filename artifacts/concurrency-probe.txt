@@ -1,0 +1,4 @@
+long started 1 {'capacity': 2, 'free': 1, 'leased': 1, 'quarantined': 0, 'cleanup_tasks': 0, 'verified_cancellations': 0, 'unconfirmed_cleanup': 0, 'drained_worker_retirements': 0}
+short completed while long active True 4, 2+2+2
+same worker True {'capacity': 2, 'free': 2, 'leased': 0, 'quarantined': 0, 'cleanup_tasks': 0, 'verified_cancellations': 1, 'unconfirmed_cleanup': 0, 'drained_worker_retirements': 0}
+native slots [(0, 2048, False), (1, 2048, False)]

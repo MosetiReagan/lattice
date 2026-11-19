@@ -27,6 +27,8 @@ from lattice.types import GenerationRequest, LatticeError
 
 
 class LlamaCppBackend:
+    native_slots = 1
+
     def __init__(self, settings: Settings, model: ModelEntry):
         self.settings, self.model = settings, model
         self.process: subprocess.Popen | None = None
@@ -161,6 +163,13 @@ class LlamaCppBackend:
             Path(self.model.path).stat().st_size
             + (Path(self._draft.path).stat().st_size if self._draft else 0)
         ) // 1024 + 768 * 1024
+        if self.native_slots > 1:
+            need_kb += (
+                (self.native_slots - 1)
+                * self.settings.context_tokens
+                * (self.model.kv_bytes_per_token or 0)
+                // 1024
+            )
         if need_kb > self._memory_cap * 1024:
             raise LatticeError(
                 "Weights plus working estimate exceed worker address-space cap",
@@ -195,13 +204,13 @@ class LlamaCppBackend:
             "--alias",
             self.model.id,
             "--ctx-size",
-            str(self.settings.context_tokens),
+            str(self.settings.context_tokens * self.native_slots),
             "--threads",
             str(self.settings.threads),
             "--threads-batch",
             str(self.settings.threads),
             "--parallel",
-            "1",
+            str(self.native_slots),
             "--n-gpu-layers",
             "0",
             "--batch-size",
@@ -217,7 +226,7 @@ class LlamaCppBackend:
             "--spec-type",
             "draft-simple" if self._draft else "none",
             "--metrics",
-            "--no-slots",
+            "--slots" if self.native_slots > 1 else "--no-slots",
             "--offline",
             "--no-ui",
             "--no-warmup",
@@ -307,7 +316,21 @@ class LlamaCppBackend:
             raise LatticeError("Backend rejected the request", 502, "backend_error")
         return response.json()
 
-    async def events(self, request: GenerationRequest) -> AsyncIterator[dict]:
+    def completion_headers(self, execution_context=None) -> dict:
+        return {}
+
+    def completion_payload(self, body: dict, execution_context=None) -> dict:
+        return body
+
+    def completion_response(self, execution_context=None) -> None:
+        pass
+
+    async def abort_generation(self) -> None:
+        self.stop()
+
+    async def events(
+        self, request: GenerationRequest, execution_context=None
+    ) -> AsyncIterator[dict]:
         fallback = await self.configure(request)
         try:
             await self.start()
@@ -456,7 +479,14 @@ class LlamaCppBackend:
                     "return_tokens": True,
                 }
                 count = 0
-                async with client.stream("POST", "/completion", json=body) as response:
+                body = self.completion_payload(body, execution_context)
+                async with client.stream(
+                    "POST",
+                    "/completion",
+                    json=body,
+                    headers=self.completion_headers(execution_context),
+                ) as response:
+                    self.completion_response(execution_context)
                     if response.status_code != 200:
                         raise LatticeError(
                             "Backend generation failed", 502, "backend_error"
@@ -523,6 +553,6 @@ class LlamaCppBackend:
             ) from exc
         finally:
             if not completed:
-                # Single-flight baseline: kill owns cancellation semantics, not an assumed HTTP close.
-                # Next admitted request starts a fresh worker. Queued requests keep their deadlines.
-                self.stop()
+                # Serial mode terminates the worker. Concurrent mode overrides this hook
+                # and verifies cancellation through its private native session/slot controls.
+                await self.abort_generation()

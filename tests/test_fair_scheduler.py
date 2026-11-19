@@ -83,3 +83,32 @@ async def test_cancelled_future_removed_before_task_cleanup_cannot_release_new_o
     assert lock.locked()
     lock.release()
     assert not lock.locked()
+
+
+async def test_semaphore_bounds_concurrency_and_waiter_cancellation():
+    from lattice.scheduler.fair import FairSemaphore
+
+    admission = FairSemaphore(2)
+    active = 0
+    maximum = 0
+
+    async def work(index):
+        nonlocal active, maximum
+        acquired = False
+        try:
+            await admission.acquire(index % 4)
+            acquired = True
+            active += 1
+            maximum = max(maximum, active)
+            await asyncio.sleep(0.001)
+        finally:
+            if acquired:
+                active -= 1
+                admission.release()
+
+    tasks = [asyncio.create_task(work(i)) for i in range(100)]
+    await asyncio.sleep(0)
+    for task in tasks[3::7]:
+        task.cancel()
+    await asyncio.gather(*tasks, return_exceptions=True)
+    assert maximum == 2 and active == 0 and admission.active == 0

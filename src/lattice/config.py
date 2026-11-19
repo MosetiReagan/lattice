@@ -35,6 +35,7 @@ class Settings(BaseModel):
     draft_tokens: int = Field(default=4, ge=1, le=16)
     context_tokens: int = Field(default=2048, ge=128, le=8192)
     threads: int = Field(default=4, ge=1, le=64)
+    native_slots: int = Field(default=1, ge=1, le=4)
     max_queue: int = Field(default=8, ge=0, le=128)
     worker_address_space_mb: int = Field(default=4096, ge=1024)
     host_reserve_mb: int = Field(default=2048, ge=256)

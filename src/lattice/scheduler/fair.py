@@ -18,21 +18,28 @@ class Waiter:
     granted: bool = False
 
 
-class FairLock:
-    def __init__(self, aging_seconds: float = 5.0):
+class FairSemaphore:
+    def __init__(self, capacity: int = 1, aging_seconds: float = 5.0):
+        if capacity < 1:
+            raise ValueError("Admission capacity must be positive")
+        self.capacity = capacity
         if aging_seconds <= 0:
             raise ValueError("Aging interval must be positive")
         self.aging_seconds = aging_seconds
-        self._busy = False
+        self._active = 0
         self._waiters = []
         self._sequence = 0
 
+    @property
+    def active(self) -> int:
+        return self._active
+
     def locked(self) -> bool:
-        return self._busy
+        return self._active >= self.capacity
 
     async def acquire(self, priority: int = 0) -> bool:
-        if not self._busy:
-            self._busy = True
+        if not self.locked():
+            self._active += 1
             return True
         self._sequence += 1
         waiter = Waiter(
@@ -53,11 +60,11 @@ class FairLock:
             raise
 
     def release(self):
-        if not self._busy:
+        if not self._active:
             raise RuntimeError("Release without ownership")
         self._waiters = [w for w in self._waiters if not w.future.done()]
         if not self._waiters:
-            self._busy = False
+            self._active -= 1
             return
         now = time.monotonic()
         chosen = max(
@@ -70,3 +77,10 @@ class FairLock:
         self._waiters.remove(chosen)
         chosen.granted = True
         chosen.future.set_result(True)
+
+
+class FairLock(FairSemaphore):
+    """Backwards-compatible single-permit admission."""
+
+    def __init__(self, aging_seconds: float = 5.0):
+        super().__init__(capacity=1, aging_seconds=aging_seconds)

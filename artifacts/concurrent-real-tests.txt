@@ -1,0 +1,1011 @@
+FFFFF                                                                    [100%]
+=================================== FAILURES ===================================
+_____________ test_http_cancel_keeps_peer_and_shared_worker_alive ______________
+
+fut = <coroutine object Event.wait at 0x7fd848bf8820>, timeout = 10
+
+    async def wait_for(fut, timeout):
+        """Wait for the single Future or coroutine to complete, with timeout.
+    
+        Coroutine will be wrapped in Task.
+    
+        Returns result of the Future or coroutine.  When a timeout occurs,
+        it cancels the task and raises TimeoutError.  To avoid the task
+        cancellation, wrap it in shield().
+    
+        If the wait is cancelled, the task is also cancelled.
+    
+        If the task suppresses the cancellation and returns a value instead,
+        that value is returned.
+    
+        This function is a coroutine.
+        """
+        # The special case for timeout <= 0 is for the following case:
+        #
+        # async def test_waitfor():
+        #     func_started = False
+        #
+        #     async def func():
+        #         nonlocal func_started
+        #         func_started = True
+        #
+        #     try:
+        #         await asyncio.wait_for(func(), 0)
+        #     except asyncio.TimeoutError:
+        #         assert not func_started
+        #     else:
+        #         assert False
+        #
+        # asyncio.run(test_waitfor())
+    
+    
+        if timeout is not None and timeout <= 0:
+            fut = ensure_future(fut)
+    
+            if fut.done():
+                return fut.result()
+    
+            await _cancel_and_wait(fut)
+            try:
+                return fut.result()
+            except exceptions.CancelledError as exc:
+                raise TimeoutError from exc
+    
+        async with timeouts.timeout(timeout):
+>           return await fut
+                   ^^^^^^^^^
+
+/usr/lib/python3.13/asyncio/tasks.py:507: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <asyncio.locks.Event object at 0x7fd848b96870 [unset]>
+
+    async def wait(self):
+        """Block until the internal flag is true.
+    
+        If the internal flag is true on entry, return True
+        immediately.  Otherwise, block until another task calls
+        set() to set the flag to true, then return True.
+        """
+        if self._value:
+            return True
+    
+        fut = self._get_loop().create_future()
+        self._waiters.append(fut)
+        try:
+>           await fut
+E           asyncio.exceptions.CancelledError
+
+/usr/lib/python3.13/asyncio/locks.py:213: CancelledError
+
+The above exception was the direct cause of the following exception:
+
+tmp_path = PosixPath('/data/tmp/pytest-of-user/pytest-34/test_http_cancel_keeps_peer_an0')
+
+    async def test_http_cancel_keeps_peer_and_shared_worker_alive(tmp_path):
+        root = Path(__file__).resolve().parents[1]
+        settings = load_settings(root / "configs/local.json")
+        settings.log_directory = str(tmp_path)
+        settings.requests_per_minute = 1000
+        config = tmp_path / "config.json"
+        config.write_text(settings.model_dump_json())
+        with socket.socket() as sock:
+            sock.bind(("127.0.0.1", 0))
+            port = sock.getsockname()[1]
+        with (tmp_path / "gateway.log").open("w") as logs:
+            server = subprocess.Popen(  # noqa: ASYNC220 - bounded native process launch without preexec_fn
+                [
+                    sys.executable,
+                    "-m",
+                    "lattice.cli",
+                    "--config",
+                    str(config),
+                    "serve",
+                    "--model",
+                    settings.models[0].id,
+                    "--native-slots",
+                    "2",
+                    "--port",
+                    str(port),
+                ],
+                stdout=logs,
+                stderr=logs,
+                env=dict(os.environ, LATTICE_API_KEY="test-concurrent-key"),
+            )
+            try:
+                async with httpx.AsyncClient(
+                    base_url=f"http://127.0.0.1:{port}",
+                    trust_env=False,
+                    timeout=30,
+                    headers={"Authorization": "Bearer test-concurrent-key"},
+                ) as client:
+                    deadline = time.monotonic() + 30
+                    while time.monotonic() < deadline:
+                        assert server.poll() is None, (tmp_path / "gateway.log").read_text()
+                        try:
+                            if (await client.get("/health")).status_code == 200:
+                                break
+                        except httpx.HTTPError:
+                            pass
+                        await asyncio.sleep(0.1)
+                    else:
+                        pytest.fail("Concurrent gateway startup timeout")
+                    children = (
+                        Path(f"/proc/{server.pid}/task/{server.pid}/children")
+                        .read_text()
+                        .split()
+                    )
+                    assert children
+                    started = asyncio.Event()
+                    body = {
+                        "model": settings.models[0].id,
+                        "messages": [
+                            {
+                                "role": "user",
+                                "content": "Write a long numbered list of 500 cities.",
+                            }
+                        ],
+                        "max_tokens": 128,
+                        "stream": True,
+                    }
+    
+                    async def peer():
+                        chunks = []
+                        async with client.stream(
+                            "POST", "/v1/chat/completions", json=body
+                        ) as response:
+                            assert response.status_code == 200
+                            async for line in response.aiter_lines():
+                                if line.startswith("data: ") and line[6:] != "[DONE]":
+                                    item = json.loads(line[6:])
+                                    chunks.append(item)
+                                    if item["choices"][0]["delta"].get("content"):
+                                        started.set()
+                        return chunks
+    
+                    task = asyncio.create_task(peer())
+                    try:
+>                       await asyncio.wait_for(started.wait(), 10)
+
+tests/test_live_batched_server.py:109: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.13/asyncio/tasks.py:506: in wait_for
+    async with timeouts.timeout(timeout):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Timeout [expired]>
+exc_type = <class 'asyncio.exceptions.CancelledError'>
+exc_val = CancelledError(), exc_tb = <traceback object at 0x7fd848bf6dc0>
+
+    async def __aexit__(
+        self,
+        exc_type: Optional[Type[BaseException]],
+        exc_val: Optional[BaseException],
+        exc_tb: Optional[TracebackType],
+    ) -> Optional[bool]:
+        assert self._state in (_State.ENTERED, _State.EXPIRING)
+    
+        if self._timeout_handler is not None:
+            self._timeout_handler.cancel()
+            self._timeout_handler = None
+    
+        if self._state is _State.EXPIRING:
+            self._state = _State.EXPIRED
+    
+            if self._task.uncancel() <= self._cancelling and exc_type is not None:
+                # Since there are no new cancel requests, we're
+                # handling this.
+                if issubclass(exc_type, exceptions.CancelledError):
+>                   raise TimeoutError from exc_val
+E                   TimeoutError
+
+/usr/lib/python3.13/asyncio/timeouts.py:116: TimeoutError
+______ test_short_request_finishes_while_long_request_is_still_generating ______
+
+self = <lattice.runtime.Runtime object at 0x7fd848bbe7b0>
+request = GenerationRequest(model='qwen2.5-0.5b-instruct-f16', prompt='Write a long numbered list of 500 cities:', messages=None...ompute_ms=None, optimization=Optimization(mode='standard', profile='balanced', allow_fallback=True, draft_tokens=None))
+
+    async def events(self, request: GenerationRequest) -> AsyncIterator[dict]:
+        if self.backend_factory is not None:
+            select_model(self.settings, request.model)
+        elif request.model != self.model_id:
+            raise LatticeError(
+                "This worker serves a different model; no routing was performed",
+                404,
+                "model_not_served",
+            )
+        if self.lock.locked() and self.waiting >= self.settings.max_queue:
+            self.counters["rejected_queue_full"] += 1
+            raise LatticeError("Request queue is full; retry later", 429, "queue_full")
+        request_id = "lattice-" + uuid.uuid4().hex
+        start = time.perf_counter()
+        self.waiting += 1
+        acquired = False
+        queued = True
+        record = {
+            "id": request_id,
+            "created_utc": datetime.datetime.now(datetime.UTC).isoformat(),
+            "model": request.model,
+            "backend": None,
+            "strategy": None,
+            "status": "cancelled",
+            "queue_wait_ms": None,
+            "client_ttft_ms": None,
+            "total_ms": None,
+            "prompt_tokens": None,
+            "completion_tokens": 0,
+            "max_tokens": request.max_tokens,
+            "priority": request.priority,
+            "max_memory_mb": request.max_memory_mb,
+            "latency_budget_ms": request.latency_budget_ms,
+            "temperature": request.temperature,
+            "seed": request.seed,
+            "context_tokens": self.settings.context_tokens,
+            "backend_timings": None,
+            "chunk_intervals_ms": [],
+            "quality": None,
+        }
+        previous_chunk = None
+        try:
+            async with asyncio.timeout(request.timeout_seconds):
+                await self.lock.acquire(request.priority)
+                acquired = True
+                if request.model != self.model_id:
+                    self.backend.stop()
+                    self.backend = self.backend_factory(
+                        select_model(self.settings, request.model)
+                    )
+                    self.model_id = request.model
+                self.waiting -= 1
+                queued = False
+                record["queue_depth_at_admission"] = self.waiting
+                update_queue = getattr(self.backend, "set_queue_depth", None)
+                if update_queue:
+                    update_queue(self.waiting)
+                record["queue_wait_ms"] = (time.perf_counter() - start) * 1000
+                async with aclosing(self.backend.events(request)) as stream:
+>                   async for event in stream:
+
+src/lattice/runtime.py:139: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/lattice/backends/batched.py:227: in events
+    async for event in stream:
+src/lattice/backends/llama_cpp.py:484: in events
+    "POST", "/completion", json=body, headers=self.completion_headers()
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <lattice.backends.batched.BatchedLlamaBackend object at 0x7fd848ca4ad0>
+execution_context = None
+
+    def completion_headers(self, execution_context=None) -> dict:
+        lease = execution_context
+        if lease is None:
+>           raise RuntimeError("Missing stream identity")
+E           RuntimeError: Missing stream identity
+
+src/lattice/backends/batched.py:123: RuntimeError
+
+The above exception was the direct cause of the following exception:
+
+batched = <lattice.runtime.Runtime object at 0x7fd848bbe7b0>
+
+    async def test_short_request_finishes_while_long_request_is_still_generating(batched):
+        runtime = batched
+        backend = runtime.backend
+        pid = backend.process.pid
+        first = asyncio.Event()
+    
+        async def long():
+            async with aclosing(
+                runtime.events(
+                    request(
+                        runtime,
+                        prompt="Write a long numbered list of 500 cities:",
+                        max_tokens=512,
+                    )
+                )
+            ) as stream:
+                async for event in stream:
+                    if event["type"] == "token":
+                        first.set()
+    
+        task = asyncio.create_task(long())
+        try:
+            await asyncio.wait_for(first.wait(), 10)
+            result = await runtime.generate(
+                request(runtime, prompt="The capital of France is", max_tokens=8)
+            )
+            assert result["metadata"]["status"] == "completed" and not task.done()
+            assert result["metadata"]["native_slots"] == 2
+            assert runtime.metrics()["active_requests"] == 1
+        finally:
+            task.cancel()
+            with pytest.raises(asyncio.CancelledError):
+>               await task
+
+tests/test_batched_serving.py:75: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_batched_serving.py:59: in long
+    async for event in stream:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <lattice.runtime.Runtime object at 0x7fd848bbe7b0>
+request = GenerationRequest(model='qwen2.5-0.5b-instruct-f16', prompt='Write a long numbered list of 500 cities:', messages=None...ompute_ms=None, optimization=Optimization(mode='standard', profile='balanced', allow_fallback=True, draft_tokens=None))
+
+    async def events(self, request: GenerationRequest) -> AsyncIterator[dict]:
+        if self.backend_factory is not None:
+            select_model(self.settings, request.model)
+        elif request.model != self.model_id:
+            raise LatticeError(
+                "This worker serves a different model; no routing was performed",
+                404,
+                "model_not_served",
+            )
+        if self.lock.locked() and self.waiting >= self.settings.max_queue:
+            self.counters["rejected_queue_full"] += 1
+            raise LatticeError("Request queue is full; retry later", 429, "queue_full")
+        request_id = "lattice-" + uuid.uuid4().hex
+        start = time.perf_counter()
+        self.waiting += 1
+        acquired = False
+        queued = True
+        record = {
+            "id": request_id,
+            "created_utc": datetime.datetime.now(datetime.UTC).isoformat(),
+            "model": request.model,
+            "backend": None,
+            "strategy": None,
+            "status": "cancelled",
+            "queue_wait_ms": None,
+            "client_ttft_ms": None,
+            "total_ms": None,
+            "prompt_tokens": None,
+            "completion_tokens": 0,
+            "max_tokens": request.max_tokens,
+            "priority": request.priority,
+            "max_memory_mb": request.max_memory_mb,
+            "latency_budget_ms": request.latency_budget_ms,
+            "temperature": request.temperature,
+            "seed": request.seed,
+            "context_tokens": self.settings.context_tokens,
+            "backend_timings": None,
+            "chunk_intervals_ms": [],
+            "quality": None,
+        }
+        previous_chunk = None
+        try:
+            async with asyncio.timeout(request.timeout_seconds):
+                await self.lock.acquire(request.priority)
+                acquired = True
+                if request.model != self.model_id:
+                    self.backend.stop()
+                    self.backend = self.backend_factory(
+                        select_model(self.settings, request.model)
+                    )
+                    self.model_id = request.model
+                self.waiting -= 1
+                queued = False
+                record["queue_depth_at_admission"] = self.waiting
+                update_queue = getattr(self.backend, "set_queue_depth", None)
+                if update_queue:
+                    update_queue(self.waiting)
+                record["queue_wait_ms"] = (time.perf_counter() - start) * 1000
+                async with aclosing(self.backend.events(request)) as stream:
+                    async for event in stream:
+                        if event["type"] == "prefill":
+                            record["prompt_tokens"] = event["prompt_tokens"]
+                            record["strategy"] = event.get("strategy", "standard")
+                            record["backend"] = event.get(
+                                "backend", dict(self.backend.identity)
+                            )
+                            record["fallback_reason"] = event.get("fallback_reason")
+                            record["policy"] = event.get("policy")
+                            record["native_slot"] = event.get("native_slot")
+                            record["native_slots"] = event.get("native_slots", 1)
+                            record["worker_startup_ms"] = getattr(
+                                self.backend, "worker_startup_ms", None
+                            )
+                            yield {
+                                "type": "start",
+                                "id": request_id,
+                                "model": self.model_id,
+                                "strategy": record["strategy"],
+                                "backend": record["backend"],
+                            }
+                        elif event["type"] == "token":
+                            now = time.perf_counter()
+                            record["completion_tokens"] += len(event["token_ids"])
+                            if event["text"]:
+                                if record["client_ttft_ms"] is None:
+                                    record["client_ttft_ms"] = (now - start) * 1000
+                                if previous_chunk is not None:
+                                    record["chunk_intervals_ms"].append(
+                                        (now - previous_chunk) * 1000
+                                    )
+                                previous_chunk = now
+                            yield event
+                        elif event["type"] == "backend_done":
+                            record.update(
+                                status="completed",
+                                completion_tokens=event["completion_tokens"],
+                                backend_timings=event["backend_timings"],
+                            )
+                            record["finish_reason"] = event["finish_reason"]
+                            record["tokens_cached"] = event.get("tokens_cached", 0)
+                if record["status"] != "completed":
+                    raise LatticeError(
+                        "Generation ended without a completion",
+                        502,
+                        "incomplete_generation",
+                    )
+        except TimeoutError as exc:
+            record["status"] = "timeout"
+            raise LatticeError(
+                "Request deadline exceeded, including queue wait",
+                504,
+                "request_timeout",
+            ) from exc
+        except LatticeError as exc:
+            record["status"] = "error"
+            record["error_code"] = exc.code
+            raise
+        except (asyncio.CancelledError, GeneratorExit):
+            record["status"] = "cancelled"
+            raise
+        except Exception as exc:
+            record["status"] = "error"
+            record["error_code"] = "internal_error"
+>           raise LatticeError(
+                "Request failed; consult operator logs", 500, "internal_error"
+            ) from exc
+E           lattice.types.LatticeError: Request failed; consult operator logs
+
+src/lattice/runtime.py:203: LatticeError
+_____________ test_cancelling_one_stream_does_not_cancel_the_other _____________
+
+fut = <_GatheringFuture finished exception=CancelledError()>, timeout = 10
+
+    async def wait_for(fut, timeout):
+        """Wait for the single Future or coroutine to complete, with timeout.
+    
+        Coroutine will be wrapped in Task.
+    
+        Returns result of the Future or coroutine.  When a timeout occurs,
+        it cancels the task and raises TimeoutError.  To avoid the task
+        cancellation, wrap it in shield().
+    
+        If the wait is cancelled, the task is also cancelled.
+    
+        If the task suppresses the cancellation and returns a value instead,
+        that value is returned.
+    
+        This function is a coroutine.
+        """
+        # The special case for timeout <= 0 is for the following case:
+        #
+        # async def test_waitfor():
+        #     func_started = False
+        #
+        #     async def func():
+        #         nonlocal func_started
+        #         func_started = True
+        #
+        #     try:
+        #         await asyncio.wait_for(func(), 0)
+        #     except asyncio.TimeoutError:
+        #         assert not func_started
+        #     else:
+        #         assert False
+        #
+        # asyncio.run(test_waitfor())
+    
+    
+        if timeout is not None and timeout <= 0:
+            fut = ensure_future(fut)
+    
+            if fut.done():
+                return fut.result()
+    
+            await _cancel_and_wait(fut)
+            try:
+                return fut.result()
+            except exceptions.CancelledError as exc:
+                raise TimeoutError from exc
+    
+        async with timeouts.timeout(timeout):
+>           return await fut
+                   ^^^^^^^^^
+
+/usr/lib/python3.13/asyncio/tasks.py:507: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <asyncio.locks.Event object at 0x7fd848a5ff50 [unset]>
+
+    async def wait(self):
+        """Block until the internal flag is true.
+    
+        If the internal flag is true on entry, return True
+        immediately.  Otherwise, block until another task calls
+        set() to set the flag to true, then return True.
+        """
+        if self._value:
+            return True
+    
+        fut = self._get_loop().create_future()
+        self._waiters.append(fut)
+        try:
+>           await fut
+E           asyncio.exceptions.CancelledError
+
+/usr/lib/python3.13/asyncio/locks.py:213: CancelledError
+
+The above exception was the direct cause of the following exception:
+
+batched = <lattice.runtime.Runtime object at 0x7fd848bf3b10>
+
+    async def test_cancelling_one_stream_does_not_cancel_the_other(batched):
+        runtime = batched
+        backend = runtime.backend
+        pid = backend.process.pid
+        events = [asyncio.Event(), asyncio.Event()]
+    
+        async def run(index):
+            tokens = []
+            async with aclosing(
+                runtime.events(
+                    request(
+                        runtime,
+                        prompt=f"Write a long numbered list of cities, starting at {index + 1}:",
+                        max_tokens=128,
+                    )
+                )
+            ) as stream:
+                async for event in stream:
+                    if event["type"] == "token":
+                        events[index].set()
+                        tokens.extend(event["token_ids"])
+                    elif event["type"] == "done":
+                        return tokens, event["record"]
+    
+        one = asyncio.create_task(run(0))
+        two = asyncio.create_task(run(1))
+        try:
+>           await asyncio.wait_for(asyncio.gather(*(event.wait() for event in events)), 10)
+
+tests/test_batched_serving.py:114: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.13/asyncio/tasks.py:506: in wait_for
+    async with timeouts.timeout(timeout):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Timeout [expired]>
+exc_type = <class 'asyncio.exceptions.CancelledError'>
+exc_val = CancelledError(), exc_tb = <traceback object at 0x7fd8489d5840>
+
+    async def __aexit__(
+        self,
+        exc_type: Optional[Type[BaseException]],
+        exc_val: Optional[BaseException],
+        exc_tb: Optional[TracebackType],
+    ) -> Optional[bool]:
+        assert self._state in (_State.ENTERED, _State.EXPIRING)
+    
+        if self._timeout_handler is not None:
+            self._timeout_handler.cancel()
+            self._timeout_handler = None
+    
+        if self._state is _State.EXPIRING:
+            self._state = _State.EXPIRED
+    
+            if self._task.uncancel() <= self._cancelling and exc_type is not None:
+                # Since there are no new cancel requests, we're
+                # handling this.
+                if issubclass(exc_type, exceptions.CancelledError):
+>                   raise TimeoutError from exc_val
+E                   TimeoutError
+
+/usr/lib/python3.13/asyncio/timeouts.py:116: TimeoutError
+_____________ test_timeout_during_prefill_does_not_interrupt_peer ______________
+
+fut = <coroutine object Event.wait at 0x7fd848accac0>, timeout = 10
+
+    async def wait_for(fut, timeout):
+        """Wait for the single Future or coroutine to complete, with timeout.
+    
+        Coroutine will be wrapped in Task.
+    
+        Returns result of the Future or coroutine.  When a timeout occurs,
+        it cancels the task and raises TimeoutError.  To avoid the task
+        cancellation, wrap it in shield().
+    
+        If the wait is cancelled, the task is also cancelled.
+    
+        If the task suppresses the cancellation and returns a value instead,
+        that value is returned.
+    
+        This function is a coroutine.
+        """
+        # The special case for timeout <= 0 is for the following case:
+        #
+        # async def test_waitfor():
+        #     func_started = False
+        #
+        #     async def func():
+        #         nonlocal func_started
+        #         func_started = True
+        #
+        #     try:
+        #         await asyncio.wait_for(func(), 0)
+        #     except asyncio.TimeoutError:
+        #         assert not func_started
+        #     else:
+        #         assert False
+        #
+        # asyncio.run(test_waitfor())
+    
+    
+        if timeout is not None and timeout <= 0:
+            fut = ensure_future(fut)
+    
+            if fut.done():
+                return fut.result()
+    
+            await _cancel_and_wait(fut)
+            try:
+                return fut.result()
+            except exceptions.CancelledError as exc:
+                raise TimeoutError from exc
+    
+        async with timeouts.timeout(timeout):
+>           return await fut
+                   ^^^^^^^^^
+
+/usr/lib/python3.13/asyncio/tasks.py:507: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <asyncio.locks.Event object at 0x7fd848a995b0 [unset]>
+
+    async def wait(self):
+        """Block until the internal flag is true.
+    
+        If the internal flag is true on entry, return True
+        immediately.  Otherwise, block until another task calls
+        set() to set the flag to true, then return True.
+        """
+        if self._value:
+            return True
+    
+        fut = self._get_loop().create_future()
+        self._waiters.append(fut)
+        try:
+>           await fut
+E           asyncio.exceptions.CancelledError
+
+/usr/lib/python3.13/asyncio/locks.py:213: CancelledError
+
+The above exception was the direct cause of the following exception:
+
+batched = <lattice.runtime.Runtime object at 0x7fd848bf2c10>
+
+    async def test_timeout_during_prefill_does_not_interrupt_peer(batched):
+        runtime = batched
+        backend = runtime.backend
+        pid = backend.process.pid
+        first = asyncio.Event()
+    
+        async def peer():
+            async with aclosing(
+                runtime.events(
+                    request(
+                        runtime,
+                        prompt="Write a long numbered list of cities:",
+                        max_tokens=128,
+                    )
+                )
+            ) as stream:
+                async for event in stream:
+                    if event["type"] == "token":
+                        first.set()
+                    if event["type"] == "done":
+                        return event["record"]
+    
+        task = asyncio.create_task(peer())
+        try:
+>           await asyncio.wait_for(first.wait(), 10)
+
+tests/test_batched_serving.py:159: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.13/asyncio/tasks.py:506: in wait_for
+    async with timeouts.timeout(timeout):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Timeout [expired]>
+exc_type = <class 'asyncio.exceptions.CancelledError'>
+exc_val = CancelledError(), exc_tb = <traceback object at 0x7fd84881fd00>
+
+    async def __aexit__(
+        self,
+        exc_type: Optional[Type[BaseException]],
+        exc_val: Optional[BaseException],
+        exc_tb: Optional[TracebackType],
+    ) -> Optional[bool]:
+        assert self._state in (_State.ENTERED, _State.EXPIRING)
+    
+        if self._timeout_handler is not None:
+            self._timeout_handler.cancel()
+            self._timeout_handler = None
+    
+        if self._state is _State.EXPIRING:
+            self._state = _State.EXPIRED
+    
+            if self._task.uncancel() <= self._cancelling and exc_type is not None:
+                # Since there are no new cancel requests, we're
+                # handling this.
+                if issubclass(exc_type, exceptions.CancelledError):
+>                   raise TimeoutError from exc_val
+E                   TimeoutError
+
+/usr/lib/python3.13/asyncio/timeouts.py:116: TimeoutError
+______________ test_shared_worker_constraints_do_not_restart_peer ______________
+
+self = <lattice.runtime.Runtime object at 0x7fd848bb4e90>
+request = GenerationRequest(model='qwen2.5-0.5b-instruct-f16', prompt='Hello', messages=None, max_tokens=4, temperature=0.0, see...ompute_ms=None, optimization=Optimization(mode='adaptive', profile='balanced', allow_fallback=True, draft_tokens=None))
+
+    async def events(self, request: GenerationRequest) -> AsyncIterator[dict]:
+        if self.backend_factory is not None:
+            select_model(self.settings, request.model)
+        elif request.model != self.model_id:
+            raise LatticeError(
+                "This worker serves a different model; no routing was performed",
+                404,
+                "model_not_served",
+            )
+        if self.lock.locked() and self.waiting >= self.settings.max_queue:
+            self.counters["rejected_queue_full"] += 1
+            raise LatticeError("Request queue is full; retry later", 429, "queue_full")
+        request_id = "lattice-" + uuid.uuid4().hex
+        start = time.perf_counter()
+        self.waiting += 1
+        acquired = False
+        queued = True
+        record = {
+            "id": request_id,
+            "created_utc": datetime.datetime.now(datetime.UTC).isoformat(),
+            "model": request.model,
+            "backend": None,
+            "strategy": None,
+            "status": "cancelled",
+            "queue_wait_ms": None,
+            "client_ttft_ms": None,
+            "total_ms": None,
+            "prompt_tokens": None,
+            "completion_tokens": 0,
+            "max_tokens": request.max_tokens,
+            "priority": request.priority,
+            "max_memory_mb": request.max_memory_mb,
+            "latency_budget_ms": request.latency_budget_ms,
+            "temperature": request.temperature,
+            "seed": request.seed,
+            "context_tokens": self.settings.context_tokens,
+            "backend_timings": None,
+            "chunk_intervals_ms": [],
+            "quality": None,
+        }
+        previous_chunk = None
+        try:
+            async with asyncio.timeout(request.timeout_seconds):
+                await self.lock.acquire(request.priority)
+                acquired = True
+                if request.model != self.model_id:
+                    self.backend.stop()
+                    self.backend = self.backend_factory(
+                        select_model(self.settings, request.model)
+                    )
+                    self.model_id = request.model
+                self.waiting -= 1
+                queued = False
+                record["queue_depth_at_admission"] = self.waiting
+                update_queue = getattr(self.backend, "set_queue_depth", None)
+                if update_queue:
+                    update_queue(self.waiting)
+                record["queue_wait_ms"] = (time.perf_counter() - start) * 1000
+                async with aclosing(self.backend.events(request)) as stream:
+>                   async for event in stream:
+
+src/lattice/runtime.py:139: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/lattice/backends/batched.py:227: in events
+    if witnessed:
+src/lattice/backends/llama_cpp.py:484: in events
+    "POST", "/completion", json=body, headers=self.completion_headers()
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <lattice.backends.batched.BatchedLlamaBackend object at 0x7fd848bf2350>
+execution_context = None
+
+            task.cancel()
+    super().stop()
+    for lease in list(self._quarantined):
+>       self._release(lease)
+E       RuntimeError: Missing stream identity
+
+src/lattice/backends/batched.py:123: RuntimeError
+
+The above exception was the direct cause of the following exception:
+
+batched = <lattice.runtime.Runtime object at 0x7fd848bb4e90>
+
+    async def test_shared_worker_constraints_do_not_restart_peer(batched):
+        runtime = batched
+        pid = runtime.backend.process.pid
+        with pytest.raises(LatticeError) as error:
+            await runtime.generate(
+                request(runtime, prompt="Hello", max_tokens=4, max_memory_mb=1024)
+            )
+        assert error.value.code == "budget_infeasible"
+        with pytest.raises(LatticeError) as error:
+            await runtime.generate(
+                request(
+                    runtime,
+                    prompt="Hello",
+                    max_tokens=4,
+                    optimization={"mode": "cached", "allow_fallback": False},
+                )
+            )
+        assert error.value.code == "concurrent_strategy_unqualified"
+>       result = await runtime.generate(
+            request(
+                runtime, prompt="Hello", max_tokens=4, optimization={"mode": "adaptive"}
+            )
+        )
+
+tests/test_batched_serving.py:201: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/lattice/runtime.py:223: in generate
+    async for event in stream:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <lattice.runtime.Runtime object at 0x7fd848bb4e90>
+request = GenerationRequest(model='qwen2.5-0.5b-instruct-f16', prompt='Hello', messages=None, max_tokens=4, temperature=0.0, see...ompute_ms=None, optimization=Optimization(mode='adaptive', profile='balanced', allow_fallback=True, draft_tokens=None))
+
+    async def events(self, request: GenerationRequest) -> AsyncIterator[dict]:
+        if self.backend_factory is not None:
+            select_model(self.settings, request.model)
+        elif request.model != self.model_id:
+            raise LatticeError(
+                "This worker serves a different model; no routing was performed",
+                404,
+                "model_not_served",
+            )
+        if self.lock.locked() and self.waiting >= self.settings.max_queue:
+            self.counters["rejected_queue_full"] += 1
+            raise LatticeError("Request queue is full; retry later", 429, "queue_full")
+        request_id = "lattice-" + uuid.uuid4().hex
+        start = time.perf_counter()
+        self.waiting += 1
+        acquired = False
+        queued = True
+        record = {
+            "id": request_id,
+            "created_utc": datetime.datetime.now(datetime.UTC).isoformat(),
+            "model": request.model,
+            "backend": None,
+            "strategy": None,
+            "status": "cancelled",
+            "queue_wait_ms": None,
+            "client_ttft_ms": None,
+            "total_ms": None,
+            "prompt_tokens": None,
+            "completion_tokens": 0,
+            "max_tokens": request.max_tokens,
+            "priority": request.priority,
+            "max_memory_mb": request.max_memory_mb,
+            "latency_budget_ms": request.latency_budget_ms,
+            "temperature": request.temperature,
+            "seed": request.seed,
+            "context_tokens": self.settings.context_tokens,
+            "backend_timings": None,
+            "chunk_intervals_ms": [],
+            "quality": None,
+        }
+        previous_chunk = None
+        try:
+            async with asyncio.timeout(request.timeout_seconds):
+                await self.lock.acquire(request.priority)
+                acquired = True
+                if request.model != self.model_id:
+                    self.backend.stop()
+                    self.backend = self.backend_factory(
+                        select_model(self.settings, request.model)
+                    )
+                    self.model_id = request.model
+                self.waiting -= 1
+                queued = False
+                record["queue_depth_at_admission"] = self.waiting
+                update_queue = getattr(self.backend, "set_queue_depth", None)
+                if update_queue:
+                    update_queue(self.waiting)
+                record["queue_wait_ms"] = (time.perf_counter() - start) * 1000
+                async with aclosing(self.backend.events(request)) as stream:
+                    async for event in stream:
+                        if event["type"] == "prefill":
+                            record["prompt_tokens"] = event["prompt_tokens"]
+                            record["strategy"] = event.get("strategy", "standard")
+                            record["backend"] = event.get(
+                                "backend", dict(self.backend.identity)
+                            )
+                            record["fallback_reason"] = event.get("fallback_reason")
+                            record["policy"] = event.get("policy")
+                            record["native_slot"] = event.get("native_slot")
+                            record["native_slots"] = event.get("native_slots", 1)
+                            record["worker_startup_ms"] = getattr(
+                                self.backend, "worker_startup_ms", None
+                            )
+                            yield {
+                                "type": "start",
+                                "id": request_id,
+                                "model": self.model_id,
+                                "strategy": record["strategy"],
+                                "backend": record["backend"],
+                            }
+                        elif event["type"] == "token":
+                            now = time.perf_counter()
+                            record["completion_tokens"] += len(event["token_ids"])
+                            if event["text"]:
+                                if record["client_ttft_ms"] is None:
+                                    record["client_ttft_ms"] = (now - start) * 1000
+                                if previous_chunk is not None:
+                                    record["chunk_intervals_ms"].append(
+                                        (now - previous_chunk) * 1000
+                                    )
+                                previous_chunk = now
+                            yield event
+                        elif event["type"] == "backend_done":
+                            record.update(
+                                status="completed",
+                                completion_tokens=event["completion_tokens"],
+                                backend_timings=event["backend_timings"],
+                            )
+                            record["finish_reason"] = event["finish_reason"]
+                            record["tokens_cached"] = event.get("tokens_cached", 0)
+                if record["status"] != "completed":
+                    raise LatticeError(
+                        "Generation ended without a completion",
+                        502,
+                        "incomplete_generation",
+                    )
+        except TimeoutError as exc:
+            record["status"] = "timeout"
+            raise LatticeError(
+                "Request deadline exceeded, including queue wait",
+                504,
+                "request_timeout",
+            ) from exc
+        except LatticeError as exc:
+            record["status"] = "error"
+            record["error_code"] = exc.code
+            raise
+        except (asyncio.CancelledError, GeneratorExit):
+            record["status"] = "cancelled"
+            raise
+        except Exception as exc:
+            record["status"] = "error"
+            record["error_code"] = "internal_error"
+>           raise LatticeError(
+                "Request failed; consult operator logs", 500, "internal_error"
+            ) from exc
+E           lattice.types.LatticeError: Request failed; consult operator logs
+
+src/lattice/runtime.py:203: LatticeError
+=========================== short test summary info ============================
+FAILED tests/test_live_batched_server.py::test_http_cancel_keeps_peer_and_shared_worker_alive
+FAILED tests/test_batched_serving.py::test_short_request_finishes_while_long_request_is_still_generating
+FAILED tests/test_batched_serving.py::test_cancelling_one_stream_does_not_cancel_the_other
+FAILED tests/test_batched_serving.py::test_timeout_during_prefill_does_not_interrupt_peer
+FAILED tests/test_batched_serving.py::test_shared_worker_constraints_do_not_restart_peer
+5 failed in 50.52s

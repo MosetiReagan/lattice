@@ -1,0 +1,76 @@
+{
+  "pid_unchanged": true,
+  "short_record": {
+    "id": "lattice-683b1b23867e4ec683972be365449263",
+    "created_utc": "2026-11-19T22:51:05.197487+00:00",
+    "model": "qwen2.5-0.5b-instruct-f16",
+    "backend": {
+      "name": "llama.cpp",
+      "commit": "b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+      "binary_sha256": "9e954cd7ced8851cbcd03170fb93ed864cdf5c7f38b743a5f8481e5235ea1b7b",
+      "model_sha256": "8e0ae26000627ed62de0e78e41860af70094558b9d2913385c842a6aa06cf3fc",
+      "precision": "GGUF F16 (mixed tensor types)",
+      "device": "cpu",
+      "strategy": "standard",
+      "native_slots": 2
+    },
+    "strategy": "standard",
+    "status": "completed",
+    "queue_wait_ms": 0.05991000034555327,
+    "client_ttft_ms": 55.339500000627595,
+    "total_ms": 218.190906000018,
+    "prompt_tokens": 4,
+    "completion_tokens": 8,
+    "max_tokens": 8,
+    "priority": 0,
+    "max_memory_mb": null,
+    "latency_budget_ms": null,
+    "temperature": 0.0,
+    "seed": 0,
+    "context_tokens": 2048,
+    "backend_timings": {
+      "cache_n": 0,
+      "prompt_n": 4,
+      "prompt_ms": 35.15,
+      "prompt_per_token_ms": 8.7875,
+      "prompt_per_second": 113.79800853485064,
+      "predicted_n": 8,
+      "predicted_ms": 142.238,
+      "predicted_per_token_ms": 20.319714285714287,
+      "predicted_per_second": 49.21329040059618
+    },
+    "chunk_intervals_ms": [
+      19.466743999146274,
+      18.210232999990694,
+      18.23982300084026,
+      19.322852998811868,
+      18.125943000995903,
+      18.942783999591484,
+      33.40694399958011
+    ],
+    "quality": null,
+    "queue_depth_at_admission": 0,
+    "fallback_reason": null,
+    "policy": null,
+    "native_slot": 1,
+    "native_slots": 2,
+    "worker_startup_ms": 1712.4760649985546,
+    "finish_reason": "length",
+    "tokens_cached": 0,
+    "latency_budget_met": null
+  },
+  "slots": {
+    "capacity": 2,
+    "free": 2,
+    "leased": 0,
+    "quarantined": 0,
+    "cleanup_tasks": 0,
+    "verified_cancellations": 1,
+    "unconfirmed_cleanup": 0,
+    "drained_worker_retirements": 0
+  },
+  "native_contexts": [
+    2048,
+    2048
+  ]
+}

@@ -150,7 +150,11 @@ def create_app(
                 task.cancel()
             if job_tasks:
                 await asyncio.gather(*job_tasks, return_exceptions=True)
-            runtime.backend.stop()
+            close = getattr(runtime.backend, "aclose", None)
+            if close:
+                await close()
+            else:
+                runtime.backend.stop()
 
     app = FastAPI(title="Lattice baseline", version="0.2.0.dev0", lifespan=lifespan)
     app.add_middleware(
@@ -197,9 +201,11 @@ def create_app(
         return {
             "default_strategy": "standard",
             "selected_strategy": runtime.backend.identity.get("strategy", "standard"),
-            "adaptive": bool(settings.policy_file),
-            "speculative": bool(settings.draft_model_id),
-            "prefix_reuse": True,
+            "adaptive": bool(settings.policy_file) and settings.native_slots == 1,
+            "speculative": bool(settings.draft_model_id) and settings.native_slots == 1,
+            "prefix_reuse": settings.native_slots == 1,
+            "native_slots": settings.native_slots,
+            "concurrent_standard": settings.native_slots > 1,
             "native_stochastic_speculation": False,
             "note": "Greedy, evidence-scoped paths only. Default is standard; quality-unqualified variants are explicit-only.",
         }

@@ -14,7 +14,7 @@ from pathlib import Path
 
 from .backends import Backend
 from .config import ModelEntry, Settings, select_model
-from .scheduler.fair import FairLock
+from .scheduler.fair import FairSemaphore
 from .types import GenerationRequest, LatticeError
 
 
@@ -28,7 +28,13 @@ class Runtime:
     ):
         self.settings, self.model_id, self.backend = settings, model_id, backend
         self.backend_factory = backend_factory
-        self.lock = FairLock()
+        if settings.native_slots > 1 and backend_factory is not None:
+            raise ValueError(
+                "Concurrent serving pins one model; model swapping requires serial admission"
+            )
+        if settings.native_slots > getattr(backend, "native_slots", 1):
+            raise ValueError("Admission capacity exceeds backend slot capacity")
+        self.lock = FairSemaphore(settings.native_slots)
         self.waiting = 0
         self.counters: Counter = Counter()
         self.recent: deque = deque(maxlen=100)
@@ -37,7 +43,9 @@ class Runtime:
         return {
             "counters": dict(self.counters),
             "queue_depth": self.waiting,
-            "active_requests": int(self.lock.locked()),
+            "active_requests": self.lock.active,
+            "max_active_requests": self.settings.native_slots,
+            "backend_slots": getattr(self.backend, "slot_stats", lambda: None)(),
             "recent": list(self.recent),
             "unavailable": [
                 "gpu_memory",
@@ -90,8 +98,8 @@ class Runtime:
             "id": request_id,
             "created_utc": datetime.datetime.now(datetime.UTC).isoformat(),
             "model": request.model,
-            "backend": dict(self.backend.identity),
-            "strategy": "standard",
+            "backend": None,
+            "strategy": None,
             "status": "cancelled",
             "queue_wait_ms": None,
             "client_ttft_ms": None,
@@ -137,6 +145,8 @@ class Runtime:
                             )
                             record["fallback_reason"] = event.get("fallback_reason")
                             record["policy"] = event.get("policy")
+                            record["native_slot"] = event.get("native_slot")
+                            record["native_slots"] = event.get("native_slots", 1)
                             record["worker_startup_ms"] = getattr(
                                 self.backend, "worker_startup_ms", None
                             )

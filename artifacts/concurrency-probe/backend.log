@@ -1,0 +1,27 @@
+warning: no usable GPU found, --gpu-layers option will be ignored
+warning: one possible reason is that llama.cpp was compiled without GPU support
+warning: consult docs/build.md for compilation instructions
+0.00.004.817 I srv  llama_server: initializing ...
+0.00.004.834 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.004.921 I srv  init_listene: The UI is disabled
+0.00.004.924 I srv  init_listene: Use --ui/--no-ui (or deprecated --webui/--no-webui) to enable/disable
+0.00.006.389 I srv    load_model: loading model '/data/workspace/lattice/models/qwen2.5-0.5b-instruct-fp16.gguf'
+0.00.235.697 W load: control-looking token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden
+0.00.283.948 I cmn          init: llama threadpool init, n_threads = 4
+0.00.306.960 I srv    load_model: initializing, n_slots = 2, n_ctx_slot = 2048, kv_unified = 'false'
+0.00.310.178 I srv  server_run_i: model loaded
+0.00.310.204 I srv  server_on_li: listening on http://127.0.0.1:52831
+0.00.348.016 I slot get_availabl: id  0 | task -1 | selected slot by id (0)
+0.00.348.067 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.00.398.888 I slot get_availabl: id  1 | task -1 | selected slot by id (1)
+0.00.398.911 I slot launch_slot_: id  1 | task 3 | processing task, is_child = 0
+0.00.576.363 I slot print_timing: id  1 | task 3 | prompt eval time =      35.15 ms /     4 tokens (    8.79 ms per token,   113.80 tokens per second)
+0.00.576.401 I slot print_timing: id  1 | task 3 |        eval time =     142.24 ms /     8 tokens (   20.32 ms per token,    49.21 tokens per second)
+0.00.576.402 I slot print_timing: id  1 | task 3 |       total time =     177.39 ms /    12 tokens
+0.00.576.411 I slot print_timing: id  1 | task 3 |    graphs reused =          6
+0.00.576.411 I slot print_timing: id  1 | task 3 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.00.576.608 I slot      release: id  1 | task 3 | stop processing: n_tokens = 11, truncated = 0
+0.00.611.517 W srv          stop: cancel task, id_task = 0
+0.00.611.603 I slot      release: id  0 | task 0 | stop processing: n_tokens = 22, truncated = 0
+0.00.637.193 W srv  evict_and_ca: stop on unknown stream session, conv_id=lattice-9b473e2520164810b73875975d57d937 matched nothing, 0 live: []
+0.00.643.534 I srv    operator(): operator(): cleaning up before exit...

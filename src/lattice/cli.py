@@ -12,7 +12,7 @@ from pathlib import Path
 
 from pydantic import ValidationError
 
-from .backends.llama_cpp import LlamaCppBackend
+from .backends import create_backend
 from .config import load_settings, public_model, select_model
 from .runtime import Runtime
 from .types import GenerationRequest, LatticeError
@@ -47,6 +47,7 @@ def parser():
             sub.add_argument("--stream", action="store_true")
             sub.add_argument("--json", action="store_true")
         else:
+            sub.add_argument("--native-slots", type=int, choices=[1, 2, 3, 4])
             sub.add_argument("--host", default="127.0.0.1")
             sub.add_argument("--port", type=int, default=8000)
     for name in ["benchmark", "profile"]:
@@ -77,7 +78,7 @@ def parser():
 async def run_generation(settings, entry, args):
     if args.draft_model:
         settings.draft_model_id = args.draft_model
-    backend = LlamaCppBackend(settings, entry)
+    backend = create_backend(settings, entry)
     runtime = Runtime(settings, entry.id, backend)
     request = GenerationRequest(
         model=entry.id,
@@ -107,7 +108,11 @@ async def run_generation(settings, entry, args):
                 print(result["text"])
                 print(json.dumps(result["metadata"]), file=sys.stderr)
     finally:
-        backend.stop()
+        close = getattr(backend, "aclose", None)
+        if close:
+            await close()
+        else:
+            backend.stop()
 
 
 def main():
@@ -249,13 +254,15 @@ def main():
                 raise LatticeError(
                     "Set LATTICE_API_KEY before binding a non-loopback interface"
                 )
-            backend = LlamaCppBackend(settings, entry)
-            runtime = Runtime(
-                settings,
-                entry.id,
-                backend,
-                backend_factory=lambda model: LlamaCppBackend(settings, model),
+            if args.native_slots is not None:
+                settings.native_slots = args.native_slots
+            backend = create_backend(settings, entry)
+            factory = (
+                None
+                if settings.native_slots > 1
+                else lambda model: create_backend(settings, model)
             )
+            runtime = Runtime(settings, entry.id, backend, backend_factory=factory)
             uvicorn.run(
                 create_app(settings, runtime, key),
                 host=args.host,

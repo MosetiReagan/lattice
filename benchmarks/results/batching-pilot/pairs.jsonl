@@ -1,0 +1,4 @@
+{"trial": 0, "slots": 2, "makespan_ms": 1555.5128720006905, "short_finished_before_long": true}
+{"trial": 0, "slots": 1, "makespan_ms": 1694.3569520008168, "short_finished_before_long": false}
+{"trial": 1, "slots": 2, "makespan_ms": 1661.0302980006963, "short_finished_before_long": true}
+{"trial": 1, "slots": 1, "makespan_ms": 1643.9983150012267, "short_finished_before_long": false}

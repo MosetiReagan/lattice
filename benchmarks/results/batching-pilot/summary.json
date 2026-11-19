@@ -1,0 +1,807 @@
+{
+  "quality": {
+    "source_sha256": "e12ca0ff7210dcb8d34eb39da8efd5ff511b01515505ced60fd452df8ab5d0c3",
+    "outcomes": {
+      "1": [
+        {
+          "id": "math-0",
+          "passed": false,
+          "token_ids": [
+            785,
+            21937,
+            220,
+            16,
+            22,
+            488,
+            220,
+            17,
+            20,
+            16819,
+            220,
+            19,
+            17,
+            13,
+            151645
+          ],
+          "text": "The calculation 17 + 25 equals 42."
+        },
+        {
+          "id": "math-1",
+          "passed": false,
+          "token_ids": [
+            785,
+            21937,
+            220,
+            24,
+            353,
+            220,
+            23,
+            16819,
+            220,
+            22,
+            17,
+            13,
+            151645
+          ],
+          "text": "The calculation 9 * 8 equals 72."
+        },
+        {
+          "id": "math-2",
+          "passed": false,
+          "token_ids": [
+            785,
+            21937,
+            220,
+            16,
+            15,
+            15,
+            481,
+            220,
+            18,
+            22,
+            16819,
+            220,
+            21,
+            18,
+            13,
+            151645
+          ],
+          "text": "The calculation 100 - 37 equals 63."
+        },
+        {
+          "id": "math-3",
+          "passed": false,
+          "token_ids": [
+            785,
+            21937,
+            220,
+            19,
+            23,
+            608,
+            220,
+            21,
+            16819,
+            220,
+            23,
+            13,
+            151645
+          ],
+          "text": "The calculation 48 / 6 equals 8."
+        },
+        {
+          "id": "reasoning-0",
+          "passed": false,
+          "token_ids": [
+            9454,
+            13,
+            151645
+          ],
+          "text": "Yes."
+        },
+        {
+          "id": "reasoning-1",
+          "passed": false,
+          "token_ids": [
+            9454,
+            151645
+          ],
+          "text": "Yes"
+        },
+        {
+          "id": "reasoning-2",
+          "passed": false,
+          "token_ids": [
+            90173,
+            374,
+            7589,
+            13,
+            151645
+          ],
+          "text": "Tomorrow is Tuesday."
+        },
+        {
+          "id": "reasoning-3",
+          "passed": false,
+          "token_ids": [
+            9454,
+            151645
+          ],
+          "text": "Yes"
+        },
+        {
+          "id": "json-0",
+          "passed": false,
+          "token_ids": [
+            73594,
+            2236,
+            198,
+            515,
+            220,
+            330,
+            1158,
+            788,
+            330,
+            7141,
+            698,
+            532,
+            73594,
+            151645
+          ],
+          "text": "```json\n{\n  \"word\": \"alpha\"\n}\n```"
+        },
+        {
+          "id": "json-1",
+          "passed": false,
+          "token_ids": [
+            73594,
+            2236,
+            198,
+            515,
+            220,
+            330,
+            1158,
+            788,
+            330,
+            12203,
+            698,
+            532,
+            73594,
+            151645
+          ],
+          "text": "```json\n{\n  \"word\": \"blue\"\n}\n```"
+        },
+        {
+          "id": "json-2",
+          "passed": false,
+          "token_ids": [
+            73594,
+            2236,
+            198,
+            515,
+            220,
+            330,
+            4082,
+            788,
+            220,
+            22,
+            198,
+            532,
+            73594,
+            151645
+          ],
+          "text": "```json\n{\n  \"number\": 7\n}\n```"
+        },
+        {
+          "id": "json-3",
+          "passed": true,
+          "token_ids": [
+            515,
+            220,
+            330,
+            15868,
+            788,
+            895,
+            198,
+            92,
+            151645
+          ],
+          "text": "{\n  \"enabled\": false\n}"
+        },
+        {
+          "id": "instruction-0",
+          "passed": true,
+          "token_ids": [
+            45578,
+            151645
+          ],
+          "text": "READY"
+        },
+        {
+          "id": "instruction-1",
+          "passed": true,
+          "token_ids": [
+            70396,
+            151645
+          ],
+          "text": "DONE"
+        },
+        {
+          "id": "instruction-2",
+          "passed": true,
+          "token_ids": [
+            50712,
+            1593,
+            151645
+          ],
+          "text": "HELLO"
+        },
+        {
+          "id": "instruction-3",
+          "passed": true,
+          "token_ids": [
+            3925,
+            151645
+          ],
+          "text": "OK"
+        },
+        {
+          "id": "retrieval-0",
+          "passed": true,
+          "token_ids": [
+            12203,
+            151645
+          ],
+          "text": "blue"
+        },
+        {
+          "id": "retrieval-1",
+          "passed": true,
+          "token_ids": [
+            1151,
+            151645
+          ],
+          "text": "red"
+        },
+        {
+          "id": "retrieval-2",
+          "passed": true,
+          "token_ids": [
+            13250,
+            151645
+          ],
+          "text": "green"
+        },
+        {
+          "id": "retrieval-3",
+          "passed": true,
+          "token_ids": [
+            34537,
+            151645
+          ],
+          "text": "gold"
+        },
+        {
+          "id": "coding-0",
+          "passed": true,
+          "token_ids": [
+            73594,
+            12669,
+            198,
+            750,
+            912,
+            2877,
+            11,
+            293,
+            982,
+            262,
+            470,
+            264,
+            488,
+            293,
+            198,
+            73594,
+            151645
+          ],
+          "text": "```python\ndef add(a, b):\n    return a + b\n```"
+        },
+        {
+          "id": "coding-1",
+          "passed": true,
+          "token_ids": [
+            73594,
+            12669,
+            198,
+            750,
+            912,
+            2877,
+            11,
+            293,
+            982,
+            262,
+            470,
+            264,
+            488,
+            293,
+            198,
+            73594,
+            151645
+          ],
+          "text": "```python\ndef add(a, b):\n    return a + b\n```"
+        }
+      ],
+      "2": [
+        {
+          "id": "math-0",
+          "passed": false,
+          "token_ids": [
+            785,
+            21937,
+            220,
+            16,
+            22,
+            488,
+            220,
+            17,
+            20,
+            16819,
+            220,
+            19,
+            17,
+            13,
+            151645
+          ],
+          "text": "The calculation 17 + 25 equals 42."
+        },
+        {
+          "id": "math-1",
+          "passed": false,
+          "token_ids": [
+            785,
+            21937,
+            220,
+            24,
+            353,
+            220,
+            23,
+            16819,
+            220,
+            22,
+            17,
+            13,
+            151645
+          ],
+          "text": "The calculation 9 * 8 equals 72."
+        },
+        {
+          "id": "math-2",
+          "passed": false,
+          "token_ids": [
+            785,
+            21937,
+            220,
+            16,
+            15,
+            15,
+            481,
+            220,
+            18,
+            22,
+            16819,
+            220,
+            21,
+            18,
+            13,
+            151645
+          ],
+          "text": "The calculation 100 - 37 equals 63."
+        },
+        {
+          "id": "math-3",
+          "passed": false,
+          "token_ids": [
+            785,
+            21937,
+            220,
+            19,
+            23,
+            608,
+            220,
+            21,
+            16819,
+            220,
+            23,
+            13,
+            151645
+          ],
+          "text": "The calculation 48 / 6 equals 8."
+        },
+        {
+          "id": "reasoning-0",
+          "passed": false,
+          "token_ids": [
+            9454,
+            13,
+            151645
+          ],
+          "text": "Yes."
+        },
+        {
+          "id": "reasoning-1",
+          "passed": false,
+          "token_ids": [
+            9454,
+            151645
+          ],
+          "text": "Yes"
+        },
+        {
+          "id": "reasoning-2",
+          "passed": false,
+          "token_ids": [
+            90173,
+            374,
+            7589,
+            13,
+            151645
+          ],
+          "text": "Tomorrow is Tuesday."
+        },
+        {
+          "id": "reasoning-3",
+          "passed": false,
+          "token_ids": [
+            9454,
+            151645
+          ],
+          "text": "Yes"
+        },
+        {
+          "id": "json-0",
+          "passed": false,
+          "token_ids": [
+            73594,
+            2236,
+            198,
+            515,
+            220,
+            330,
+            1158,
+            788,
+            330,
+            7141,
+            698,
+            532,
+            73594,
+            151645
+          ],
+          "text": "```json\n{\n  \"word\": \"alpha\"\n}\n```"
+        },
+        {
+          "id": "json-1",
+          "passed": false,
+          "token_ids": [
+            73594,
+            2236,
+            198,
+            515,
+            220,
+            330,
+            1158,
+            788,
+            330,
+            12203,
+            698,
+            532,
+            73594,
+            151645
+          ],
+          "text": "```json\n{\n  \"word\": \"blue\"\n}\n```"
+        },
+        {
+          "id": "json-2",
+          "passed": false,
+          "token_ids": [
+            73594,
+            2236,
+            198,
+            515,
+            220,
+            330,
+            4082,
+            788,
+            220,
+            22,
+            198,
+            532,
+            73594,
+            151645
+          ],
+          "text": "```json\n{\n  \"number\": 7\n}\n```"
+        },
+        {
+          "id": "json-3",
+          "passed": true,
+          "token_ids": [
+            515,
+            220,
+            330,
+            15868,
+            788,
+            895,
+            198,
+            92,
+            151645
+          ],
+          "text": "{\n  \"enabled\": false\n}"
+        },
+        {
+          "id": "instruction-0",
+          "passed": true,
+          "token_ids": [
+            45578,
+            151645
+          ],
+          "text": "READY"
+        },
+        {
+          "id": "instruction-1",
+          "passed": true,
+          "token_ids": [
+            70396,
+            151645
+          ],
+          "text": "DONE"
+        },
+        {
+          "id": "instruction-2",
+          "passed": true,
+          "token_ids": [
+            50712,
+            1593,
+            151645
+          ],
+          "text": "HELLO"
+        },
+        {
+          "id": "instruction-3",
+          "passed": true,
+          "token_ids": [
+            3925,
+            151645
+          ],
+          "text": "OK"
+        },
+        {
+          "id": "retrieval-0",
+          "passed": true,
+          "token_ids": [
+            12203,
+            151645
+          ],
+          "text": "blue"
+        },
+        {
+          "id": "retrieval-1",
+          "passed": true,
+          "token_ids": [
+            1151,
+            151645
+          ],
+          "text": "red"
+        },
+        {
+          "id": "retrieval-2",
+          "passed": true,
+          "token_ids": [
+            13250,
+            151645
+          ],
+          "text": "green"
+        },
+        {
+          "id": "retrieval-3",
+          "passed": true,
+          "token_ids": [
+            34537,
+            151645
+          ],
+          "text": "gold"
+        },
+        {
+          "id": "coding-0",
+          "passed": true,
+          "token_ids": [
+            73594,
+            12669,
+            198,
+            750,
+            912,
+            2877,
+            11,
+            293,
+            982,
+            262,
+            470,
+            264,
+            488,
+            293,
+            198,
+            73594,
+            151645
+          ],
+          "text": "```python\ndef add(a, b):\n    return a + b\n```"
+        },
+        {
+          "id": "coding-1",
+          "passed": true,
+          "token_ids": [
+            73594,
+            12669,
+            198,
+            750,
+            912,
+            2877,
+            11,
+            293,
+            982,
+            262,
+            470,
+            264,
+            488,
+            293,
+            198,
+            73594,
+            151645
+          ],
+          "text": "```python\ndef add(a, b):\n    return a + b\n```"
+        }
+      ]
+    },
+    "greedy_mismatches": [],
+    "scope": "Public 22-task smoke suite, not representative held-out task noninferiority"
+  },
+  "arms": {
+    "slots-1": {
+      "short_latency_ms": {
+        "n": 2,
+        "mean": 1590.8277574999374,
+        "stddev": 37.91130308948187,
+        "median": 1590.8277574999374,
+        "p50": 1590.8277574999374,
+        "p90": 1612.2736290984903,
+        "p95": 1614.9543630483095,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "short_ttft_ms": {
+        "n": 2,
+        "mean": 1516.9423844999983,
+        "stddev": 36.023552844611906,
+        "median": 1516.9423844999983,
+        "p50": 1516.9423844999983,
+        "p90": 1537.320383299084,
+        "p95": 1539.8676331489696,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "short_queue_ms": {
+        "n": 2,
+        "mean": 1457.5845875006053,
+        "stddev": 30.691715986747475,
+        "median": 1457.5845875006053,
+        "p50": 1457.5845875006053,
+        "p90": 1474.9464439009898,
+        "p95": 1477.116675951038,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "long_latency_ms": {
+        "n": 2,
+        "mean": 1535.276217999126,
+        "stddev": 28.4461067730706,
+        "median": 1535.276217999126,
+        "p50": 1535.276217999126,
+        "p90": 1551.3677659972018,
+        "p95": 1553.3792094969613,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "makespan_ms": {
+        "n": 2,
+        "mean": 1669.1776335010218,
+        "stddev": 35.608933713721925,
+        "median": 1669.1776335010218,
+        "p50": 1669.1776335010218,
+        "p90": 1689.3210883008578,
+        "p95": 1691.8390201508373,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "short_finished_before_long": 0,
+      "worker_rss_bytes": {
+        "n": 4,
+        "mean": 1367318528,
+        "stddev": 37837.22724161131,
+        "median": 1367318528.0,
+        "p50": 1367318528.0,
+        "p90": 1367351296.0,
+        "p95": 1367351296.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "worker_swap_observed_trials": 0,
+      "aggregate_generated_tokens_per_second": 81.47724799951122
+    },
+    "slots-2": {
+      "short_latency_ms": {
+        "n": 2,
+        "mean": 206.28592249886424,
+        "stddev": 8.26879285639253,
+        "median": 206.28592249886424,
+        "p50": 206.28592249886424,
+        "p90": 210.96345809964987,
+        "p95": 211.54815004974807,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "short_ttft_ms": {
+        "n": 2,
+        "mean": 66.2922619976598,
+        "stddev": 0.5478026937106596,
+        "median": 66.2922619976598,
+        "p50": 66.2922619976598,
+        "p90": 66.60214599723986,
+        "p95": 66.64088149718737,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "short_queue_ms": {
+        "n": 2,
+        "mean": 0.05159499960427638,
+        "stddev": 0.0020011135370402236,
+        "median": 0.05159499960427638,
+        "p50": 0.05159499960427638,
+        "p90": 0.05272700036584865,
+        "p95": 0.05286850046104519,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "long_latency_ms": {
+        "n": 2,
+        "mean": 1607.8710144993238,
+        "stddev": 74.6009144632094,
+        "median": 1607.8710144993238,
+        "p50": 1607.8710144993238,
+        "p90": 1650.0716644990462,
+        "p95": 1655.3467457490115,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "makespan_ms": {
+        "n": 2,
+        "mean": 1608.2715850006934,
+        "stddev": 74.61208745795382,
+        "median": 1608.2715850006934,
+        "p50": 1608.2715850006934,
+        "p90": 1650.4785554006958,
+        "p95": 1655.754426700696,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "short_finished_before_long": 2,
+      "worker_rss_bytes": {
+        "n": 4,
+        "mean": 1394972672,
+        "stddev": 2364.826702600707,
+        "median": 1394972672.0,
+        "p50": 1394972672.0,
+        "p90": 1394974720.0,
+        "p95": 1394974720.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "worker_swap_observed_trials": 0,
+      "aggregate_generated_tokens_per_second": 84.56283209153469
+    }
+  }
+}
