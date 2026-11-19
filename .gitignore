@@ -10,3 +10,4 @@ artifacts/*.log
 artifacts/requests.jsonl
 benchmarks/results/**/private/
 benchmarks/datasets/external/
+benchmarks/datasets/generated/

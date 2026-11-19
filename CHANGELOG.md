@@ -1,5 +1,13 @@
 # Changelog
 
+## Dataset intake-v1 — unreleased evaluation infrastructure
+
+- Pinned nine external dataset families / ten configurations with source licenses, file hashes and data-only loading.
+- Prepared 183,241 external records with duplicate/group isolation and a preserved quarantine audit.
+- Added 10,400 deterministic arithmetic, JSON, instruction and retrieval cases, canonical-reference checks and stratified policy partitions.
+- Added versioned generated-answer scorers, frozen 600-case evaluation subsets and reproducible corpus-loss/tokenizer/quality studies.
+- Kept official IFEval and sandboxed code execution explicitly deferred; retained the original smoke suite and precision study.
+
 ## 0.3.0.dev0 — unreleased concurrent CPU serving
 
 - Added opt-in two-slot llama.cpp continuous batching with fixed per-request context and one resident model.

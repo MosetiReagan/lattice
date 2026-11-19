@@ -1,0 +1,536 @@
+{
+  "records": [
+    {
+      "schema_version": 1,
+      "id": "lattice_instructions:intake-v1:000000",
+      "dataset": "lattice_instructions",
+      "family": "lattice_instructions",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "af5e1d4662f5457f1dc67a3505caec34af9bd7ee65204e20d86b988b8e8c917e",
+      "prompt": "Reply with exactly READY_CB7C2F8F09EC and nothing else.",
+      "reference": {
+        "kind": "constraints",
+        "value": null,
+        "alternatives": [],
+        "checks": [
+          {
+            "type": "exact_text",
+            "value": "READY_CB7C2F8F09EC"
+          }
+        ]
+      },
+      "scorer": "constraints_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 0
+      },
+      "metadata": {
+        "template": "literal_case",
+        "constraint_definition": "Whitespace-separated words and nonempty lines; no official IFEval claim",
+        "canonical_response": "READY_CB7C2F8F09EC",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_instructions:intake-v1:000001",
+      "dataset": "lattice_instructions",
+      "family": "lattice_instructions",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "f0c318f03b7ace389017891958b85aa7fb04eb2f43375ab1ec0620a2f15d157c",
+      "prompt": "Task 800a35983f9a: words = delta, teal, reed, hazel, pearl, violet. Reply with only the first 2 words, in order, separated by single spaces, all lowercase.",
+      "reference": {
+        "kind": "constraints",
+        "value": null,
+        "alternatives": [],
+        "checks": [
+          {
+            "type": "exact_text",
+            "value": "delta teal"
+          },
+          {
+            "type": "word_count",
+            "minimum": 2,
+            "maximum": 2
+          },
+          {
+            "type": "lowercase"
+          }
+        ]
+      },
+      "scorer": "constraints_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 1
+      },
+      "metadata": {
+        "template": "word_count_case",
+        "constraint_definition": "Whitespace-separated words and nonempty lines; no official IFEval claim",
+        "canonical_response": "delta teal",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_instructions:intake-v1:000002",
+      "dataset": "lattice_instructions",
+      "family": "lattice_instructions",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "49ea9cd85ac0c9b2f578a4d09d57bad47ad0ed4d98fa23376f1e27c99f1d7303",
+      "prompt": "Task b82bf70868a4: output these words as 3 numbered nonempty lines, using 1. then 2. and so on, with no other lines: iris, yarrow, zinc",
+      "reference": {
+        "kind": "constraints",
+        "value": null,
+        "alternatives": [],
+        "checks": [
+          {
+            "type": "exact_text",
+            "value": "1. iris\n2. yarrow\n3. zinc"
+          },
+          {
+            "type": "line_count",
+            "count": 3
+          }
+        ]
+      },
+      "scorer": "constraints_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 2
+      },
+      "metadata": {
+        "template": "numbered_lines",
+        "constraint_definition": "Whitespace-separated words and nonempty lines; no official IFEval claim",
+        "canonical_response": "1. iris\n2. yarrow\n3. zinc",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_instructions:intake-v1:000003",
+      "dataset": "lattice_instructions",
+      "family": "lattice_instructions",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "478a18a3564e6652d6ebbbf9965253e0ce71b7e5b44b64a83b7ec85d7576e2e7",
+      "prompt": "Reply in exactly three nonempty lines: first BEGIN_2742c26539d0; second the words yarrow cedar; third END_2742c26539d0. No extra text.",
+      "reference": {
+        "kind": "constraints",
+        "value": null,
+        "alternatives": [],
+        "checks": [
+          {
+            "type": "exact_text",
+            "value": "BEGIN_2742c26539d0\nyarrow cedar\nEND_2742c26539d0"
+          },
+          {
+            "type": "starts_with",
+            "value": "BEGIN_2742c26539d0"
+          },
+          {
+            "type": "ends_with",
+            "value": "END_2742c26539d0"
+          },
+          {
+            "type": "line_count",
+            "count": 3
+          },
+          {
+            "type": "required_keywords",
+            "values": [
+              "yarrow",
+              "cedar"
+            ],
+            "whole_words": true
+          }
+        ]
+      },
+      "scorer": "constraints_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 3
+      },
+      "metadata": {
+        "template": "header_footer",
+        "constraint_definition": "Whitespace-separated words and nonempty lines; no official IFEval claim",
+        "canonical_response": "BEGIN_2742c26539d0\nyarrow cedar\nEND_2742c26539d0",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_instructions:intake-v1:000004",
+      "dataset": "lattice_instructions",
+      "family": "lattice_instructions",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "833a0567039b70bf5941ce3a9a4cf0536b5d551df5d9f6e888b11e3f9ad68282",
+      "prompt": "Task be673d03e580: reply with exactly 3 whitespace-separated words. Every word must be lilac; do not include xenon.",
+      "reference": {
+        "kind": "constraints",
+        "value": null,
+        "alternatives": [],
+        "checks": [
+          {
+            "type": "exact_text",
+            "value": "lilac lilac lilac"
+          },
+          {
+            "type": "keyword_frequency",
+            "value": "lilac",
+            "count": 3
+          },
+          {
+            "type": "forbidden_keywords",
+            "values": [
+              "xenon"
+            ],
+            "whole_words": true
+          },
+          {
+            "type": "word_count",
+            "minimum": 3,
+            "maximum": 3
+          }
+        ]
+      },
+      "scorer": "constraints_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 4
+      },
+      "metadata": {
+        "template": "frequency_forbidden",
+        "constraint_definition": "Whitespace-separated words and nonempty lines; no official IFEval claim",
+        "canonical_response": "lilac lilac lilac",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_instructions:intake-v1:000005",
+      "dataset": "lattice_instructions",
+      "family": "lattice_instructions",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "9c6f67aab217a5e5be5fb0e000b5a37a32a29ca183a7d013c73e6b91e10af508",
+      "prompt": "Reply only with a JSON object containing exactly tag=\"52a5e2ec85ef\" and ok=true. Use a JSON boolean, not a string.",
+      "reference": {
+        "kind": "constraints",
+        "value": null,
+        "alternatives": [],
+        "checks": [
+          {
+            "type": "json_value",
+            "value": {
+              "tag": "52a5e2ec85ef",
+              "ok": true
+            }
+          }
+        ]
+      },
+      "scorer": "constraints_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 5
+      },
+      "metadata": {
+        "template": "json_constraint",
+        "constraint_definition": "Whitespace-separated words and nonempty lines; no official IFEval claim",
+        "canonical_response": "{\"tag\":\"52a5e2ec85ef\",\"ok\":true}",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_instructions:intake-v1:000006",
+      "dataset": "lattice_instructions",
+      "family": "lattice_instructions",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "84e877e830296080e69c3dc36840019f441f700b51fb2ddd4a1e965d3fd247b5",
+      "prompt": "Reply with exactly READY_340433E79850 and nothing else.",
+      "reference": {
+        "kind": "constraints",
+        "value": null,
+        "alternatives": [],
+        "checks": [
+          {
+            "type": "exact_text",
+            "value": "READY_340433E79850"
+          }
+        ]
+      },
+      "scorer": "constraints_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 6
+      },
+      "metadata": {
+        "template": "literal_case",
+        "constraint_definition": "Whitespace-separated words and nonempty lines; no official IFEval claim",
+        "canonical_response": "READY_340433E79850",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_instructions:intake-v1:000007",
+      "dataset": "lattice_instructions",
+      "family": "lattice_instructions",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "7a4d845442acff3fda9fff8dbe356e074e50471683db4d1d03082b8bad627b8d",
+      "prompt": "Task 2bd275ccf18a: words = gold, fern, jade, lilac, zinc, reed. Reply with only the first 2 words, in order, separated by single spaces, all lowercase.",
+      "reference": {
+        "kind": "constraints",
+        "value": null,
+        "alternatives": [],
+        "checks": [
+          {
+            "type": "exact_text",
+            "value": "gold fern"
+          },
+          {
+            "type": "word_count",
+            "minimum": 2,
+            "maximum": 2
+          },
+          {
+            "type": "lowercase"
+          }
+        ]
+      },
+      "scorer": "constraints_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 7
+      },
+      "metadata": {
+        "template": "word_count_case",
+        "constraint_definition": "Whitespace-separated words and nonempty lines; no official IFEval claim",
+        "canonical_response": "gold fern",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_instructions:intake-v1:000008",
+      "dataset": "lattice_instructions",
+      "family": "lattice_instructions",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "1380420f1c31a4d445578775fb2aa74e9a057849162c8018c5e8020872e4fde8",
+      "prompt": "Task a87d830024f2: output these words as 2 numbered nonempty lines, using 1. then 2. and so on, with no other lines: violet, birch",
+      "reference": {
+        "kind": "constraints",
+        "value": null,
+        "alternatives": [],
+        "checks": [
+          {
+            "type": "exact_text",
+            "value": "1. violet\n2. birch"
+          },
+          {
+            "type": "line_count",
+            "count": 2
+          }
+        ]
+      },
+      "scorer": "constraints_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 8
+      },
+      "metadata": {
+        "template": "numbered_lines",
+        "constraint_definition": "Whitespace-separated words and nonempty lines; no official IFEval claim",
+        "canonical_response": "1. violet\n2. birch",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_instructions:intake-v1:000009",
+      "dataset": "lattice_instructions",
+      "family": "lattice_instructions",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "5ef45e3a3d263c04890299255a01ac4fa6f70ba88e5392c4e2d59376e754d3db",
+      "prompt": "Reply in exactly three nonempty lines: first BEGIN_4639cf1bdafd; second the words delta fern; third END_4639cf1bdafd. No extra text.",
+      "reference": {
+        "kind": "constraints",
+        "value": null,
+        "alternatives": [],
+        "checks": [
+          {
+            "type": "exact_text",
+            "value": "BEGIN_4639cf1bdafd\ndelta fern\nEND_4639cf1bdafd"
+          },
+          {
+            "type": "starts_with",
+            "value": "BEGIN_4639cf1bdafd"
+          },
+          {
+            "type": "ends_with",
+            "value": "END_4639cf1bdafd"
+          },
+          {
+            "type": "line_count",
+            "count": 3
+          },
+          {
+            "type": "required_keywords",
+            "values": [
+              "delta",
+              "fern"
+            ],
+            "whole_words": true
+          }
+        ]
+      },
+      "scorer": "constraints_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 9
+      },
+      "metadata": {
+        "template": "header_footer",
+        "constraint_definition": "Whitespace-separated words and nonempty lines; no official IFEval claim",
+        "canonical_response": "BEGIN_4639cf1bdafd\ndelta fern\nEND_4639cf1bdafd",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_instructions:intake-v1:000010",
+      "dataset": "lattice_instructions",
+      "family": "lattice_instructions",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "236f8e8bd6277798d9d6a1ab2fb753fe2daf9a6732e6eed54aae687fe3cbdaea",
+      "prompt": "Task bd08c2c21a3f: reply with exactly 2 whitespace-separated words. Every word must be umber; do not include hazel.",
+      "reference": {
+        "kind": "constraints",
+        "value": null,
+        "alternatives": [],
+        "checks": [
+          {
+            "type": "exact_text",
+            "value": "umber umber"
+          },
+          {
+            "type": "keyword_frequency",
+            "value": "umber",
+            "count": 2
+          },
+          {
+            "type": "forbidden_keywords",
+            "values": [
+              "hazel"
+            ],
+            "whole_words": true
+          },
+          {
+            "type": "word_count",
+            "minimum": 2,
+            "maximum": 2
+          }
+        ]
+      },
+      "scorer": "constraints_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 10
+      },
+      "metadata": {
+        "template": "frequency_forbidden",
+        "constraint_definition": "Whitespace-separated words and nonempty lines; no official IFEval claim",
+        "canonical_response": "umber umber",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_instructions:intake-v1:000011",
+      "dataset": "lattice_instructions",
+      "family": "lattice_instructions",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "4cecac3e41c9ad3a7ab18ae148da5ef575bd86a32e6f0fe65f648e8b6fab5627",
+      "prompt": "Reply only with a JSON object containing exactly tag=\"2716a8b0e6ee\" and ok=true. Use a JSON boolean, not a string.",
+      "reference": {
+        "kind": "constraints",
+        "value": null,
+        "alternatives": [],
+        "checks": [
+          {
+            "type": "json_value",
+            "value": {
+              "tag": "2716a8b0e6ee",
+              "ok": true
+            }
+          }
+        ]
+      },
+      "scorer": "constraints_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 11
+      },
+      "metadata": {
+        "template": "json_constraint",
+        "constraint_definition": "Whitespace-separated words and nonempty lines; no official IFEval claim",
+        "canonical_response": "{\"tag\":\"2716a8b0e6ee\",\"ok\":true}",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    }
+  ],
+  "templates": {
+    "literal_case": 400,
+    "word_count_case": 400,
+    "numbered_lines": 400,
+    "header_footer": 400,
+    "frequency_forbidden": 400,
+    "json_constraint": 400
+  }
+}

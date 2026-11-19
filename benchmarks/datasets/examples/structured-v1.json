@@ -1,0 +1,426 @@
+{
+  "records": [
+    {
+      "schema_version": 1,
+      "id": "lattice_structured:intake-v1:000000",
+      "dataset": "lattice_structured",
+      "family": "lattice_structured",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "84aaed55ecb840c25eaaeaedca5b82d12f848e18fd2370d58c1df2b06f248846",
+      "prompt": "Record: id=item-e48ec45f0aaf; name=lilac; count=2426. Return a JSON object with exactly id, name and count. count is an integer.\nReturn valid JSON only, without Markdown or explanation.",
+      "reference": {
+        "kind": "json",
+        "value": {
+          "id": "item-e48ec45f0aaf",
+          "name": "lilac",
+          "count": 2426
+        },
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "json_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 0
+      },
+      "metadata": {
+        "template": "record_extraction",
+        "strict_json_required": true,
+        "canonical_response": "{\"id\":\"item-e48ec45f0aaf\",\"name\":\"lilac\",\"count\":2426}",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_structured:intake-v1:000001",
+      "dataset": "lattice_structured",
+      "family": "lattice_structured",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "62d06010a4f448e7b7d4ac24350f021053de8c9a2f31d5189f1f485fcbc1b5ad",
+      "prompt": "Input item-b834f9538d77: [{\"name\": \"xenon-0\", \"count\": 15}, {\"name\": \"pearl-1\", \"count\": 50}, {\"name\": \"willow-2\", \"count\": 23}, {\"name\": \"maple-3\", \"count\": 37}, {\"name\": \"gold-4\", \"count\": 13}]\nReturn the names whose count is at least 57, sorted by increasing count then name, as a JSON array.\nReturn valid JSON only, without Markdown or explanation.",
+      "reference": {
+        "kind": "json",
+        "value": [],
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "json_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 1
+      },
+      "metadata": {
+        "template": "filter_sort",
+        "strict_json_required": true,
+        "canonical_response": "[]",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_structured:intake-v1:000002",
+      "dataset": "lattice_structured",
+      "family": "lattice_structured",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "381a207fd17634da1d887d61db95d9258ecf00b76ad8ea4915679b705017968c",
+      "prompt": "Input item-6f4a76c543a1: [27, 34, -15, 36, 37, 25]\nReturn a JSON object with id, sum, minimum and maximum.\nReturn valid JSON only, without Markdown or explanation.",
+      "reference": {
+        "kind": "json",
+        "value": {
+          "id": "item-6f4a76c543a1",
+          "sum": 144,
+          "minimum": -15,
+          "maximum": 37
+        },
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "json_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 2
+      },
+      "metadata": {
+        "template": "array_aggregate",
+        "strict_json_required": true,
+        "canonical_response": "{\"id\":\"item-6f4a76c543a1\",\"sum\":144,\"minimum\":-15,\"maximum\":37}",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_structured:intake-v1:000003",
+      "dataset": "lattice_structured",
+      "family": "lattice_structured",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "69730429f7cae36fafb569eb1a6c16ee1c176fe76f56f476648271150049dc91",
+      "prompt": "Return JSON for id item-6beb1073a307, enabled false, missing null, and integer count 4062. Preserve JSON types and use exactly these four keys.\nReturn valid JSON only, without Markdown or explanation.",
+      "reference": {
+        "kind": "json",
+        "value": {
+          "id": "item-6beb1073a307",
+          "enabled": false,
+          "missing": null,
+          "count": 4062
+        },
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "json_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 3
+      },
+      "metadata": {
+        "template": "type_preservation",
+        "strict_json_required": true,
+        "canonical_response": "{\"id\":\"item-6beb1073a307\",\"enabled\":false,\"missing\":null,\"count\":4062}",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_structured:intake-v1:000004",
+      "dataset": "lattice_structured",
+      "family": "lattice_structured",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "6511122264eaf66baa37dbeae1c90bf8df24379372915f4e9e51ae88efd08d14",
+      "prompt": "Create a JSON object with id item-55a2f04bb43f. Its text value is the following string represented as JSON: \"snow 雪\". Escape it correctly.\nReturn valid JSON only, without Markdown or explanation.",
+      "reference": {
+        "kind": "json",
+        "value": {
+          "id": "item-55a2f04bb43f",
+          "text": "snow 雪"
+        },
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "json_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 4
+      },
+      "metadata": {
+        "template": "escaping_unicode",
+        "strict_json_required": true,
+        "canonical_response": "{\"id\":\"item-55a2f04bb43f\",\"text\":\"snow 雪\"}",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_structured:intake-v1:000005",
+      "dataset": "lattice_structured",
+      "family": "lattice_structured",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "11347aec835c9ee08957a3ba9444ea776f58f29381eec99c7f420e61c30d4220",
+      "prompt": "Input item-1337e9b983bd: [[\"lilac\", 10], [\"umber\", 12], [\"xenon\", 14], [\"xenon\", 0], [\"zinc\", 3]]\nSum amounts by name. Return a JSON object with id and totals (an object mapping each name to its sum).\nReturn valid JSON only, without Markdown or explanation.",
+      "reference": {
+        "kind": "json",
+        "value": {
+          "id": "item-1337e9b983bd",
+          "totals": {
+            "lilac": 10,
+            "umber": 12,
+            "xenon": 14,
+            "zinc": 3
+          }
+        },
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "json_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 5
+      },
+      "metadata": {
+        "template": "nested_group_sum",
+        "strict_json_required": true,
+        "canonical_response": "{\"id\":\"item-1337e9b983bd\",\"totals\":{\"lilac\":10,\"umber\":12,\"xenon\":14,\"zinc\":3}}",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_structured:intake-v1:000006",
+      "dataset": "lattice_structured",
+      "family": "lattice_structured",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "0563f2f1ac736f8348c6513d155668716796e3982b1d246211882d5a5ecb183f",
+      "prompt": "Record: id=item-776f99325251; name=fern; count=2676. Return a JSON object with exactly id, name and count. count is an integer.\nReturn valid JSON only, without Markdown or explanation.",
+      "reference": {
+        "kind": "json",
+        "value": {
+          "id": "item-776f99325251",
+          "name": "fern",
+          "count": 2676
+        },
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "json_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 6
+      },
+      "metadata": {
+        "template": "record_extraction",
+        "strict_json_required": true,
+        "canonical_response": "{\"id\":\"item-776f99325251\",\"name\":\"fern\",\"count\":2676}",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_structured:intake-v1:000007",
+      "dataset": "lattice_structured",
+      "family": "lattice_structured",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "9b36d37ce9e2acdfdd3db73afee397013e7af2b434c0c551ccd0fb5027525672",
+      "prompt": "Input item-5111c2380728: [{\"name\": \"zinc-0\", \"count\": 85}, {\"name\": \"navy-1\", \"count\": 31}, {\"name\": \"lilac-2\", \"count\": 10}, {\"name\": \"sage-3\", \"count\": 18}, {\"name\": \"reed-4\", \"count\": 97}]\nReturn the names whose count is at least 47, sorted by increasing count then name, as a JSON array.\nReturn valid JSON only, without Markdown or explanation.",
+      "reference": {
+        "kind": "json",
+        "value": [
+          "zinc-0",
+          "reed-4"
+        ],
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "json_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 7
+      },
+      "metadata": {
+        "template": "filter_sort",
+        "strict_json_required": true,
+        "canonical_response": "[\"zinc-0\",\"reed-4\"]",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_structured:intake-v1:000008",
+      "dataset": "lattice_structured",
+      "family": "lattice_structured",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "9250fa87c9e304a6d245ca87eda64efe870db26d86c8313f3cf4cdc3821fbbe8",
+      "prompt": "Input item-be18700de2d9: [-3, -11, 88, 8, -6, 58]\nReturn a JSON object with id, sum, minimum and maximum.\nReturn valid JSON only, without Markdown or explanation.",
+      "reference": {
+        "kind": "json",
+        "value": {
+          "id": "item-be18700de2d9",
+          "sum": 134,
+          "minimum": -11,
+          "maximum": 88
+        },
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "json_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 8
+      },
+      "metadata": {
+        "template": "array_aggregate",
+        "strict_json_required": true,
+        "canonical_response": "{\"id\":\"item-be18700de2d9\",\"sum\":134,\"minimum\":-11,\"maximum\":88}",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_structured:intake-v1:000009",
+      "dataset": "lattice_structured",
+      "family": "lattice_structured",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "4c023b12ff8d96db5bd40464299e9423c92e029d1b7143c749601f98940b0430",
+      "prompt": "Return JSON for id item-cc07e8ae29b7, enabled false, missing null, and integer count 2653. Preserve JSON types and use exactly these four keys.\nReturn valid JSON only, without Markdown or explanation.",
+      "reference": {
+        "kind": "json",
+        "value": {
+          "id": "item-cc07e8ae29b7",
+          "enabled": false,
+          "missing": null,
+          "count": 2653
+        },
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "json_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 9
+      },
+      "metadata": {
+        "template": "type_preservation",
+        "strict_json_required": true,
+        "canonical_response": "{\"id\":\"item-cc07e8ae29b7\",\"enabled\":false,\"missing\":null,\"count\":2653}",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_structured:intake-v1:000010",
+      "dataset": "lattice_structured",
+      "family": "lattice_structured",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "910e976e7594f71294a5978b1857b37fe29d96a34e786d556f13b08ce342f188",
+      "prompt": "Create a JSON object with id item-c95e2f651452. Its text value is the following string represented as JSON: \"tab\\tinside\". Escape it correctly.\nReturn valid JSON only, without Markdown or explanation.",
+      "reference": {
+        "kind": "json",
+        "value": {
+          "id": "item-c95e2f651452",
+          "text": "tab\tinside"
+        },
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "json_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 10
+      },
+      "metadata": {
+        "template": "escaping_unicode",
+        "strict_json_required": true,
+        "canonical_response": "{\"id\":\"item-c95e2f651452\",\"text\":\"tab\\tinside\"}",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_structured:intake-v1:000011",
+      "dataset": "lattice_structured",
+      "family": "lattice_structured",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "fd4f82a0c6aef1739da9b464787ff117e7c9d64186e6b0ffca8291ea2b21167a",
+      "prompt": "Input item-ae7d6e062938: [[\"reed\", 4], [\"maple\", 3], [\"xenon\", 4], [\"umber\", 20], [\"willow\", 0]]\nSum amounts by name. Return a JSON object with id and totals (an object mapping each name to its sum).\nReturn valid JSON only, without Markdown or explanation.",
+      "reference": {
+        "kind": "json",
+        "value": {
+          "id": "item-ae7d6e062938",
+          "totals": {
+            "reed": 4,
+            "maple": 3,
+            "xenon": 4,
+            "umber": 20,
+            "willow": 0
+          }
+        },
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "json_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 11
+      },
+      "metadata": {
+        "template": "nested_group_sum",
+        "strict_json_required": true,
+        "canonical_response": "{\"id\":\"item-ae7d6e062938\",\"totals\":{\"reed\":4,\"maple\":3,\"xenon\":4,\"umber\":20,\"willow\":0}}",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    }
+  ],
+  "templates": {
+    "record_extraction": 400,
+    "filter_sort": 400,
+    "array_aggregate": 400,
+    "type_preservation": 400,
+    "escaping_unicode": 400,
+    "nested_group_sum": 400
+  }
+}

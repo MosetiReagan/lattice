@@ -14,3 +14,8 @@ See artifacts/model-LICENSE.txt and the pinned upstream model card.
 
 Python runtime dependencies retain their respective licenses. Lattice's license
 does not replace upstream model, backend or dependency license obligations.
+
+Evaluation datasets are third-party content with separate source-specific terms.
+See benchmarks/datasets/sources.lock.json, source_audit and docs/datasets.md.
+External datasets are downloaded separately, not included in Lattice code packages.
+Original deterministic Lattice dataset generators and authored samples are Apache-2.0.

@@ -1,0 +1,407 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-19T23:22:35.533222+00:00",
+  "collections": [
+    {
+      "id": "gsm8k",
+      "family": "gsm8k",
+      "repository": "openai/gsm8k",
+      "revision": "740312add88f781978c0658806c59bc2815b9866",
+      "configuration": "main",
+      "license": "MIT",
+      "license_basis": "Pinned dataset card",
+      "source_card": {
+        "url": "https://huggingface.co/datasets/openai/gsm8k/raw/740312add88f781978c0658806c59bc2815b9866/README.md",
+        "snapshot": "source_audit/openai--gsm8k-card.txt",
+        "sha256": "a17e882503578c9e324560630e31017617714ee025c87cf4fea6fd916895f3c1"
+      },
+      "files": [
+        {
+          "split": "train",
+          "path": "main/train-00000-of-00001.parquet",
+          "size_bytes": 2306545,
+          "expected_sha256": "ea82612ea9582142387730c793eb67d3b12849002bc0b7fa6f8efafa7351419d",
+          "git_blob_sha1": "61b47c916c27533feaa3763484ae0ea58f92b056",
+          "url": "https://huggingface.co/datasets/openai/gsm8k/resolve/740312add88f781978c0658806c59bc2815b9866/main/train-00000-of-00001.parquet"
+        },
+        {
+          "split": "test",
+          "path": "main/test-00000-of-00001.parquet",
+          "size_bytes": 419088,
+          "expected_sha256": "ee7b8da9e381df27b9e3f7758a159ab2bdaa4dbaa910546cbbc47e0cb44e4f59",
+          "git_blob_sha1": "861005fb045993f46d198aa797440f4096f9aa17",
+          "url": "https://huggingface.co/datasets/openai/gsm8k/resolve/740312add88f781978c0658806c59bc2815b9866/main/test-00000-of-00001.parquet"
+        }
+      ],
+      "format": "parquet",
+      "attribution": "openai/gsm8k contributors; see pinned card/citations",
+      "external_data_redistribution": "Not included in Lattice code packages; retain source terms and attribution"
+    },
+    {
+      "id": "arc_easy",
+      "family": "arc",
+      "repository": "allenai/ai2_arc",
+      "revision": "210d026faf9955653af8916fad021475a3f00453",
+      "configuration": "ARC-Easy",
+      "license": "CC-BY-SA-4.0",
+      "license_basis": "Pinned dataset card",
+      "source_card": {
+        "url": "https://huggingface.co/datasets/allenai/ai2_arc/raw/210d026faf9955653af8916fad021475a3f00453/README.md",
+        "snapshot": "source_audit/allenai--ai2_arc-card.txt",
+        "sha256": "4a293e352253d771604725c978adcea71ee6504e89ed40e1cb0024ecafa9b37e"
+      },
+      "files": [
+        {
+          "split": "train",
+          "path": "ARC-Easy/train-00000-of-00001.parquet",
+          "size_bytes": 330598,
+          "expected_sha256": "b315db8a4be597dc7daa50a4e70d48dd7c990c32085629e6ccd8c926beaa80b5",
+          "git_blob_sha1": "86a868d072039643afe7dabab2502ec1f59e80e7",
+          "url": "https://huggingface.co/datasets/allenai/ai2_arc/resolve/210d026faf9955653af8916fad021475a3f00453/ARC-Easy/train-00000-of-00001.parquet"
+        },
+        {
+          "split": "validation",
+          "path": "ARC-Easy/validation-00000-of-00001.parquet",
+          "size_bytes": 86080,
+          "expected_sha256": "ed890ff1e4cef7a7140d3a30dcea3ed2c9d467c6458f447ad9ef0176d8dcbb74",
+          "git_blob_sha1": "ca37ca123161870fcdbc8e36992a738c8d91d4fa",
+          "url": "https://huggingface.co/datasets/allenai/ai2_arc/resolve/210d026faf9955653af8916fad021475a3f00453/ARC-Easy/validation-00000-of-00001.parquet"
+        },
+        {
+          "split": "test",
+          "path": "ARC-Easy/test-00000-of-00001.parquet",
+          "size_bytes": 346257,
+          "expected_sha256": "4160597d618ae851c7eb04e281574f3f654776216ac6b6641588d64527b47177",
+          "git_blob_sha1": "6353258399faf3b5432b66afcc7eeaaa6335b717",
+          "url": "https://huggingface.co/datasets/allenai/ai2_arc/resolve/210d026faf9955653af8916fad021475a3f00453/ARC-Easy/test-00000-of-00001.parquet"
+        }
+      ],
+      "format": "parquet",
+      "attribution": "allenai/ai2_arc contributors; see pinned card/citations",
+      "external_data_redistribution": "Not included in Lattice code packages; retain source terms and attribution"
+    },
+    {
+      "id": "arc_challenge",
+      "family": "arc",
+      "repository": "allenai/ai2_arc",
+      "revision": "210d026faf9955653af8916fad021475a3f00453",
+      "configuration": "ARC-Challenge",
+      "license": "CC-BY-SA-4.0",
+      "license_basis": "Pinned dataset card",
+      "source_card": {
+        "url": "https://huggingface.co/datasets/allenai/ai2_arc/raw/210d026faf9955653af8916fad021475a3f00453/README.md",
+        "snapshot": "source_audit/allenai--ai2_arc-card.txt",
+        "sha256": "4a293e352253d771604725c978adcea71ee6504e89ed40e1cb0024ecafa9b37e"
+      },
+      "files": [
+        {
+          "split": "train",
+          "path": "ARC-Challenge/train-00000-of-00001.parquet",
+          "size_bytes": 189909,
+          "expected_sha256": "e488c1587ffdcfc8443f916c53488a95cd471c5790e0746c6bfe4cecf20962cb",
+          "git_blob_sha1": "ae987592f5e0913097e4b6637fcfcbae7dcd994c",
+          "url": "https://huggingface.co/datasets/allenai/ai2_arc/resolve/210d026faf9955653af8916fad021475a3f00453/ARC-Challenge/train-00000-of-00001.parquet"
+        },
+        {
+          "split": "validation",
+          "path": "ARC-Challenge/validation-00000-of-00001.parquet",
+          "size_bytes": 55743,
+          "expected_sha256": "395a5c88d1580d69855fbaee9450270578df1ad5af6259771cd0a42c20e99f05",
+          "git_blob_sha1": "108b2f1e32ff87935ae766487409bbdf5c169964",
+          "url": "https://huggingface.co/datasets/allenai/ai2_arc/resolve/210d026faf9955653af8916fad021475a3f00453/ARC-Challenge/validation-00000-of-00001.parquet"
+        },
+        {
+          "split": "test",
+          "path": "ARC-Challenge/test-00000-of-00001.parquet",
+          "size_bytes": 203808,
+          "expected_sha256": "62f03257e737aed263f55c6abf87c7bb0028a44a6bdd2a26eb1279eb42c1d1e9",
+          "git_blob_sha1": "dccb239c736b6aa3f70117b44820ab50fba7fb53",
+          "url": "https://huggingface.co/datasets/allenai/ai2_arc/resolve/210d026faf9955653af8916fad021475a3f00453/ARC-Challenge/test-00000-of-00001.parquet"
+        }
+      ],
+      "format": "parquet",
+      "attribution": "allenai/ai2_arc contributors; see pinned card/citations",
+      "external_data_redistribution": "Not included in Lattice code packages; retain source terms and attribution"
+    },
+    {
+      "id": "boolq",
+      "family": "boolq",
+      "repository": "google/boolq",
+      "revision": "35b264d03638db9f4ce671b711558bf7ff0f80d5",
+      "configuration": "data",
+      "license": "CC-BY-SA-3.0",
+      "license_basis": "Pinned dataset card",
+      "source_card": {
+        "url": "https://huggingface.co/datasets/google/boolq/raw/35b264d03638db9f4ce671b711558bf7ff0f80d5/README.md",
+        "snapshot": "source_audit/google--boolq-card.txt",
+        "sha256": "07447668f46c7c1e62e24b650ea2a73f1ab34f2b3759b1587c7b7a81b4bf1cf4"
+      },
+      "files": [
+        {
+          "split": "train",
+          "path": "data/train-00000-of-00001.parquet",
+          "size_bytes": 3685146,
+          "expected_sha256": "4f028e992c0bd4df30b9f056f4946b64f5c23028034ff0ed5ea467d8538cc623",
+          "git_blob_sha1": "f152937cb6c6524fa73fec33160342c37c3f568b",
+          "url": "https://huggingface.co/datasets/google/boolq/resolve/35b264d03638db9f4ce671b711558bf7ff0f80d5/data/train-00000-of-00001.parquet"
+        },
+        {
+          "split": "validation",
+          "path": "data/validation-00000-of-00001.parquet",
+          "size_bytes": 1257630,
+          "expected_sha256": "52355d11524b4b874a9b9dcc278feb10f672d52c4f4eff9872e695ede59820f8",
+          "git_blob_sha1": "3d58243757bfad1d0808c65cdb0b48f927c58a16",
+          "url": "https://huggingface.co/datasets/google/boolq/resolve/35b264d03638db9f4ce671b711558bf7ff0f80d5/data/validation-00000-of-00001.parquet"
+        }
+      ],
+      "format": "parquet",
+      "attribution": "google/boolq contributors; see pinned card/citations",
+      "external_data_redistribution": "Not included in Lattice code packages; retain source terms and attribution"
+    },
+    {
+      "id": "commonsense_qa",
+      "family": "commonsense_qa",
+      "repository": "tau/commonsense_qa",
+      "revision": "94630fe30dad47192a8546eb75f094926d47e155",
+      "configuration": "data",
+      "license": "MIT",
+      "license_basis": "Pinned dataset card",
+      "source_card": {
+        "url": "https://huggingface.co/datasets/tau/commonsense_qa/raw/94630fe30dad47192a8546eb75f094926d47e155/README.md",
+        "snapshot": "source_audit/tau--commonsense_qa-card.txt",
+        "sha256": "172917e887dcc013fe0f0bd6aa8c810aea1e2be67d3bc7ff63e9b9d92075cc34"
+      },
+      "files": [
+        {
+          "split": "train",
+          "path": "data/train-00000-of-00001.parquet",
+          "size_bytes": 1247103,
+          "expected_sha256": "b0449767ed986bfc2ca52b1244a46ef12f732756727f3cb0a4ab69ac8b3d282b",
+          "git_blob_sha1": "808dfa3c76503733398a5e6af3715e039cad3127",
+          "url": "https://huggingface.co/datasets/tau/commonsense_qa/resolve/94630fe30dad47192a8546eb75f094926d47e155/data/train-00000-of-00001.parquet"
+        },
+        {
+          "split": "validation",
+          "path": "data/validation-00000-of-00001.parquet",
+          "size_bytes": 160240,
+          "expected_sha256": "bdbd9bf9cc4d2349b24901038b2ab2f58e10e4e507ad2fd425dca55cd3cb6660",
+          "git_blob_sha1": "9714418326ce9a900733a570ef589cd02549e096",
+          "url": "https://huggingface.co/datasets/tau/commonsense_qa/resolve/94630fe30dad47192a8546eb75f094926d47e155/data/validation-00000-of-00001.parquet"
+        }
+      ],
+      "format": "parquet",
+      "attribution": "tau/commonsense_qa contributors; see pinned card/citations",
+      "external_data_redistribution": "Not included in Lattice code packages; retain source terms and attribution"
+    },
+    {
+      "id": "ifeval",
+      "family": "ifeval",
+      "repository": "google/IFEval",
+      "revision": "966cd89545d6b6acfd7638bc708b98261ca58e84",
+      "configuration": "default",
+      "license": "Apache-2.0",
+      "license_basis": "Pinned dataset card",
+      "source_card": {
+        "url": "https://huggingface.co/datasets/google/IFEval/raw/966cd89545d6b6acfd7638bc708b98261ca58e84/README.md",
+        "snapshot": "source_audit/google--IFEval-card.txt",
+        "sha256": "c3e2d7da8286ae27649f526e3153cc72f071c21a6a7702d06f09cef5f9c114f1"
+      },
+      "files": [
+        {
+          "split": "train",
+          "path": "ifeval_input_data.jsonl",
+          "size_bytes": 207111,
+          "expected_sha256": null,
+          "git_blob_sha1": "7c875005c09550bc3fd94c7f42867f78490bc554",
+          "url": "https://huggingface.co/datasets/google/IFEval/resolve/966cd89545d6b6acfd7638bc708b98261ca58e84/ifeval_input_data.jsonl"
+        }
+      ],
+      "format": "jsonl",
+      "attribution": "google/IFEval contributors; see pinned card/citations",
+      "external_data_redistribution": "Not included in Lattice code packages; retain source terms and attribution"
+    },
+    {
+      "id": "humaneval",
+      "family": "humaneval",
+      "repository": "openai/openai_humaneval",
+      "revision": "7dce6050a7d6d172f3cc5c32aa97f52fa1a2e544",
+      "configuration": "openai_humaneval",
+      "license": "MIT",
+      "license_basis": "Pinned dataset card",
+      "source_card": {
+        "url": "https://huggingface.co/datasets/openai/openai_humaneval/raw/7dce6050a7d6d172f3cc5c32aa97f52fa1a2e544/README.md",
+        "snapshot": "source_audit/openai--openai_humaneval-card.txt",
+        "sha256": "f81cb59f7dae73d1ee1069d7de3ba1c0f9d2bd80f4df6d6990d12bf488e5b5ef"
+      },
+      "files": [
+        {
+          "split": "test",
+          "path": "openai_humaneval/test-00000-of-00001.parquet",
+          "size_bytes": 83920,
+          "expected_sha256": "2f2871a15fbc95b6c683043359f4ed8e144c5a1c4f24f25f66bc51f598dfcfb6",
+          "git_blob_sha1": "c32112639179ad5f9ec8c633dcb0414097002351",
+          "url": "https://huggingface.co/datasets/openai/openai_humaneval/resolve/7dce6050a7d6d172f3cc5c32aa97f52fa1a2e544/openai_humaneval/test-00000-of-00001.parquet"
+        }
+      ],
+      "format": "parquet",
+      "attribution": "openai/openai_humaneval contributors; see pinned card/citations",
+      "external_data_redistribution": "Not included in Lattice code packages; retain source terms and attribution"
+    },
+    {
+      "id": "mbpp",
+      "family": "mbpp",
+      "repository": "google-research-datasets/mbpp",
+      "revision": "4bb6404fdc6cacfda99d4ac4205087b89d32030c",
+      "configuration": "full",
+      "license": "CC-BY-4.0",
+      "license_basis": "Pinned dataset card",
+      "source_card": {
+        "url": "https://huggingface.co/datasets/google-research-datasets/mbpp/raw/4bb6404fdc6cacfda99d4ac4205087b89d32030c/README.md",
+        "snapshot": "source_audit/google-research-datasets--mbpp-card.txt",
+        "sha256": "6377d5c76ba46b9e650daa6d5eb592e671c9b15586e39f23f50ed9bf2ac54cf6"
+      },
+      "files": [
+        {
+          "split": "prompt",
+          "path": "full/prompt-00000-of-00001.parquet",
+          "size_bytes": 7878,
+          "expected_sha256": "a053e4bb85ceb77430ae80592addb4ca4dc6ba087592f9e04537800ee88b7431",
+          "git_blob_sha1": "ea0cd63b33b4e2e09cd3c3098971455a07e8ffe2",
+          "url": "https://huggingface.co/datasets/google-research-datasets/mbpp/resolve/4bb6404fdc6cacfda99d4ac4205087b89d32030c/full/prompt-00000-of-00001.parquet"
+        },
+        {
+          "split": "train",
+          "path": "full/train-00000-of-00001.parquet",
+          "size_bytes": 87223,
+          "expected_sha256": "09d125ca31edacb7800be8c67c45abff618faf0214ff551291817d06bdb914ae",
+          "git_blob_sha1": "f2b0d23528ec7e7b46092b8dc91cbb3e86fe598f",
+          "url": "https://huggingface.co/datasets/google-research-datasets/mbpp/resolve/4bb6404fdc6cacfda99d4ac4205087b89d32030c/full/train-00000-of-00001.parquet"
+        },
+        {
+          "split": "validation",
+          "path": "full/validation-00000-of-00001.parquet",
+          "size_bytes": 25144,
+          "expected_sha256": "3f0ec060987432d99fe8fb409d31e6c67445b208a01741c5583517c80a10fe80",
+          "git_blob_sha1": "e14b00046fdd492f40859693aa800cf7ca666a61",
+          "url": "https://huggingface.co/datasets/google-research-datasets/mbpp/resolve/4bb6404fdc6cacfda99d4ac4205087b89d32030c/full/validation-00000-of-00001.parquet"
+        },
+        {
+          "split": "test",
+          "path": "full/test-00000-of-00001.parquet",
+          "size_bytes": 115824,
+          "expected_sha256": "566fd53060ffba5766dace1d1e2f4c38906781526de222b0dfbdbc325b696c77",
+          "git_blob_sha1": "f9bdcec1eeec1f401ce091800fd69fc517d5920f",
+          "url": "https://huggingface.co/datasets/google-research-datasets/mbpp/resolve/4bb6404fdc6cacfda99d4ac4205087b89d32030c/full/test-00000-of-00001.parquet"
+        }
+      ],
+      "format": "parquet",
+      "attribution": "google-research-datasets/mbpp contributors; see pinned card/citations",
+      "external_data_redistribution": "Not included in Lattice code packages; retain source terms and attribution"
+    },
+    {
+      "id": "wikitext2",
+      "family": "wikitext",
+      "repository": "Salesforce/wikitext",
+      "revision": "b08601e04326c79dfdd32d625aee71d232d685c3",
+      "configuration": "wikitext-2-raw-v1",
+      "license": "CC-BY-SA-3.0 OR GFDL",
+      "license_basis": "Pinned dataset card",
+      "source_card": {
+        "url": "https://huggingface.co/datasets/Salesforce/wikitext/raw/b08601e04326c79dfdd32d625aee71d232d685c3/README.md",
+        "snapshot": "source_audit/Salesforce--wikitext-card.txt",
+        "sha256": "d5aabf145d341366745ac703b5844c442c143943b6c77929481395c822b1c28c"
+      },
+      "files": [
+        {
+          "split": "train",
+          "path": "wikitext-2-raw-v1/train-00000-of-00001.parquet",
+          "size_bytes": 6357543,
+          "expected_sha256": "e83889baabc497075506f91975be5fac0d45c5290b6b20582c8cd1e853d0c9f7",
+          "git_blob_sha1": "f0ce4bc13873f9e74671a2fbf874f54f85110fc1",
+          "url": "https://huggingface.co/datasets/Salesforce/wikitext/resolve/b08601e04326c79dfdd32d625aee71d232d685c3/wikitext-2-raw-v1/train-00000-of-00001.parquet"
+        },
+        {
+          "split": "validation",
+          "path": "wikitext-2-raw-v1/validation-00000-of-00001.parquet",
+          "size_bytes": 657209,
+          "expected_sha256": "204929b7ff9d6184953f867dedb860e40aa69c078fc1e54b3baaa8fb28511c4c",
+          "git_blob_sha1": "41c5457d2df9e8f98a0629fe0039de49edbba387",
+          "url": "https://huggingface.co/datasets/Salesforce/wikitext/resolve/b08601e04326c79dfdd32d625aee71d232d685c3/wikitext-2-raw-v1/validation-00000-of-00001.parquet"
+        },
+        {
+          "split": "test",
+          "path": "wikitext-2-raw-v1/test-00000-of-00001.parquet",
+          "size_bytes": 732610,
+          "expected_sha256": "5f1bea067869d04849c0f975a2b29c4ff47d867f484f5010ea5e861eab246d91",
+          "git_blob_sha1": "6ba58cb2514e5816aa401f841c34a0e3a6b727b4",
+          "url": "https://huggingface.co/datasets/Salesforce/wikitext/resolve/b08601e04326c79dfdd32d625aee71d232d685c3/wikitext-2-raw-v1/test-00000-of-00001.parquet"
+        }
+      ],
+      "format": "parquet",
+      "attribution": "Salesforce/wikitext contributors; see pinned card/citations",
+      "external_data_redistribution": "Not included in Lattice code packages; retain source terms and attribution"
+    },
+    {
+      "id": "squad_v2",
+      "family": "squad",
+      "repository": "rajpurkar/squad_v2",
+      "revision": "3ffb306f725f7d2ce8394bc1873b24868140c412",
+      "configuration": "squad_v2",
+      "license": "CC-BY-SA-4.0",
+      "license_basis": "Pinned dataset card",
+      "source_card": {
+        "url": "https://huggingface.co/datasets/rajpurkar/squad_v2/raw/3ffb306f725f7d2ce8394bc1873b24868140c412/README.md",
+        "snapshot": "source_audit/rajpurkar--squad_v2-card.txt",
+        "sha256": "7a6726352072e8517318959fe0438d4f45880affc041ced6da3bf2e4dec94c68"
+      },
+      "files": [
+        {
+          "split": "train",
+          "path": "squad_v2/train-00000-of-00001.parquet",
+          "size_bytes": 16369982,
+          "expected_sha256": "f6da32ffb482ff463ad056477740d1bb284b96a45db3a08bee6a225ca6abf291",
+          "git_blob_sha1": "fba0a3551bc72c0175c365569f42f3e8f6adc966",
+          "url": "https://huggingface.co/datasets/rajpurkar/squad_v2/resolve/3ffb306f725f7d2ce8394bc1873b24868140c412/squad_v2/train-00000-of-00001.parquet"
+        },
+        {
+          "split": "validation",
+          "path": "squad_v2/validation-00000-of-00001.parquet",
+          "size_bytes": 1350511,
+          "expected_sha256": "0560174ab095c5ac0a8c8dc8da05f1625453c45a77e4ce9cabc6947ddfdd24cb",
+          "git_blob_sha1": "5610bea52541d0f5b53eb644a630bb5ca6f88811",
+          "url": "https://huggingface.co/datasets/rajpurkar/squad_v2/resolve/3ffb306f725f7d2ce8394bc1873b24868140c412/squad_v2/validation-00000-of-00001.parquet"
+        }
+      ],
+      "format": "parquet",
+      "attribution": "SQuAD 2.0 authors and source Wikipedia contributors; see pinned card",
+      "external_data_redistribution": "Not included in Lattice code packages; retain source terms and attribution"
+    }
+  ],
+  "excluded": [
+    {
+      "repository": "Rowan/hellaswag",
+      "reason": "HF card licensing unspecified; upstream repository returned HTTP 451 during intake"
+    },
+    {
+      "repository": "allenai/social_i_qa",
+      "reason": "HF card license absent and repository uses a remote-code loader; not enabled in this intake"
+    },
+    {
+      "source": "unlabeled external test splits",
+      "reason": "No invented gold labels: only listed labeled splits are collected"
+    },
+    {
+      "source": "Winogrande nested training subsets and MBPP sanitized mirror",
+      "reason": "Avoid counting overlapping configurations as independent data"
+    },
+    {
+      "repository": "allenai/winogrande",
+      "reason": "Pinned upstream README licenses code Apache-2.0 but dataset CC-BY without a version; not mislabelled as Apache and excluded from active preparation pending terms clarification"
+    },
+    {
+      "repository": "allenai/openbookqa",
+      "reason": "HF metadata explicitly unknown and card supplies no dataset licensing details; not enabled in this intake"
+    }
+  ],
+  "status": "intake-v1: pinned public source files; no remote dataset code"
+}

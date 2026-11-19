@@ -1,0 +1,388 @@
+{
+  "schema_version": 1,
+  "version": "intake-v1",
+  "created_utc": "2026-11-19T23:30:44.235883+00:00",
+  "source_lock_sha256": "d40d53a085caa7790c412e87261f0f2ce0daf52c6dc20d1f89fbc6bc0768d665",
+  "download_manifest_sha256": "9c386bd3fb3cf35b645945a23180a45391c3fc281a685c68387fdc6fca04bbd2",
+  "raw_source_rows": [
+    {
+      "dataset": "gsm8k",
+      "split": "train",
+      "rows": 7473
+    },
+    {
+      "dataset": "gsm8k",
+      "split": "test",
+      "rows": 1319
+    },
+    {
+      "dataset": "arc_easy",
+      "split": "train",
+      "rows": 2251
+    },
+    {
+      "dataset": "arc_easy",
+      "split": "validation",
+      "rows": 570
+    },
+    {
+      "dataset": "arc_easy",
+      "split": "test",
+      "rows": 2376
+    },
+    {
+      "dataset": "arc_challenge",
+      "split": "train",
+      "rows": 1119
+    },
+    {
+      "dataset": "arc_challenge",
+      "split": "validation",
+      "rows": 299
+    },
+    {
+      "dataset": "arc_challenge",
+      "split": "test",
+      "rows": 1172
+    },
+    {
+      "dataset": "boolq",
+      "split": "train",
+      "rows": 9427
+    },
+    {
+      "dataset": "boolq",
+      "split": "validation",
+      "rows": 3270
+    },
+    {
+      "dataset": "commonsense_qa",
+      "split": "train",
+      "rows": 9741
+    },
+    {
+      "dataset": "commonsense_qa",
+      "split": "validation",
+      "rows": 1221
+    },
+    {
+      "dataset": "ifeval",
+      "split": "train",
+      "rows": 541
+    },
+    {
+      "dataset": "humaneval",
+      "split": "test",
+      "rows": 164
+    },
+    {
+      "dataset": "mbpp",
+      "split": "prompt",
+      "rows": 10
+    },
+    {
+      "dataset": "mbpp",
+      "split": "train",
+      "rows": 374
+    },
+    {
+      "dataset": "mbpp",
+      "split": "validation",
+      "rows": 90
+    },
+    {
+      "dataset": "mbpp",
+      "split": "test",
+      "rows": 500
+    },
+    {
+      "dataset": "wikitext2",
+      "split": "train",
+      "rows": 36718
+    },
+    {
+      "dataset": "wikitext2",
+      "split": "validation",
+      "rows": 3760
+    },
+    {
+      "dataset": "wikitext2",
+      "split": "test",
+      "rows": 4358
+    },
+    {
+      "dataset": "squad_v2",
+      "split": "train",
+      "rows": 130319
+    },
+    {
+      "dataset": "squad_v2",
+      "split": "validation",
+      "rows": 11873
+    }
+  ],
+  "validated_records": 184860,
+  "prepared_records": 183241,
+  "invalid_records": 0,
+  "quarantine": [
+    {
+      "dataset": "arc_challenge",
+      "reason": "exact_prompt_duplicate",
+      "rows": 1
+    },
+    {
+      "dataset": "arc_challenge",
+      "reason": "group_overlap_with_higher_partition",
+      "rows": 8
+    },
+    {
+      "dataset": "arc_easy",
+      "reason": "exact_prompt_duplicate",
+      "rows": 2
+    },
+    {
+      "dataset": "arc_easy",
+      "reason": "group_overlap_with_higher_partition",
+      "rows": 8
+    },
+    {
+      "dataset": "boolq",
+      "reason": "group_overlap_with_higher_partition",
+      "rows": 1434
+    },
+    {
+      "dataset": "mbpp",
+      "reason": "group_overlap_with_higher_partition",
+      "rows": 3
+    },
+    {
+      "dataset": "squad_v2",
+      "reason": "conflicting_reference_for_identical_prompt",
+      "rows": 124
+    },
+    {
+      "dataset": "squad_v2",
+      "reason": "exact_prompt_duplicate",
+      "rows": 34
+    },
+    {
+      "dataset": "wikitext2",
+      "reason": "exact_prompt_duplicate",
+      "rows": 5
+    }
+  ],
+  "files": [
+    {
+      "dataset": "arc_challenge",
+      "partition": "development",
+      "rows": 890,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/arc_challenge/development.jsonl",
+      "sha256": "1110f5c21d39539e8099c02b4f112a9ca6c6ad044afdfe2b5abcfb8a3de32224",
+      "bytes": 1060016
+    },
+    {
+      "dataset": "arc_challenge",
+      "partition": "evaluation",
+      "rows": 1172,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/arc_challenge/evaluation.jsonl",
+      "sha256": "392269626402b6f4c04d6329e75562c29b215dc31bf46723dda2d8b99708d740",
+      "bytes": 1396197
+    },
+    {
+      "dataset": "arc_challenge",
+      "partition": "validation",
+      "rows": 519,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/arc_challenge/validation.jsonl",
+      "sha256": "48a9bb96787d1d09e192decef9e3da328c59a01e88b72397f001860c86765d3e",
+      "bytes": 618006
+    },
+    {
+      "dataset": "arc_easy",
+      "partition": "development",
+      "rows": 1792,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/arc_easy/development.jsonl",
+      "sha256": "8f933a86d29c41ef2c5e1d5156c9beb8d2169b41b6d82941518b03fbf8fb50a8",
+      "bytes": 1991033
+    },
+    {
+      "dataset": "arc_easy",
+      "partition": "evaluation",
+      "rows": 2376,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/arc_easy/evaluation.jsonl",
+      "sha256": "9ca15e3568a434574d2d385c7a7e8bc16c1912446d1533157b4481142f1dd021",
+      "bytes": 2631175
+    },
+    {
+      "dataset": "arc_easy",
+      "partition": "validation",
+      "rows": 1019,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/arc_easy/validation.jsonl",
+      "sha256": "4961e1fad159dce32b01237c77581fbc779fd71556317c4dab536f418681aa6c",
+      "bytes": 1137623
+    },
+    {
+      "dataset": "boolq",
+      "partition": "development",
+      "rows": 6372,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/boolq/development.jsonl",
+      "sha256": "bd4bbebba75f28ca2ac97a66c99f03a071c1868f8207411e1e3075b9201f8615",
+      "bytes": 7805629
+    },
+    {
+      "dataset": "boolq",
+      "partition": "evaluation",
+      "rows": 3270,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/boolq/evaluation.jsonl",
+      "sha256": "f6164ad333ff28944ad8916cf54e84d4bbf2765653c5777a62b3a0d330d978d8",
+      "bytes": 4024229
+    },
+    {
+      "dataset": "boolq",
+      "partition": "validation",
+      "rows": 1621,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/boolq/validation.jsonl",
+      "sha256": "9552f1f67d042e47b570605f91b9c89aa60246b76f22df3fa7750e09a8c39a77",
+      "bytes": 1983790
+    },
+    {
+      "dataset": "commonsense_qa",
+      "partition": "development",
+      "rows": 7797,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/commonsense_qa/development.jsonl",
+      "sha256": "bd47ba4b228c26cf4dedd59202c64a163bf13d56686ab66b05ef2c625ff786b4",
+      "bytes": 8125889
+    },
+    {
+      "dataset": "commonsense_qa",
+      "partition": "evaluation",
+      "rows": 1221,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/commonsense_qa/evaluation.jsonl",
+      "sha256": "f943f5bb710c8d97a3bfd92393e9ad82609b01cf4987f2d42209f837ba1592f4",
+      "bytes": 1284828
+    },
+    {
+      "dataset": "commonsense_qa",
+      "partition": "validation",
+      "rows": 1944,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/commonsense_qa/validation.jsonl",
+      "sha256": "d8cc0aaef5d5b876a8d24298c1961faf5ba863cc4508c3030acc8b5bcdab869d",
+      "bytes": 2022038
+    },
+    {
+      "dataset": "gsm8k",
+      "partition": "development",
+      "rows": 5955,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/gsm8k/development.jsonl",
+      "sha256": "1cab02f66e473f59256839b051a79747c44d05a337be061787de6fae8729c6e2",
+      "bytes": 7138518
+    },
+    {
+      "dataset": "gsm8k",
+      "partition": "evaluation",
+      "rows": 1319,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/gsm8k/evaluation.jsonl",
+      "sha256": "f91ed501365914b583296a1c95eeccb2ecc3226e46b0ceb458adfc7f09dec624",
+      "bytes": 1587290
+    },
+    {
+      "dataset": "gsm8k",
+      "partition": "validation",
+      "rows": 1518,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/gsm8k/validation.jsonl",
+      "sha256": "b76d5232afb47092f57a1468ad4ce9413e118d0f6195c9a036bbadceae6f9e35",
+      "bytes": 1812172
+    },
+    {
+      "dataset": "humaneval",
+      "partition": "evaluation",
+      "rows": 164,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/humaneval/evaluation.jsonl",
+      "sha256": "51bcabe5fe6ceb0b5b3bed1b3adbf29975b7b6b324f75e751434c4f3dbbe2d70",
+      "bytes": 410288
+    },
+    {
+      "dataset": "ifeval",
+      "partition": "development",
+      "rows": 302,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/ifeval/development.jsonl",
+      "sha256": "2b43f80d2411018de96470c2dce79e83619472517aecfd0ca8c5ad2806fe0a0e",
+      "bytes": 306222
+    },
+    {
+      "dataset": "ifeval",
+      "partition": "evaluation",
+      "rows": 102,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/ifeval/evaluation.jsonl",
+      "sha256": "7223eb9120a65ca92d146fb764956574541d58a1e8abee17d09687d539ba79d4",
+      "bytes": 105190
+    },
+    {
+      "dataset": "ifeval",
+      "partition": "validation",
+      "rows": 137,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/ifeval/validation.jsonl",
+      "sha256": "363cf023f3cf0c520bd56f78891ac42d57324c3ee36576a01f5c808d2b13666b",
+      "bytes": 137948
+    },
+    {
+      "dataset": "mbpp",
+      "partition": "development",
+      "rows": 306,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/mbpp/development.jsonl",
+      "sha256": "215a9262db26be80d2934b97b6ff8d39c794d5e4145715e093c29d6efe4dbf6e",
+      "bytes": 461190
+    },
+    {
+      "dataset": "mbpp",
+      "partition": "evaluation",
+      "rows": 500,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/mbpp/evaluation.jsonl",
+      "sha256": "c0b94e93479916866b2e3bd40943a17b2b6505e497b9a69d68f3d7cd401a7b9e",
+      "bytes": 763157
+    },
+    {
+      "dataset": "mbpp",
+      "partition": "validation",
+      "rows": 165,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/mbpp/validation.jsonl",
+      "sha256": "cec2f5e039ef5b037c06271e2c751fc42cbfe2d22d2ad60e9f8ce6b451f019f4",
+      "bytes": 248611
+    },
+    {
+      "dataset": "squad_v2",
+      "partition": "development",
+      "rows": 101051,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/squad_v2/development.jsonl",
+      "sha256": "404d05b597890682a26f2b570e6af5424952d66412da6606dbbc35958a50d477",
+      "bytes": 180579707
+    },
+    {
+      "dataset": "squad_v2",
+      "partition": "evaluation",
+      "rows": 11852,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/squad_v2/evaluation.jsonl",
+      "sha256": "a9df042705385e92e30e0e04a43314da67efa10497b3400c3f5f25366547bb85",
+      "bytes": 22144931
+    },
+    {
+      "dataset": "squad_v2",
+      "partition": "validation",
+      "rows": 29131,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/squad_v2/validation.jsonl",
+      "sha256": "d6b6e535c42b3e41e7d66930e19f3d0726bb9671221de6aaf70a3ae0999538a1",
+      "bytes": 51952311
+    },
+    {
+      "dataset": "wikitext2",
+      "partition": "corpus",
+      "rows": 746,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/wikitext2/corpus.jsonl",
+      "sha256": "c233b0888fbc9e5275b319695856642ba20b9d2a57567ee3bd52bde04910a43d",
+      "bytes": 13901542
+    }
+  ],
+  "audit_database": "audit.sqlite3",
+  "split_contract": "Official test retained as evaluation. Validation is evaluation where no test is labeled. Train-only IFEval grouped 60/20/20. Other train grouped 80/20 development/validation. Lower-partition group overlaps quarantined.",
+  "coding_contract": "References parsed as data; generated/canonical programs were not executed; no pass@k or correctness score claimed",
+  "public_data_notice": "Policy partitions are not evidence that foundation model pretraining excluded these public benchmarks"
+}

@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "version": "intake-v1",
+  "seed": 73021,
+  "created_utc": "2026-11-19T23:46:08.193360+00:00",
+  "files": [
+    {
+      "dataset": "lattice_arithmetic",
+      "partition": "evaluation",
+      "rows": 800,
+      "path": "benchmarks/datasets/generated/intake-v1/lattice_arithmetic/evaluation.jsonl",
+      "bytes": 578489,
+      "sha256": "8cf6416804911f597a8c8a90926733f6662e42752ddaf258757adac5c4c32ef6"
+    },
+    {
+      "dataset": "lattice_arithmetic",
+      "partition": "validation",
+      "rows": 800,
+      "path": "benchmarks/datasets/generated/intake-v1/lattice_arithmetic/validation.jsonl",
+      "bytes": 578131,
+      "sha256": "1df0f17d6cfc5dac39ce06349c782ac7bdde2b1e00bc2bebfb78fc8c2adbcdb4"
+    },
+    {
+      "dataset": "lattice_arithmetic",
+      "partition": "development",
+      "rows": 2400,
+      "path": "benchmarks/datasets/generated/intake-v1/lattice_arithmetic/development.jsonl",
+      "bytes": 1729344,
+      "sha256": "79e16eaeda6ee6e98ecc4f6536f086607dad1233f2242877d936f1fdbb3b10a6"
+    },
+    {
+      "dataset": "lattice_structured",
+      "partition": "evaluation",
+      "rows": 480,
+      "path": "benchmarks/datasets/generated/intake-v1/lattice_structured/evaluation.jsonl",
+      "bytes": 459824,
+      "sha256": "b9b41b7881db2276f600cc0f18f1ff892e27fef473d3b5eee9758c90f4c0e492"
+    },
+    {
+      "dataset": "lattice_structured",
+      "partition": "validation",
+      "rows": 480,
+      "path": "benchmarks/datasets/generated/intake-v1/lattice_structured/validation.jsonl",
+      "bytes": 460209,
+      "sha256": "767a3b5183bc4e50be0cac7a3de03bc5f1146be0b1eea0c503f293ad4109990d"
+    },
+    {
+      "dataset": "lattice_structured",
+      "partition": "development",
+      "rows": 1440,
+      "path": "benchmarks/datasets/generated/intake-v1/lattice_structured/development.jsonl",
+      "bytes": 1380394,
+      "sha256": "a99efbe7de93cfe67d9c6e3ea8e066000bcb1a094eee8ebff7cbb6c1159a1b0c"
+    },
+    {
+      "dataset": "lattice_instructions",
+      "partition": "evaluation",
+      "rows": 480,
+      "path": "benchmarks/datasets/generated/intake-v1/lattice_instructions/evaluation.jsonl",
+      "bytes": 468546,
+      "sha256": "ea3fd5217d1aa16b1c44a2367f477aa6d692f43be1ea5dffd484a599b8e4e718"
+    },
+    {
+      "dataset": "lattice_instructions",
+      "partition": "validation",
+      "rows": 480,
+      "path": "benchmarks/datasets/generated/intake-v1/lattice_instructions/validation.jsonl",
+      "bytes": 469096,
+      "sha256": "c5a344d909ee5d28c64ef447074a9987e07e37de366e97a556a9d9681df170af"
+    },
+    {
+      "dataset": "lattice_instructions",
+      "partition": "development",
+      "rows": 1440,
+      "path": "benchmarks/datasets/generated/intake-v1/lattice_instructions/development.jsonl",
+      "bytes": 1407231,
+      "sha256": "33a4ed97a9d2d29c450cd3ebb222ffcaef5810f9959f6e22c1d5c661f0d193fc"
+    },
+    {
+      "dataset": "lattice_retrieval",
+      "partition": "evaluation",
+      "rows": 320,
+      "path": "benchmarks/datasets/generated/intake-v1/lattice_retrieval/evaluation.jsonl",
+      "bytes": 1068550,
+      "sha256": "7fd96d977cd33bc91471476d275ff32f530316df1170afc66c3f1147921d881c"
+    },
+    {
+      "dataset": "lattice_retrieval",
+      "partition": "validation",
+      "rows": 320,
+      "path": "benchmarks/datasets/generated/intake-v1/lattice_retrieval/validation.jsonl",
+      "bytes": 1068620,
+      "sha256": "f45838ad59e080a82ad972057782ca94875210c644d86ab22be5c91425da242e"
+    },
+    {
+      "dataset": "lattice_retrieval",
+      "partition": "development",
+      "rows": 960,
+      "path": "benchmarks/datasets/generated/intake-v1/lattice_retrieval/development.jsonl",
+      "bytes": 3110192,
+      "sha256": "fc01b746073064ff24811dcfefa7eb4e901f30098d1c56d048bd3d2a83759edf"
+    }
+  ],
+  "records": 10400,
+  "license": "Apache-2.0",
+  "generator_sha256": "461c19ecca50ff3590ca1d824f289a5a2cf3da9a5f30289568d5de3bf7e03fe9",
+  "scorer_sha256": "81307c44ca47f093dd8c527a95148c4b7e1b10c3a8cec62f904626444347ec80",
+  "schema_sha256": "2d1ac0a488835516bb5c22e799d5412c8a704e44120c56589fe88adfcf85f04d",
+  "gold_source": "Deterministic arithmetic/transform/constraint logic; no LLM gold",
+  "gold_validation": "Every canonical response passed its declared answer and strict scorer before export",
+  "split_contract": "60/20/20 per-template/tier buckets; numeric operand domains and seeded instance identifiers disjoint across partitions; templates are shared, not held out",
+  "limitations": [
+    "Synthetic templates, not representative natural task distributions",
+    "Public recipe/seed, not a foundation-model contamination guarantee"
+  ]
+}

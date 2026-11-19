@@ -1,0 +1,359 @@
+{
+  "records": [
+    {
+      "schema_version": 1,
+      "id": "lattice_arithmetic:intake-v1:000000",
+      "dataset": "lattice_arithmetic",
+      "family": "lattice_arithmetic",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "e6ae5dcf728d120c6269e1195939f0be2d93866384aef844c5184f516421540e",
+      "prompt": "Compute 4977 * 3527.\nReturn only the final number; use a reduced fraction if necessary.",
+      "reference": {
+        "kind": "number",
+        "value": "17553879",
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "number_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 0
+      },
+      "metadata": {
+        "template": "integer_binary",
+        "canonical_response": "17553879",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_arithmetic:intake-v1:000001",
+      "dataset": "lattice_arithmetic",
+      "family": "lattice_arithmetic",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "c371f94b89405e87f5a67ff3367407042b1da47dde6e987cb7351a99da93675e",
+      "prompt": "Solve 5 * x + 4082 = 17307. What is x?\nReturn only the final number; use a reduced fraction if necessary.",
+      "reference": {
+        "kind": "number",
+        "value": "2645",
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "number_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 1
+      },
+      "metadata": {
+        "template": "linear_equation",
+        "canonical_response": "2645",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_arithmetic:intake-v1:000002",
+      "dataset": "lattice_arithmetic",
+      "family": "lattice_arithmetic",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "017412a89a4168ef1b1b5e45a9b1ff82e6f3ad351a746c80db7c6054a03e99cc",
+      "prompt": "Compute 3445/18 + 4558/10. Give a reduced fraction, or an integer if exact.\nReturn only the final number; use a reduced fraction if necessary.",
+      "reference": {
+        "kind": "number",
+        "value": "58247/90",
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "number_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 2
+      },
+      "metadata": {
+        "template": "rational_addition",
+        "canonical_response": "58247/90",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_arithmetic:intake-v1:000003",
+      "dataset": "lattice_arithmetic",
+      "family": "lattice_arithmetic",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "dac2fef4025518be3cf4693a673a998ee97b98505c49ea56543471ad67b33b7d",
+      "prompt": "A storage room has 18 boxes, with 3327 bolts per box. Workers remove 4464 bolts. How many bolts remain?\nReturn only the final number; use a reduced fraction if necessary.",
+      "reference": {
+        "kind": "number",
+        "value": "55422",
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "number_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 3
+      },
+      "metadata": {
+        "template": "inventory_word_problem",
+        "canonical_response": "55422",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_arithmetic:intake-v1:000004",
+      "dataset": "lattice_arithmetic",
+      "family": "lattice_arithmetic",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "325e197bcbbf1c2096828c5e321daad92e470322829535cbf66076da3ac26312",
+      "prompt": "Convert 4372 large units to small units when each large unit is exactly 1000 small units.\nReturn only the final number; use a reduced fraction if necessary.",
+      "reference": {
+        "kind": "number",
+        "value": "4372000",
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "number_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 4
+      },
+      "metadata": {
+        "template": "unit_conversion",
+        "canonical_response": "4372000",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_arithmetic:intake-v1:000005",
+      "dataset": "lattice_arithmetic",
+      "family": "lattice_arithmetic",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "d13874c1fc46e45632267b2d3b7b1f982f617e5d366d480c42c7892e9fa5b198",
+      "prompt": "Compute 3162 * 2313.\nReturn only the final number; use a reduced fraction if necessary.",
+      "reference": {
+        "kind": "number",
+        "value": "7313706",
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "number_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 5
+      },
+      "metadata": {
+        "template": "integer_binary",
+        "canonical_response": "7313706",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_arithmetic:intake-v1:000006",
+      "dataset": "lattice_arithmetic",
+      "family": "lattice_arithmetic",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "52b9e2aa3b7aa38cea96a2e4b7f3bb966779a57000a3c105fd195d9d5c85b058",
+      "prompt": "Solve 8 * x + 3835 = 26723. What is x?\nReturn only the final number; use a reduced fraction if necessary.",
+      "reference": {
+        "kind": "number",
+        "value": "2861",
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "number_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 6
+      },
+      "metadata": {
+        "template": "linear_equation",
+        "canonical_response": "2861",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_arithmetic:intake-v1:000007",
+      "dataset": "lattice_arithmetic",
+      "family": "lattice_arithmetic",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "c5a1218690c769c47d719dc4eb4d191aa7160f347f970c5a49fd22fd08dbacc0",
+      "prompt": "Compute 4700/33 + 4305/7. Give a reduced fraction, or an integer if exact.\nReturn only the final number; use a reduced fraction if necessary.",
+      "reference": {
+        "kind": "number",
+        "value": "24995/33",
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "number_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 7
+      },
+      "metadata": {
+        "template": "rational_addition",
+        "canonical_response": "24995/33",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_arithmetic:intake-v1:000008",
+      "dataset": "lattice_arithmetic",
+      "family": "lattice_arithmetic",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "34ac565ad73457778c5db9fa74646a1f22b5aac3d8532acce5d3340f9048863c",
+      "prompt": "A storage room has 14 boxes, with 2491 bolts per box. Workers remove 2008 bolts. How many bolts remain?\nReturn only the final number; use a reduced fraction if necessary.",
+      "reference": {
+        "kind": "number",
+        "value": "32866",
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "number_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 8
+      },
+      "metadata": {
+        "template": "inventory_word_problem",
+        "canonical_response": "32866",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_arithmetic:intake-v1:000009",
+      "dataset": "lattice_arithmetic",
+      "family": "lattice_arithmetic",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "f3627e0a210dc464e3efe7b00c14d12dd967550d634a6d6abadb1d2c734c87b7",
+      "prompt": "Convert 3782 large units to small units when each large unit is exactly 1000 small units.\nReturn only the final number; use a reduced fraction if necessary.",
+      "reference": {
+        "kind": "number",
+        "value": "3782000",
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "number_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 9
+      },
+      "metadata": {
+        "template": "unit_conversion",
+        "canonical_response": "3782000",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_arithmetic:intake-v1:000010",
+      "dataset": "lattice_arithmetic",
+      "family": "lattice_arithmetic",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "d1e4ca76f12ab1f21af5dc656d9b77344f5634b6095bdede08edcd2bcb989a6f",
+      "prompt": "Compute 3409 * 4962.\nReturn only the final number; use a reduced fraction if necessary.",
+      "reference": {
+        "kind": "number",
+        "value": "16915458",
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "number_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 10
+      },
+      "metadata": {
+        "template": "integer_binary",
+        "canonical_response": "16915458",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_arithmetic:intake-v1:000011",
+      "dataset": "lattice_arithmetic",
+      "family": "lattice_arithmetic",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "03dd7a833ce6f3eadb4862f154a37db1170d75e345f2d6628fb667d751e8336e",
+      "prompt": "Solve 4 * x + 4946 = 24478. What is x?\nReturn only the final number; use a reduced fraction if necessary.",
+      "reference": {
+        "kind": "number",
+        "value": "4883",
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "number_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 11
+      },
+      "metadata": {
+        "template": "linear_equation",
+        "canonical_response": "4883",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    }
+  ],
+  "templates": {
+    "integer_binary": 800,
+    "linear_equation": 800,
+    "rational_addition": 800,
+    "inventory_word_problem": 800,
+    "unit_conversion": 800
+  }
+}

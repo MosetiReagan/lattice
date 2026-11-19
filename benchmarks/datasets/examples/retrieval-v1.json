@@ -1,0 +1,406 @@
+{
+  "records": [
+    {
+      "schema_version": 1,
+      "id": "lattice_retrieval:intake-v1:000000",
+      "dataset": "lattice_retrieval",
+      "family": "lattice_retrieval",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "bdf7155122f078f5e7eaefd22ecf56a287d0f187857f0603b8a29e5b812944a8",
+      "prompt": "Records:\nk6b4aff526958 = 2926\nk013de982d43b = 3145\nk06eb704be0c5 = 2538\nk87950ef6798f = 2148\nk059ef24289fd = 2107\nkb030558244da = 2277\nk655ec7824c4d = 2335\nk418e92aad791 = 3528\nk2b576ea020ec = 2129\nk67f5d93f4cd5 = 3822\nkce691524ff29 = 2132\nk497a7f2d8418 = 4520\nkb17251efaa78 = 4629\nk4f7b0ef6d314 = 2937\nked5dea4d7036 = 3737\nk103509c12f48 = 2126\n\nWhat exact value belongs to k059ef24289fd?\nReturn only the exact value. If it is absent, return exactly UNANSWERABLE.",
+      "reference": {
+        "kind": "text",
+        "value": "2107",
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "text_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 0
+      },
+      "metadata": {
+        "template": "single_key",
+        "context_rows": 16,
+        "nominal_rows_tier": 16,
+        "token_length": "Must be measured per tokenizer; no invented token counts",
+        "answerable": true,
+        "canonical_response": "2107",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_retrieval:intake-v1:000001",
+      "dataset": "lattice_retrieval",
+      "family": "lattice_retrieval",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "6d1cb8c9b18155da8c1bf6592ddf51b7824364987f488cdcb4b6b461373ccabe",
+      "prompt": "Records:\nk9625bfd58979 = 2963\nk53697eeb585c = 4460\nkc4a33c26adea = 3768\nke2fb49a9b2bc = 3075\nk1cb847fafbfa = 4800\nk1b92b9a97cf4 = 4196\nkce5715145f49 = 2893\nk9d849c43da4c = 3890\nk29ca2aae2730 = 2338\nkaf9dbe89e4be = 2523\nk49f63eba1225 = 4707\nk2f91a954d350 = 4264\nk6393a1b11666 = 3279\nkf4450bf237fb = 4560\nk2d621630e74d = 2044\nk7daa7045cbb0 = 4199\nk2135937002c5 = 2818\nkabbd49e2240f = 3946\nka12139a619d6 = 3060\nk889ade426a68 = 4053\nk3897b439e372 = 2135\nkb01a881028c5 = 3012\nk616bfbcafb5a = 3033\nkb765d7035a9b = 4152\nka83660c921ad = 3865\nkfca5befc9bfc = 3435\nke37393a5a185 = 2126\nkb93c3ba2505a = 3885\nk58f259a4deed = 3703\nk62064858f6ec = 3989\nk45f220773033 = 4282\nkf81ac52c34ca = 2720\n\nWhat exact value belongs to kb765d7035a9b?\nReturn only the exact value. If it is absent, return exactly UNANSWERABLE.",
+      "reference": {
+        "kind": "text",
+        "value": "4152",
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "text_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 1
+      },
+      "metadata": {
+        "template": "single_key",
+        "context_rows": 32,
+        "nominal_rows_tier": 32,
+        "token_length": "Must be measured per tokenizer; no invented token counts",
+        "answerable": true,
+        "canonical_response": "4152",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_retrieval:intake-v1:000002",
+      "dataset": "lattice_retrieval",
+      "family": "lattice_retrieval",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "46f999434f705948d8674771b17144b36b291d73c0fb90f4614c06631f992547",
+      "prompt": "Records:\nkd4514ddd1f91 = 3140\nkece42c0d5275 = 2000\nk4e96d6b88747 = 3181\nk8ac7b62414c5 = 2794\nkcedba62fd101 = 4508\nkd09847a4e9ed = 2737\nka76bdfb2bbda = 3044\nkdca8c7e229a4 = 2531\nk9df8c21fab0b = 4551\nk24c0060efa87 = 3523\nk4cda06e15af0 = 4281\nk2a2ecfc769ee = 4245\nk60f9ec0db19a = 3714\nk9ab4a2bdfe2b = 3292\nk67d29f4c781e = 4634\nkb3aeb28cf39a = 2937\nk88f510989428 = 3879\nk3fe3379c1ceb = 3396\nka82c24a160a4 = 4118\nk4354e45ed173 = 4168\nk05ee9e46ed43 = 2907\nk9111f4665125 = 3076\nk94b567c84b2f = 2712\nk19920ea296ef = 2881\nkc1acfaa9fa06 = 4667\nk7e7d469b71e4 = 2708\nk95dc0404432e = 3713\nk58299f9ec8ba = 4932\nkbeccec66463d = 2261\nkde592bf0f206 = 3078\nkeb6b715a09ef = 4746\nk50e9b4ab25a2 = 4220\nkde82734e643b = 4939\nka3dc0635131e = 3893\nkf67fdea11bdc = 4873\nkacb3531725e8 = 2005\nkcb771df04730 = 2979\nka5a4aefaaa0a = 3572\nk190330c52627 = 4498\nkbd18bdcc4cab = 4311\nk040a8398d00d = 2338\nke0938cc861b1 = 2472\nkb3e4f2891b50 = 3380\nk725f4940d02a = 2194\nkbb5f9229a759 = 3908\nka31a21a27b04 = 2544\nk6ad0d40df7c1 = 3184\nk0bbf495fcdab = 3477\nkcdd84719971e = 4640\nk20fdc0f7e693 = 4651\nk3ba96ddc36d9 = 4504\nkf781d95fd08c = 4230\nkf272a4626000 = 3063\nk3aaaec95e23f = 2798\nkf7853c7a2115 = 2818\nk1474c3f38eba = 4788\nk8452862dba64 = 4663\nk11d8845ce2da = 3127\nk94936e1484fa = 2070\nk347cb3ebc3c0 = 4750\nkc6e7c2f2a270 = 2952\nk44aab60d2529 = 2264\nk566fdc1f9414 = 2811\nkef28ed566cff = 2360\n\nWhat exact value belongs to kcedba62fd101?\nReturn only the exact value. If it is absent, return exactly UNANSWERABLE.",
+      "reference": {
+        "kind": "text",
+        "value": "4508",
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "text_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 2
+      },
+      "metadata": {
+        "template": "single_key",
+        "context_rows": 64,
+        "nominal_rows_tier": 64,
+        "token_length": "Must be measured per tokenizer; no invented token counts",
+        "answerable": true,
+        "canonical_response": "4508",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_retrieval:intake-v1:000003",
+      "dataset": "lattice_retrieval",
+      "family": "lattice_retrieval",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "ed45282fef167cdd73e7bfbdaf89a5948a0d4a4084b55d76175ec75824dcb1e6",
+      "prompt": "Records:\nk945e1c6fd299 = 3222\nk026265ca1fef = 4910\nk2d4cc63e410f = 4543\nkaab2df7815f9 = 2659\nk10d11a65fced = 4649\nk27edb60361be = 2219\nkcee4915cd55f = 2547\nk9d9ff387d402 = 4520\nk50e6d7474ba8 = 2255\nkbc78252ae7ac = 4902\nkf3c61c29668c = 2501\nk18308df2c75f = 4529\nka8f3de9a610b = 4927\nkac6c03e67cd2 = 3226\nk73f5b30e2692 = 3247\nkf86b183ba042 = 2438\nk6196a41d9f5e = 2602\nk0b3013f573c8 = 2603\nkc8f20925951e = 4105\nk21a297759db0 = 4723\nk37fef6c2643e = 3696\nk581cfefe5411 = 3155\nk22b1ca2239fd = 4665\nk6f111da46bb2 = 4655\nk91312509105e = 4673\nkd1c2c6f194b0 = 3633\nk124e414ab57f = 4265\nka581743d27f8 = 3461\nkb9fd62e763e1 = 3414\nkc378fbeb1c92 = 3378\nkd6cfbb7e7ffd = 2073\nkc12c0d35c6ee = 3575\nk07ad4eedeb78 = 2913\nk08619bfeafa9 = 3266\nk58448448ce17 = 2174\nk93bf82846de5 = 3652\nka28d9537e335 = 4583\nk02d0b7f83e52 = 4318\nk41a8c4f035ae = 2153\nkf50ba56d2e65 = 4195\nkb9021cdac6cb = 3441\nk4ef310fe2dc7 = 2533\nkfca93482df6e = 2995\nk0c3ba75b4c6c = 4524\nk022f8e9034d9 = 4259\nkceede75b3128 = 4635\nk16bf057879e9 = 2496\nk6929aec2f0af = 2965\nkad5bab5469e1 = 2334\nk7af91eb76e8b = 2619\nk9c732bb7250d = 4969\nke305f779a3a2 = 3805\nk142a40439fae = 4312\nkfdd970954507 = 2590\nk4caddc4fbe8e = 4041\nke76b9cbdbd59 = 3882\nk9c0ffe3e97b3 = 4586\nkeb6e57793366 = 2191\nka4fd1ec13d64 = 4640\nkbc90cc8f0087 = 3531\nkb80e809a799b = 3820\nk899d1d8d335f = 2761\nk0a11c1555792 = 2811\nk01bdd44aeae6 = 3285\nk1ebae8978409 = 2496\nk25826f5ec345 = 4826\nkf0768eb13526 = 2731\nk752f90652b42 = 2430\nk2d32eb15d222 = 4477\nk141d59b0ae95 = 3944\nk8248215d0ee6 = 3343\nk2ae79cecf99d = 4405\nk60fbf4f48200 = 3436\nk81c7f3ed1157 = 2119\nkadf83e52eebe = 3077\nk4ee32e191c92 = 2413\nk885aa42c08a5 = 4195\nk70045aad7da1 = 4170\nk742c4c4e457f = 2944\nkc91fec8895cd = 4642\nk544f5075920c = 4452\nk07c3b3b1f7c7 = 2586\nk8c5f66e767a0 = 2071\nk9c592dcf4694 = 4725\nk4908099d1bec = 4989\nk62626839e87a = 4106\nk5280a3eebf79 = 3249\nk5d1802d01b21 = 2512\nk047f277a8904 = 4955\nkbaf962393185 = 2123\nkb89b17624a2e = 2437\nk6986dabe6a20 = 4911\nk8eee1abf18e8 = 3114\nk099647495d4f = 4987\nke0428e30c15d = 3767\nk97c2afac1b42 = 2003\nk3b107aab8451 = 3801\nkc3c83132f2f6 = 3574\nk8cee53a144e5 = 3978\nkffd4721b04fa = 3218\nk9309fd02dffe = 3555\nk3c5e868dfba6 = 2317\nk046811bc580a = 2371\nk1a37b272f1c3 = 4969\nkcf2f093c98da = 3369\nk692af35e0ee5 = 2831\nkb01ed9a53194 = 4810\nk288fdd62896d = 2369\nk081a4f242bec = 3542\nkdd4324561557 = 3653\nk552328f2292b = 2503\nk662afa0f684f = 3163\nk9e0087b695db = 4672\nk681127e3a2f9 = 2795\nk8bff4d60ec89 = 4627\nk96d2207a2e53 = 2333\nk53ca10b6e646 = 3894\nk439112ce5a22 = 2250\nk8da544860ec8 = 3482\nkb7314d440fc4 = 3992\nkc7dacef643cb = 3991\nkceef61f16301 = 2455\nk0c9566986579 = 3478\nk9d2733da623b = 2790\nkc64402a93d51 = 3408\nk2fa534fec2de = 4709\nk2e7938a8c92f = 2116\nk49f1f3787c24 = 2682\n\nWhat exact value belongs to k8248215d0ee6?\nReturn only the exact value. If it is absent, return exactly UNANSWERABLE.",
+      "reference": {
+        "kind": "text",
+        "value": "3343",
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "text_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 3
+      },
+      "metadata": {
+        "template": "single_key",
+        "context_rows": 128,
+        "nominal_rows_tier": 128,
+        "token_length": "Must be measured per tokenizer; no invented token counts",
+        "answerable": true,
+        "canonical_response": "3343",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_retrieval:intake-v1:000004",
+      "dataset": "lattice_retrieval",
+      "family": "lattice_retrieval",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "1b1100b8a3aeab35b6b5c346a9d7018e718f83a6938ab09a7117df25bf805cb9",
+      "prompt": "Records:\nk3abd51748452 = 4916\nk093e9fb9f9dc = 2304\nk1755ee9803d8 = 4514\nk2d03bd1ae1eb = 3969\nk392f0421216d = 3675\nkd2558c1470e1 = 3454\nkafd69d152536 = 2567\nka6b89b096281 = 4693\nk23c9b738545b = 2600\nka2d85a9e872b = 3109\nk5824d8ca4791 = 4228\nk9e66d8482286 = 4851\nk40c3f809e1d7 = 4284\nkd478a25724c3 = 2287\nk1baa9b2c5c78 = 2360\nk422bd6ace7a3 = 3029\nk53700c90ac73 = 2010\nkaf22a92cb436 = 4809\nk58480b2378c6 = 4577\nka34c5bdaef71 = 4978\nk2eb714f8d058 = 3488\nk7e39b28431a7 = 4204\nk9735701ed739 = 4964\nk5a3f48d860f6 = 2197\nk209a45ccb9ce = 3718\nk95cb6d74e640 = 3854\nka09330cde8e4 = 4077\nk16e5363c9fed = 2195\nk7f4184b8b279 = 3575\nk1a480d9dcc5b = 4822\nk53868cacefba = 3995\nkec36498924b3 = 4256\nk1b34f5f673be = 2570\nkabf7d18f5b11 = 3340\nkb4e37daf8189 = 3084\nk802b6e1267f6 = 4392\nkb62c5bc8f62c = 2990\nk0266ba55da7c = 3530\nk220a85a89d70 = 4415\nk97fe2240c481 = 4089\nk9b09c58d4152 = 4461\nk9a6f9507f3d8 = 3337\nk966589995609 = 2798\nk4831b3264732 = 4889\nk41898e9de6b9 = 3129\nk38ad6f897178 = 4090\nkdb9abed51d62 = 3916\nk4bfd3b07b5b0 = 3476\nkf1c2918c2f15 = 2625\nk15a4a3a9b716 = 3788\nk757e65ad9721 = 4343\nkfb1c60a30d1c = 2129\nk2600833849be = 4618\nkce9a01d8023d = 2522\nkbaf27a48ad77 = 4871\nk7086f255d043 = 4433\nka64967fb5a13 = 4775\nk6241347138a2 = 3974\nkb7e0590e7330 = 3734\nke8fd24c325fe = 3971\nk191331db7373 = 2114\nkc5b92eaeac3e = 3716\nkda61721a58fa = 2967\nka9cbaaa88d92 = 4931\nk3c7aa93e387f = 3231\nk4c7cb51c5a0d = 3088\nk0560db8cf94d = 4971\nk14e09780fa21 = 4405\nk03bcfabd6054 = 4673\nk5d7b47b67639 = 2879\nkb18bcfe3d5f9 = 4970\nk4c9da4ce5ea3 = 2379\nkbd02706da117 = 3921\nk1fffa6392b83 = 4732\nke38edacba6b3 = 4934\nkd6d5aa9596d4 = 2920\nk0c6f7a695c4d = 2859\nkb326260ebe6a = 2754\nkc14920b1605d = 4191\nkd40dbcf89757 = 2658\nk59a4f6d44bb6 = 3326\nkc19faa780891 = 4351\nk1423231fa02d = 3402\nk4f06c59afc82 = 3980\nk85a169ee573e = 2105\nk35ee8e7f7144 = 4522\nk7c2808e8adaa = 2175\nk64dbf75f9de6 = 3372\nk0bdad0de44b0 = 4556\nk161c8822bd98 = 2979\nk36d847f5a3de = 2665\nk02ed817a45ae = 4475\nk1245a11b355e = 4269\nk7a3a3b1b8136 = 2075\nkfb18a7ceeb21 = 4476\nk8395faeca9cd = 4193\nk845412218191 = 4944\nkc8ff4d0a5eb5 = 3573\nk2fd34cd11531 = 3462\nke4a928aa727f = 3081\nkce84491c5836 = 3146\nk525c3353307e = 3142\nk9f690864fe06 = 2827\nkf68b9e5e77e3 = 2495\nk95838716c66d = 3442\nk174b11f88bd1 = 4106\nkd2636d4dc2a4 = 4149\nkfda395121e85 = 2350\nka548672a8b3b = 3583\nk2d3a77a4b683 = 4884\nk96b1a02ad2cb = 4968\nkb8223e1ffa45 = 2830\nk94315eb68306 = 2884\nk3ac84f9c8d39 = 2162\nk04a96a5f659f = 4951\nk759e2d722419 = 3833\nk6874e039136e = 4152\nkad885fb43c5c = 3764\nk83c5d92bd4f7 = 4270\nk4053f6fd9017 = 3848\nk98f8a228fe40 = 4628\nk9cb6a6a98b4a = 3014\nk592a94374169 = 3783\nk1547b27e8cea = 2654\nkaca2a6af31a2 = 3278\nk60d827e10db5 = 3491\nk9ca063489cc5 = 3817\nk912b87bff3a8 = 4092\nkd2c5db07cb82 = 3036\nkb91b3b82e15d = 3751\nk708fa1eb74cb = 2634\nk82c36fdb63c1 = 3489\nk0f2d1b9024d6 = 4651\nk14720acfa819 = 3720\nk45dd31989d0c = 2930\nkb362a4b1aab9 = 3034\nk43edec090d1b = 3176\nkf8198266bb34 = 3309\nk186b712e5339 = 3153\nkd18caa739bd5 = 3551\nk586be49b6a10 = 2401\nkbef16cd5a7a2 = 4238\nkba81dad21c4e = 3882\nk044cb1455e8c = 3604\nk7132ced600c3 = 4998\nk97c755de364a = 2279\nk451c69eedc9f = 2682\nk51e45ff8c3ad = 4275\nk9c5ffd4f8f57 = 3986\nk16c75f86fc27 = 3800\nk31d807751ac5 = 3825\nkcd4ad89a880e = 2892\nkacdf432ffeeb = 3129\nkec0343977970 = 3475\nke34778aec97c = 3570\nkb7dd5cf92f43 = 4988\nka7f367d4bc0a = 4860\nk4a2d1274174b = 3864\nk5b7dcedcf21c = 4507\nk29d794dc7924 = 3808\nkb86eb90348ba = 3073\nk4529b4d929eb = 2337\nkd6b98fe7f890 = 3765\nkb7f40a89fd12 = 3471\nkdd6a5bd97653 = 2394\nk7922904ce299 = 4187\nk87cd7c52f738 = 4838\nk2f3d300fbeae = 4304\nk6bdaf36bef6c = 4962\nka843abad4bf4 = 3956\nk0424025c7125 = 4360\nke3c376acc81c = 4802\nkcf3fbcaf1ef1 = 2772\nk671b2e790418 = 2959\nk446778a809ed = 3443\nkdc8d91ee0141 = 2995\nk46ee53a37c78 = 3946\nkc2f30810d313 = 4236\nk1b632020962b = 2321\nk9a7a1d2c5208 = 4515\nkd7619e5e1491 = 2480\nk4166a9f011ba = 3410\nkf3176e3e900e = 2355\nked9eb4d2a693 = 4924\nk42a1b006a187 = 3022\nk14215ba2b6b4 = 2148\nk522300c6bd65 = 4462\nk44cbb6b7cd84 = 3150\nkbdeb8ee565f7 = 2630\nk46c7533da07f = 4551\nk164dc2775f79 = 2860\nk498a99fa3372 = 3768\nk0b3d3ed79aa7 = 2621\nk6a02c080729c = 4944\nk2313ec691622 = 3980\nk9c1bf38adb05 = 3290\nkee36734d9f36 = 3350\nk782b7047a859 = 3617\nk01c626d77e24 = 2684\nk966cf9ea356a = 2742\nka2c44540abd8 = 4040\nk2199d40ec403 = 3317\nkeff26641ee84 = 3815\nk00f000dca0d5 = 2651\nkbbb08661379a = 2272\nk1ed7460d871e = 2131\nkd36b149c9416 = 4471\nk536fabdd587a = 4645\nkc0104839df5c = 4431\nkb8a7766ff6fe = 2614\nkfc5fda61b21c = 4287\nk5c0e4c49b89d = 3861\nk9219c4b42754 = 2853\nkdbb3cdef4240 = 3613\nk6c3b5891cda3 = 3254\nk3139ad9b7e39 = 4739\nk75123547c9bc = 3894\nk64e70aa05e25 = 4741\nk2ce787e10ff1 = 3527\nk4a101e16c112 = 2378\nkc0ccb5700451 = 3648\nk4ac6f7e0681c = 4714\nk6154505abb45 = 3341\nkf8dd33254ce1 = 4781\nk4136f3a970f1 = 3866\nk33ccf867ec89 = 4070\nkef743c0a4fb3 = 3203\nk8053f9ec9b5c = 3446\nked8a2b6bd3a3 = 2470\nk11cb3083b880 = 2418\nkaf06ffc7bede = 2497\nk122e79d3326e = 3029\nk0873367f9faf = 4729\nka2138b4bb598 = 2122\nk3fc88c86eb47 = 2080\nk696a4a60d3f5 = 3329\nkc3e594f8be99 = 2637\nk9750c99ea7eb = 4759\nkb7e4fd6dc243 = 2077\nk0db4ecc78c8e = 4889\nk9b10a3d1363d = 3961\nkd3d95a81b7ce = 3819\nkdde913932b07 = 3579\nk0c6138179295 = 2802\nk133eedebcf58 = 4122\nk7e18f315930e = 3180\nk82854ea83fc5 = 4348\nkd730d5a12eb2 = 3971\nk05a45f8fedf5 = 4990\nkab4286850c36 = 4438\nk22bbb51a4e59 = 4732\nk193d65535a13 = 4964\nk8b3025a5e900 = 3596\nkd64c0db24e77 = 3366\nkd2a9f9c3db83 = 3305\nkcb489ee5d6a3 = 4740\n\nWhat exact value belongs to kb91b3b82e15d?\nReturn only the exact value. If it is absent, return exactly UNANSWERABLE.",
+      "reference": {
+        "kind": "text",
+        "value": "3751",
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "text_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 4
+      },
+      "metadata": {
+        "template": "single_key",
+        "context_rows": 256,
+        "nominal_rows_tier": 256,
+        "token_length": "Must be measured per tokenizer; no invented token counts",
+        "answerable": true,
+        "canonical_response": "3751",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_retrieval:intake-v1:000005",
+      "dataset": "lattice_retrieval",
+      "family": "lattice_retrieval",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "3e81a0e03a59facbc58efc943cd73d5bd4a18eac085321c5d82c9cd208c3c8b1",
+      "prompt": "Records:\npointer kcdf996c4a0f0 -> k837638ffb50d\nkeee58987e394 = 4135\nkcdf996c4a0f0 = 4122\nk0223d3bb01fb = 2450\nk4995648f7d10 = 4122\nk42297a30d40d = 4299\nk837638ffb50d = 2672\nk857484b347c7 = 2657\nkb3185907f1bc = 2579\nk57597c914306 = 4254\nk36f85dad396e = 2845\nkfcfae1971ce4 = 4798\nk5aef8c70dc83 = 4878\nkbc0553202b01 = 4112\nkbe2f5dd623f9 = 4987\nk2bc189b89962 = 2566\nk540829acd531 = 3520\n\nFollow pointer kcdf996c4a0f0, then return the value of its destination key.\nReturn only the exact value. If it is absent, return exactly UNANSWERABLE.",
+      "reference": {
+        "kind": "text",
+        "value": "2672",
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "text_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 5
+      },
+      "metadata": {
+        "template": "one_hop_pointer",
+        "context_rows": 17,
+        "nominal_rows_tier": 16,
+        "token_length": "Must be measured per tokenizer; no invented token counts",
+        "answerable": true,
+        "canonical_response": "2672",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_retrieval:intake-v1:000006",
+      "dataset": "lattice_retrieval",
+      "family": "lattice_retrieval",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "7596b2d62160e775aca0ed633f942318ef64cb15e512590e151c4a48a65cea76",
+      "prompt": "Records:\nk6e1d5753fe6f = 4035\nk9be3cbade919 = 2833\nk2f333e22bc5a = 2594\nk0f619deb5d37 = 2743\nk76ab28cca894 = 3216\nk75a68799f2fb = 4770\nk1136c567c2f2 = 2820\nk22491f730243 = 3258\nkc1ee68282b42 = 2714\nk938637afc76a = 4406\nk77743701e4ff = 4298\nk2f05ac0910e0 = 2729\nk3fded2be482b = 4549\nk14d831a10376 = 3205\nk2640a45349be = 3055\nk505804ee5a73 = 4775\nk593e85e10d5d = 3962\nk552663a66f01 = 3807\nk380b1c2cc3f9 = 2061\nkb62616dad96a = 4539\nk705f9093909d = 2077\nk9b0493311079 = 4148\nkef45a54dd1ac = 4288\nkc1b36950e97a = 3253\npointer k209f2b97ea51 -> k97f07ae990f4\nk209f2b97ea51 = 4419\nk0e2e9b02c619 = 4166\nk1973cc554574 = 3522\nk97f07ae990f4 = 3697\nk90b8eb753cda = 3376\nk5536d0de5118 = 2763\nk9e0b09cd124c = 2088\nk19291d15461c = 4593\n\nFollow pointer k209f2b97ea51, then return the value of its destination key.\nReturn only the exact value. If it is absent, return exactly UNANSWERABLE.",
+      "reference": {
+        "kind": "text",
+        "value": "3697",
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "text_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 6
+      },
+      "metadata": {
+        "template": "one_hop_pointer",
+        "context_rows": 33,
+        "nominal_rows_tier": 32,
+        "token_length": "Must be measured per tokenizer; no invented token counts",
+        "answerable": true,
+        "canonical_response": "3697",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_retrieval:intake-v1:000007",
+      "dataset": "lattice_retrieval",
+      "family": "lattice_retrieval",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "bef14e800836c22bd3e86716cc1b6e1e4a0424420bf9a8d3b7c3a6ddbb549162",
+      "prompt": "Records:\nk9bc1bfbedcd6 = 3304\nk5f67e05a6d25 = 2286\npointer k8ab6819afce2 -> kd8335e115a52\nkc606dbed63e7 = 2942\nkbd6b4f153143 = 3750\nk9e7c74a2d1c4 = 2325\nk51b390c072c9 = 3544\nk5308b358b58f = 3797\nkef969c938145 = 2962\nkd8d975ea8baa = 3943\nkceb2637d64cf = 3906\nk717878f7f647 = 4663\nk65ccbdaa107f = 2980\nk03b2b0029dbb = 2507\nka8e4a9ebcf8a = 2176\nk39aec240c400 = 4202\nk1755386fedaa = 3488\nk0b3b53541855 = 4680\nk9f5405cf7ad0 = 4321\nk60e6a6906197 = 2998\nk36a484e4d1ab = 3199\nkcac46d23dc9f = 2983\nkff68d5a2672d = 4592\nkb3ee03f93856 = 4166\nk45ad97a18054 = 4607\nk557456263def = 2198\nkdb12357559c7 = 4454\nkdc221dabe2e1 = 3029\nk3fb60399bcab = 4050\nkd8335e115a52 = 4558\nk19270a4ece01 = 2608\nk0a8b319d015b = 2573\nka43f3181c55a = 2914\nk0e66f4cc5d35 = 4343\nk31659cdfd507 = 4898\nk26c0eec52bfe = 3896\nk59cd9b72d727 = 2302\nk12f399cf0e41 = 2834\nk4306523ae080 = 4218\nk4070108d65bd = 2970\nk37f67f94d345 = 2906\nk6207ec4a51e6 = 4484\nk9cdba88859b4 = 3250\nk55ab5d06394e = 3558\nkdcae93ec7625 = 2641\nk8ab6819afce2 = 3305\nk8efe99717bfc = 3925\nk12c194ff1cec = 2888\nk6536a4f15364 = 3154\nk5a3e0f51be7e = 3536\nkb4c525906400 = 2673\nk12b0c5e47c2a = 2217\nk87eeaeb379d3 = 2649\nk4860ae5f4225 = 3301\nkeb71df228490 = 3395\nka4443c669cad = 4445\nk20a6a0ae4350 = 4026\nkf189c4180d55 = 4317\nka205d46cc0fd = 3485\nk6450d69b9d15 = 2585\nk15cda2289b45 = 3207\nkaacb2bbe4bc8 = 3339\nk969be8b87c17 = 4582\nkc0ae16f176e3 = 2140\nke429827812e6 = 3449\n\nFollow pointer k8ab6819afce2, then return the value of its destination key.\nReturn only the exact value. If it is absent, return exactly UNANSWERABLE.",
+      "reference": {
+        "kind": "text",
+        "value": "4558",
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "text_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 7
+      },
+      "metadata": {
+        "template": "one_hop_pointer",
+        "context_rows": 65,
+        "nominal_rows_tier": 64,
+        "token_length": "Must be measured per tokenizer; no invented token counts",
+        "answerable": true,
+        "canonical_response": "4558",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_retrieval:intake-v1:000008",
+      "dataset": "lattice_retrieval",
+      "family": "lattice_retrieval",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "b846266c8970bae8cddd02d04ce5f828e0c323c002c18142c4ebebb212ba573f",
+      "prompt": "Records:\nk163efc665928 = 3937\nka0b8f8864346 = 4067\nk17a5d1cba929 = 2985\nk9ddabdaed270 = 3201\nk12398f8af7a4 = 2433\nkc94274907277 = 2060\nk63395e9194d4 = 2781\nkf08ee25e6d66 = 2988\nk32431a3b99f0 = 3421\nk1ff464eaa093 = 3358\nk75540bb9964f = 2469\nk8e2a2d09478a = 3092\nke1d642dcd9b9 = 4691\nk7ef834ee5174 = 2292\nk9e644baec7e0 = 3015\nka7df7042e8ef = 4000\nk690e95f1068a = 3109\nkf52e00938de3 = 2984\nkc6d544901d13 = 2336\nk6bed43276911 = 4873\nk5db6f199d694 = 4611\nk3a8b98c0f135 = 4192\nk7df892534431 = 4102\nkbcf6b819fcfe = 4620\nk85e32002337f = 3333\nk4e4d87b47665 = 2554\nkbeaf5dc3a267 = 3025\nk6ed1a7e6127f = 4711\nkc18a3e75a634 = 2904\nk219613aba43f = 2589\nk111e68b6c9fe = 4722\nkb5cb6f06045a = 4829\nk85fc335b3f63 = 4140\nk9eaf1d7a1d54 = 3808\nk9d95d550ddec = 4109\nk861ea503a3a9 = 3569\nk49df69a33e69 = 4387\nkb01f8501a3a4 = 3817\nk878fcbf91b22 = 4414\nke0d269808d5a = 3005\nk321120fcf9f4 = 2866\nkb85cf7514710 = 2991\nk36eddac13f31 = 2563\nk15cc68f5ae8d = 2250\nk8e269c9b8662 = 2969\nkb4142ac1c768 = 3978\nk66b5c262edd9 = 4305\nke3711ede0d23 = 2702\nk1552b3e1038b = 2698\nk3d7366f52466 = 2190\nk16a0cbbb59a3 = 3663\nkb73f2295511c = 2735\nk5d697c56e8f3 = 2026\nk45b42501a060 = 4599\nk1caee67ae95b = 2471\nk5954c709a76e = 3685\nk47fb560d8c04 = 3777\nkd7025d52a3da = 3143\nkd6480833a3f9 = 4698\nk093386babb9e = 2325\nke37e8029b90c = 4829\nk1c74d552d213 = 2438\nk09f903394520 = 3929\nk515c652840c4 = 4616\nkdbe6ecca7d9c = 2063\nkec6e4e38a37d = 2885\nk84f61be67331 = 3440\nk1a889134f7b2 = 2551\nk1cabd66ad7ee = 3364\nk48873db171eb = 3608\npointer kba0fb505a217 -> k9e644baec7e0\nk0b79f86fc0e3 = 3860\nk59b5e83407bb = 2264\nk86637b860c99 = 4102\nkabb93544f5f9 = 4855\nk65d7a60cd568 = 3460\nk938ad6512118 = 2286\nk6db9bec3b1a1 = 3195\nk063b226d1cf1 = 3904\nk45d8a03cc2a5 = 3872\nke8238662b135 = 3187\nkba91e510bf19 = 2841\nk48acd0327f56 = 3768\nk7e8096c2c5ad = 2629\nk0e663851d372 = 3190\nk26a808d7f989 = 4829\nk4861d0fbfedb = 2924\nkeeadf9e0e1f4 = 2177\nked4af9642e0a = 2004\nk72453cb90179 = 3917\nk26cc7673a85a = 2976\nkaea5877a5a33 = 2553\nk4cfb4e67a528 = 2852\nka7dc531adb8d = 2171\nk3810349cc1a3 = 4403\nk49795c2cf8a8 = 3238\nk99dbb19977e1 = 4513\nk2c5a337ae308 = 4912\nk5879c9cdb4cb = 4687\nk1a6dc3258139 = 2109\nk8b1ded7ea993 = 4977\nkf49c85e6a2e5 = 3441\nkf6bf2c41c331 = 4372\nk1883fcad1c94 = 2764\nk70a19cdfdd8a = 3391\nk1098d6b60df7 = 2278\nkf3c54fe7db95 = 2253\nkc04460e61c30 = 2163\nk46e109a17071 = 3829\nk98cabb671af3 = 4741\nkb94785e61940 = 4222\nkb2bd9fe1029c = 2164\nkba0fb505a217 = 4891\nk5734a3b5ae35 = 4055\nkaec8f7af3a98 = 2921\nk70fa7bdc61bd = 4343\nkc8b3432d82ff = 4887\nk815e04679ebb = 4004\nk96a2da3a61ce = 3095\nk46a208217e33 = 3991\nk98e0ee7c0646 = 2518\nk96ce6562f023 = 3918\nk159cbc4cff62 = 4472\nk59bcd7f050a2 = 4985\nk6d3664c87d7b = 4377\nk990c6c2d6bef = 3000\nkd73b509aa030 = 4081\nk7dff5d76118e = 3821\nk36d32f059919 = 4686\n\nFollow pointer kba0fb505a217, then return the value of its destination key.\nReturn only the exact value. If it is absent, return exactly UNANSWERABLE.",
+      "reference": {
+        "kind": "text",
+        "value": "3015",
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "text_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 8
+      },
+      "metadata": {
+        "template": "one_hop_pointer",
+        "context_rows": 129,
+        "nominal_rows_tier": 128,
+        "token_length": "Must be measured per tokenizer; no invented token counts",
+        "answerable": true,
+        "canonical_response": "3015",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_retrieval:intake-v1:000009",
+      "dataset": "lattice_retrieval",
+      "family": "lattice_retrieval",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "ee31b0d5d17fb03c1577b1d5800d03539ff674b9cfc82b7326dbcc3b0941b16a",
+      "prompt": "Records:\nk145f18bf3226 = 2559\nk0570c4e4960c = 2175\nk7b4462a115db = 2929\nk60f1345d3415 = 2878\nk9bb61a14bafb = 3930\nkbb81ce1ae052 = 2803\nk872b9d70ee35 = 3136\nkc3d2f5f25b20 = 4204\nk3f10f449c112 = 2254\nk2391013c50d8 = 4808\nk21623cbec17d = 2504\nk4d0a5a831ca3 = 4717\nk8a21d8f65a4a = 4728\nk569b7c7db802 = 2692\nk45cb8ac7b13a = 2103\nkf7871d7c9a21 = 4474\nka6a1d9962521 = 2824\nk3adb5887eaa2 = 4867\nk4feea138e6ec = 3197\nk13f5f129632a = 4697\nk85e75f0b57f8 = 2481\nk789bc12d7a1f = 2573\nkb29ad401ccd0 = 3691\nka216543174cd = 2527\nk7b6b1959d421 = 3171\nkc94d429ea259 = 2590\nkda104bf79cec = 3929\nk798deb13eab9 = 4951\nkf9dc36ea6008 = 2928\nka8db9590d358 = 3162\nk19d1cb5c95af = 3635\nk06bd6cacf43d = 4235\nkced050398950 = 2229\nkb56eb71056c0 = 2732\nk9a7d39b04fc0 = 4245\nk41c7d30bc9c9 = 2561\nk231e577a7eb2 = 3511\nkac8b72d37997 = 3073\nk5958639fa032 = 4988\nk4cd03f89c502 = 2974\nk0a3f3d6d2b74 = 4107\nk49382a398b2d = 2034\nk10c2250caf61 = 4530\nkda8de5d56c5c = 3567\nk20a814ee231a = 2274\nk273539445247 = 2051\nkceb9d7626a70 = 2244\nk1cf9e5c5fe82 = 4640\nk5e29a27d1dca = 3164\nk5b98d7153f2c = 4974\nkb7e50b2ce3fe = 3278\nkfb0de927dbb9 = 4534\nk49425368c4aa = 2201\nk6092162b3a3f = 3137\nka425990c48e9 = 3940\nk405f9514e164 = 4345\nkd29177466aa0 = 3605\nk004f0687a9af = 3210\nkcbbb80400f59 = 3116\nka54d536a3f01 = 2890\nk5ec9abfa9d7c = 3833\nk66ba26c7c6f7 = 2243\nk9498fa67a194 = 4185\nkdc2ada6646d9 = 2544\nk2eb92d796dbc = 4403\nk92effe7217f5 = 4552\nk81b9a421fc46 = 2557\nk2392e12c3097 = 3266\nkb2eafe299a8b = 2304\nkcab505505eae = 2255\nk33675f9ac936 = 3820\nkcc433763bea1 = 4450\nk0729a566e37a = 2367\nk32a3ff922159 = 3591\nkda51fe23e1e0 = 4325\nk3e6245dc4a1a = 4142\nkd1d4677f9bd3 = 2663\nk00a421a01d7e = 3185\nk549a5f475d5a = 4578\nk9bdfecfee065 = 2434\nk44797926ef88 = 2892\nkcdf23de6735d = 2593\nk59292589cb0c = 4415\nkeecc8570b78b = 2246\nk3ff029a6ca80 = 2911\nk9c9c09e91381 = 4392\nk5dcf69de2b10 = 3105\nk2351c2e0c342 = 3246\nk453af222cca3 = 3713\nk3a1e47010c9f = 2931\nk0bb6216991c9 = 4411\nk9ea16c6974a2 = 2504\nk86cbca8f7ddd = 2021\nkecf0a75a1c37 = 4222\nkf48e4b24d50c = 4848\nkcbad7a240d7f = 2636\nkdc715a89d25a = 4745\nkde010771c8ca = 3095\nk72bb99519d9c = 4166\nkc8c48948b3c7 = 3570\nkc06f05d28b66 = 3814\nkcfe749ab3037 = 4295\nk0aab29cc13e4 = 4488\nkb4fe74d446c6 = 4723\nk754c7fe9ff13 = 2920\nka8ae307d2a3b = 3366\nk8e3abcab8147 = 4080\nk9b3bbd530a65 = 3983\nk97af09298999 = 2516\nk89ac24525b58 = 2704\nk221c04f05220 = 3104\nk21350b3ca3c5 = 3077\nk0f238bb7475f = 4966\nk33d82efbfde1 = 2256\nk1e60f872401e = 3743\nka81bee175fb4 = 4668\nk5526c428873c = 3151\nk40e0d8f7b19b = 3911\npointer k9e694b645208 -> k2eb92d796dbc\nk820344447f45 = 3623\nk568c203dd9e1 = 3030\nkefdc456b6898 = 2010\nk67c023d269ad = 4178\nk7135ce1415ab = 4474\nk6f249d5d04c4 = 2950\nk9a0ea4f1751c = 2644\nk449ec02288c9 = 4412\nk396cea00418e = 4964\nk99798803db8d = 4185\nk5abfbad4792f = 4861\nk5963e8478c38 = 4011\nk1689397e169a = 2978\nk322daeaf6af3 = 4390\nkd391611c4946 = 3552\nk4db66e7268f9 = 2640\nk1077207df4a2 = 4593\nkbaeb61a0410f = 2326\nkfdec76e6e3f9 = 2738\nk9ba69ee02df6 = 3814\nk4cc319edf645 = 2634\nkb1b07fcedcd7 = 3977\nk7cf9cdf27295 = 4437\nke1a612bc08c4 = 4648\nk7f52a8d1c71b = 4762\nkf020144c22e8 = 3228\nk66d96b24f8eb = 4152\nk0cbf9702cce4 = 2575\nkb28e3456a667 = 3728\nkbb15c3e2cdcd = 3875\nkf11e10c08277 = 3842\nk0e22fc266553 = 2660\nk6354939375b5 = 4550\nka6dcef489678 = 4698\nk27c74920aae4 = 2916\nk6c630e4a370b = 3350\nkb9b5918336dc = 4610\nk8e7e18764092 = 4927\nk6b431a225885 = 2055\nk1b226788e5e5 = 3603\nka0b0b69a34f0 = 4710\nka9e75ffad07c = 2076\nk902e69870491 = 3174\nk9080dfd7771f = 4902\nkee447705cd40 = 3174\nkca1b3ca27ba8 = 3091\nkb88b38fb55f7 = 2586\nk7fef5d0393b1 = 2808\nkaf4758fcc4be = 2969\nkda1df4d36735 = 4573\nk9e694b645208 = 2482\nk5ccdd7090b3c = 4955\nk679455e4b9c3 = 2287\nkd3716acabc81 = 3221\nke4c519194f8d = 4569\nk130a35bf677e = 3529\nk1a12966fe4de = 2158\nka4651b0f9d24 = 2889\nk9dfa0df0006c = 2024\nk61b85fdf331a = 3990\nk17704f4e8315 = 3698\nk05e030d7a3de = 3072\nkb2a23b07a659 = 2893\nk0f093783cfd6 = 3493\nk5d81207676ff = 4548\nk81f7f84c352f = 3326\nk3437eb4fc0b6 = 2513\nk96232e26a4ee = 3059\nk3c405b29ca9b = 3634\nkb61868b7e7ad = 4796\nkd630ed8625e7 = 3392\nk8ab1dfad17be = 2189\nk93c888249554 = 4938\nk803e6bab3aa5 = 4563\nk70ca4e278424 = 4794\nkfe8439265e21 = 3419\nk6d772c515081 = 3220\nk99dd0ae5ed8d = 3902\nk47667e4b25e6 = 4677\nk8433381c38f1 = 2255\nk67900fdda32d = 4268\nka26ed6de3f4f = 3636\nkbb62f883ce50 = 3354\nk8882b5d58ea9 = 3583\nkb71e2c8ccc56 = 3293\nk30495117373d = 4709\nk692801519032 = 2792\nk9967540da60f = 2469\nk16600708d4d9 = 2001\nk273466476963 = 2843\nk443fe151c63b = 2014\nka73d70fa340a = 3553\nkbba694a88c11 = 2335\nk2568bc7e0cd3 = 2805\nkadc6a2483ee9 = 2207\nk3ee2575531f5 = 4638\nk8cb23a3f73ba = 4376\nkc314d4a00203 = 4089\nkb881232d92a0 = 3355\nk37229d71fc06 = 2309\nkc4c8be614625 = 2566\nkc946baabbdf9 = 4243\nk11a5fed09d92 = 4505\nk6235bb0dc8ce = 4528\nk11f54e56dc99 = 2084\nkd8209281e0c8 = 3233\nk97912040ed4f = 2601\nkd74a57b905af = 2616\nkc67a3d1126da = 2303\nk47b776356f20 = 2241\nk9d9c37d6db5f = 3645\nk7b2cafc69d3b = 2233\nk28a77a226f14 = 2038\nk2a7dc93f1279 = 4031\nkcc58d6f7549d = 3088\nk65033f6fb032 = 3605\nkd777de0fb64e = 4275\nk245958faf14c = 2841\nk6693617458c0 = 3567\nk785cd073276b = 3418\nkde119617d449 = 2852\nk7ed0523acd37 = 3128\nk5dd2ae8bbe07 = 2484\nkfc91454932ce = 3617\nk09863d122f29 = 4471\nke4bc171846ac = 2986\nk02327dbdee2c = 3385\nk64905e04b530 = 3394\nk6ba0bc8f35b4 = 4284\nkd4039020dd06 = 2374\nkc5da793cf670 = 2718\nkddd7e5abde90 = 2903\nk2372ddf4fb96 = 4176\nk177910d5e1bc = 4745\nkfec44521f93b = 4212\nk168874f8a8a6 = 3393\nk7c061f99557f = 2984\nk3b93034a6827 = 3719\n\nFollow pointer k9e694b645208, then return the value of its destination key.\nReturn only the exact value. If it is absent, return exactly UNANSWERABLE.",
+      "reference": {
+        "kind": "text",
+        "value": "4403",
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "text_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 9
+      },
+      "metadata": {
+        "template": "one_hop_pointer",
+        "context_rows": 257,
+        "nominal_rows_tier": 256,
+        "token_length": "Must be measured per tokenizer; no invented token counts",
+        "answerable": true,
+        "canonical_response": "4403",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_retrieval:intake-v1:000010",
+      "dataset": "lattice_retrieval",
+      "family": "lattice_retrieval",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "2331d6f00af8618ba6471a963a9f255e6e39ff73e5d4bbe3b65407ce5c738aef",
+      "prompt": "Records:\nk9a8d39af6b9f = 3269\nk1d86e0a7b282 = 2096\nk6416ae99b862 = 3344\nkc47a498f5f5d = 3612\nkb17bc4b75c87 = 3594\nk69b78cf5ee1f = 2837\nka6dfdcf083a8 = 4971\nk21df09151a1f = 2357\nk70b8ff4521e9 = 4501\nk2b7d8f077983 = 2189\nkb376ad047f7e = 2705\nkf1f279661c2d = 3792\nkc3df8eae9e18 = 3275\nkf8f88cd961a4 = 3963\nkcd9375db41b0 = 3123\nk3c26017d5288 = 3411\n\nWhat value belongs to absent01de9d5cb1a1?\nReturn only the exact value. If it is absent, return exactly UNANSWERABLE.",
+      "reference": {
+        "kind": "text",
+        "value": "UNANSWERABLE",
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "text_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 10
+      },
+      "metadata": {
+        "template": "missing_key",
+        "context_rows": 16,
+        "nominal_rows_tier": 16,
+        "token_length": "Must be measured per tokenizer; no invented token counts",
+        "answerable": false,
+        "canonical_response": "UNANSWERABLE",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "lattice_retrieval:intake-v1:000011",
+      "dataset": "lattice_retrieval",
+      "family": "lattice_retrieval",
+      "source_split": "generated",
+      "partition": "evaluation",
+      "group_id": "b77188c0eb41a92f824f76326b8c5b5f24a5b6438d4b45a2189d70f196574b75",
+      "prompt": "Records:\nkeedfb37fee35 = 2392\nkc519b7d5e40c = 2876\nk08d024e1b34b = 2901\nk1e0b76180621 = 2109\nk883c7d938577 = 2638\nk87d183bada02 = 4204\nk978c955f2acd = 3812\nka4a17f59fbc4 = 4231\nkb1d7c14ec1d2 = 2125\nkde22028aefb5 = 4007\nk7c434a05492b = 4629\nk59cf8036cac1 = 4258\nk9faed1428133 = 2881\nka33066ad5447 = 3792\nkf6797c926f7f = 4508\nk6c0ecf704c40 = 4971\nk8f8fc65a25b0 = 2341\nk744956e3a11c = 3186\nk618100329243 = 2476\nk38e40476b7b3 = 3693\nkd8f4c108e2bc = 2341\nk8845c2f2350f = 3256\nka1fbbb540236 = 2362\nk8cecd5286466 = 3410\nk999db885bf04 = 4341\nkbbe3e889edcb = 2336\nk24f36f4f1fb8 = 4404\nkd00b62244aa4 = 2315\nk48628b4f44ef = 2447\nk2815586398ee = 2191\nk8a789bbd4217 = 2219\nk06ad8cf2013c = 4391\n\nWhat value belongs to absentc0dfec45aeec?\nReturn only the exact value. If it is absent, return exactly UNANSWERABLE.",
+      "reference": {
+        "kind": "text",
+        "value": "UNANSWERABLE",
+        "alternatives": [],
+        "checks": []
+      },
+      "scorer": "text_v1",
+      "license": "Apache-2.0",
+      "source": {
+        "generator": "lattice-data-intake-v1",
+        "seed": 73021,
+        "index": 11
+      },
+      "metadata": {
+        "template": "missing_key",
+        "context_rows": 32,
+        "nominal_rows_tier": 32,
+        "token_length": "Must be measured per tokenizer; no invented token counts",
+        "answerable": false,
+        "canonical_response": "UNANSWERABLE",
+        "synthetic": true,
+        "foundation_model_holdout_claim": false
+      }
+    }
+  ],
+  "templates": {
+    "single_key": 400,
+    "one_hop_pointer": 400,
+    "missing_key": 400,
+    "versioned_override": 400
+  }
+}

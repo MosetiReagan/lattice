@@ -1,0 +1,9 @@
+{
+  "suite": "external-intake-v1",
+  "records": 183241,
+  "files": 26,
+  "data_file_hashes_reproduced": true,
+  "quarantine_counts_reproduced": true,
+  "invalid_records": 0,
+  "note": "Second complete preparation from verified raw sources; timestamps/provenance manifest paths may differ. Temporary duplicate preparation removed, not counted as new data."
+}

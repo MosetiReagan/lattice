@@ -1,0 +1,238 @@
+{
+  "created_utc": "2026-11-19T23:24:56.605141+00:00",
+  "source_lock_sha256": "d40d53a085caa7790c412e87261f0f2ce0daf52c6dc20d1f89fbc6bc0768d665",
+  "files": [
+    {
+      "collection": "gsm8k",
+      "family": "gsm8k",
+      "split": "train",
+      "revision": "740312add88f781978c0658806c59bc2815b9866",
+      "path": "benchmarks/datasets/external/sources/gsm8k/740312add88f781978c0658806c59bc2815b9866/train-00000-of-00001.parquet",
+      "size_bytes": 2306545,
+      "sha256": "ea82612ea9582142387730c793eb67d3b12849002bc0b7fa6f8efafa7351419d",
+      "canonical_url": "https://huggingface.co/datasets/openai/gsm8k/resolve/740312add88f781978c0658806c59bc2815b9866/main/train-00000-of-00001.parquet"
+    },
+    {
+      "collection": "gsm8k",
+      "family": "gsm8k",
+      "split": "test",
+      "revision": "740312add88f781978c0658806c59bc2815b9866",
+      "path": "benchmarks/datasets/external/sources/gsm8k/740312add88f781978c0658806c59bc2815b9866/test-00000-of-00001.parquet",
+      "size_bytes": 419088,
+      "sha256": "ee7b8da9e381df27b9e3f7758a159ab2bdaa4dbaa910546cbbc47e0cb44e4f59",
+      "canonical_url": "https://huggingface.co/datasets/openai/gsm8k/resolve/740312add88f781978c0658806c59bc2815b9866/main/test-00000-of-00001.parquet"
+    },
+    {
+      "collection": "arc_easy",
+      "family": "arc",
+      "split": "train",
+      "revision": "210d026faf9955653af8916fad021475a3f00453",
+      "path": "benchmarks/datasets/external/sources/arc_easy/210d026faf9955653af8916fad021475a3f00453/train-00000-of-00001.parquet",
+      "size_bytes": 330598,
+      "sha256": "b315db8a4be597dc7daa50a4e70d48dd7c990c32085629e6ccd8c926beaa80b5",
+      "canonical_url": "https://huggingface.co/datasets/allenai/ai2_arc/resolve/210d026faf9955653af8916fad021475a3f00453/ARC-Easy/train-00000-of-00001.parquet"
+    },
+    {
+      "collection": "arc_easy",
+      "family": "arc",
+      "split": "validation",
+      "revision": "210d026faf9955653af8916fad021475a3f00453",
+      "path": "benchmarks/datasets/external/sources/arc_easy/210d026faf9955653af8916fad021475a3f00453/validation-00000-of-00001.parquet",
+      "size_bytes": 86080,
+      "sha256": "ed890ff1e4cef7a7140d3a30dcea3ed2c9d467c6458f447ad9ef0176d8dcbb74",
+      "canonical_url": "https://huggingface.co/datasets/allenai/ai2_arc/resolve/210d026faf9955653af8916fad021475a3f00453/ARC-Easy/validation-00000-of-00001.parquet"
+    },
+    {
+      "collection": "arc_easy",
+      "family": "arc",
+      "split": "test",
+      "revision": "210d026faf9955653af8916fad021475a3f00453",
+      "path": "benchmarks/datasets/external/sources/arc_easy/210d026faf9955653af8916fad021475a3f00453/test-00000-of-00001.parquet",
+      "size_bytes": 346257,
+      "sha256": "4160597d618ae851c7eb04e281574f3f654776216ac6b6641588d64527b47177",
+      "canonical_url": "https://huggingface.co/datasets/allenai/ai2_arc/resolve/210d026faf9955653af8916fad021475a3f00453/ARC-Easy/test-00000-of-00001.parquet"
+    },
+    {
+      "collection": "arc_challenge",
+      "family": "arc",
+      "split": "train",
+      "revision": "210d026faf9955653af8916fad021475a3f00453",
+      "path": "benchmarks/datasets/external/sources/arc_challenge/210d026faf9955653af8916fad021475a3f00453/train-00000-of-00001.parquet",
+      "size_bytes": 189909,
+      "sha256": "e488c1587ffdcfc8443f916c53488a95cd471c5790e0746c6bfe4cecf20962cb",
+      "canonical_url": "https://huggingface.co/datasets/allenai/ai2_arc/resolve/210d026faf9955653af8916fad021475a3f00453/ARC-Challenge/train-00000-of-00001.parquet"
+    },
+    {
+      "collection": "arc_challenge",
+      "family": "arc",
+      "split": "validation",
+      "revision": "210d026faf9955653af8916fad021475a3f00453",
+      "path": "benchmarks/datasets/external/sources/arc_challenge/210d026faf9955653af8916fad021475a3f00453/validation-00000-of-00001.parquet",
+      "size_bytes": 55743,
+      "sha256": "395a5c88d1580d69855fbaee9450270578df1ad5af6259771cd0a42c20e99f05",
+      "canonical_url": "https://huggingface.co/datasets/allenai/ai2_arc/resolve/210d026faf9955653af8916fad021475a3f00453/ARC-Challenge/validation-00000-of-00001.parquet"
+    },
+    {
+      "collection": "arc_challenge",
+      "family": "arc",
+      "split": "test",
+      "revision": "210d026faf9955653af8916fad021475a3f00453",
+      "path": "benchmarks/datasets/external/sources/arc_challenge/210d026faf9955653af8916fad021475a3f00453/test-00000-of-00001.parquet",
+      "size_bytes": 203808,
+      "sha256": "62f03257e737aed263f55c6abf87c7bb0028a44a6bdd2a26eb1279eb42c1d1e9",
+      "canonical_url": "https://huggingface.co/datasets/allenai/ai2_arc/resolve/210d026faf9955653af8916fad021475a3f00453/ARC-Challenge/test-00000-of-00001.parquet"
+    },
+    {
+      "collection": "boolq",
+      "family": "boolq",
+      "split": "train",
+      "revision": "35b264d03638db9f4ce671b711558bf7ff0f80d5",
+      "path": "benchmarks/datasets/external/sources/boolq/35b264d03638db9f4ce671b711558bf7ff0f80d5/train-00000-of-00001.parquet",
+      "size_bytes": 3685146,
+      "sha256": "4f028e992c0bd4df30b9f056f4946b64f5c23028034ff0ed5ea467d8538cc623",
+      "canonical_url": "https://huggingface.co/datasets/google/boolq/resolve/35b264d03638db9f4ce671b711558bf7ff0f80d5/data/train-00000-of-00001.parquet"
+    },
+    {
+      "collection": "boolq",
+      "family": "boolq",
+      "split": "validation",
+      "revision": "35b264d03638db9f4ce671b711558bf7ff0f80d5",
+      "path": "benchmarks/datasets/external/sources/boolq/35b264d03638db9f4ce671b711558bf7ff0f80d5/validation-00000-of-00001.parquet",
+      "size_bytes": 1257630,
+      "sha256": "52355d11524b4b874a9b9dcc278feb10f672d52c4f4eff9872e695ede59820f8",
+      "canonical_url": "https://huggingface.co/datasets/google/boolq/resolve/35b264d03638db9f4ce671b711558bf7ff0f80d5/data/validation-00000-of-00001.parquet"
+    },
+    {
+      "collection": "commonsense_qa",
+      "family": "commonsense_qa",
+      "split": "train",
+      "revision": "94630fe30dad47192a8546eb75f094926d47e155",
+      "path": "benchmarks/datasets/external/sources/commonsense_qa/94630fe30dad47192a8546eb75f094926d47e155/train-00000-of-00001.parquet",
+      "size_bytes": 1247103,
+      "sha256": "b0449767ed986bfc2ca52b1244a46ef12f732756727f3cb0a4ab69ac8b3d282b",
+      "canonical_url": "https://huggingface.co/datasets/tau/commonsense_qa/resolve/94630fe30dad47192a8546eb75f094926d47e155/data/train-00000-of-00001.parquet"
+    },
+    {
+      "collection": "commonsense_qa",
+      "family": "commonsense_qa",
+      "split": "validation",
+      "revision": "94630fe30dad47192a8546eb75f094926d47e155",
+      "path": "benchmarks/datasets/external/sources/commonsense_qa/94630fe30dad47192a8546eb75f094926d47e155/validation-00000-of-00001.parquet",
+      "size_bytes": 160240,
+      "sha256": "bdbd9bf9cc4d2349b24901038b2ab2f58e10e4e507ad2fd425dca55cd3cb6660",
+      "canonical_url": "https://huggingface.co/datasets/tau/commonsense_qa/resolve/94630fe30dad47192a8546eb75f094926d47e155/data/validation-00000-of-00001.parquet"
+    },
+    {
+      "collection": "ifeval",
+      "family": "ifeval",
+      "split": "train",
+      "revision": "966cd89545d6b6acfd7638bc708b98261ca58e84",
+      "path": "benchmarks/datasets/external/sources/ifeval/966cd89545d6b6acfd7638bc708b98261ca58e84/ifeval_input_data.jsonl",
+      "size_bytes": 207111,
+      "sha256": "6a85310ca8ce15eff755aa08a3a4ff931c7e273e7515ebb3c492ea85fd8288f2",
+      "canonical_url": "https://huggingface.co/datasets/google/IFEval/resolve/966cd89545d6b6acfd7638bc708b98261ca58e84/ifeval_input_data.jsonl"
+    },
+    {
+      "collection": "humaneval",
+      "family": "humaneval",
+      "split": "test",
+      "revision": "7dce6050a7d6d172f3cc5c32aa97f52fa1a2e544",
+      "path": "benchmarks/datasets/external/sources/humaneval/7dce6050a7d6d172f3cc5c32aa97f52fa1a2e544/test-00000-of-00001.parquet",
+      "size_bytes": 83920,
+      "sha256": "2f2871a15fbc95b6c683043359f4ed8e144c5a1c4f24f25f66bc51f598dfcfb6",
+      "canonical_url": "https://huggingface.co/datasets/openai/openai_humaneval/resolve/7dce6050a7d6d172f3cc5c32aa97f52fa1a2e544/openai_humaneval/test-00000-of-00001.parquet"
+    },
+    {
+      "collection": "mbpp",
+      "family": "mbpp",
+      "split": "prompt",
+      "revision": "4bb6404fdc6cacfda99d4ac4205087b89d32030c",
+      "path": "benchmarks/datasets/external/sources/mbpp/4bb6404fdc6cacfda99d4ac4205087b89d32030c/prompt-00000-of-00001.parquet",
+      "size_bytes": 7878,
+      "sha256": "a053e4bb85ceb77430ae80592addb4ca4dc6ba087592f9e04537800ee88b7431",
+      "canonical_url": "https://huggingface.co/datasets/google-research-datasets/mbpp/resolve/4bb6404fdc6cacfda99d4ac4205087b89d32030c/full/prompt-00000-of-00001.parquet"
+    },
+    {
+      "collection": "mbpp",
+      "family": "mbpp",
+      "split": "train",
+      "revision": "4bb6404fdc6cacfda99d4ac4205087b89d32030c",
+      "path": "benchmarks/datasets/external/sources/mbpp/4bb6404fdc6cacfda99d4ac4205087b89d32030c/train-00000-of-00001.parquet",
+      "size_bytes": 87223,
+      "sha256": "09d125ca31edacb7800be8c67c45abff618faf0214ff551291817d06bdb914ae",
+      "canonical_url": "https://huggingface.co/datasets/google-research-datasets/mbpp/resolve/4bb6404fdc6cacfda99d4ac4205087b89d32030c/full/train-00000-of-00001.parquet"
+    },
+    {
+      "collection": "mbpp",
+      "family": "mbpp",
+      "split": "validation",
+      "revision": "4bb6404fdc6cacfda99d4ac4205087b89d32030c",
+      "path": "benchmarks/datasets/external/sources/mbpp/4bb6404fdc6cacfda99d4ac4205087b89d32030c/validation-00000-of-00001.parquet",
+      "size_bytes": 25144,
+      "sha256": "3f0ec060987432d99fe8fb409d31e6c67445b208a01741c5583517c80a10fe80",
+      "canonical_url": "https://huggingface.co/datasets/google-research-datasets/mbpp/resolve/4bb6404fdc6cacfda99d4ac4205087b89d32030c/full/validation-00000-of-00001.parquet"
+    },
+    {
+      "collection": "mbpp",
+      "family": "mbpp",
+      "split": "test",
+      "revision": "4bb6404fdc6cacfda99d4ac4205087b89d32030c",
+      "path": "benchmarks/datasets/external/sources/mbpp/4bb6404fdc6cacfda99d4ac4205087b89d32030c/test-00000-of-00001.parquet",
+      "size_bytes": 115824,
+      "sha256": "566fd53060ffba5766dace1d1e2f4c38906781526de222b0dfbdbc325b696c77",
+      "canonical_url": "https://huggingface.co/datasets/google-research-datasets/mbpp/resolve/4bb6404fdc6cacfda99d4ac4205087b89d32030c/full/test-00000-of-00001.parquet"
+    },
+    {
+      "collection": "wikitext2",
+      "family": "wikitext",
+      "split": "train",
+      "revision": "b08601e04326c79dfdd32d625aee71d232d685c3",
+      "path": "benchmarks/datasets/external/sources/wikitext2/b08601e04326c79dfdd32d625aee71d232d685c3/train-00000-of-00001.parquet",
+      "size_bytes": 6357543,
+      "sha256": "e83889baabc497075506f91975be5fac0d45c5290b6b20582c8cd1e853d0c9f7",
+      "canonical_url": "https://huggingface.co/datasets/Salesforce/wikitext/resolve/b08601e04326c79dfdd32d625aee71d232d685c3/wikitext-2-raw-v1/train-00000-of-00001.parquet"
+    },
+    {
+      "collection": "wikitext2",
+      "family": "wikitext",
+      "split": "validation",
+      "revision": "b08601e04326c79dfdd32d625aee71d232d685c3",
+      "path": "benchmarks/datasets/external/sources/wikitext2/b08601e04326c79dfdd32d625aee71d232d685c3/validation-00000-of-00001.parquet",
+      "size_bytes": 657209,
+      "sha256": "204929b7ff9d6184953f867dedb860e40aa69c078fc1e54b3baaa8fb28511c4c",
+      "canonical_url": "https://huggingface.co/datasets/Salesforce/wikitext/resolve/b08601e04326c79dfdd32d625aee71d232d685c3/wikitext-2-raw-v1/validation-00000-of-00001.parquet"
+    },
+    {
+      "collection": "wikitext2",
+      "family": "wikitext",
+      "split": "test",
+      "revision": "b08601e04326c79dfdd32d625aee71d232d685c3",
+      "path": "benchmarks/datasets/external/sources/wikitext2/b08601e04326c79dfdd32d625aee71d232d685c3/test-00000-of-00001.parquet",
+      "size_bytes": 732610,
+      "sha256": "5f1bea067869d04849c0f975a2b29c4ff47d867f484f5010ea5e861eab246d91",
+      "canonical_url": "https://huggingface.co/datasets/Salesforce/wikitext/resolve/b08601e04326c79dfdd32d625aee71d232d685c3/wikitext-2-raw-v1/test-00000-of-00001.parquet"
+    },
+    {
+      "collection": "squad_v2",
+      "family": "squad",
+      "split": "train",
+      "revision": "3ffb306f725f7d2ce8394bc1873b24868140c412",
+      "path": "benchmarks/datasets/external/sources/squad_v2/3ffb306f725f7d2ce8394bc1873b24868140c412/train-00000-of-00001.parquet",
+      "size_bytes": 16369982,
+      "sha256": "f6da32ffb482ff463ad056477740d1bb284b96a45db3a08bee6a225ca6abf291",
+      "canonical_url": "https://huggingface.co/datasets/rajpurkar/squad_v2/resolve/3ffb306f725f7d2ce8394bc1873b24868140c412/squad_v2/train-00000-of-00001.parquet"
+    },
+    {
+      "collection": "squad_v2",
+      "family": "squad",
+      "split": "validation",
+      "revision": "3ffb306f725f7d2ce8394bc1873b24868140c412",
+      "path": "benchmarks/datasets/external/sources/squad_v2/3ffb306f725f7d2ce8394bc1873b24868140c412/validation-00000-of-00001.parquet",
+      "size_bytes": 1350511,
+      "sha256": "0560174ab095c5ac0a8c8dc8da05f1625453c45a77e4ce9cabc6947ddfdd24cb",
+      "canonical_url": "https://huggingface.co/datasets/rajpurkar/squad_v2/resolve/3ffb306f725f7d2ce8394bc1873b24868140c412/squad_v2/validation-00000-of-00001.parquet"
+    }
+  ],
+  "total_bytes": 36283102,
+  "remote_code_executed": false
+}

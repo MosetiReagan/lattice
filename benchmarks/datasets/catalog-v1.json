@@ -1,0 +1,707 @@
+{
+  "schema_version": 1,
+  "version": "intake-v1",
+  "external_source_families": 9,
+  "external_configurations": 10,
+  "authored_suites": 4,
+  "prepared_records": 193641,
+  "task_records": 192895,
+  "article_documents": 746,
+  "canonical_synthetic_references_checked": 10400,
+  "exact_prompt_duplicates": 0,
+  "policy_group_leakage": 0,
+  "datasets": {
+    "arc_challenge": {
+      "partitions": {
+        "development": 890,
+        "evaluation": 1172,
+        "validation": 519
+      },
+      "scorers": {
+        "choice_v1": 2581
+      },
+      "labels": {
+        "\"D\"": 659,
+        "\"A\"": 567,
+        "\"C\"": 677,
+        "\"B\"": 677,
+        "\"E\"": 1
+      },
+      "templates": {},
+      "rows_tiers": {},
+      "licenses": [
+        "CC-BY-SA-4.0"
+      ],
+      "family": "arc",
+      "records": 2581,
+      "unit": "task"
+    },
+    "arc_easy": {
+      "partitions": {
+        "development": 1792,
+        "evaluation": 2376,
+        "validation": 1019
+      },
+      "scorers": {
+        "choice_v1": 5187
+      },
+      "labels": {
+        "\"C\"": 1351,
+        "\"B\"": 1322,
+        "\"A\"": 1299,
+        "\"D\"": 1212,
+        "\"E\"": 3
+      },
+      "templates": {},
+      "rows_tiers": {},
+      "licenses": [
+        "CC-BY-SA-4.0"
+      ],
+      "family": "arc",
+      "records": 5187,
+      "unit": "task"
+    },
+    "boolq": {
+      "partitions": {
+        "development": 6372,
+        "evaluation": 3270,
+        "validation": 1621
+      },
+      "scorers": {
+        "boolean_v1": 11263
+      },
+      "labels": {
+        "true": 7031,
+        "false": 4232
+      },
+      "templates": {},
+      "rows_tiers": {},
+      "licenses": [
+        "CC-BY-SA-3.0"
+      ],
+      "family": "boolq",
+      "records": 11263,
+      "unit": "task"
+    },
+    "commonsense_qa": {
+      "partitions": {
+        "development": 7797,
+        "evaluation": 1221,
+        "validation": 1944
+      },
+      "scorers": {
+        "choice_v1": 10962
+      },
+      "labels": {
+        "\"E\"": 2163,
+        "\"C\"": 2187,
+        "\"B\"": 2228,
+        "\"D\"": 2236,
+        "\"A\"": 2148
+      },
+      "templates": {},
+      "rows_tiers": {},
+      "licenses": [
+        "MIT"
+      ],
+      "family": "commonsense_qa",
+      "records": 10962,
+      "unit": "task"
+    },
+    "gsm8k": {
+      "partitions": {
+        "development": 5955,
+        "evaluation": 1319,
+        "validation": 1518
+      },
+      "scorers": {
+        "number_v1": 8792
+      },
+      "labels": {},
+      "templates": {},
+      "rows_tiers": {},
+      "licenses": [
+        "MIT"
+      ],
+      "family": "gsm8k",
+      "records": 8792,
+      "unit": "task"
+    },
+    "humaneval": {
+      "partitions": {
+        "evaluation": 164
+      },
+      "scorers": {
+        "code_execution_deferred": 164
+      },
+      "labels": {},
+      "templates": {},
+      "rows_tiers": {},
+      "licenses": [
+        "MIT"
+      ],
+      "family": "humaneval",
+      "records": 164,
+      "unit": "task"
+    },
+    "ifeval": {
+      "partitions": {
+        "development": 302,
+        "evaluation": 102,
+        "validation": 137
+      },
+      "scorers": {
+        "ifeval_official_deferred": 541
+      },
+      "labels": {},
+      "templates": {},
+      "rows_tiers": {},
+      "licenses": [
+        "Apache-2.0"
+      ],
+      "family": "ifeval",
+      "records": 541,
+      "unit": "task"
+    },
+    "lattice_arithmetic": {
+      "partitions": {
+        "evaluation": 800,
+        "validation": 800,
+        "development": 2400
+      },
+      "scorers": {
+        "number_v1": 4000
+      },
+      "labels": {},
+      "templates": {
+        "evaluation:integer_binary": 160,
+        "evaluation:linear_equation": 160,
+        "evaluation:rational_addition": 160,
+        "evaluation:inventory_word_problem": 160,
+        "evaluation:unit_conversion": 160,
+        "validation:integer_binary": 160,
+        "validation:linear_equation": 160,
+        "validation:rational_addition": 160,
+        "validation:inventory_word_problem": 160,
+        "validation:unit_conversion": 160,
+        "development:integer_binary": 480,
+        "development:linear_equation": 480,
+        "development:rational_addition": 480,
+        "development:inventory_word_problem": 480,
+        "development:unit_conversion": 480
+      },
+      "rows_tiers": {},
+      "licenses": [
+        "Apache-2.0"
+      ],
+      "family": "lattice_arithmetic",
+      "records": 4000,
+      "unit": "task"
+    },
+    "lattice_instructions": {
+      "partitions": {
+        "evaluation": 480,
+        "validation": 480,
+        "development": 1440
+      },
+      "scorers": {
+        "constraints_v1": 2400
+      },
+      "labels": {},
+      "templates": {
+        "evaluation:literal_case": 80,
+        "evaluation:word_count_case": 80,
+        "evaluation:numbered_lines": 80,
+        "evaluation:header_footer": 80,
+        "evaluation:frequency_forbidden": 80,
+        "evaluation:json_constraint": 80,
+        "validation:literal_case": 80,
+        "validation:word_count_case": 80,
+        "validation:numbered_lines": 80,
+        "validation:header_footer": 80,
+        "validation:frequency_forbidden": 80,
+        "validation:json_constraint": 80,
+        "development:literal_case": 240,
+        "development:word_count_case": 240,
+        "development:numbered_lines": 240,
+        "development:header_footer": 240,
+        "development:frequency_forbidden": 240,
+        "development:json_constraint": 240
+      },
+      "rows_tiers": {},
+      "licenses": [
+        "Apache-2.0"
+      ],
+      "family": "lattice_instructions",
+      "records": 2400,
+      "unit": "task"
+    },
+    "lattice_retrieval": {
+      "partitions": {
+        "evaluation": 320,
+        "validation": 320,
+        "development": 960
+      },
+      "scorers": {
+        "text_v1": 1600
+      },
+      "labels": {
+        "answerable:True": 1200,
+        "answerable:False": 400
+      },
+      "templates": {
+        "evaluation:single_key": 80,
+        "evaluation:one_hop_pointer": 80,
+        "evaluation:missing_key": 80,
+        "evaluation:versioned_override": 80,
+        "validation:single_key": 80,
+        "validation:one_hop_pointer": 80,
+        "validation:missing_key": 80,
+        "validation:versioned_override": 80,
+        "development:single_key": 240,
+        "development:one_hop_pointer": 240,
+        "development:missing_key": 240,
+        "development:versioned_override": 240
+      },
+      "rows_tiers": {
+        "evaluation:16": 64,
+        "evaluation:32": 64,
+        "evaluation:64": 64,
+        "evaluation:128": 64,
+        "evaluation:256": 64,
+        "validation:16": 64,
+        "validation:32": 64,
+        "validation:64": 64,
+        "validation:128": 64,
+        "validation:256": 64,
+        "development:16": 192,
+        "development:32": 192,
+        "development:64": 192,
+        "development:128": 192,
+        "development:256": 192
+      },
+      "licenses": [
+        "Apache-2.0"
+      ],
+      "family": "lattice_retrieval",
+      "records": 1600,
+      "unit": "task"
+    },
+    "lattice_structured": {
+      "partitions": {
+        "evaluation": 480,
+        "validation": 480,
+        "development": 1440
+      },
+      "scorers": {
+        "json_v1": 2400
+      },
+      "labels": {},
+      "templates": {
+        "evaluation:record_extraction": 80,
+        "evaluation:filter_sort": 80,
+        "evaluation:array_aggregate": 80,
+        "evaluation:type_preservation": 80,
+        "evaluation:escaping_unicode": 80,
+        "evaluation:nested_group_sum": 80,
+        "validation:record_extraction": 80,
+        "validation:filter_sort": 80,
+        "validation:array_aggregate": 80,
+        "validation:type_preservation": 80,
+        "validation:escaping_unicode": 80,
+        "validation:nested_group_sum": 80,
+        "development:record_extraction": 240,
+        "development:filter_sort": 240,
+        "development:array_aggregate": 240,
+        "development:type_preservation": 240,
+        "development:escaping_unicode": 240,
+        "development:nested_group_sum": 240
+      },
+      "rows_tiers": {},
+      "licenses": [
+        "Apache-2.0"
+      ],
+      "family": "lattice_structured",
+      "records": 2400,
+      "unit": "task"
+    },
+    "mbpp": {
+      "partitions": {
+        "development": 306,
+        "evaluation": 500,
+        "validation": 165
+      },
+      "scorers": {
+        "code_execution_deferred": 971
+      },
+      "labels": {},
+      "templates": {},
+      "rows_tiers": {},
+      "licenses": [
+        "CC-BY-4.0"
+      ],
+      "family": "mbpp",
+      "records": 971,
+      "unit": "task"
+    },
+    "squad_v2": {
+      "partitions": {
+        "development": 101051,
+        "evaluation": 11852,
+        "validation": 29131
+      },
+      "scorers": {
+        "span_v1": 142034
+      },
+      "labels": {
+        "answerable:True": 92637,
+        "answerable:False": 49397
+      },
+      "templates": {},
+      "rows_tiers": {},
+      "licenses": [
+        "CC-BY-SA-4.0"
+      ],
+      "family": "squad",
+      "records": 142034,
+      "unit": "task"
+    },
+    "wikitext2": {
+      "partitions": {
+        "corpus": 746
+      },
+      "scorers": {
+        "language_model_loss_deferred": 746
+      },
+      "labels": {},
+      "templates": {},
+      "rows_tiers": {},
+      "licenses": [
+        "CC-BY-SA-3.0 OR GFDL"
+      ],
+      "family": "wikitext",
+      "records": 746,
+      "unit": "article document"
+    }
+  },
+  "files": [
+    {
+      "dataset": "arc_challenge",
+      "partition": "development",
+      "rows": 890,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/arc_challenge/development.jsonl",
+      "sha256": "1110f5c21d39539e8099c02b4f112a9ca6c6ad044afdfe2b5abcfb8a3de32224",
+      "bytes": 1060016
+    },
+    {
+      "dataset": "arc_challenge",
+      "partition": "evaluation",
+      "rows": 1172,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/arc_challenge/evaluation.jsonl",
+      "sha256": "392269626402b6f4c04d6329e75562c29b215dc31bf46723dda2d8b99708d740",
+      "bytes": 1396197
+    },
+    {
+      "dataset": "arc_challenge",
+      "partition": "validation",
+      "rows": 519,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/arc_challenge/validation.jsonl",
+      "sha256": "48a9bb96787d1d09e192decef9e3da328c59a01e88b72397f001860c86765d3e",
+      "bytes": 618006
+    },
+    {
+      "dataset": "arc_easy",
+      "partition": "development",
+      "rows": 1792,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/arc_easy/development.jsonl",
+      "sha256": "8f933a86d29c41ef2c5e1d5156c9beb8d2169b41b6d82941518b03fbf8fb50a8",
+      "bytes": 1991033
+    },
+    {
+      "dataset": "arc_easy",
+      "partition": "evaluation",
+      "rows": 2376,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/arc_easy/evaluation.jsonl",
+      "sha256": "9ca15e3568a434574d2d385c7a7e8bc16c1912446d1533157b4481142f1dd021",
+      "bytes": 2631175
+    },
+    {
+      "dataset": "arc_easy",
+      "partition": "validation",
+      "rows": 1019,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/arc_easy/validation.jsonl",
+      "sha256": "4961e1fad159dce32b01237c77581fbc779fd71556317c4dab536f418681aa6c",
+      "bytes": 1137623
+    },
+    {
+      "dataset": "boolq",
+      "partition": "development",
+      "rows": 6372,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/boolq/development.jsonl",
+      "sha256": "bd4bbebba75f28ca2ac97a66c99f03a071c1868f8207411e1e3075b9201f8615",
+      "bytes": 7805629
+    },
+    {
+      "dataset": "boolq",
+      "partition": "evaluation",
+      "rows": 3270,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/boolq/evaluation.jsonl",
+      "sha256": "f6164ad333ff28944ad8916cf54e84d4bbf2765653c5777a62b3a0d330d978d8",
+      "bytes": 4024229
+    },
+    {
+      "dataset": "boolq",
+      "partition": "validation",
+      "rows": 1621,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/boolq/validation.jsonl",
+      "sha256": "9552f1f67d042e47b570605f91b9c89aa60246b76f22df3fa7750e09a8c39a77",
+      "bytes": 1983790
+    },
+    {
+      "dataset": "commonsense_qa",
+      "partition": "development",
+      "rows": 7797,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/commonsense_qa/development.jsonl",
+      "sha256": "bd47ba4b228c26cf4dedd59202c64a163bf13d56686ab66b05ef2c625ff786b4",
+      "bytes": 8125889
+    },
+    {
+      "dataset": "commonsense_qa",
+      "partition": "evaluation",
+      "rows": 1221,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/commonsense_qa/evaluation.jsonl",
+      "sha256": "f943f5bb710c8d97a3bfd92393e9ad82609b01cf4987f2d42209f837ba1592f4",
+      "bytes": 1284828
+    },
+    {
+      "dataset": "commonsense_qa",
+      "partition": "validation",
+      "rows": 1944,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/commonsense_qa/validation.jsonl",
+      "sha256": "d8cc0aaef5d5b876a8d24298c1961faf5ba863cc4508c3030acc8b5bcdab869d",
+      "bytes": 2022038
+    },
+    {
+      "dataset": "gsm8k",
+      "partition": "development",
+      "rows": 5955,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/gsm8k/development.jsonl",
+      "sha256": "1cab02f66e473f59256839b051a79747c44d05a337be061787de6fae8729c6e2",
+      "bytes": 7138518
+    },
+    {
+      "dataset": "gsm8k",
+      "partition": "evaluation",
+      "rows": 1319,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/gsm8k/evaluation.jsonl",
+      "sha256": "f91ed501365914b583296a1c95eeccb2ecc3226e46b0ceb458adfc7f09dec624",
+      "bytes": 1587290
+    },
+    {
+      "dataset": "gsm8k",
+      "partition": "validation",
+      "rows": 1518,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/gsm8k/validation.jsonl",
+      "sha256": "b76d5232afb47092f57a1468ad4ce9413e118d0f6195c9a036bbadceae6f9e35",
+      "bytes": 1812172
+    },
+    {
+      "dataset": "humaneval",
+      "partition": "evaluation",
+      "rows": 164,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/humaneval/evaluation.jsonl",
+      "sha256": "51bcabe5fe6ceb0b5b3bed1b3adbf29975b7b6b324f75e751434c4f3dbbe2d70",
+      "bytes": 410288
+    },
+    {
+      "dataset": "ifeval",
+      "partition": "development",
+      "rows": 302,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/ifeval/development.jsonl",
+      "sha256": "2b43f80d2411018de96470c2dce79e83619472517aecfd0ca8c5ad2806fe0a0e",
+      "bytes": 306222
+    },
+    {
+      "dataset": "ifeval",
+      "partition": "evaluation",
+      "rows": 102,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/ifeval/evaluation.jsonl",
+      "sha256": "7223eb9120a65ca92d146fb764956574541d58a1e8abee17d09687d539ba79d4",
+      "bytes": 105190
+    },
+    {
+      "dataset": "ifeval",
+      "partition": "validation",
+      "rows": 137,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/ifeval/validation.jsonl",
+      "sha256": "363cf023f3cf0c520bd56f78891ac42d57324c3ee36576a01f5c808d2b13666b",
+      "bytes": 137948
+    },
+    {
+      "dataset": "mbpp",
+      "partition": "development",
+      "rows": 306,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/mbpp/development.jsonl",
+      "sha256": "215a9262db26be80d2934b97b6ff8d39c794d5e4145715e093c29d6efe4dbf6e",
+      "bytes": 461190
+    },
+    {
+      "dataset": "mbpp",
+      "partition": "evaluation",
+      "rows": 500,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/mbpp/evaluation.jsonl",
+      "sha256": "c0b94e93479916866b2e3bd40943a17b2b6505e497b9a69d68f3d7cd401a7b9e",
+      "bytes": 763157
+    },
+    {
+      "dataset": "mbpp",
+      "partition": "validation",
+      "rows": 165,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/mbpp/validation.jsonl",
+      "sha256": "cec2f5e039ef5b037c06271e2c751fc42cbfe2d22d2ad60e9f8ce6b451f019f4",
+      "bytes": 248611
+    },
+    {
+      "dataset": "squad_v2",
+      "partition": "development",
+      "rows": 101051,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/squad_v2/development.jsonl",
+      "sha256": "404d05b597890682a26f2b570e6af5424952d66412da6606dbbc35958a50d477",
+      "bytes": 180579707
+    },
+    {
+      "dataset": "squad_v2",
+      "partition": "evaluation",
+      "rows": 11852,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/squad_v2/evaluation.jsonl",
+      "sha256": "a9df042705385e92e30e0e04a43314da67efa10497b3400c3f5f25366547bb85",
+      "bytes": 22144931
+    },
+    {
+      "dataset": "squad_v2",
+      "partition": "validation",
+      "rows": 29131,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/squad_v2/validation.jsonl",
+      "sha256": "d6b6e535c42b3e41e7d66930e19f3d0726bb9671221de6aaf70a3ae0999538a1",
+      "bytes": 51952311
+    },
+    {
+      "dataset": "wikitext2",
+      "partition": "corpus",
+      "rows": 746,
+      "path": "benchmarks/datasets/external/prepared/intake-v1/wikitext2/corpus.jsonl",
+      "sha256": "c233b0888fbc9e5275b319695856642ba20b9d2a57567ee3bd52bde04910a43d",
+      "bytes": 13901542
+    },
+    {
+      "dataset": "lattice_arithmetic",
+      "partition": "evaluation",
+      "rows": 800,
+      "path": "benchmarks/datasets/generated/intake-v1/lattice_arithmetic/evaluation.jsonl",
+      "bytes": 578489,
+      "sha256": "8cf6416804911f597a8c8a90926733f6662e42752ddaf258757adac5c4c32ef6"
+    },
+    {
+      "dataset": "lattice_arithmetic",
+      "partition": "validation",
+      "rows": 800,
+      "path": "benchmarks/datasets/generated/intake-v1/lattice_arithmetic/validation.jsonl",
+      "bytes": 578131,
+      "sha256": "1df0f17d6cfc5dac39ce06349c782ac7bdde2b1e00bc2bebfb78fc8c2adbcdb4"
+    },
+    {
+      "dataset": "lattice_arithmetic",
+      "partition": "development",
+      "rows": 2400,
+      "path": "benchmarks/datasets/generated/intake-v1/lattice_arithmetic/development.jsonl",
+      "bytes": 1729344,
+      "sha256": "79e16eaeda6ee6e98ecc4f6536f086607dad1233f2242877d936f1fdbb3b10a6"
+    },
+    {
+      "dataset": "lattice_structured",
+      "partition": "evaluation",
+      "rows": 480,
+      "path": "benchmarks/datasets/generated/intake-v1/lattice_structured/evaluation.jsonl",
+      "bytes": 459824,
+      "sha256": "b9b41b7881db2276f600cc0f18f1ff892e27fef473d3b5eee9758c90f4c0e492"
+    },
+    {
+      "dataset": "lattice_structured",
+      "partition": "validation",
+      "rows": 480,
+      "path": "benchmarks/datasets/generated/intake-v1/lattice_structured/validation.jsonl",
+      "bytes": 460209,
+      "sha256": "767a3b5183bc4e50be0cac7a3de03bc5f1146be0b1eea0c503f293ad4109990d"
+    },
+    {
+      "dataset": "lattice_structured",
+      "partition": "development",
+      "rows": 1440,
+      "path": "benchmarks/datasets/generated/intake-v1/lattice_structured/development.jsonl",
+      "bytes": 1380394,
+      "sha256": "a99efbe7de93cfe67d9c6e3ea8e066000bcb1a094eee8ebff7cbb6c1159a1b0c"
+    },
+    {
+      "dataset": "lattice_instructions",
+      "partition": "evaluation",
+      "rows": 480,
+      "path": "benchmarks/datasets/generated/intake-v1/lattice_instructions/evaluation.jsonl",
+      "bytes": 468546,
+      "sha256": "ea3fd5217d1aa16b1c44a2367f477aa6d692f43be1ea5dffd484a599b8e4e718"
+    },
+    {
+      "dataset": "lattice_instructions",
+      "partition": "validation",
+      "rows": 480,
+      "path": "benchmarks/datasets/generated/intake-v1/lattice_instructions/validation.jsonl",
+      "bytes": 469096,
+      "sha256": "c5a344d909ee5d28c64ef447074a9987e07e37de366e97a556a9d9681df170af"
+    },
+    {
+      "dataset": "lattice_instructions",
+      "partition": "development",
+      "rows": 1440,
+      "path": "benchmarks/datasets/generated/intake-v1/lattice_instructions/development.jsonl",
+      "bytes": 1407231,
+      "sha256": "33a4ed97a9d2d29c450cd3ebb222ffcaef5810f9959f6e22c1d5c661f0d193fc"
+    },
+    {
+      "dataset": "lattice_retrieval",
+      "partition": "evaluation",
+      "rows": 320,
+      "path": "benchmarks/datasets/generated/intake-v1/lattice_retrieval/evaluation.jsonl",
+      "bytes": 1068550,
+      "sha256": "7fd96d977cd33bc91471476d275ff32f530316df1170afc66c3f1147921d881c"
+    },
+    {
+      "dataset": "lattice_retrieval",
+      "partition": "validation",
+      "rows": 320,
+      "path": "benchmarks/datasets/generated/intake-v1/lattice_retrieval/validation.jsonl",
+      "bytes": 1068620,
+      "sha256": "f45838ad59e080a82ad972057782ca94875210c644d86ab22be5c91425da242e"
+    },
+    {
+      "dataset": "lattice_retrieval",
+      "partition": "development",
+      "rows": 960,
+      "path": "benchmarks/datasets/generated/intake-v1/lattice_retrieval/development.jsonl",
+      "bytes": 3110192,
+      "sha256": "fc01b746073064ff24811dcfefa7eb4e901f30098d1c56d048bd3d2a83759edf"
+    }
+  ],
+  "input_manifests": [
+    {
+      "path": "benchmarks/datasets/external/prepared/intake-v1/manifest.json",
+      "sha256": "365679c468cb8fdb0759e1e9b6559ee36407b39720f044ac0b81b5aabf0b234a"
+    },
+    {
+      "path": "benchmarks/datasets/generated/intake-v1/manifest.json",
+      "sha256": "3c9d20ffe81a133412712479b86af367f1302e34c1fed90f87ff51854889f2c3"
+    }
+  ],
+  "claims": [
+    "Checks cover exported active partitions, not foundation-model pretraining contamination.",
+    "Code/official IFEval collected but unscored; corpus documents are not QA examples."
+  ]
+}

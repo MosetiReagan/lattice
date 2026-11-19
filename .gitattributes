@@ -1,0 +1,5 @@
+# Preserve byte-exact upstream licensing/card snapshots (hashes are locked).
+benchmarks/datasets/source_audit/*.txt -text -whitespace
+# Preserve native tool logs verbatim for reproducible evidence.
+benchmarks/results/dataset-intake-*/**/*.txt -text -whitespace
+benchmarks/results/dataset-intake-*/*.txt -text -whitespace
