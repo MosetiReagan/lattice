@@ -231,6 +231,8 @@ class LlamaCppBackend:
             "--no-ui",
             "--no-warmup",
         ]
+        if self.native_slots > 1:
+            args.append("--cont-batching")
         if self._draft:
             args.extend(
                 [

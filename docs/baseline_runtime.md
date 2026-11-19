@@ -72,3 +72,7 @@ Tests are separated into mocked/control-plane checks and opt-in real CPU checks.
 - `lattice optimize --model MODEL` reports qualified evidence without modifying configuration.
 
 The serving CLI can switch its single resident worker between registered explicit models; load cost remains in request latency and corrupt variants fail without crashing subsequent requests. The default current address-space cap is 4,096 MiB; frozen standard/optimization experiments retained their recorded earlier caps. GPU/Apple Silicon remain untested. No release publication has occurred.
+
+## Concurrent standard serving in 0.3
+
+Use `lattice serve --model qwen2.5-0.5b-instruct-f16 --native-slots 2` to enable tested native continuous batching. Two standard generations can run concurrently; private stream cancellation preserves the other request and each slot keeps the configured context length. This mode pins the model and shared worker cap. It cannot apply one-slot cached/speculative policy evidence or hot-swap models; optimized requests get a documented standard fallback or an explicit error when fallback is disallowed. See concurrent_serving.md and concurrent_serving_results.md for measured benefits, long-request costs and limitations. Default one-slot behavior remains available.

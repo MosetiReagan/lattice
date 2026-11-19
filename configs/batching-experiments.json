@@ -1,0 +1,71 @@
+{
+  "backend_binary": "/data/workspace/lattice/.local/llama.cpp/build/bin/llama-server",
+  "backend_sha256": "9e954cd7ced8851cbcd03170fb93ed864cdf5c7f38b743a5f8481e5235ea1b7b",
+  "backend_commit": "b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+  "backend_files": {
+    "/data/workspace/lattice/.local/llama.cpp/build/bin/libggml-base.so.1.0.0": "1337c53e3df820f9f970ce6ae4da5a7ea5ff0075a9abced7c5682a374844cd8d",
+    "/data/workspace/lattice/.local/llama.cpp/build/bin/libggml-cpu.so.1.0.0": "55ed9e2f9e45a9fd151093121b55b71f345111c199ad8e3223e90b1808696dad",
+    "/data/workspace/lattice/.local/llama.cpp/build/bin/libggml.so.1.0.0": "435497b41238258adc0e7e4de7a25984d528a80408b59e5efcb26b776bac1fff",
+    "/data/workspace/lattice/.local/llama.cpp/build/bin/libllama-bench-impl.so": "3ba2b4f802c6b7b627d40e6d3409d10fd6d2301054b9179fb57f2cdad9907a01",
+    "/data/workspace/lattice/.local/llama.cpp/build/bin/libllama-common.so.1.0.0": "a980843582c250d555a099e3bc2e28733713dbe0ea786b5ff2385a0eaa495c43",
+    "/data/workspace/lattice/.local/llama.cpp/build/bin/libllama-server-impl.so": "1c3b881c22316ee6bc10b5899d184d699a2615be353e414b9fbe26a6598a11bb",
+    "/data/workspace/lattice/.local/llama.cpp/build/bin/libllama.so.1.0.0": "830d41dba92848c9b572a75df19c493da09ae1c0dd621d29b80873746c5d7ce5",
+    "/data/workspace/lattice/.local/llama.cpp/build/bin/libmtmd.so.1.0.0": "5f2a505cff1aa1918b6849d90bcbd3233de3bf124288b64d9532528403aa5de7"
+  },
+  "models": [
+    {
+      "id": "qwen2.5-0.5b-instruct-f16",
+      "path": "/data/workspace/lattice/models/qwen2.5-0.5b-instruct-fp16.gguf",
+      "sha256": "8e0ae26000627ed62de0e78e41860af70094558b9d2913385c842a6aa06cf3fc",
+      "source_repository": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
+      "source_revision": "9217f5db79a29953eb74d5343926648285ec7e67",
+      "license": "Apache-2.0",
+      "kv_bytes_per_token": 12288,
+      "precision": "GGUF F16 (mixed tensor types)"
+    },
+    {
+      "id": "qwen2.5-1.5b-instruct-q8",
+      "path": "/data/workspace/lattice/models/qwen2.5-1.5b-instruct-q8_0.gguf",
+      "sha256": "d7efb072e7724d25048a4fda0a3e10b04bdef5d06b1403a1c93bd9f1240a63c8",
+      "source_repository": "Qwen/Qwen2.5-1.5B-Instruct-GGUF",
+      "source_revision": "91cad51170dc346986eccefdc2dd33a9da36ead9",
+      "license": "Apache-2.0",
+      "kv_bytes_per_token": 28672,
+      "precision": "GGUF Q8_0"
+    },
+    {
+      "id": "qwen2.5-0.5b-instruct-q8_0",
+      "path": "/data/workspace/lattice/models/qwen2.5-0.5b-instruct-q8_0.gguf",
+      "sha256": "51b344f6dbf12a9e0d7557453f1b115e72277727231b3198dc2f3e5331fb7616",
+      "source_repository": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
+      "source_revision": "9217f5db79a29953eb74d5343926648285ec7e67",
+      "license": "Apache-2.0",
+      "kv_bytes_per_token": 12288,
+      "precision": "GGUF Q8_0"
+    },
+    {
+      "id": "qwen2.5-0.5b-instruct-q4_k_m",
+      "path": "/data/workspace/lattice/models/qwen2.5-0.5b-instruct-q4_k_m.gguf",
+      "sha256": "e367f9277d5bd544cc5e8432ee87b7498574df40e8f0784793e2288e9229b971",
+      "source_repository": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
+      "source_revision": "9217f5db79a29953eb74d5343926648285ec7e67",
+      "license": "Apache-2.0",
+      "kv_bytes_per_token": 12288,
+      "precision": "GGUF Q4_K_M"
+    }
+  ],
+  "policy_file": null,
+  "cache_limit_mb": 32,
+  "cache_min_tokens": 64,
+  "draft_model_id": null,
+  "draft_tokens": 4,
+  "context_tokens": 2048,
+  "threads": 4,
+  "native_slots": 1,
+  "max_queue": 8,
+  "worker_address_space_mb": 4096,
+  "host_reserve_mb": 2048,
+  "startup_timeout_seconds": 120.0,
+  "log_directory": "/data/workspace/lattice/artifacts",
+  "requests_per_minute": 60
+}

@@ -47,7 +47,7 @@ def parser():
             sub.add_argument("--stream", action="store_true")
             sub.add_argument("--json", action="store_true")
         else:
-            sub.add_argument("--native-slots", type=int, choices=[1, 2, 3, 4])
+            sub.add_argument("--native-slots", type=int, choices=[1, 2])
             sub.add_argument("--host", default="127.0.0.1")
             sub.add_argument("--port", type=int, default=8000)
     for name in ["benchmark", "profile"]:

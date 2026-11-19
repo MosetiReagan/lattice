@@ -127,9 +127,9 @@ else:
 lines += [
     "## Release classification",
     "",
-    "**Unreleased development build, not Lattice 1.0.** G1 real inference and G2 the narrow tested CPU backend are established. G3 has preserved source/artifact locks and repeated standard observations, subject to the isolation limitations above. G4 has independent native greedy speculation, logical prefix control and quantized execution studies with unit/CPU evidence. G5/G6 qualify only a narrow exact-prompt greedy policy, not broad quality-aware routing. G7 shows warmed-prefix improvement against the fixed standard baseline, attributed to backend reuse. G8 remains incomplete because serving is non-preemptive single-active-request admission. G9/G10 have documentation/reproduction assets but no remote release/reproduction audit.",
+    "**Unreleased development build, not Lattice 1.0.** G1 real inference and G2 the narrow tested CPU backend are established. G3 has preserved source/artifact locks and repeated standard observations, subject to the isolation limitations above. G4 has independent native greedy speculation, logical prefix control and quantized execution studies with unit/CPU evidence. G5/G6 qualify only a narrow exact-prompt greedy policy, not broad quality-aware routing. G7 shows warmed-prefix improvement against the fixed standard baseline, attributed to backend reuse. G8 now has real two-slot CPU/HTTP cancellation and timeout tests; broader serving stability beyond that measured scope is not certified. See concurrent_serving_results.md for the opt-in native batching study and its long-request trade-off. G9/G10 have documentation/reproduction assets but no remote release/reproduction audit.",
     "",
-    "Q4 quality failure, absent representative substitution evidence, limited adaptive scope, untested accelerators and non-preemptive serving are real remaining release concerns. Acceptance criteria have not been lowered, and no 1.0 tag or release has been published.",
+    "Q4 quality failure, absent representative substitution evidence, limited adaptive scope, untested accelerators and unqualified combined concurrent optimizations remain release concerns. Acceptance criteria have not been lowered, and no 1.0 tag or release has been published.",
     "",
 ]
 (root / "docs/benchmark_results.md").write_text("\n".join(lines))

@@ -1,0 +1,147 @@
+{
+  "quality": null,
+  "arms": {
+    "slots-1": {
+      "short_latency_ms": {
+        "n": 30,
+        "mean": 1532.891737833658,
+        "stddev": 84.04182480251178,
+        "median": 1525.5134160015587,
+        "p50": 1525.5134160015587,
+        "p90": 1652.3665442029596,
+        "p95": 1661.485995952171,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "short_ttft_ms": {
+        "n": 30,
+        "mean": 1454.0127542670234,
+        "stddev": 80.00452830316067,
+        "median": 1447.8967055001704,
+        "p50": 1447.8967055001704,
+        "p90": 1561.3507654004934,
+        "p95": 1580.793888952212,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "short_queue_ms": {
+        "n": 30,
+        "mean": 1413.6387621668594,
+        "stddev": 80.16982074384131,
+        "median": 1397.6059394990443,
+        "p50": 1397.6059394990443,
+        "p90": 1523.755549501584,
+        "p95": 1544.0814924526421,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "long_latency_ms": {
+        "n": 30,
+        "mean": 1491.0677436332965,
+        "stddev": 80.7633411663401,
+        "median": 1474.4021744991187,
+        "p50": 1474.4021744991187,
+        "p90": 1600.8714155017515,
+        "p95": 1619.1569558488482,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "makespan_ms": {
+        "n": 30,
+        "mean": 1610.9924313001102,
+        "stddev": 84.57077777499619,
+        "median": 1603.9993174999836,
+        "p50": 1603.9993174999836,
+        "p90": 1728.9871091008536,
+        "p95": 1737.0176514019477,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "short_finished_before_long": 0,
+      "worker_rss_bytes": {
+        "n": 60,
+        "mean": 1369408034.1333334,
+        "stddev": 643659.8284378635,
+        "median": 1369624576.0,
+        "p50": 1369624576.0,
+        "p90": 1369653248.0,
+        "p95": 1369653248.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "worker_swap_observed_trials": 0,
+      "aggregate_generated_tokens_per_second": 84.42001176271492
+    },
+    "slots-2": {
+      "short_latency_ms": {
+        "n": 30,
+        "mean": 205.1835886667201,
+        "stddev": 15.236503451590076,
+        "median": 203.05374499912432,
+        "p50": 203.05374499912432,
+        "p90": 214.43494369887048,
+        "p95": 236.00708689973538,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "short_ttft_ms": {
+        "n": 30,
+        "mean": 67.37510243304617,
+        "stddev": 14.297818721835592,
+        "median": 65.4320909998205,
+        "p50": 65.4320909998205,
+        "p90": 72.42384820019652,
+        "p95": 94.94584934873262,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "short_queue_ms": {
+        "n": 30,
+        "mean": 0.05514606661260283,
+        "stddev": 0.006073817705417372,
+        "median": 0.057145000027958304,
+        "p50": 0.057145000027958304,
+        "p90": 0.061544999698526226,
+        "p95": 0.06257499826460844,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "long_latency_ms": {
+        "n": 30,
+        "mean": 1567.657139999695,
+        "stddev": 68.60534874742832,
+        "median": 1541.2429874995723,
+        "p50": 1541.2429874995723,
+        "p90": 1658.2526425980177,
+        "p95": 1677.3010101984255,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "makespan_ms": {
+        "n": 30,
+        "mean": 1568.0898474000667,
+        "stddev": 68.59552687693638,
+        "median": 1541.688917997817,
+        "p50": 1541.688917997817,
+        "p90": 1658.7109015988972,
+        "p95": 1677.6985202011929,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "short_finished_before_long": 30,
+      "worker_rss_bytes": {
+        "n": 60,
+        "mean": 1396710877.8666666,
+        "stddev": 694026.6560615047,
+        "median": 1396981760.0,
+        "p50": 1396981760.0,
+        "p90": 1396981760.0,
+        "p95": 1396985856.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "worker_swap_observed_trials": 0,
+      "aggregate_generated_tokens_per_second": 86.72972420903784
+    }
+  }
+}

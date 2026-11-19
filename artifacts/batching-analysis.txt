@@ -1,0 +1,29 @@
+{
+  "short": {
+    "serial_mean_ms": 1538.5091648114112,
+    "batched_mean_ms": 208.3553648889291,
+    "change_percent": -86.45732052467369,
+    "hierarchical_bootstrap_95_percent_interval": [
+      -86.93832435020128,
+      -85.88072596117017
+    ]
+  },
+  "long": {
+    "serial_mean_ms": 1498.630309944282,
+    "batched_mean_ms": 1590.9364869223484,
+    "change_percent": 6.159369416563987,
+    "hierarchical_bootstrap_95_percent_interval": [
+      4.189699310870952,
+      8.13226982195833
+    ]
+  },
+  "makespan": {
+    "serial_mean_ms": 1617.4313687776803,
+    "batched_mean_ms": 1591.36558299999,
+    "change_percent": -1.6115543621111228,
+    "hierarchical_bootstrap_95_percent_interval": [
+      -3.3974113736236,
+      0.1730673530098166
+    ]
+  }
+}

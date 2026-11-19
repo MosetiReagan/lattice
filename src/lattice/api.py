@@ -156,7 +156,7 @@ def create_app(
             else:
                 runtime.backend.stop()
 
-    app = FastAPI(title="Lattice baseline", version="0.2.0.dev0", lifespan=lifespan)
+    app = FastAPI(title="Lattice baseline", version="0.3.0.dev0", lifespan=lifespan)
     app.add_middleware(
         RequestLimits, api_key=api_key, rate=settings.requests_per_minute
     )

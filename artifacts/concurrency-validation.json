@@ -1,0 +1,21 @@
+{
+  "version": "0.3.0.dev0",
+  "tests": "........................................................................ [100%]\n72 passed in 36.34s",
+  "lint": "All checks passed!",
+  "format": "72 files already formatted",
+  "source_snapshot_verified": true,
+  "measured_requests": 360,
+  "paired_mixed_workloads": 90,
+  "published": false,
+  "packages": {
+    "dist/lattice_inference-0.3.0.dev0-py3-none-any.whl": "1e20d655edb140f34903b15c9d40d25d8109dc0cca667b185ed17e29833a21d3",
+    "dist/lattice_inference-0.3.0.dev0.tar.gz": "ea8b7e48f3f80844fb2a66f97446971d48c998b28d85606c78d2ce23787bef8b"
+  },
+  "remaining_limits": [
+    "CPU/Qwen FP16 concurrent scope only",
+    "optimized concurrent paths unqualified",
+    "single pinned model per concurrent worker",
+    "short-latency/long-latency trade-off",
+    "no proven aggregate throughput gain"
+  ]
+}

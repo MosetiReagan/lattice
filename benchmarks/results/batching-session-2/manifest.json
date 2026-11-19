@@ -1,0 +1,70 @@
+{
+  "source": {
+    "files": {
+      "src/lattice/__init__.py": "2c906f752c2c19dfacba07e5512c4f5ec04ed79e76586cee17c1534f9857837c",
+      "src/lattice/api.py": "9bf26756453ac895e2f32b504a6ab0aa91e3ad1ca99c15e3c962574908cf9f0b",
+      "src/lattice/backends/__init__.py": "241e4bb83b1ccaed6e003c80a0bd2d5ef3203da92801828c36728a997f3511fe",
+      "src/lattice/backends/batched.py": "eefce8214349ebc9cbb2b2e8aa51a2ccec9c0d6162c2eb2035a4dfa6ff4646c4",
+      "src/lattice/backends/llama_cpp.py": "91d5622ec5777a715c261db2df838195de4735872aaa4fd9047d4c46a1985bf4",
+      "src/lattice/cache/__init__.py": "688facb5768072a11155f2a7ccecc400e981ff12e2238ad6ed725a5f063404ae",
+      "src/lattice/cache/prefix.py": "62dbeca648eab2d38a200011b87de0d3620e973d8d726bed7dbe09ebb0cef965",
+      "src/lattice/cli.py": "4678a4ff40d8254b491b8655801bb4d14d3e1a76861ad0c1b8728dce7fd03725",
+      "src/lattice/config.py": "4e666787205aa02ae17a2601c3398ba3d07eb94fae8689a8985f6c2fcf966e91",
+      "src/lattice/controller/__init__.py": "3ec6cd6fa45131db9fed7ab62f5266e83cb8a8b518c70d168d04700f268ecd3d",
+      "src/lattice/controller/policy.py": "feb86ca4bcbf67569a92fdd15b7fe5598492bf1c52911f1b8330dfc4af73ea83",
+      "src/lattice/evaluation/__init__.py": "b8dfb70397a6697020c59052ea979e422a9a4057d1abf99df2bf9742c4c552d2",
+      "src/lattice/evaluation/benchmark.py": "8256a71623298d8176d6ece0bafd69f2b6b07abff741e213ffa1fb02335119da",
+      "src/lattice/evaluation/quality.py": "7a314b7898439936c03a7a74c4685f349b39cbf2f130bb9b16cac49d0a19ef0b",
+      "src/lattice/observability/__init__.py": "66fc2c467a33ed8dda8ae0d214092746dd888f8bcd6488c28e5c98c9207ae52b",
+      "src/lattice/observability/hardware.py": "aeb6db045098ee3223d3fe0e48e6971f44f2ac2884513ce32d3d0c7845ac2bbf",
+      "src/lattice/observability/measure.py": "52f1c93263506b7a2a2f57ac1bcc75b23f0c01e7fffabd2dabc188ce36b30b3d",
+      "src/lattice/optimizations/__init__.py": "d59ee4ec581358011c4a1d1ffccec5341ec5711b93be2ad2ca638ee777cf66d3",
+      "src/lattice/optimizations/speculative/__init__.py": "c026a7d47cea12b911c8c94ff0554702a502e44d011284bb386206df535dba79",
+      "src/lattice/optimizations/speculative/compatibility.py": "a3d314aca9fa437057fef395db337c10f43ffaa3290a3d04cef69783b4b0fbe0",
+      "src/lattice/optimizations/speculative/sampling.py": "84a02c3b7b10b81c9b1cc5f1334da994f8bf810b5ffb2f1b495767accb6b2f1f",
+      "src/lattice/quantization/__init__.py": "b73276a1be9bb386eabfe4efd09a837b5fe3366fbf79ffc75f6e8c947347c0c0",
+      "src/lattice/quantization/capabilities.py": "a5e70672333b754c07ea1b21325af2e435186aec020f10297beb84c3e922bd11",
+      "src/lattice/routing/__init__.py": "581a35adb0f3cd687309215629242dda442674bd08f101fa7c69a5bfcf6163cd",
+      "src/lattice/routing/router.py": "08118eed741191409f0a94a30130e6953bb230c2b83a1cf3ea311cfaa626b8c8",
+      "src/lattice/runtime.py": "157af77bb3267a933c4243e8dc9d5f2b82b73c8e31ad55403e65420c576b96d5",
+      "src/lattice/scheduler/__init__.py": "697dfc2f8dca6a2b4391bdefc25e8948d10aa1254da2a8537d1658e1615eabf9",
+      "src/lattice/scheduler/budget.py": "821d32787e03ea7c9409999ae8f916a39a0ee25a236502bffc21380d5a92686b",
+      "src/lattice/scheduler/fair.py": "561f39eedda698012e2ecb7523a72e7efede9f7030a7d5abbce15208a9f7db6b",
+      "src/lattice/types.py": "ffeaebea661aeac50715869e2524d855709b138e6a79e7a023fb34eaf95abc92",
+      "src/lattice/worker.py": "93d7a59e34174a13ce068657c50f3f696fcad07647741b750002ba93f02f6b37",
+      "uv.lock": "d7f2fafde0437c9ef964dae1767b38a4dec754b517d2cbaf060b5e53495d5fd7",
+      "pyproject.toml": "6693e5aae2f3f5d23b131c8404d836fe2bcedb3de3a6bd83856d5df972cc6f98"
+    },
+    "sha256": "f9c8ac0f71cc314778cd5c46e9d80ea15631a2e1b0717528226b58c5c0033b2c"
+  },
+  "model": {
+    "id": "qwen2.5-0.5b-instruct-f16",
+    "sha256": "8e0ae26000627ed62de0e78e41860af70094558b9d2913385c842a6aa06cf3fc",
+    "source_repository": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
+    "source_revision": "9217f5db79a29953eb74d5343926648285ec7e67",
+    "license": "Apache-2.0",
+    "kv_bytes_per_token": 12288,
+    "precision": "GGUF F16 (mixed tensor types)"
+  },
+  "backend_sha256": "9e954cd7ced8851cbcd03170fb93ed864cdf5c7f38b743a5f8481e5235ea1b7b",
+  "backend_commit": "b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+  "trials": 30,
+  "warmups_per_arm": 3,
+  "seed": 4071,
+  "threads": 4,
+  "per_request_context": 2048,
+  "native_total_context": {
+    "1": 2048,
+    "2": 4096
+  },
+  "worker_address_space_mb": 4096,
+  "cpu_fingerprint": "056c1bf861da3e8206d062621980428e1c4dd8dcf5b7803be5455e82b8031c8d",
+  "sampling": {
+    "temperature": 0.0,
+    "seed": 0,
+    "long_cap": 128,
+    "short_cap": 8
+  },
+  "short_arrival": "20 ms after first nonempty long text chunk",
+  "scope": "Both workers resident, only one arm executing at a time. Paired randomized arm order; same public synthetic prompt variants."
+}

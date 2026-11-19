@@ -94,6 +94,36 @@ if path.exists():
                     "source": str(path.relative_to(root)),
                 }
             )
+path = root / "benchmarks/results/batching-analysis.json"
+if path.exists():
+    data = json.loads(path.read_text())
+    for arm, item in data["arms"].items():
+        rows.append(
+            {
+                "group": "Concurrent short-request latency",
+                "label": arm + " / short request during long generation",
+                "latency_ms": item["short_latency_ms"]["median"],
+                "rss_mib": item["sampled_worker_rss_bytes"]["median"] / 1024**2,
+                "tokens_per_second": None,
+                "samples": item["short_latency_ms"]["n"],
+                "failed": 0,
+                "quality": "Exact paired greedy outputs matched; public smoke 11/22 in both arms",
+                "source": str(path.relative_to(root)),
+            }
+        )
+        rows.append(
+            {
+                "group": "Concurrent workload completion",
+                "label": arm + " / entire mixed workload",
+                "latency_ms": item["makespan_ms"]["median"],
+                "rss_mib": item["sampled_worker_rss_bytes"]["median"] / 1024**2,
+                "tokens_per_second": item["aggregate_generated_tokens_per_second"],
+                "samples": item["makespan_ms"]["n"],
+                "failed": 0,
+                "quality": "No statistically reliable makespan improvement established",
+                "source": str(path.relative_to(root)),
+            }
+        )
 result = {
     "created_utc": datetime.datetime.now(datetime.UTC).isoformat(),
     "rows": rows,

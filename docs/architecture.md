@@ -43,3 +43,7 @@ Allowlist model artifacts with immutable revisions and SHA-256; prefer safetenso
 Execution records include config/dataset/artifact hashes, seed, timings, actual strategy and fallback, provenance, queue time, token counts, sampled process memory (with sampling resolution), errors and quality outcome. Use null plus reason for unavailable GPU utilization, energy, cache bytes or phase timings. JSONL is canonical; CSV is an export. Dashboard comes after real records exist.
 
 Policy minimizes measured estimated cost over compatible paths, subject to approved task-quality tolerance and hard constraints. Report confidence as evidence coverage/calibration, not arbitrary model confidence. Version policies and retain outcomes. No online learned override. Evaluate against pinned fixed-backend baseline and task-stratified held-out prompts. Quality regressions or uncertain resource estimates disable automatic selection.
+
+## Two-slot extension
+
+The optional batched adapter keeps one immutable native worker and uses a bounded priority semaphore for admission. Explicit slot-lease objects cross HTTP preflight/stream task boundaries; internally generated session IDs bind cancellation to the owning request. Native startup verifies context layout and cancellation controls. The adapter confirms slot idle before lease reuse and drains peers if a slot must be quarantined. Model switching and serial adaptive/cache/speculative paths remain in one-slot mode. These boundaries reuse upstream continuous batching without duplicating its token scheduler.

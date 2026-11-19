@@ -54,10 +54,12 @@ async def test_uncertain_cleanup_quarantines_instead_of_recycling_or_killing_pee
     await backend._finish(one)
     assert not backend.stopped and backend.slot_stats()["quarantined"] == 1
     assert backend.slot_stats()["free"] == 0
+    assert backend.slot_stats()["draining"]
     backend._live.clear()
     backend._release(peer)
     backend._retire_if_idle()
     assert backend.stopped and backend.slot_stats()["free"] == 2
+    assert not backend.slot_stats()["draining"]
 
 
 async def test_concurrent_constraints_never_mutate_shared_worker(backend):

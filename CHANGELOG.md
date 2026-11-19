@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.3.0.dev0 — unreleased concurrent CPU serving
+
+- Added opt-in two-slot llama.cpp continuous batching with fixed per-request context and one resident model.
+- Replaced serial-only admission with bounded, cancellation-safe priority semaphore admission.
+- Added internal stream IDs, private native cancellation/idle confirmation, quarantine/draining and peer-preserving worker recovery.
+- Verified native cancellation controls/context layout before accepting concurrent work; kept serial policy/precision evidence out of this mode.
+- Added real runtime/HTTP cancellation, prefill-timeout and short-versus-long isolation tests.
+- Preserved three paired 30-trial serving sessions, exact greedy comparisons, public smoke quality checks and all measured trade-offs.
+- Kept automatic precision substitution disabled and the release classified as development work.
+
 ## 0.2.0.dev0 — unreleased research build
 
 - Preserved executable standard source, artifact locks, eight workload categories, repeated observations, JSONL/CSV and an external pinned WikiText subset.

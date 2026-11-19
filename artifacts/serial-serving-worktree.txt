@@ -1,0 +1,2 @@
+Preparing worktree (detached HEAD 9c3444a)
+HEAD is now at 9c3444a Preserve exact serial experiment source and cancellation-race audit

@@ -45,6 +45,8 @@ class BatchedLlamaBackend(LlamaCppBackend):
         super().__init__(settings, model)
         self.native_slots = settings.native_slots
         self.identity["native_slots"] = self.native_slots
+        self._drain_ready = asyncio.Event()
+        self._drain_ready.set()
         self._available = asyncio.Queue(maxsize=self.native_slots)
         for slot in range(self.native_slots):
             self._available.put_nowait(slot)
@@ -119,6 +121,7 @@ class BatchedLlamaBackend(LlamaCppBackend):
             if task and task is not asyncio.current_task() and not task.done():
                 task.cancel()
         super().stop()
+        self._drain_ready.set()
         for lease in list(self._quarantined):
             self._release(lease)
 
@@ -193,6 +196,7 @@ class BatchedLlamaBackend(LlamaCppBackend):
         if self._quarantined and not self._live:
             self._retirements += 1
             self.stop()
+            self._drain_ready.set()
 
     async def _finish(self, lease: SlotLease) -> None:
         if not lease.submitted:
@@ -250,6 +254,7 @@ class BatchedLlamaBackend(LlamaCppBackend):
         # after every live user stream has drained, preserving unrelated requests.
         self._unconfirmed_cancellations += 1
         self._quarantined.add(lease)
+        self._drain_ready.clear()
         self._retire_if_idle()
 
     async def events(self, request: GenerationRequest) -> AsyncIterator[dict]:
@@ -264,7 +269,12 @@ class BatchedLlamaBackend(LlamaCppBackend):
             fallback = "Concurrent batching uses standard execution; serial optimization evidence does not apply"
             request = request.model_copy(deep=True)
             request.optimization.mode = "standard"
-        slot = await self._available.get()
+        while True:
+            await self._drain_ready.wait()
+            slot = await self._available.get()
+            if self._drain_ready.is_set():
+                break
+            self._available.put_nowait(slot)
         lease = SlotLease(slot, "lattice-" + uuid.uuid4().hex)
         self._leases[slot] = lease
         self._live.add(lease)
@@ -296,6 +306,7 @@ class BatchedLlamaBackend(LlamaCppBackend):
     def slot_stats(self) -> dict:
         return {
             "capacity": self.native_slots,
+            "draining": not self._drain_ready.is_set(),
             "free": self._available.qsize(),
             "leased": len(self._leases),
             "quarantined": len(self._quarantined),

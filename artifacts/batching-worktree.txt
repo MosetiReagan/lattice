@@ -1,0 +1,2 @@
+Preparing worktree (detached HEAD 2a7967e)
+HEAD is now at 2a7967e Add verified multi-slot native batching and isolated stream cancellation

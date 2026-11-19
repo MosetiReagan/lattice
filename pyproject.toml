@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "lattice-inference"
-version = "0.2.0.dev0"
+version = "0.3.0.dev0"
 description = "Measured, resource-aware language model inference"
 requires-python = ">=3.11"
 license = "Apache-2.0"
@@ -30,4 +30,4 @@ markers = ["integration: real CPU model and backend required"]
 packages = ["src/lattice"]
 
 [tool.hatch.build.targets.sdist]
-include = ["/src", "/tests", "/scripts", "/configs", "/docs/*.md", "/benchmarks/datasets/quality-smoke.json", "/benchmarks/datasets/corpus-smoke.txt", "/benchmarks/datasets/README.md", "/benchmarks/workloads", "/benchmarks/baseline", "/experiments", "/dashboard", "/README.md", "/CHANGELOG.md", "/LICENSE", "/NOTICE", "/uv.lock", "/pyproject.toml"]
+include = ["/src", "/tests", "/scripts", "/configs", "/docs/*.md", "/benchmarks/datasets/quality-smoke.json", "/benchmarks/datasets/corpus-smoke.txt", "/benchmarks/datasets/README.md", "/benchmarks/workloads", "/benchmarks/baseline", "/benchmarks/serving", "/experiments", "/dashboard", "/README.md", "/CHANGELOG.md", "/LICENSE", "/NOTICE", "/uv.lock", "/pyproject.toml"]

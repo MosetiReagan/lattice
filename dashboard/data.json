@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-11-19T22:31:20.826090+00:00",
+  "created_utc": "2026-11-19T23:11:27.100663+00:00",
   "rows": [
     {
       "group": "Standard baseline",
@@ -649,6 +649,50 @@
       "failed": 0,
       "quality": "Exact known-prompt greedy equality checked",
       "source": "benchmarks/results/adaptive-session-1/summary.json"
+    },
+    {
+      "group": "Concurrent short-request latency",
+      "label": "slots-1 / short request during long generation",
+      "latency_ms": 1507.9383734992007,
+      "rss_mib": 1306.0546875,
+      "tokens_per_second": null,
+      "samples": 90,
+      "failed": 0,
+      "quality": "Exact paired greedy outputs matched; public smoke 11/22 in both arms",
+      "source": "benchmarks/results/batching-analysis.json"
+    },
+    {
+      "group": "Concurrent workload completion",
+      "label": "slots-1 / entire mixed workload",
+      "latency_ms": 1587.1518305011705,
+      "rss_mib": 1306.0546875,
+      "tokens_per_second": 84.08393866057973,
+      "samples": 90,
+      "failed": 0,
+      "quality": "No statistically reliable makespan improvement established",
+      "source": "benchmarks/results/batching-analysis.json"
+    },
+    {
+      "group": "Concurrent short-request latency",
+      "label": "slots-2 / short request during long generation",
+      "latency_ms": 203.3259050003835,
+      "rss_mib": 1332.27734375,
+      "tokens_per_second": null,
+      "samples": 90,
+      "failed": 0,
+      "quality": "Exact paired greedy outputs matched; public smoke 11/22 in both arms",
+      "source": "benchmarks/results/batching-analysis.json"
+    },
+    {
+      "group": "Concurrent workload completion",
+      "label": "slots-2 / entire mixed workload",
+      "latency_ms": 1556.794762998834,
+      "rss_mib": 1332.27734375,
+      "tokens_per_second": 85.46119223190517,
+      "samples": 90,
+      "failed": 0,
+      "quality": "No statistically reliable makespan improvement established",
+      "source": "benchmarks/results/batching-analysis.json"
     }
   ],
   "notice": "Measured CPU development experiments. No cross-workload aggregate or production performance guarantee. Empty cells are unavailable."
