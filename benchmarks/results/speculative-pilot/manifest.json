@@ -1,0 +1,52 @@
+{
+  "source": {
+    "files": {
+      "src/lattice/__init__.py": "9ff030a7f1046d933f959b4710bec2c3c9d2aa7e77463b70ccbea228085f3169",
+      "src/lattice/api.py": "cf7d7485b0892450b1032a7e92c78952b651d22bf0f631002dd6da6f5bf2f6de",
+      "src/lattice/backends/__init__.py": "12ed9b759fe8bc4d99f59b4c58c12d217c1d6940e33729b2fae2a73654e5f78b",
+      "src/lattice/backends/llama_cpp.py": "e6f754eff5014aa780269f2eae077e8fd1712410920bd4c454939217ba26c305",
+      "src/lattice/cli.py": "aff6a551a78a2eda0a38b7fdcaef07634a1d6f638fa911f8cffb3df821ce4ad4",
+      "src/lattice/config.py": "41855acf8a225be1a8c5c47278d022a15bd7f676912401f92737b1cd142ef483",
+      "src/lattice/evaluation/__init__.py": "b8dfb70397a6697020c59052ea979e422a9a4057d1abf99df2bf9742c4c552d2",
+      "src/lattice/evaluation/benchmark.py": "cbc242043c3340ab962d6e66228e1fc6f12c212b5b14d595710fcd9dcf9c2062",
+      "src/lattice/evaluation/quality.py": "7a314b7898439936c03a7a74c4685f349b39cbf2f130bb9b16cac49d0a19ef0b",
+      "src/lattice/observability/__init__.py": "66fc2c467a33ed8dda8ae0d214092746dd888f8bcd6488c28e5c98c9207ae52b",
+      "src/lattice/observability/measure.py": "4a00711e1f0bae7338e99e1c1dea4f8ccda24cecef35ddb390bb81c799aed57f",
+      "src/lattice/optimizations/__init__.py": "d59ee4ec581358011c4a1d1ffccec5341ec5711b93be2ad2ca638ee777cf66d3",
+      "src/lattice/optimizations/speculative/__init__.py": "c026a7d47cea12b911c8c94ff0554702a502e44d011284bb386206df535dba79",
+      "src/lattice/optimizations/speculative/compatibility.py": "a3d314aca9fa437057fef395db337c10f43ffaa3290a3d04cef69783b4b0fbe0",
+      "src/lattice/optimizations/speculative/sampling.py": "84a02c3b7b10b81c9b1cc5f1334da994f8bf810b5ffb2f1b495767accb6b2f1f",
+      "src/lattice/runtime.py": "02a33fde96cca96d5ed61f2b35bc2302980daf367bc8f9740aae5f37fb515c47",
+      "src/lattice/types.py": "0950bf52cb7d02536af985018daaaf5beb29a1c83ba72497d321a4f97f41b240",
+      "src/lattice/worker.py": "c4d920bbb38760eb542a3677a1088ccd8d7a5c3afdc0a918f7493091975e88e2",
+      "uv.lock": "a40008fcee6eaf6e4db669d7cfcaaed1a2f52f3a370c0ab3c4b55c30553e2e0e",
+      "pyproject.toml": "f33fbc91ac74308ef89c5e16d54a6ff1b3a6548f4364b71a7218a11b08d9c348"
+    },
+    "sha256": "8cff9b46b31e04da2bf643fdf57cfc3f49ded0dc2c2528674034c231ba98ae7b"
+  },
+  "target": {
+    "id": "qwen2.5-1.5b-instruct-q8",
+    "sha256": "d7efb072e7724d25048a4fda0a3e10b04bdef5d06b1403a1c93bd9f1240a63c8",
+    "source_repository": "Qwen/Qwen2.5-1.5B-Instruct-GGUF",
+    "source_revision": "91cad51170dc346986eccefdc2dd33a9da36ead9",
+    "license": "Apache-2.0",
+    "precision": "GGUF Q8_0"
+  },
+  "draft": {
+    "id": "qwen2.5-0.5b-instruct-f16",
+    "sha256": "8e0ae26000627ed62de0e78e41860af70094558b9d2913385c842a6aa06cf3fc",
+    "source_repository": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
+    "source_revision": "9217f5db79a29953eb74d5343926648285ec7e67",
+    "license": "Apache-2.0",
+    "precision": "GGUF F16 (mixed tensor types)"
+  },
+  "trials": 1,
+  "warmups_per_arm": 1,
+  "seed": 1701,
+  "context_tokens": 1024,
+  "sampling": {
+    "temperature": 0.0,
+    "max_tokens": 64
+  },
+  "note": "Same Q8 target for both arms; does not compare Q8 quality against FP16."
+}

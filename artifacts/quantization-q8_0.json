@@ -1,0 +1,18 @@
+{
+  "source_sha256": "8e0ae26000627ed62de0e78e41860af70094558b9d2913385c842a6aa06cf3fc",
+  "candidate_sha256": "51b344f6dbf12a9e0d7557453f1b115e72277727231b3198dc2f3e5331fb7616",
+  "format": "Q8_0",
+  "source_bytes": 1266425696,
+  "candidate_bytes": 675710816,
+  "tool_sha256": "5776282ffa3ff10504615d2f929fe92c0b1889b68869ff33297f1f1419105668",
+  "backend_commit": "b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+  "tokenizer_fingerprint": "4470c3c83e92aa275d4f0873556769e6a644ccf5e479b6b03c8db0e2582e9d16",
+  "command": [
+    "/data/workspace/lattice/.local/llama.cpp/build/bin/llama-quantize",
+    "/data/workspace/lattice/models/qwen2.5-0.5b-instruct-fp16.gguf",
+    "/data/workspace/lattice/models/qwen2.5-0.5b-instruct-q8_0.gguf",
+    "Q8_0",
+    "4"
+  ],
+  "note": "Locally derived from the identical frozen FP16 GGUF; no calibrated quality guarantee."
+}

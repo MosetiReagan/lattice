@@ -1,0 +1,507 @@
+{
+  "output": "benchmarks/results/standard-session-1",
+  "workloads": {
+    "short": {
+      "attempted": 30,
+      "completed": 30,
+      "failed": 0,
+      "latency_ms": {
+        "n": 30,
+        "mean": 301.7785635000716,
+        "stddev": 30.299148302480784,
+        "median": 293.4628900002281,
+        "p50": 293.4628900002281,
+        "p90": 335.0226331003796,
+        "p95": 339.3497431498872,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "ttft_ms": {
+        "n": 30,
+        "mean": 69.24540750011754,
+        "stddev": 10.171708812616103,
+        "median": 65.7695669997338,
+        "p50": 65.7695669997338,
+        "p90": 82.85349709967704,
+        "p95": 88.0535322989999,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "queue_ms": {
+        "n": 30,
+        "mean": 0.03516303355960796,
+        "stddev": 0.00955627149635341,
+        "median": 0.03351499981363304,
+        "p50": 0.03351499981363304,
+        "p90": 0.0370810010281275,
+        "p95": 0.038371500522771385,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "sampled_worker_rss_bytes": {
+        "n": 30,
+        "mean": 1361625634.1333334,
+        "stddev": 15688.94423764563,
+        "median": 1361629184.0,
+        "p50": 1361629184.0,
+        "p90": 1361633280.0,
+        "p95": 1361633280.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "aggregate_generated_tokens_per_second": 52.92805343065101,
+      "aggregate_requests_per_second": 3.3080033394156882,
+      "output_tokens": {
+        "n": 30,
+        "mean": 16,
+        "stddev": 0.0,
+        "median": 16.0,
+        "p50": 16.0,
+        "p90": 16.0,
+        "p95": 16.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      }
+    },
+    "long_prompt": {
+      "attempted": 30,
+      "completed": 30,
+      "failed": 0,
+      "latency_ms": {
+        "n": 30,
+        "mean": 1606.6913067999242,
+        "stddev": 35.95861337552095,
+        "median": 1605.3684534999775,
+        "p50": 1605.3684534999775,
+        "p90": 1640.197769599763,
+        "p95": 1659.9986308991902,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "ttft_ms": {
+        "n": 30,
+        "mean": 1409.799142133367,
+        "stddev": 36.556832437251295,
+        "median": 1409.7274440000547,
+        "p50": 1409.7274440000547,
+        "p90": 1439.334843398865,
+        "p95": 1464.3759292499453,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "queue_ms": {
+        "n": 30,
+        "mean": 0.03423833337971397,
+        "stddev": 0.0026944029987445175,
+        "median": 0.03309500061732251,
+        "p50": 0.03309500061732251,
+        "p90": 0.03887199873133795,
+        "p95": 0.03960550038755173,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "sampled_worker_rss_bytes": {
+        "n": 30,
+        "mean": 1377860812.8,
+        "stddev": 74325.07353901044,
+        "median": 1377882112.0,
+        "p50": 1377882112.0,
+        "p90": 1377890304.0,
+        "p95": 1377890304.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "aggregate_generated_tokens_per_second": 9.955111987946273,
+      "aggregate_requests_per_second": 0.622194499246642,
+      "output_tokens": {
+        "n": 30,
+        "mean": 16,
+        "stddev": 0.0,
+        "median": 16.0,
+        "p50": 16.0,
+        "p90": 16.0,
+        "p95": 16.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      }
+    },
+    "short_response": {
+      "attempted": 30,
+      "completed": 30,
+      "failed": 0,
+      "latency_ms": {
+        "n": 30,
+        "mean": 247.19789086666424,
+        "stddev": 12.849688089223893,
+        "median": 244.1644844993789,
+        "p50": 244.1644844993789,
+        "p90": 259.9887554000816,
+        "p95": 264.8756204496749,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "ttft_ms": {
+        "n": 30,
+        "mean": 207.10207819987167,
+        "stddev": 12.678352004370188,
+        "median": 203.5404654989179,
+        "p50": 203.5404654989179,
+        "p90": 219.07457749966852,
+        "p95": 228.26160910026374,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "queue_ms": {
+        "n": 30,
+        "mean": 0.03251533319901986,
+        "stddev": 0.002205129804714851,
+        "median": 0.03208999987691641,
+        "p50": 0.03208999987691641,
+        "p90": 0.03501399860397214,
+        "p95": 0.03631899990068632,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "sampled_worker_rss_bytes": {
+        "n": 30,
+        "mean": 1369188488.5333333,
+        "stddev": 34231.30839947883,
+        "median": 1369202688.0,
+        "p50": 1369202688.0,
+        "p90": 1369202688.0,
+        "p95": 1369202688.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "aggregate_generated_tokens_per_second": 16.150408291595436,
+      "aggregate_requests_per_second": 4.037602072898859,
+      "output_tokens": {
+        "n": 30,
+        "mean": 4,
+        "stddev": 0.0,
+        "median": 4.0,
+        "p50": 4.0,
+        "p90": 4.0,
+        "p95": 4.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      }
+    },
+    "long_response": {
+      "attempted": 30,
+      "completed": 30,
+      "failed": 0,
+      "latency_ms": {
+        "n": 30,
+        "mean": 2730.1907571332777,
+        "stddev": 361.49669721750854,
+        "median": 2875.1765665001585,
+        "p50": 2875.1765665001585,
+        "p90": 2935.6305033001263,
+        "p95": 2974.018234698906,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "ttft_ms": {
+        "n": 30,
+        "mean": 61.363092866546744,
+        "stddev": 6.668205942583306,
+        "median": 58.806807000109984,
+        "p50": 58.806807000109984,
+        "p90": 68.32171870046297,
+        "p95": 78.00549849998788,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "queue_ms": {
+        "n": 30,
+        "mean": 0.03576336645589132,
+        "stddev": 0.013765893717868979,
+        "median": 0.03283499972894788,
+        "p50": 0.03283499972894788,
+        "p90": 0.03697400061355438,
+        "p95": 0.04115749998163663,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "sampled_worker_rss_bytes": {
+        "n": 30,
+        "mean": 1369674001.0666666,
+        "stddev": 737214.8168375972,
+        "median": 1369956352.0,
+        "p50": 1369956352.0,
+        "p90": 1369989120.0,
+        "p95": 1369989120.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "aggregate_generated_tokens_per_second": 46.87187783171845,
+      "aggregate_requests_per_second": 0.3661865455603004,
+      "output_tokens": {
+        "n": 30,
+        "mean": 128,
+        "stddev": 0.0,
+        "median": 128.0,
+        "p50": 128.0,
+        "p90": 128.0,
+        "p95": 128.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      }
+    },
+    "repeated_prefix": {
+      "attempted": 30,
+      "completed": 30,
+      "failed": 0,
+      "latency_ms": {
+        "n": 30,
+        "mean": 986.3066973333844,
+        "stddev": 22.00281251198003,
+        "median": 981.7239925005197,
+        "p50": 981.7239925005197,
+        "p90": 1013.5216604006928,
+        "p95": 1028.6051581509128,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "ttft_ms": {
+        "n": 30,
+        "mean": 781.2529569332886,
+        "stddev": 18.855371818619055,
+        "median": 780.9883539994189,
+        "p50": 780.9883539994189,
+        "p90": 806.7916670004706,
+        "p95": 814.3035844998849,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "queue_ms": {
+        "n": 30,
+        "mean": 0.034524999925148826,
+        "stddev": 0.003895343469287349,
+        "median": 0.03416999970795587,
+        "p50": 0.03416999970795587,
+        "p90": 0.0401549998059636,
+        "p95": 0.0416524993852363,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "sampled_worker_rss_bytes": {
+        "n": 30,
+        "mean": 1377232622.9333334,
+        "stddev": 69542.0736428468,
+        "median": 1377263616.0,
+        "p50": 1377263616.0,
+        "p90": 1377267712.0,
+        "p95": 1377267712.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "aggregate_generated_tokens_per_second": 16.213507237682826,
+      "aggregate_requests_per_second": 1.0133442023551766,
+      "output_tokens": {
+        "n": 30,
+        "mean": 16,
+        "stddev": 0.0,
+        "median": 16.0,
+        "p50": 16.0,
+        "p90": 16.0,
+        "p95": 16.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      }
+    },
+    "concurrent": {
+      "attempted": 30,
+      "completed": 30,
+      "failed": 0,
+      "latency_ms": {
+        "n": 30,
+        "mean": 1657.904505933402,
+        "stddev": 796.8561417763775,
+        "median": 1641.3726640003006,
+        "p50": 1641.3726640003006,
+        "p90": 2569.703530098377,
+        "p95": 2959.689522349434,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "ttft_ms": {
+        "n": 30,
+        "mean": 1099.4611911334384,
+        "stddev": 785.1146638380135,
+        "median": 956.796959500025,
+        "p50": 956.796959500025,
+        "p90": 2060.982653398605,
+        "p95": 2348.5793957004703,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "queue_ms": {
+        "n": 30,
+        "mean": 980.4362906333457,
+        "stddev": 789.945434720914,
+        "median": 819.2695560001084,
+        "p50": 819.2695560001084,
+        "p90": 1947.908991598706,
+        "p95": 2237.7489567002144,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "sampled_worker_rss_bytes": {
+        "n": 30,
+        "mean": 1364585267.2,
+        "stddev": 22745.870613335966,
+        "median": 1364590592.0,
+        "p50": 1364590592.0,
+        "p90": 1364598784.0,
+        "p95": 1364598784.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "aggregate_generated_tokens_per_second": 47.20768884551236,
+      "aggregate_requests_per_second": 1.4752402764222612,
+      "output_tokens": {
+        "n": 30,
+        "mean": 32,
+        "stddev": 0.0,
+        "median": 32.0,
+        "p50": 32.0,
+        "p90": 32.0,
+        "p95": 32.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      }
+    },
+    "mixed": {
+      "attempted": 30,
+      "completed": 30,
+      "failed": 0,
+      "latency_ms": {
+        "n": 30,
+        "mean": 2109.954597733607,
+        "stddev": 1534.139574387997,
+        "median": 1357.4547660009557,
+        "p50": 1357.4547660009557,
+        "p90": 4363.643226800014,
+        "p95": 4766.553620600098,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "ttft_ms": {
+        "n": 30,
+        "mean": 1612.965230633381,
+        "stddev": 1502.8068659928442,
+        "median": 830.1057590006167,
+        "p50": 830.1057590006167,
+        "p90": 3891.7920109988704,
+        "p95": 4085.611103750034,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "queue_ms": {
+        "n": 30,
+        "mean": 1014.4699119668682,
+        "stddev": 952.0750654057525,
+        "median": 620.0875035001445,
+        "p50": 620.0875035001445,
+        "p90": 2431.992457898559,
+        "p95": 2610.8916244994352,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "sampled_worker_rss_bytes": {
+        "n": 30,
+        "mean": 1395869832.5333333,
+        "stddev": 4666536.801884579,
+        "median": 1397719040.0,
+        "p50": 1397719040.0,
+        "p90": 1397843148.8,
+        "p95": 1397854208.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "aggregate_generated_tokens_per_second": 29.20114205360083,
+      "aggregate_requests_per_second": 0.9125356891750259,
+      "output_tokens": {
+        "n": 30,
+        "mean": 32,
+        "stddev": 0.0,
+        "median": 32.0,
+        "p50": 32.0,
+        "p90": 32.0,
+        "p95": 32.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      }
+    },
+    "memory_constrained": {
+      "attempted": 30,
+      "completed": 30,
+      "failed": 0,
+      "latency_ms": {
+        "n": 30,
+        "mean": 447.8981107996636,
+        "stddev": 28.76973594416312,
+        "median": 446.07521899979474,
+        "p50": 446.07521899979474,
+        "p90": 477.31557409915695,
+        "p95": 485.9028669990948,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "ttft_ms": {
+        "n": 30,
+        "mean": 213.15879003323062,
+        "stddev": 11.943384133226479,
+        "median": 208.40932899955078,
+        "p50": 208.40932899955078,
+        "p90": 230.9690430001865,
+        "p95": 234.2627056999845,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "queue_ms": {
+        "n": 30,
+        "mean": 0.036788699920483246,
+        "stddev": 0.005261984766775725,
+        "median": 0.036264999835111666,
+        "p50": 0.036264999835111666,
+        "p90": 0.0402140000005602,
+        "p95": 0.04645549997803753,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "sampled_worker_rss_bytes": {
+        "n": 30,
+        "mean": 1369237504,
+        "stddev": 35460.166567086475,
+        "median": 1369249792.0,
+        "p50": 1369249792.0,
+        "p90": 1369255936.0,
+        "p95": 1369258188.8,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "aggregate_generated_tokens_per_second": 35.67930766960429,
+      "aggregate_requests_per_second": 2.2299567293502682,
+      "output_tokens": {
+        "n": 30,
+        "mean": 16,
+        "stddev": 0.0,
+        "median": 16.0,
+        "p50": 16.0,
+        "p90": 16.0,
+        "p95": 16.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      }
+    }
+  },
+  "quality": {
+    "dataset_sha256": "e12ca0ff7210dcb8d34eb39da8efd5ff511b01515505ced60fd452df8ab5d0c3",
+    "tasks": 22,
+    "passed": 11,
+    "scope": "Public self-authored smoke suite; no representative/held-out claim"
+  }
+}

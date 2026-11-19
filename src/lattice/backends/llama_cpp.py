@@ -15,7 +15,9 @@ from pathlib import Path
 
 import httpx
 
-from lattice.config import ModelEntry, Settings, file_hash
+from lattice.cache.prefix import CacheIdentity, PrefixCache
+from lattice.config import ModelEntry, Settings, file_hash, select_model
+from lattice.optimizations.speculative.compatibility import tokenizer_fingerprint
 from lattice.types import GenerationRequest, LatticeError
 
 
@@ -24,6 +26,16 @@ class LlamaCppBackend:
         self.settings, self.model = settings, model
         self.process: subprocess.Popen | None = None
         self.base_url = ""
+        self._strategy = "standard"
+        self._draft = None
+        self._draft_tokens = settings.draft_tokens
+        self._compatibility = {}
+        self._tokenizer_sha = None
+        self.prefix = PrefixCache(
+            settings.cache_limit_mb * 1024**2,
+            model.kv_bytes_per_token or 1,
+            min_tokens=settings.cache_min_tokens,
+        )
         self.key = secrets.token_urlsafe(32)
         self.worker_startup_ms: float | None = None
         self.identity = {
@@ -36,6 +48,42 @@ class LlamaCppBackend:
             "strategy": "standard",
         }
 
+    async def configure(self, request: GenerationRequest) -> str | None:
+        strategy = request.optimization.mode
+        reason = None
+        draft = None
+        if strategy == "speculative":
+            if request.temperature != 0:
+                reason = (
+                    "Native speculative serving is verified for greedy decoding only"
+                )
+            elif not self.settings.draft_model_id:
+                reason = "No draft model is configured"
+            else:
+                draft = select_model(self.settings, self.settings.draft_model_id)
+                key = (self.model.sha256, draft.sha256)
+                if key not in self._compatibility:
+                    self._compatibility[key] = await asyncio.to_thread(
+                        tokenizer_fingerprint, Path(self.model.path)
+                    ) == await asyncio.to_thread(
+                        tokenizer_fingerprint, Path(draft.path)
+                    )
+                if not self._compatibility[key]:
+                    reason = "Draft and target tokenizer metadata are not identical"
+            if reason:
+                if not request.optimization.allow_fallback:
+                    raise LatticeError(reason, 422, "incompatible_strategy")
+                strategy, draft = "standard", None
+        draft_tokens = request.optimization.draft_tokens or self.settings.draft_tokens
+        if (strategy == "speculative") != (self._strategy == "speculative") or (
+            strategy == "speculative" and draft_tokens != self._draft_tokens
+        ):
+            self.stop()
+        self._strategy, self._draft, self._draft_tokens = strategy, draft, draft_tokens
+        self.identity["strategy"] = strategy
+        self.identity["draft_model_sha256"] = draft.sha256 if draft else None
+        return reason
+
     async def start(self) -> None:
         if self.process and self.process.poll() is None:
             return
@@ -44,6 +92,7 @@ class LlamaCppBackend:
             (self.settings.backend_binary, self.settings.backend_sha256),
             (self.model.path, self.model.sha256),
             *self.settings.backend_files.items(),
+            *(([(self._draft.path, self._draft.sha256)]) if self._draft else []),
         ]:
             path = Path(filename)
             if not path.is_file():
@@ -67,7 +116,10 @@ class LlamaCppBackend:
                 for line in Path("/proc/meminfo").read_text().splitlines()
             )
         }
-        need_kb = Path(self.model.path).stat().st_size // 1024 + 768 * 1024
+        need_kb = (
+            Path(self.model.path).stat().st_size
+            + (Path(self._draft.path).stat().st_size if self._draft else 0)
+        ) // 1024 + 768 * 1024
         if mem.get("MemAvailable", 0) < need_kb + self.settings.host_reserve_mb * 1024:
             raise LatticeError(
                 "Insufficient host memory for weights, working estimate and reserve",
@@ -116,12 +168,26 @@ class LlamaCppBackend:
             "--no-cache-prompt",
             "--no-context-shift",
             "--spec-type",
-            "none",
+            "draft-simple" if self._draft else "none",
+            "--metrics",
             "--no-slots",
             "--offline",
             "--no-ui",
             "--no-warmup",
         ]
+        if self._draft:
+            args.extend(
+                [
+                    "--model-draft",
+                    self._draft.path,
+                    "--spec-draft-n-max",
+                    str(self._draft_tokens),
+                    "--spec-draft-n-min",
+                    "1",
+                    "--spec-draft-threads",
+                    str(self.settings.threads),
+                ]
+            )
         env = {k: v for k, v in os.environ.items() if not k.startswith("LLAMA_ARG_")}
         try:
             # Only process creation is synchronous; no preexec_fn or waiting here.
@@ -175,6 +241,7 @@ class LlamaCppBackend:
         return {"Authorization": "Bearer " + self.key}
 
     def stop(self) -> None:
+        self.prefix.invalidate()
         process, self.process = self.process, None
         if process and process.poll() is None:
             with contextlib.suppress(ProcessLookupError):
@@ -193,6 +260,7 @@ class LlamaCppBackend:
         return response.json()
 
     async def events(self, request: GenerationRequest) -> AsyncIterator[dict]:
+        fallback = await self.configure(request)
         await self.start()
         completed = False
         try:
@@ -225,7 +293,39 @@ class LlamaCppBackend:
                         400,
                         "context_limit",
                     )
-                yield {"type": "prefill", "prompt_tokens": len(token_ids)}
+                cache_identity = CacheIdentity(
+                    "single-operator",
+                    self.model.sha256,
+                    self._tokenizer_sha or self.model.sha256,
+                    self.settings.backend_sha256,
+                    self.settings.context_tokens,
+                    "f16",
+                    "artifact-default-rope-mask",
+                )
+                cache_allowed = (
+                    self._strategy == "cached"
+                    and self.model.kv_bytes_per_token is not None
+                )
+                if self._strategy == "cached" and not cache_allowed:
+                    raise LatticeError(
+                        "KV byte accounting is unknown for this model",
+                        422,
+                        "cache_accounting_unknown",
+                    )
+                decision = (
+                    self.prefix.plan(cache_identity, tuple(token_ids))
+                    if cache_allowed
+                    else None
+                )
+                if not cache_allowed:
+                    self.prefix.invalidate()
+                yield {
+                    "type": "prefill",
+                    "prompt_tokens": len(token_ids),
+                    "strategy": self._strategy,
+                    "fallback_reason": fallback,
+                    "backend": dict(self.identity),
+                }
                 # Pass exact token IDs: validation and inference use the same tokenization.
                 body = {
                     "prompt": token_ids,
@@ -240,7 +340,7 @@ class LlamaCppBackend:
                     "presence_penalty": 0.0,
                     "frequency_penalty": 0.0,
                     "samplers": ["temperature"],
-                    "cache_prompt": False,
+                    "cache_prompt": bool(decision and decision.reuse),
                     "return_tokens": True,
                 }
                 count = 0
@@ -269,6 +369,11 @@ class LlamaCppBackend:
                                     "backend_limit_violation",
                                 )
                             completed = True
+                            if cache_allowed:
+                                self.prefix.remember(cache_identity, tuple(token_ids))
+                                self.prefix.observe(
+                                    raw.get("timings", {}).get("cache_n", 0)
+                                )
                             yield {
                                 "type": "backend_done",
                                 "completion_tokens": raw.get("tokens_predicted", count),
@@ -276,7 +381,9 @@ class LlamaCppBackend:
                                 if raw.get("stop_type") == "limit"
                                 else "stop",
                                 "backend_timings": raw.get("timings", {}),
-                                "tokens_cached": raw.get("tokens_cached", 0),
+                                "tokens_cached": raw.get("timings", {}).get(
+                                    "cache_n", 0
+                                ),
                             }
                             return
                         tokens = raw.get("tokens", [])

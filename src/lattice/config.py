@@ -17,6 +17,7 @@ class ModelEntry(BaseModel):
     source_repository: str
     source_revision: str
     license: str
+    kv_bytes_per_token: int | None = Field(default=None, gt=0)
     precision: str
 
 
@@ -27,6 +28,10 @@ class Settings(BaseModel):
     backend_commit: str
     backend_files: dict[str, str] = Field(default_factory=dict)
     models: list[ModelEntry] = Field(min_length=1)
+    cache_limit_mb: int = Field(default=32, ge=1, le=4096)
+    cache_min_tokens: int = Field(default=64, ge=1)
+    draft_model_id: str | None = None
+    draft_tokens: int = Field(default=4, ge=1, le=16)
     context_tokens: int = Field(default=2048, ge=128, le=8192)
     threads: int = Field(default=4, ge=1, le=64)
     max_queue: int = Field(default=8, ge=0, le=128)

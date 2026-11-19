@@ -13,6 +13,9 @@ dependencies = ["fastapi>=0.115,<1", "uvicorn>=0.34,<1", "httpx>=0.28,<1", "pyda
 [project.optional-dependencies]
 provision = ["cmake==4.4.5", "ninja==1.13.2"]
 dev = ["pytest>=8,<10", "pytest-asyncio>=1,<2", "ruff>=0.12,<1"]
+evaluation = [
+    "pyarrow==23.0.1",
+]
 
 [project.scripts]
 lattice = "lattice.cli:main"

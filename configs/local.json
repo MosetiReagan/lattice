@@ -32,7 +32,38 @@
       "source_repository": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
       "source_revision": "9217f5db79a29953eb74d5343926648285ec7e67",
       "license": "Apache-2.0",
-      "precision": "GGUF F16 (mixed tensor types)"
+      "precision": "GGUF F16 (mixed tensor types)",
+      "kv_bytes_per_token": 12288
+    },
+    {
+      "id": "qwen2.5-1.5b-instruct-q8",
+      "path": "../models/qwen2.5-1.5b-instruct-q8_0.gguf",
+      "sha256": "d7efb072e7724d25048a4fda0a3e10b04bdef5d06b1403a1c93bd9f1240a63c8",
+      "source_repository": "Qwen/Qwen2.5-1.5B-Instruct-GGUF",
+      "source_revision": "91cad51170dc346986eccefdc2dd33a9da36ead9",
+      "license": "Apache-2.0",
+      "precision": "GGUF Q8_0",
+      "kv_bytes_per_token": 28672
+    },
+    {
+      "id": "qwen2.5-0.5b-instruct-q8_0",
+      "path": "../models/qwen2.5-0.5b-instruct-q8_0.gguf",
+      "sha256": "51b344f6dbf12a9e0d7557453f1b115e72277727231b3198dc2f3e5331fb7616",
+      "source_repository": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
+      "source_revision": "9217f5db79a29953eb74d5343926648285ec7e67",
+      "license": "Apache-2.0",
+      "kv_bytes_per_token": 12288,
+      "precision": "GGUF Q8_0"
+    },
+    {
+      "id": "qwen2.5-0.5b-instruct-q4_k_m",
+      "path": "../models/qwen2.5-0.5b-instruct-q4_k_m.gguf",
+      "sha256": "e367f9277d5bd544cc5e8432ee87b7498574df40e8f0784793e2288e9229b971",
+      "source_repository": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
+      "source_revision": "9217f5db79a29953eb74d5343926648285ec7e67",
+      "license": "Apache-2.0",
+      "kv_bytes_per_token": 12288,
+      "precision": "GGUF Q4_K_M"
     }
   ],
   "log_directory": "../artifacts"

@@ -1,0 +1,92 @@
+{
+  "short": {
+    "standard": {
+      "latency_ms": {
+        "n": 30,
+        "mean": 252.51321859990034,
+        "stddev": 22.759200441949435,
+        "median": 248.27166799968836,
+        "p50": 248.27166799968836,
+        "p90": 268.6706327000138,
+        "p95": 286.7048064992559,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "reused_tokens": 0
+    },
+    "cached": {
+      "latency_ms": {
+        "n": 30,
+        "mean": 254.6093811666045,
+        "stddev": 22.657732408085664,
+        "median": 255.99002849958197,
+        "p50": 255.99002849958197,
+        "p90": 278.28554719981184,
+        "p95": 283.9993291996507,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "reused_tokens": 0
+    }
+  },
+  "long_prompt": {
+    "standard": {
+      "latency_ms": {
+        "n": 30,
+        "mean": 1547.3880323665678,
+        "stddev": 60.212858735989485,
+        "median": 1534.0873724999256,
+        "p50": 1534.0873724999256,
+        "p90": 1577.2140258995933,
+        "p95": 1619.4966082011888,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "reused_tokens": 0
+    },
+    "cached": {
+      "latency_ms": {
+        "n": 30,
+        "mean": 229.57939100009148,
+        "stddev": 23.852254999435484,
+        "median": 231.52410100010457,
+        "p50": 231.52410100010457,
+        "p90": 248.21579529980227,
+        "p95": 262.74270324984167,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "reused_tokens": 29790
+    }
+  },
+  "repeated_prefix": {
+    "standard": {
+      "latency_ms": {
+        "n": 30,
+        "mean": 1025.9682178334817,
+        "stddev": 171.88704185263177,
+        "median": 1003.5981575001642,
+        "p50": 1003.5981575001642,
+        "p90": 1048.7076366009205,
+        "p95": 1063.1639644506322,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "reused_tokens": 0
+    },
+    "cached": {
+      "latency_ms": {
+        "n": 30,
+        "mean": 255.52794946652284,
+        "stddev": 40.99830829751785,
+        "median": 249.2076984999585,
+        "p50": 249.2076984999585,
+        "p90": 313.17826499871444,
+        "p95": 315.3733536491927,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "reused_tokens": 17040
+    }
+  }
+}

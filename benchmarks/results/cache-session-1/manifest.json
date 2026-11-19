@@ -1,0 +1,55 @@
+{
+  "source": {
+    "files": {
+      "src/lattice/__init__.py": "9ff030a7f1046d933f959b4710bec2c3c9d2aa7e77463b70ccbea228085f3169",
+      "src/lattice/api.py": "cf7d7485b0892450b1032a7e92c78952b651d22bf0f631002dd6da6f5bf2f6de",
+      "src/lattice/backends/__init__.py": "12ed9b759fe8bc4d99f59b4c58c12d217c1d6940e33729b2fae2a73654e5f78b",
+      "src/lattice/backends/llama_cpp.py": "3f7f85f16ff14f21d000a0b59ba1f5cbd17c3c25e319780806280900a2aad61a",
+      "src/lattice/cache/__init__.py": "688facb5768072a11155f2a7ccecc400e981ff12e2238ad6ed725a5f063404ae",
+      "src/lattice/cache/prefix.py": "0ff6f3138f75d06820a86c7b17ad9a2626cfcc6e667e6c2c7261085b420dc5c2",
+      "src/lattice/cli.py": "aff6a551a78a2eda0a38b7fdcaef07634a1d6f638fa911f8cffb3df821ce4ad4",
+      "src/lattice/config.py": "7a228a44c43cfb54699ee2ac4b3513ca4fd78df544630e7631c9776605ee93e4",
+      "src/lattice/evaluation/__init__.py": "b8dfb70397a6697020c59052ea979e422a9a4057d1abf99df2bf9742c4c552d2",
+      "src/lattice/evaluation/benchmark.py": "cbc242043c3340ab962d6e66228e1fc6f12c212b5b14d595710fcd9dcf9c2062",
+      "src/lattice/evaluation/quality.py": "7a314b7898439936c03a7a74c4685f349b39cbf2f130bb9b16cac49d0a19ef0b",
+      "src/lattice/observability/__init__.py": "66fc2c467a33ed8dda8ae0d214092746dd888f8bcd6488c28e5c98c9207ae52b",
+      "src/lattice/observability/measure.py": "4a00711e1f0bae7338e99e1c1dea4f8ccda24cecef35ddb390bb81c799aed57f",
+      "src/lattice/optimizations/__init__.py": "d59ee4ec581358011c4a1d1ffccec5341ec5711b93be2ad2ca638ee777cf66d3",
+      "src/lattice/optimizations/speculative/__init__.py": "c026a7d47cea12b911c8c94ff0554702a502e44d011284bb386206df535dba79",
+      "src/lattice/optimizations/speculative/compatibility.py": "a3d314aca9fa437057fef395db337c10f43ffaa3290a3d04cef69783b4b0fbe0",
+      "src/lattice/optimizations/speculative/sampling.py": "84a02c3b7b10b81c9b1cc5f1334da994f8bf810b5ffb2f1b495767accb6b2f1f",
+      "src/lattice/runtime.py": "0a8ef63ac963bb933c47fd7aea85a0791cfdaba9c66f0acbe48f33c3daf44578",
+      "src/lattice/types.py": "a5e7a58bf1a0bcdfcbbd9e20795eb6d197c787ecfd7b276550181f4f01d39c5e",
+      "src/lattice/worker.py": "c4d920bbb38760eb542a3677a1088ccd8d7a5c3afdc0a918f7493091975e88e2",
+      "uv.lock": "a40008fcee6eaf6e4db669d7cfcaaed1a2f52f3a370c0ab3c4b55c30553e2e0e",
+      "pyproject.toml": "f33fbc91ac74308ef89c5e16d54a6ff1b3a6548f4364b71a7218a11b08d9c348"
+    },
+    "sha256": "3e895cdf0dfd3792f5a6569739a786360007ab352002ca645afe7940857362e2"
+  },
+  "trials": 30,
+  "model_sha256": "8e0ae26000627ed62de0e78e41860af70094558b9d2913385c842a6aa06cf3fc",
+  "seed": 1701,
+  "workloads": [
+    {
+      "id": "short",
+      "input_words": 24,
+      "output_tokens": 16
+    },
+    {
+      "id": "long_prompt",
+      "input_words": 900,
+      "output_tokens": 16
+    },
+    {
+      "id": "repeated_prefix",
+      "input_words": 512,
+      "output_tokens": 16
+    }
+  ],
+  "context_tokens": 2048,
+  "sampling": {
+    "temperature": 0.0,
+    "max_tokens": 16
+  },
+  "warmup": "One unmeasured identical prompt per arm/trial; both arms receive same warmups. Cold costs not an end-to-end win claim."
+}

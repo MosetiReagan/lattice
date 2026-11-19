@@ -99,6 +99,11 @@ class Runtime:
                     async for event in stream:
                         if event["type"] == "prefill":
                             record["prompt_tokens"] = event["prompt_tokens"]
+                            record["strategy"] = event.get("strategy", "standard")
+                            record["backend"] = event.get(
+                                "backend", dict(self.backend.identity)
+                            )
+                            record["fallback_reason"] = event.get("fallback_reason")
                             record["worker_startup_ms"] = getattr(
                                 self.backend, "worker_startup_ms", None
                             )
@@ -106,8 +111,8 @@ class Runtime:
                                 "type": "start",
                                 "id": request_id,
                                 "model": self.model_id,
-                                "strategy": "standard",
-                                "backend": dict(self.backend.identity),
+                                "strategy": record["strategy"],
+                                "backend": record["backend"],
                             }
                         elif event["type"] == "token":
                             now = time.perf_counter()
@@ -128,6 +133,7 @@ class Runtime:
                                 backend_timings=event["backend_timings"],
                             )
                             record["finish_reason"] = event["finish_reason"]
+                            record["tokens_cached"] = event.get("tokens_cached", 0)
                 if record["status"] != "completed":
                     raise LatticeError(
                         "Generation ended without a completion",

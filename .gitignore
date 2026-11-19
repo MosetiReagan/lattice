@@ -8,3 +8,5 @@ __pycache__/
 dist/
 artifacts/*.log
 artifacts/requests.jsonl
+benchmarks/results/**/private/
+benchmarks/datasets/external/

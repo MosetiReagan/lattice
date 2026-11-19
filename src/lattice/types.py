@@ -19,8 +19,9 @@ class Message(BaseModel):
 
 class Optimization(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True)
-    # Adaptive/quantized/speculative selection is deliberately unavailable.
-    mode: Literal["standard"] = "standard"
+    mode: Literal["standard", "speculative", "cached"] = "standard"
+    allow_fallback: bool = True
+    draft_tokens: int | None = Field(default=None, ge=1, le=16)
 
 
 class GenerationRequest(BaseModel):

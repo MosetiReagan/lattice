@@ -1,0 +1,35 @@
+{
+  "commit": "255e1e1",
+  "source": {
+    "files": {
+      "src/lattice/__init__.py": "9ff030a7f1046d933f959b4710bec2c3c9d2aa7e77463b70ccbea228085f3169",
+      "src/lattice/api.py": "cf7d7485b0892450b1032a7e92c78952b651d22bf0f631002dd6da6f5bf2f6de",
+      "src/lattice/backends/__init__.py": "12ed9b759fe8bc4d99f59b4c58c12d217c1d6940e33729b2fae2a73654e5f78b",
+      "src/lattice/backends/llama_cpp.py": "f3810180eef7e2a567adf23f93a2f46f4bf15db451111aa82d183ac881f1475a",
+      "src/lattice/cli.py": "aff6a551a78a2eda0a38b7fdcaef07634a1d6f638fa911f8cffb3df821ce4ad4",
+      "src/lattice/config.py": "e8d3b9806002dd9c52186420fd28b1e6c44dba0ad3faca030cef570061c358e5",
+      "src/lattice/evaluation/__init__.py": "b8dfb70397a6697020c59052ea979e422a9a4057d1abf99df2bf9742c4c552d2",
+      "src/lattice/evaluation/benchmark.py": "cbc242043c3340ab962d6e66228e1fc6f12c212b5b14d595710fcd9dcf9c2062",
+      "src/lattice/evaluation/quality.py": "7a314b7898439936c03a7a74c4685f349b39cbf2f130bb9b16cac49d0a19ef0b",
+      "src/lattice/observability/__init__.py": "66fc2c467a33ed8dda8ae0d214092746dd888f8bcd6488c28e5c98c9207ae52b",
+      "src/lattice/observability/measure.py": "4a00711e1f0bae7338e99e1c1dea4f8ccda24cecef35ddb390bb81c799aed57f",
+      "src/lattice/runtime.py": "a430e5911e52f7a46ff8b51e29864a9716f7fa00d3a05ca1ff00c353b379190d",
+      "src/lattice/types.py": "6ee3118146647abc7c6581ce13a9a6e70c740cf2bd05bf746765bba7e60bae36",
+      "src/lattice/worker.py": "c4d920bbb38760eb542a3677a1088ccd8d7a5c3afdc0a918f7493091975e88e2",
+      "uv.lock": "2ba8b5200192129b88081b7b01a0203aefa2419cb1ca55141e95103da6b1fab3",
+      "pyproject.toml": "fabcaa24643b00275b8e2fb385a3480c7b06ea4e072720841b7e4b6f8d1e5d88"
+    },
+    "sha256": "02554a78290945a4ee030aa37c9128abd14c11cffaab6e919239e69f197c2206"
+  },
+  "model": {
+    "id": "qwen2.5-0.5b-instruct-f16",
+    "sha256": "8e0ae26000627ed62de0e78e41860af70094558b9d2913385c842a6aa06cf3fc",
+    "source_repository": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
+    "source_revision": "9217f5db79a29953eb74d5343926648285ec7e67",
+    "license": "Apache-2.0",
+    "precision": "GGUF F16 (mixed tensor types)"
+  },
+  "backend_sha256": "9e954cd7ced8851cbcd03170fb93ed864cdf5c7f38b743a5f8481e5235ea1b7b",
+  "workload_sha256": "d7a612335e4f67159145ef4f2f9f6d941cddde236b8e70261e161f99f67ed941",
+  "note": "Frozen standard code remains executable via .local/frozen-standard; no optimizations in this snapshot."
+}

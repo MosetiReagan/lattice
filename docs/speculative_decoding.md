@@ -1,0 +1,15 @@
+# Speculative decoding implementation and current evidence
+
+Implemented independently after the standard runtime freeze at commit 255e1e1:
+
+- A backend-independent full-distribution sampling reference in `src/lattice/optimizations/speculative/sampling.py`. It uses min(1,p/q) acceptance, normalized positive residual max(p-q,0) on rejection and a target bonus token on complete acceptance. It validates normalized finite distributions, rejects zero-probability proposals, supports token limits/EOS and an asynchronous target verification-batch interface.
+- Analytical zero/one-probability cases and seeded first-token/joint-history distribution tests on finite toy models. These are sampling-algorithm tests, not real-model stochastic serving evidence.
+- A real-model greedy adapter to llama.cpp draft-simple decoding, configurable draft length, strict tokenizer-metadata fingerprints, fallback explanations, SHA-256 model checks, acceptance/rejection counters and measured RSS.
+
+Actual native computation is llama.cpp functionality, not an independently implemented Lattice kernel or verifier. The exact reference is not connected to the HTTP serving path. Native stochastic speculation is deliberately refused or explicitly falls back to standard generation while preserving requested temperature/seed. No exact stochastic distribution-preservation claim is made for real serving. Top-p, top-k and penalties remain unsupported API controls, rather than silently being approximated.
+
+The CPU experiment uses the same Qwen2.5 1.5B **Q8 target artifact** in both arms and Qwen2.5 0.5B FP16 as draft. This keeps target+draft within the available memory reserve; it is not an FP16-versus-quantization quality experiment. Both GGUF tokenizers fingerprint identically, including vocabulary, special-token and chat-template metadata. Worker context is 1,024; draft lengths 1,2,4,8 are tested. In the pilot all four token sequences matched their standard target sequence, but each had only one measured repetition. Acceptance was real native draft_n/draft_n_accepted, not inferred from text.
+
+Pilot native speculation was slower and consumed more worker RSS than the corresponding standard Q8 target. This negative result is retained in `benchmarks/results/speculative-pilot`. Do not enable speculative decoding automatically based on a generic “fewer target calls” assumption. Full repeated-trial and multi-prompt evaluation is required for production eligibility. Draft-only latency, verification-only latency and target-pass counts are unavailable unless native instrumentation exposes them; they must not be fabricated from total elapsed time.
+
+Reproduce the bounded pilot with `uv run --no-sync python experiments/speculative_cpu.py --output benchmarks/results/new-spec-pilot --trials 1` after provisioning the exact registered draft/target artifacts. The initial script performs symmetric warm-up per arm and randomizes arm order. A larger run is intentionally expensive because it preserves separate worker load/warm-up from request timing. Per-request failures or greedy mismatches stop qualification; they do not count as speed improvements.

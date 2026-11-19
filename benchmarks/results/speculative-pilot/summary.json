@@ -1,0 +1,218 @@
+{
+  "1": {
+    "standard": {
+      "latency_ms": {
+        "n": 1,
+        "mean": 1481.6936299994268,
+        "stddev": null,
+        "median": 1481.6936299994268,
+        "p50": 1481.6936299994268,
+        "p90": 1481.6936299994268,
+        "p95": 1481.6936299994268,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "draft_proposed": 0,
+      "draft_accepted": 0,
+      "rss_bytes": {
+        "n": 1,
+        "mean": 1995132928,
+        "stddev": null,
+        "median": 1995132928.0,
+        "p50": 1995132928.0,
+        "p90": 1995132928.0,
+        "p95": 1995132928.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      }
+    },
+    "speculative": {
+      "latency_ms": {
+        "n": 1,
+        "mean": 3101.7173390009702,
+        "stddev": null,
+        "median": 3101.7173390009702,
+        "p50": 3101.7173390009702,
+        "p90": 3101.7173390009702,
+        "p95": 3101.7173390009702,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "draft_proposed": 35,
+      "draft_accepted": 27,
+      "rss_bytes": {
+        "n": 1,
+        "mean": 3322646528,
+        "stddev": null,
+        "median": 3322646528.0,
+        "p50": 3322646528.0,
+        "p90": 3322646528.0,
+        "p95": 3322646528.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      }
+    }
+  },
+  "2": {
+    "standard": {
+      "latency_ms": {
+        "n": 1,
+        "mean": 1660.690478000106,
+        "stddev": null,
+        "median": 1660.690478000106,
+        "p50": 1660.690478000106,
+        "p90": 1660.690478000106,
+        "p95": 1660.690478000106,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "draft_proposed": 0,
+      "draft_accepted": 0,
+      "rss_bytes": {
+        "n": 1,
+        "mean": 1995132928,
+        "stddev": null,
+        "median": 1995132928.0,
+        "p50": 1995132928.0,
+        "p90": 1995132928.0,
+        "p95": 1995132928.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      }
+    },
+    "speculative": {
+      "latency_ms": {
+        "n": 1,
+        "mean": 3090.772350999032,
+        "stddev": null,
+        "median": 3090.772350999032,
+        "p50": 3090.772350999032,
+        "p90": 3090.772350999032,
+        "p95": 3090.772350999032,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "draft_proposed": 48,
+      "draft_accepted": 38,
+      "rss_bytes": {
+        "n": 1,
+        "mean": 3324190720,
+        "stddev": null,
+        "median": 3324190720.0,
+        "p50": 3324190720.0,
+        "p90": 3324190720.0,
+        "p95": 3324190720.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      }
+    }
+  },
+  "4": {
+    "standard": {
+      "latency_ms": {
+        "n": 1,
+        "mean": 1827.8041670000675,
+        "stddev": null,
+        "median": 1827.8041670000675,
+        "p50": 1827.8041670000675,
+        "p90": 1827.8041670000675,
+        "p95": 1827.8041670000675,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "draft_proposed": 0,
+      "draft_accepted": 0,
+      "rss_bytes": {
+        "n": 1,
+        "mean": 1995243520,
+        "stddev": null,
+        "median": 1995243520.0,
+        "p50": 1995243520.0,
+        "p90": 1995243520.0,
+        "p95": 1995243520.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      }
+    },
+    "speculative": {
+      "latency_ms": {
+        "n": 1,
+        "mean": 3414.1294119999657,
+        "stddev": null,
+        "median": 3414.1294119999657,
+        "p50": 3414.1294119999657,
+        "p90": 3414.1294119999657,
+        "p95": 3414.1294119999657,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "draft_proposed": 74,
+      "draft_accepted": 43,
+      "rss_bytes": {
+        "n": 1,
+        "mean": 3326578688,
+        "stddev": null,
+        "median": 3326578688.0,
+        "p50": 3326578688.0,
+        "p90": 3326578688.0,
+        "p95": 3326578688.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      }
+    }
+  },
+  "8": {
+    "standard": {
+      "latency_ms": {
+        "n": 1,
+        "mean": 1515.3939130013896,
+        "stddev": null,
+        "median": 1515.3939130013896,
+        "p50": 1515.3939130013896,
+        "p90": 1515.3939130013896,
+        "p95": 1515.3939130013896,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "draft_proposed": 0,
+      "draft_accepted": 0,
+      "rss_bytes": {
+        "n": 1,
+        "mean": 1995096064,
+        "stddev": null,
+        "median": 1995096064.0,
+        "p50": 1995096064.0,
+        "p90": 1995096064.0,
+        "p95": 1995096064.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      }
+    },
+    "speculative": {
+      "latency_ms": {
+        "n": 1,
+        "mean": 3011.3391340000817,
+        "stddev": null,
+        "median": 3011.3391340000817,
+        "p50": 3011.3391340000817,
+        "p90": 3011.3391340000817,
+        "p95": 3011.3391340000817,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "draft_proposed": 105,
+      "draft_accepted": 48,
+      "rss_bytes": {
+        "n": 1,
+        "mean": 3332198400,
+        "stddev": null,
+        "median": 3332198400.0,
+        "p50": 3332198400.0,
+        "p90": 3332198400.0,
+        "p95": 3332198400.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      }
+    }
+  }
+}
