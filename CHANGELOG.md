@@ -1,5 +1,13 @@
 # Changelog
 
+## Multilingual data addition — evaluation preparation
+
+- Added pinned TyDiQA and XQuAD data-only intake recipes and 17,825 prepared evaluation records across nine/twelve language configurations.
+- Quarantined 1,532 source rows failing exact answer-offset checks; preserved raw data and rejected IDs without label repairs.
+- Reproduced exports and audited exact-prompt overlap against the original curated intake: combined 211,455 unique normalized prompts.
+- Kept translation/SQuAD dependence, unvalidated multilingual scoring and source licensing caveats explicit; no new model scores claimed.
+
+
 ## Dataset intake-v1 — unreleased evaluation infrastructure
 
 - Pinned nine external dataset families / ten configurations with source licenses, file hashes and data-only loading.

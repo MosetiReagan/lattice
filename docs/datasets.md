@@ -127,3 +127,7 @@ Optional separate model observations use `experiments/datasets/larger_model_qual
 The optional larger-model studies support `--output FRESH_DIRECTORY`; run them sequentially after the primary studies and use distinct directories for every repetition. Exact pre-CLI-change executed wrappers are archived alongside their published results and match the recorded runner hashes. The [separate larger-model report](larger_model_dataset_results.md) distinguishes different weights and corpus subsets from the primary precision comparison.
 
 The [additional 8k retrieval study](long_context_dataset_results.md) uses the same 60 frozen retrieval cases with explicit 8,192-token context on 0.5B FP16. Its `experiments/datasets/long_context_quality.py --output FRESH_DIRECTORY` command preserves the 2k baseline; `scripts/validate_long_context_observations.py` replays published scores and verifies unchanged input tokenization and output/context limits. See [separate 1.5B observations](larger_model_dataset_results.md) and [CSV/JSONL evaluation observations](../benchmarks/results/dataset-observations-v1/manifest.json).
+
+## Subsequent multilingual addition
+
+[TyDiQA and XQuAD](multilingual_datasets.md) add 17,825 reference-validated evaluation records. The combined inventory contains 211,455 unique normalized prompts, while this original curated catalog and every historical evaluation selection remain preserved. Translation groups/SQuAD overlap prevent treating all records as independent tasks; see the additive audit and scorer limitations.

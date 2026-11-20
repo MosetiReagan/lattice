@@ -1,0 +1,98 @@
+{
+  "repository": "juletxara/mgsm",
+  "revision": "b2f13d426afe3be8d69a7e739b36724db8b66bbc",
+  "license": "LicenseRef-MGSM-NeedsReview",
+  "card": "source_audit/juletxara--mgsm-card.txt",
+  "card_sha256": "e0da99240e541c2fda23066e8049d3a5f245cb056d56d1cad9b841330c4c8f01",
+  "files": [
+    {
+      "path": "bn/test-00000-of-00001.parquet",
+      "size_bytes": 61955,
+      "expected_sha256": "613542222622dff06276ea8956635ea585a5da48bce5a6b9c77c71887262a03a",
+      "git_blob_sha1": "64d0ed6466b63b2e397363ad2bf085844610f674",
+      "split": "test",
+      "url": "https://huggingface.co/datasets/juletxara/mgsm/resolve/b2f13d426afe3be8d69a7e739b36724db8b66bbc/bn/test-00000-of-00001.parquet"
+    },
+    {
+      "path": "de/test-00000-of-00001.parquet",
+      "size_bytes": 43336,
+      "expected_sha256": "8a18ae04bd783a0fe1ed7148a36d5eade77dca1c94c2143216892963f9c95201",
+      "git_blob_sha1": "21ef8f32cac2af2e6a02a40aee1bfa752725e828",
+      "split": "test",
+      "url": "https://huggingface.co/datasets/juletxara/mgsm/resolve/b2f13d426afe3be8d69a7e739b36724db8b66bbc/de/test-00000-of-00001.parquet"
+    },
+    {
+      "path": "en/test-00000-of-00001.parquet",
+      "size_bytes": 39072,
+      "expected_sha256": "3d0e84285dfb00d40e73d264628b0b0c65ca42e7112ff115b65787b20e1214dd",
+      "git_blob_sha1": "0a4db9d52d7bf39aa37fae3b106e50765eec6cda",
+      "split": "test",
+      "url": "https://huggingface.co/datasets/juletxara/mgsm/resolve/b2f13d426afe3be8d69a7e739b36724db8b66bbc/en/test-00000-of-00001.parquet"
+    },
+    {
+      "path": "es/test-00000-of-00001.parquet",
+      "size_bytes": 41667,
+      "expected_sha256": "8a7a623edb47caac0ab2f5bfd8ecd794476edc995ad577f4b14a9dc312c34ef8",
+      "git_blob_sha1": "5d03d04312ec6d9a26eb0615eda9c0afba4a9301",
+      "split": "test",
+      "url": "https://huggingface.co/datasets/juletxara/mgsm/resolve/b2f13d426afe3be8d69a7e739b36724db8b66bbc/es/test-00000-of-00001.parquet"
+    },
+    {
+      "path": "fr/test-00000-of-00001.parquet",
+      "size_bytes": 43507,
+      "expected_sha256": "152a2eaafb010a134d00cf3322ac735cb83bf1c4a3bb76acb16460c0773a572d",
+      "git_blob_sha1": "e6921e2fdc7c7c23e113ec35853a222e062e89de",
+      "split": "test",
+      "url": "https://huggingface.co/datasets/juletxara/mgsm/resolve/b2f13d426afe3be8d69a7e739b36724db8b66bbc/fr/test-00000-of-00001.parquet"
+    },
+    {
+      "path": "ja/test-00000-of-00001.parquet",
+      "size_bytes": 46069,
+      "expected_sha256": "9f8868e9245f99454171fca529d9c5ab5c77f2b70c0297379a67eec4464e7aea",
+      "git_blob_sha1": "dffcfe779e3b21eabaa832de76182f4198b793dd",
+      "split": "test",
+      "url": "https://huggingface.co/datasets/juletxara/mgsm/resolve/b2f13d426afe3be8d69a7e739b36724db8b66bbc/ja/test-00000-of-00001.parquet"
+    },
+    {
+      "path": "ru/test-00000-of-00001.parquet",
+      "size_bytes": 56545,
+      "expected_sha256": "4e4ab39b42b78ef8fad5d5f0b5a8964730ca8ddd6121b0970f135c09c47005dd",
+      "git_blob_sha1": "6838e0246254bdb7b849e1537c77203be72eae25",
+      "split": "test",
+      "url": "https://huggingface.co/datasets/juletxara/mgsm/resolve/b2f13d426afe3be8d69a7e739b36724db8b66bbc/ru/test-00000-of-00001.parquet"
+    },
+    {
+      "path": "sw/test-00000-of-00001.parquet",
+      "size_bytes": 40525,
+      "expected_sha256": "a6afa3d3f5756d10b70ce234eab24d3ba3217c824900cda3b6eaeaad60355237",
+      "git_blob_sha1": "de9d66008a83db658d33b3fbf40b2cdbf7ea24e3",
+      "split": "test",
+      "url": "https://huggingface.co/datasets/juletxara/mgsm/resolve/b2f13d426afe3be8d69a7e739b36724db8b66bbc/sw/test-00000-of-00001.parquet"
+    },
+    {
+      "path": "te/test-00000-of-00001.parquet",
+      "size_bytes": 66514,
+      "expected_sha256": "0c9f5d8201bf54823aa950b83a862ee0f9cee8d6f7c0dceeeddae70583f4e054",
+      "git_blob_sha1": "92d576419dd2da1aabc0b49a8eed52ee9c5ceb43",
+      "split": "test",
+      "url": "https://huggingface.co/datasets/juletxara/mgsm/resolve/b2f13d426afe3be8d69a7e739b36724db8b66bbc/te/test-00000-of-00001.parquet"
+    },
+    {
+      "path": "th/test-00000-of-00001.parquet",
+      "size_bytes": 61763,
+      "expected_sha256": "64dad497569988ac3ca88d7d805e078fe14cfa42dcc104357e1b6958321811cb",
+      "git_blob_sha1": "2e628df0a04fe083fc02eabb7eaa9bdb15468a50",
+      "split": "test",
+      "url": "https://huggingface.co/datasets/juletxara/mgsm/resolve/b2f13d426afe3be8d69a7e739b36724db8b66bbc/th/test-00000-of-00001.parquet"
+    },
+    {
+      "path": "zh/test-00000-of-00001.parquet",
+      "size_bytes": 39827,
+      "expected_sha256": "3d5bab964d0991527391ddcb1862f587cc9baf918ba682e6faa080ff87b95bdf",
+      "git_blob_sha1": "a5f255916806fa53890a58fe3537764c2dc49df3",
+      "split": "test",
+      "url": "https://huggingface.co/datasets/juletxara/mgsm/resolve/b2f13d426afe3be8d69a7e739b36724db8b66bbc/zh/test-00000-of-00001.parquet"
+    }
+  ],
+  "status": "Excluded pending licensing review: YAML CC-BY-SA-4.0, body only describes original GSM8K MIT; translations not confidently resolved. No data files downloaded."
+}

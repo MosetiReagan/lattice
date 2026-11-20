@@ -1,0 +1,10 @@
+{
+  "repository": "google-research-datasets/tydiqa",
+  "revision": "da78f23f9119363459acbaf46bf89426ff26c259",
+  "path": "secondary_task/validation-00000-of-00001.parquet",
+  "url": "https://huggingface.co/datasets/google-research-datasets/tydiqa/resolve/da78f23f9119363459acbaf46bf89426ff26c259/secondary_task/validation-00000-of-00001.parquet",
+  "bytes": 2484180,
+  "sha256": "38760fbfc8fa4d0765026d56cfbb65a39231ad8cf5afef40f9c962a26bd3f94d",
+  "license": "Apache-2.0",
+  "card_sha256": "da9c2ab4588734310b6a527f5895d15b952c178949e5e298b07287bb40c266cc"
+}

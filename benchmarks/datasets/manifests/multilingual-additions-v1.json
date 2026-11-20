@@ -1,0 +1,30 @@
+{
+  "version": "multilingual-additions-v1",
+  "historical_curated_records": 193630,
+  "additional_exported_records": 17825,
+  "new_unique_normalized_prompts": 17825,
+  "cross_addition_duplicate_prompts": 0,
+  "overlap_with_historical_by_partition": {},
+  "new_prompts_absent_from_historical": 17825,
+  "union_unique_normalized_prompts": 211455,
+  "manifests": [
+    {
+      "path": "benchmarks/datasets/manifests/tydiqa-v1.json",
+      "sha256": "1f8b25c0b7b85ecf3ee3a665158342df375429fd58e6fbdc40dd7209b088e1e1",
+      "records": 3794
+    },
+    {
+      "path": "benchmarks/datasets/manifests/xquad-v1.json",
+      "sha256": "8208e54f3f52dcca42babdeebe9876b48a91b97092bc61bf42b7d9dd7d1b153f",
+      "records": 14031
+    }
+  ],
+  "historical_catalog_sha256": "f3c2afdcce080f3fbfc6453842b24aaf8d73dfb9fa521c81c18d1d0465b72574",
+  "audit_script_sha256": "53f6eb7469ddb9bff441d8deb910a3f97da0bfce25244f4d4bf52cf413df0366",
+  "policy": "New additions are evaluation-only. XQuAD derives from SQuAD; prohibit policy training on related historical source data when evaluating these additions. Exact matching does not detect all shared contexts or translated semantic overlaps.",
+  "not_claimed": [
+    "New exports are not all independent tasks.",
+    "No official multilingual scorer validation or model quality results.",
+    "No public-data contamination guarantee."
+  ]
+}

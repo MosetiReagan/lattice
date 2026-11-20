@@ -9,3 +9,5 @@ External raw/prepared data and large generated exports are gitignored. Rebuild t
 Code and official IFEval data are collected but their execution/official scorers remain deferred. Data availability is not a benchmark result or model-quality guarantee.
 
 The original `quality-smoke.json` (22 tasks) and `corpus-smoke.txt` remain unchanged. These Apache-2.0 public fixtures test instrumentation and static task rubrics; they are not representative benchmarks or held-out quality evidence. Corpus repeats are disclosed and unsuitable for general language-quality claims. The old coding rubric parses AST without executing output.
+
+Additional [multilingual datasets](../../docs/multilingual_datasets.md) add **17,825 validated evaluation records**, bringing the combined unique normalized-prompt inventory to **211,455**. Historical catalogs remain unchanged; [the additive audit](manifests/multilingual-additions-v1.json) records exact counts and overlap limitations. These additions have no model-quality results or validated official multilingual scorer.

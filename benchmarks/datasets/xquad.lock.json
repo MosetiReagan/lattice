@@ -1,0 +1,92 @@
+{
+  "repository": "google/xquad",
+  "revision": "51adfef1c1287aab1d2d91b5bead9bcfb9c68583",
+  "license": "CC-BY-SA-4.0",
+  "card_sha256": "9bb7215530f157e3761585cfbfe11161cda1951546dbfa5b65fd797972c85946",
+  "files": [
+    {
+      "path": "xquad.ar/validation-00000-of-00001.parquet",
+      "language": "ar",
+      "bytes": 263002,
+      "sha256": "5af9e1a441be52d406aa2cf095aadd319fb4173463f363ee79ff3049ce037d0f",
+      "url": "https://huggingface.co/datasets/google/xquad/resolve/51adfef1c1287aab1d2d91b5bead9bcfb9c68583/xquad.ar/validation-00000-of-00001.parquet"
+    },
+    {
+      "path": "xquad.de/validation-00000-of-00001.parquet",
+      "language": "de",
+      "bytes": 241957,
+      "sha256": "b52b5c144d88c0dc44096c26ecbc5a9b799416456a86e5aaa272171fb529c145",
+      "url": "https://huggingface.co/datasets/google/xquad/resolve/51adfef1c1287aab1d2d91b5bead9bcfb9c68583/xquad.de/validation-00000-of-00001.parquet"
+    },
+    {
+      "path": "xquad.el/validation-00000-of-00001.parquet",
+      "language": "el",
+      "bytes": 324379,
+      "sha256": "26722d97e8e1d5cfa7b7c96065f2d231d84fc2a695e3feb797447955bac87e14",
+      "url": "https://huggingface.co/datasets/google/xquad/resolve/51adfef1c1287aab1d2d91b5bead9bcfb9c68583/xquad.el/validation-00000-of-00001.parquet"
+    },
+    {
+      "path": "xquad.en/validation-00000-of-00001.parquet",
+      "language": "en",
+      "bytes": 212372,
+      "sha256": "e769714c0b750622a2a70e3b5250f6040ef8578e859dff0b9faf4612287e0083",
+      "url": "https://huggingface.co/datasets/google/xquad/resolve/51adfef1c1287aab1d2d91b5bead9bcfb9c68583/xquad.en/validation-00000-of-00001.parquet"
+    },
+    {
+      "path": "xquad.es/validation-00000-of-00001.parquet",
+      "language": "es",
+      "bytes": 236874,
+      "sha256": "69b6ad587e2ebcb0b00105f6736661154f9b1ce95eaa581bcac240d6edfc11ce",
+      "url": "https://huggingface.co/datasets/google/xquad/resolve/51adfef1c1287aab1d2d91b5bead9bcfb9c68583/xquad.es/validation-00000-of-00001.parquet"
+    },
+    {
+      "path": "xquad.hi/validation-00000-of-00001.parquet",
+      "language": "hi",
+      "bytes": 322083,
+      "sha256": "e6c7be8500401994d4812db12380239b4ca844c21b650ebdd393d4aba045177e",
+      "url": "https://huggingface.co/datasets/google/xquad/resolve/51adfef1c1287aab1d2d91b5bead9bcfb9c68583/xquad.hi/validation-00000-of-00001.parquet"
+    },
+    {
+      "path": "xquad.ro/validation-00000-of-00001.parquet",
+      "language": "ro",
+      "bytes": 244467,
+      "sha256": "3ed040cad2980e5d107dfa392a7b20be0352c85af52e1b1919fa3045ee665b95",
+      "url": "https://huggingface.co/datasets/google/xquad/resolve/51adfef1c1287aab1d2d91b5bead9bcfb9c68583/xquad.ro/validation-00000-of-00001.parquet"
+    },
+    {
+      "path": "xquad.ru/validation-00000-of-00001.parquet",
+      "language": "ru",
+      "bytes": 321728,
+      "sha256": "90034e23fcdf29dbfc589951a160240cbf8e82afcb10995cfaf7e4ea98d10232",
+      "url": "https://huggingface.co/datasets/google/xquad/resolve/51adfef1c1287aab1d2d91b5bead9bcfb9c68583/xquad.ru/validation-00000-of-00001.parquet"
+    },
+    {
+      "path": "xquad.th/validation-00000-of-00001.parquet",
+      "language": "th",
+      "bytes": 337307,
+      "sha256": "8fe604323dc84933b42c64f932ab5b3639de375750a20cb7c0937aced0f4bfe0",
+      "url": "https://huggingface.co/datasets/google/xquad/resolve/51adfef1c1287aab1d2d91b5bead9bcfb9c68583/xquad.th/validation-00000-of-00001.parquet"
+    },
+    {
+      "path": "xquad.tr/validation-00000-of-00001.parquet",
+      "language": "tr",
+      "bytes": 228364,
+      "sha256": "6f788cc02246404a76bb890c3fc7beede9b6d4933f0fd23e841de95f7db3f5e9",
+      "url": "https://huggingface.co/datasets/google/xquad/resolve/51adfef1c1287aab1d2d91b5bead9bcfb9c68583/xquad.tr/validation-00000-of-00001.parquet"
+    },
+    {
+      "path": "xquad.vi/validation-00000-of-00001.parquet",
+      "language": "vi",
+      "bytes": 237644,
+      "sha256": "52442ff8696ea0efa6595c67f2cdbd1a366e12cdb0dcaabbe0855bc4b5724ced",
+      "url": "https://huggingface.co/datasets/google/xquad/resolve/51adfef1c1287aab1d2d91b5bead9bcfb9c68583/xquad.vi/validation-00000-of-00001.parquet"
+    },
+    {
+      "path": "xquad.zh/validation-00000-of-00001.parquet",
+      "language": "zh",
+      "bytes": 205768,
+      "sha256": "6d9033e82b2a1dbf67b66025e84fab9a44e13dc91401e4914a9529db784146f6",
+      "url": "https://huggingface.co/datasets/google/xquad/resolve/51adfef1c1287aab1d2d91b5bead9bcfb9c68583/xquad.zh/validation-00000-of-00001.parquet"
+    }
+  ]
+}
