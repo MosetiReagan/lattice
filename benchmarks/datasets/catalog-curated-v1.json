@@ -377,11 +377,16 @@
       "templates": {},
       "rows_tiers": {},
       "licenses": [
-        "CC-BY-SA-3.0 OR GFDL"
+        "LicenseRef-WikiText-Upstream-Conflict"
       ],
       "family": "wikitext",
       "records": 746,
-      "unit": "article document"
+      "unit": "article document",
+      "historical_record_license_labels": [
+        "CC-BY-SA-3.0 OR GFDL"
+      ],
+      "licensing_status": "Unresolved upstream version conflict; no legal OR operator inferred",
+      "licensing_handling": "Retained for local research measurements with source attribution; raw/prepared text is not redistributed in Lattice code packages. Resolve applicable upstream terms before redistributing the corpus; Lattice does not grant dataset rights."
     }
   },
   "files": [
@@ -703,5 +708,9 @@
   "claims": [
     "Checks cover exported active partitions, not foundation-model pretraining contamination.",
     "Code/official IFEval collected but unscored; corpus documents are not QA examples."
-  ]
+  ],
+  "license_errata": {
+    "path": "benchmarks/datasets/license-errata-v1.json",
+    "sha256": "1fcd4e42ee5d7d40b8016d9b46e44abdb278cf2d8529638612167bf6658c9834"
+  }
 }

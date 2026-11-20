@@ -7,6 +7,7 @@
 - Added 10,400 deterministic arithmetic, JSON, instruction and retrieval cases, canonical-reference checks and stratified policy partitions.
 - Preserved 11 semantically invalid inventory cases in the original export and excluded them from a curated 193,630-record catalog without changing frozen evaluation selections.
 - Added versioned generated-answer scorers, frozen 600-case evaluation subsets and reproducible corpus-loss/tokenizer/quality studies.
+- Flagged WikiText’s upstream license-version conflict and corrected the historical inferred OR label through explicit catalog errata; raw corpus remains outside code packages.
 - Kept official IFEval and sandboxed code execution explicitly deferred; retained the original smoke suite and precision study.
 
 ## 0.3.0.dev0 — unreleased concurrent CPU serving

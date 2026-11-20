@@ -1,0 +1,11 @@
+{
+  "selected": 60,
+  "scores_reproduced": 60,
+  "other_errors": [],
+  "all_completed_tokenizations_match_2k_baseline": true,
+  "no_truncation_or_output_limit_violations": true,
+  "validator_sha256": "a7eb91eaa994631a9769dae0927610d0d7931d560de441d3110fa1c41ba084e9",
+  "outcomes_sha256": "0835ef6f9ca432c029cf588429ca0d024d43b1fc26c804b923ef9e1468d1fdfc",
+  "baseline_outcomes_sha256": "3414a38cb60776ed576a03a534b399c9b0f7af77864baaa478b110a6c617f92c",
+  "scope": "Frozen synthetic retrieval only; no universal equivalence or broad long-context quality claim"
+}

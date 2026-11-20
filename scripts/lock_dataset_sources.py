@@ -70,7 +70,7 @@ CATALOG = [
         "wikitext",
         "Salesforce/wikitext",
         "wikitext-2-raw-v1",
-        "CC-BY-SA-3.0 OR GFDL",
+        "LicenseRef-WikiText-Upstream-Conflict",
         ["train", "validation", "test"],
     ),
 ]

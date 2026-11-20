@@ -112,7 +112,7 @@ def main():
     ]
     item = corpus["models"][large_id]
     lines += [
-        f"The separate 1.5B model measured **PPL {item['perplexity']:.4f}** (cross-entropy {item['cross_entropy_nats']:.6f} nats) on a **predeclared first-{item['evaluated_chunks']}-chunk subset**, context 256, scoring the native final half of each chunk: nominally {item['nominal_scored_tokens']:,} tokens. This is a subset, unlike the primary 0.5B study’s 1,167 chunks. Do not compare these PPL point estimates as if their evaluation scopes were identical.",
+        f"The separate 1.5B model measured **PPL {item['perplexity']:.4f}** (cross-entropy {item['cross_entropy_nats']:.6f} nats) on a **predeclared first-{item['evaluated_chunks']}-chunk subset**, context 256, scoring the native final half of each chunk: nominally {item['nominal_scored_tokens']:,} tokens. Cross-entropy is derived as ln of the rounded reported PPL. This is a subset, unlike the primary 0.5B study’s 1,167 chunks. Do not compare these PPL point estimates as if their evaluation scopes were identical.",
         "",
         "[Native command, hashes, uncertainty and subset declaration](../benchmarks/results/dataset-intake-1.5b-corpus-subset-v1/summary.json) are preserved. Operational wall times are not controlled latency/throughput measurements; no quality-cost routing conclusion follows from this observation alone.",
         "",

@@ -1,0 +1,19 @@
+{
+  "recipe_version": "intake-v1",
+  "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]",
+  "platform": "Linux-6.18.60-instabox-x86_64-with-glibc2.41",
+  "encoding": "UTF-8",
+  "dependencies": {
+    "pydantic": "2.14.4",
+    "pyarrow": "23.0.1",
+    "httpx": "0.28.1",
+    "pytest": "9.2.0"
+  },
+  "uv_lock_sha256": "80fb4e4a94bc6f166972e78a7379a92a95e7c8b4c07d7af3bd7abdf6437e4828",
+  "generator_sha256": "461c19ecca50ff3590ca1d824f289a5a2cf3da9a5f30289568d5de3bf7e03fe9",
+  "normalizer_sha256": "89f4ab215bd444f89067370b0201386114e7485542f68dd2f2568eb00858c1d8",
+  "schema_sha256": "2d1ac0a488835516bb5c22e799d5412c8a704e44120c56589fe88adfcf85f04d",
+  "scorer_sha256": "81307c44ca47f093dd8c527a95148c4b7e1b10c3a8cec62f904626444347ec80",
+  "curator_sha256": "b158ae07a7cb37dd74ecb6c020ded42caeae6fe6606d2a32d6c042f61fc5fd4f",
+  "reproduction_scope": "All source/prepared/authored file hashes independently reproduced in this environment; other Python/dependency versions require verification, not assumed byte identity."
+}

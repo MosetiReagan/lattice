@@ -1,0 +1,6 @@
+{
+  "prepared_records": 193630,
+  "task_records": 192884,
+  "article_documents": 746,
+  "canonical_synthetic_references_checked": 10389
+}

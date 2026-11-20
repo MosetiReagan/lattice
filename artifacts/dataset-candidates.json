@@ -1,0 +1,152 @@
+[
+  {
+    "repository": "openai/gsm8k",
+    "sha": "740312add88f781978c0658806c59bc2815b9866",
+    "license": [
+      "mit"
+    ],
+    "files": [
+      ".gitattributes",
+      "README.md",
+      "eval.yaml",
+      "main/test-00000-of-00001.parquet",
+      "main/train-00000-of-00001.parquet",
+      "socratic/test-00000-of-00001.parquet",
+      "socratic/train-00000-of-00001.parquet"
+    ]
+  },
+  {
+    "repository": "Rowan/hellaswag",
+    "sha": "218ec52e09a7e7462a5400043bb9a69a41d06b76",
+    "license": null,
+    "files": [
+      ".gitattributes",
+      "README.md",
+      "data/test-00000-of-00001.parquet",
+      "data/train-00000-of-00001.parquet",
+      "data/validation-00000-of-00001.parquet"
+    ]
+  },
+  {
+    "repository": "allenai/ai2_arc",
+    "sha": "210d026faf9955653af8916fad021475a3f00453",
+    "license": [
+      "cc-by-sa-4.0"
+    ],
+    "files": [
+      ".gitattributes",
+      "ARC-Challenge/test-00000-of-00001.parquet",
+      "ARC-Challenge/train-00000-of-00001.parquet",
+      "ARC-Challenge/validation-00000-of-00001.parquet",
+      "ARC-Easy/test-00000-of-00001.parquet",
+      "ARC-Easy/train-00000-of-00001.parquet",
+      "ARC-Easy/validation-00000-of-00001.parquet",
+      "README.md"
+    ]
+  },
+  {
+    "repository": "allenai/winogrande",
+    "sha": "01e74176c63542e6b0bcb004dcdea22d94fb67b5",
+    "license": null,
+    "files": [
+      ".gitattributes",
+      "README.md",
+      "winogrande_debiased/test-00000-of-00001.parquet",
+      "winogrande_debiased/train-00000-of-00001.parquet",
+      "winogrande_debiased/validation-00000-of-00001.parquet",
+      "winogrande_l/test-00000-of-00001.parquet",
+      "winogrande_l/train-00000-of-00001.parquet",
+      "winogrande_l/validation-00000-of-00001.parquet",
+      "winogrande_m/test-00000-of-00001.parquet",
+      "winogrande_m/train-00000-of-00001.parquet",
+      "winogrande_m/validation-00000-of-00001.parquet",
+      "winogrande_s/test-00000-of-00001.parquet",
+      "winogrande_s/train-00000-of-00001.parquet",
+      "winogrande_s/validation-00000-of-00001.parquet",
+      "winogrande_xl/test-00000-of-00001.parquet",
+      "winogrande_xl/train-00000-of-00001.parquet",
+      "winogrande_xl/validation-00000-of-00001.parquet",
+      "winogrande_xs/test-00000-of-00001.parquet",
+      "winogrande_xs/train-00000-of-00001.parquet",
+      "winogrande_xs/validation-00000-of-00001.parquet"
+    ]
+  },
+  {
+    "repository": "google/boolq",
+    "sha": "35b264d03638db9f4ce671b711558bf7ff0f80d5",
+    "license": [
+      "cc-by-sa-3.0"
+    ],
+    "files": [
+      ".gitattributes",
+      "README.md",
+      "data/train-00000-of-00001.parquet",
+      "data/validation-00000-of-00001.parquet"
+    ]
+  },
+  {
+    "repository": "google/IFEval",
+    "sha": "966cd89545d6b6acfd7638bc708b98261ca58e84",
+    "license": "apache-2.0",
+    "files": [
+      ".gitattributes",
+      "README.md",
+      "ifeval_input_data.jsonl"
+    ]
+  },
+  {
+    "repository": "openai/openai_humaneval",
+    "sha": "7dce6050a7d6d172f3cc5c32aa97f52fa1a2e544",
+    "license": [
+      "mit"
+    ],
+    "files": [
+      ".gitattributes",
+      "README.md",
+      "openai_humaneval/test-00000-of-00001.parquet"
+    ]
+  },
+  {
+    "repository": "google-research-datasets/mbpp",
+    "sha": "4bb6404fdc6cacfda99d4ac4205087b89d32030c",
+    "license": [
+      "cc-by-4.0"
+    ],
+    "files": [
+      ".gitattributes",
+      "README.md",
+      "full/prompt-00000-of-00001.parquet",
+      "full/test-00000-of-00001.parquet",
+      "full/train-00000-of-00001.parquet",
+      "full/validation-00000-of-00001.parquet",
+      "sanitized/prompt-00000-of-00001.parquet",
+      "sanitized/test-00000-of-00001.parquet",
+      "sanitized/train-00000-of-00001.parquet",
+      "sanitized/validation-00000-of-00001.parquet"
+    ]
+  },
+  {
+    "repository": "tau/commonsense_qa",
+    "sha": "94630fe30dad47192a8546eb75f094926d47e155",
+    "license": [
+      "mit"
+    ],
+    "files": [
+      ".gitattributes",
+      "README.md",
+      "data/test-00000-of-00001.parquet",
+      "data/train-00000-of-00001.parquet",
+      "data/validation-00000-of-00001.parquet"
+    ]
+  },
+  {
+    "repository": "allenai/social_i_qa",
+    "sha": "8835ceb9141d7896d9d968634a9b21ae440e3ec5",
+    "license": null,
+    "files": [
+      ".gitattributes",
+      "README.md",
+      "social_i_qa.py"
+    ]
+  }
+]

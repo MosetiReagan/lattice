@@ -1,0 +1,52 @@
+{
+  "created_utc": "2026-11-20T00:19:37.885062+00:00",
+  "corpus_sha256": "bbf94c53a05abe9ee670d3b6343608095822c85e26de37c70b24fc571964574a",
+  "source_revision": "b08601e04326c79dfdd32d625aee71d232d685c3",
+  "source_parquet_sha256": "5f1bea067869d04849c0f975a2b29c4ff47d867f484f5010ea5e861eab246d91",
+  "tool_sha256": "e5ec5d4a1a00eccd50eb0511edf57d6f04e1657bc6a1313d96b42d17f7fcb811",
+  "context_tokens": 256,
+  "batch_tokens": 256,
+  "threads": 4,
+  "chunk_selection": "first 256 full 256-token chunks; subset fixed before observing this model",
+  "scoring": "Native default scores final half of each non-overlapping chunk; not all corpus tokens",
+  "timing_scope": "Operational wall time only, not an isolated performance result",
+  "models": {
+    "qwen2.5-1.5b-instruct-q8": {
+      "artifact_sha256": "d7efb072e7724d25048a4fda0a3e10b04bdef5d06b1403a1c93bd9f1240a63c8",
+      "source_repository": "Qwen/Qwen2.5-1.5B-Instruct-GGUF",
+      "source_revision": "91cad51170dc346986eccefdc2dd33a9da36ead9",
+      "license": "Apache-2.0",
+      "perplexity": 11.9077,
+      "cross_entropy_nats": 2.4771852496887132,
+      "native_ppl_uncertainty": 0.18716,
+      "evaluated_chunks": 256,
+      "nominal_scored_tokens": 32768,
+      "operational_seconds": 397.1320957200005,
+      "command": [
+        "/data/workspace/lattice/.local/llama.cpp/build/bin/llama-perplexity",
+        "--model",
+        "/data/workspace/lattice/models/qwen2.5-1.5b-instruct-q8_0.gguf",
+        "--file",
+        "/data/workspace/lattice/benchmarks/datasets/external/corpora/wikitext2-test.txt",
+        "--ctx-size",
+        "256",
+        "--batch-size",
+        "256",
+        "--ubatch-size",
+        "256",
+        "--chunks",
+        "256",
+        "--threads",
+        "4",
+        "--threads-batch",
+        "4",
+        "--n-gpu-layers",
+        "0",
+        "--no-warmup"
+      ],
+      "note": "Nominal count follows documented native half-window protocol; native uncertainty is not a ratio CI"
+    }
+  },
+  "scope": "Separate 1.5B checkpoint; not a same-source precision optimization comparison",
+  "runner_sha256": "c66651c1a9d8ac76e4e7f105f77cdbb78e07e453e90ffe21ba5a7f5f3a0f5314"
+}

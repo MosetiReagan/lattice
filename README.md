@@ -17,7 +17,7 @@ The present workspace is already provisioned. A fresh Linux checkout needs Pytho
 - [Measured results and acceptance gates](docs/benchmark_results.md), [comparison frame](docs/comparison_matrix.md)
 - [Run instructions and API](docs/baseline_runtime.md), [concurrent serving](docs/concurrent_serving.md) and [its measured results](docs/concurrent_serving_results.md)
 - [Adaptive policy](docs/adaptive_inference.md), [prefix policy](docs/kv_cache_optimization.md) and [speculation](docs/speculative_decoding.md)
-- [Versioned datasets](docs/datasets.md), [dataset study](docs/dataset_results.md) and [catalog](benchmarks/datasets/catalog-v1.json)
+- [Versioned datasets](docs/datasets.md), [dataset study](docs/dataset_results.md) and [curated catalog](benchmarks/datasets/catalog-curated-v1.json)
 - [Precision study](docs/quantization_analysis.md) and [quality contract](docs/quality_preservation.md)
 - [Budgeting](docs/compute_budgeting.md), [routing](docs/model_routing.md) and [scheduling](docs/request_scheduling.md)
 - [Research](docs/research_landscape.md), [architecture](docs/architecture.md), [compatibility](docs/hardware_compatibility.md)

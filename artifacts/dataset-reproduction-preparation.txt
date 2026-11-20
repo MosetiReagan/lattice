@@ -1,0 +1,23 @@
+<unknown>:3: SyntaxWarning: invalid escape sequence '\B'
+<unknown>:2: SyntaxWarning: invalid escape sequence '\.'
+<unknown>:3: SyntaxWarning: invalid escape sequence '\W'
+<unknown>:3: SyntaxWarning: invalid escape sequence '\W'
+<unknown>:2: SyntaxWarning: invalid escape sequence '\.'
+<unknown>:15: SyntaxWarning: invalid escape sequence '\s'
+<unknown>:4: SyntaxWarning: invalid escape sequence '\A'
+<unknown>:3: SyntaxWarning: invalid escape sequence '\d'
+<unknown>:4: SyntaxWarning: invalid escape sequence '\w'
+<unknown>:3: SyntaxWarning: invalid escape sequence '\d'
+<unknown>:3: SyntaxWarning: invalid escape sequence '\.'
+<unknown>:3: SyntaxWarning: invalid escape sequence '\w'
+<unknown>:3: SyntaxWarning: invalid escape sequence '\*'
+<unknown>:3: SyntaxWarning: invalid escape sequence '\W'
+<unknown>:3: SyntaxWarning: invalid escape sequence '\w'
+<unknown>:4: SyntaxWarning: invalid escape sequence '\w'
+<unknown>:3: SyntaxWarning: invalid escape sequence '\w'
+<unknown>:3: SyntaxWarning: invalid escape sequence '\w'
+{
+  "prepared_records": 183241,
+  "invalid_records": 0,
+  "manifest": "/data/workspace/lattice/benchmarks/datasets/external/prepared/intake-v1-reproduction-check/manifest.json"
+}

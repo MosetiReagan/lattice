@@ -1,0 +1,8 @@
+{
+  "source_distribution_build": true,
+  "wheel_build": true,
+  "source_card_hashes_preserved": true,
+  "external_raw_prepared_and_generated_exports_excluded": true,
+  "model_weights_and_native_binaries_excluded": true,
+  "required_dataset_recipes_catalogs_and_license_errata_included": true
+}

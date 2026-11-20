@@ -1,0 +1,8 @@
+{
+  "command": "LATTICE_INTEGRATION=1 .venv/bin/pytest -q",
+  "exit_code": 0,
+  "log": "artifacts/dataset-final-tests-after-license-errata.txt",
+  "scope": "Unit plus real CPU/native runtime/API integration; no GPU tests or accelerator claims",
+  "passed": 119,
+  "log_sha256": "9586b71319cdbcb89a0b0f668a5f3daf3c53def70ae925511bea8fe190964059"
+}

@@ -2,7 +2,7 @@
 
 The intake-v1 curated catalog contains **193,630 retained records: 192,884 tasks and 746 WikiText article documents**. Nine external source families (ten configurations) and four authored suites are documented in [datasets.md](datasets.md). This is evaluation data, not model pretraining, an official leaderboard submission or proof of representative quality preservation.
 
-The independent audit verified every prepared file hash, schema, ID/prompt uniqueness and active cross-partition source-group isolation. All 10,400 original authored canonical responses passed their declared answer and strict scorer, but a separate semantic audit found 11 physically impossible inventory setups; the curated view excludes those 11 and retains 10,389 authored cases. Scorer-valid references were not sufficient to prove semantic validity. Code execution and official IFEval verification remain deferred. The original 22-task smoke and 32-chunk precision studies are preserved separately. All 600 selected model-study prompts, references and strata are identical in the curated view; none was quarantined.
+The independent audit verified every prepared file hash, schema, ID/prompt uniqueness and active cross-partition source-group isolation. All 10,400 original authored canonical responses passed their declared answer and strict scorer, but a separate semantic audit found 11 physically impossible inventory setups; the curated view excludes those 11 and retains 10,389 authored cases. Scorer-valid references were not sufficient to prove semantic validity. Code execution and official IFEval verification remain deferred. WikiText’s pinned card has a license-version conflict; the curated catalog flags it via license errata, and corpus text is not redistributed in code packages. The original 22-task smoke and 32-chunk precision studies are preserved separately. All 600 selected model-study prompts, references and strata are identical in the curated view; none was quarantined.
 
 ## Corpus loss
 
@@ -14,7 +14,7 @@ Pinned native llama-perplexity evaluated all **1,167 full 256-token chunks** of 
 | Q8_0 | 17.5250 | 2.863628 | +0.63% |
 | Q4_K_M | 18.0919 | 2.895464 | +3.89% |
 
-Commands, model/source/native-tool hashes and native uncertainty are in [full-corpus results](../benchmarks/results/dataset-intake-full-corpus-v1/summary.json). Native uncertainty is not a confidence interval for a precision ratio. Operational wall times included concurrent data preparation and are not speed benchmarks. These expanded corpus results do not overwrite the earlier subset study.
+Commands, model/source/native-tool hashes and native uncertainty are in [full-corpus results](../benchmarks/results/dataset-intake-full-corpus-v1/summary.json). Cross-entropy is derived as ln of the rounded native PPL, not separately measured loss. Native uncertainty is not a confidence interval for a precision ratio. Operational wall times included concurrent data preparation and are not speed benchmarks. These expanded corpus results do not overwrite the earlier subset study.
 
 ## Frozen generated-answer study
 

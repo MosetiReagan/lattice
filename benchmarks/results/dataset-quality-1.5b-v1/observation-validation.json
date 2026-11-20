@@ -1,0 +1,14 @@
+{
+  "frozen_cases": 600,
+  "models": {
+    "qwen2.5-1.5b-instruct-q8": {
+      "observations": 600,
+      "reproduced_scores": 576,
+      "verified_context_skips": 24,
+      "other_errors": [],
+      "outcomes_sha256": "b393df777691db4e85be4b72ae1421a87d810f6baf68ff03733c3a2c9e025944"
+    }
+  },
+  "validator_sha256": "49848654e2c660df146c2ccad5d3f23b745f84e11268ba27f511894049ae857e",
+  "policy_qualification": false
+}

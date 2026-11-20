@@ -4,6 +4,8 @@ The versioned [dataset documentation](../../docs/datasets.md) describes nine ext
 
 All 600 selected cases are byte-identical in [the curated subsets](eval-subsets-curated-v1.json); none was quarantined.
 
-External raw/prepared data and large generated exports are gitignored. Rebuild them with the documented commands; all raw hashes/revisions and per-record source terms are preserved. [examples](examples/) contains small Apache-2.0 authored samples; it does not mirror third-party datasets. Code and official IFEval data are collected but their execution/official scorers remain deferred. Data availability is not a benchmark result or model-quality guarantee.
+External raw/prepared data and large generated exports are gitignored. Rebuild them with the documented commands; all raw hashes/revisions and per-record source terms are preserved. [examples](examples/) contains small Apache-2.0 authored samples; it does not mirror third-party datasets. [License errata](license-errata-v1.json) flags WikiText’s upstream license-version conflict; the historical OR label is not an authoritative license expression. The curated catalog applies the correction without rewriting source data or past results.
+
+Code and official IFEval data are collected but their execution/official scorers remain deferred. Data availability is not a benchmark result or model-quality guarantee.
 
 The original `quality-smoke.json` (22 tasks) and `corpus-smoke.txt` remain unchanged. These Apache-2.0 public fixtures test instrumentation and static task rubrics; they are not representative benchmarks or held-out quality evidence. Corpus repeats are disclosed and unsuitable for general language-quality claims. The old coding rubric parses AST without executing output.

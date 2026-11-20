@@ -126,11 +126,26 @@ def audit(manifests: list[Path]) -> dict:
     }
 
 
+def apply_license_errata(report: dict) -> None:
+    path = ROOT / "benchmarks/datasets/license-errata-v1.json"
+    errata = json.loads(path.read_text())
+    report["license_errata"] = {
+        "path": str(path.relative_to(ROOT)),
+        "sha256": file_hash(path),
+    }
+    for dataset, correction in errata["datasets"].items():
+        item = report.get("datasets", {}).get(dataset)
+        if item is None:
+            continue
+        item["historical_record_license_labels"] = item["licenses"]
+        item["licenses"] = [correction["catalog_label"]]
+        item["licensing_status"] = correction["status"]
+        item["licensing_handling"] = correction["handling"]
+
+
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--output", type=Path, default=ROOT / "benchmarks/datasets/catalog-v1.json"
-    )
+    parser.add_argument("--output", type=Path, default=None)
     parser.add_argument(
         "--curated",
         action="store_true",
@@ -153,6 +168,8 @@ def main():
             ),
         ]
     )
+    if args.curated:
+        apply_license_errata(report)
     args.output.write_text(json.dumps(report, indent=2) + "\n")
     print(
         json.dumps(

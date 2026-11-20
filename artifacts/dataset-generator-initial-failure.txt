@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/data/workspace/lattice/scripts/generate_lattice_datasets.py", line 467, in <module>
+    main()
+    ~~~~^^
+  File "/data/workspace/lattice/scripts/generate_lattice_datasets.py", line 451, in main
+    manifest, samples = generate(args.version, args.seed, COUNTS, output)
+                        ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/workspace/lattice/scripts/generate_lattice_datasets.py", line 396, in generate
+    raise RuntimeError("Generated prompt collision")
+RuntimeError: Generated prompt collision

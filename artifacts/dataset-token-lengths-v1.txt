@@ -1,0 +1,93 @@
+{
+  "records": 10400,
+  "model_sha256": "8e0ae26000627ed62de0e78e41860af70094558b9d2913385c842a6aa06cf3fc",
+  "tokenizer_fingerprint": "4470c3c83e92aa275d4f0873556769e6a644ccf5e479b6b03c8db0e2582e9d16",
+  "backend_commit": "b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+  "backend_sha256": "9e954cd7ced8851cbcd03170fb93ed864cdf5c7f38b743a5f8481e5235ea1b7b",
+  "dataset_manifest_sha256": "3c9d20ffe81a133412712479b86af367f1302e34c1fed90f87ff51854889f2c3",
+  "runner_sha256": "39836a9ef14702d927f1f989968224384b8ef6d5798053933f1178259575a2dd",
+  "lengths_sha256": "62ac1ad334026b091b2164ab52ae2c265a447cd815cdb0ae6672f42784355616",
+  "protocol": "Pinned Qwen user chat template, add_special=true, parse_special=true; lengths only, no truncation or generation",
+  "groups": {
+    "lattice_arithmetic:all": {
+      "records": 4000,
+      "minimum": 53,
+      "maximum": 75,
+      "p50": 66.0,
+      "p90": 73.0,
+      "p95": 74.0,
+      "p99": 75.0,
+      "exceeds_2k_with_32_output_tokens": 0
+    },
+    "lattice_instructions:all": {
+      "records": 2400,
+      "minimum": 44,
+      "maximum": 83,
+      "p50": 66.5,
+      "p90": 79.0,
+      "p95": 80.0,
+      "p99": 81.0,
+      "exceeds_2k_with_32_output_tokens": 0
+    },
+    "lattice_retrieval:128": {
+      "records": 320,
+      "minimum": 2258,
+      "maximum": 3021,
+      "p50": 2417.0,
+      "p90": 2879.8000000000015,
+      "p95": 2968.0,
+      "p99": 2988.81,
+      "exceeds_2k_with_32_output_tokens": 320
+    },
+    "lattice_retrieval:16": {
+      "records": 320,
+      "minimum": 328,
+      "maximum": 466,
+      "p50": 370.0,
+      "p90": 451.1,
+      "p95": 459.0,
+      "p99": 462.81,
+      "exceeds_2k_with_32_output_tokens": 0
+    },
+    "lattice_retrieval:256": {
+      "records": 320,
+      "minimum": 4475,
+      "maximum": 5874,
+      "p50": 4765.5,
+      "p90": 5639.600000000004,
+      "p95": 5840.0,
+      "p99": 5855.62,
+      "exceeds_2k_with_32_output_tokens": 320
+    },
+    "lattice_retrieval:32": {
+      "records": 320,
+      "minimum": 610,
+      "maximum": 828,
+      "p50": 655.5,
+      "p90": 801.0,
+      "p95": 817.0,
+      "p99": 824.81,
+      "exceeds_2k_with_32_output_tokens": 0
+    },
+    "lattice_retrieval:64": {
+      "records": 320,
+      "minimum": 1160,
+      "maximum": 1551,
+      "p50": 1236.0,
+      "p90": 1494.2000000000003,
+      "p95": 1532.0,
+      "p99": 1543.0,
+      "exceeds_2k_with_32_output_tokens": 0
+    },
+    "lattice_structured:all": {
+      "records": 2400,
+      "minimum": 74,
+      "maximum": 160,
+      "p50": 86.0,
+      "p90": 155.0,
+      "p95": 157.0,
+      "p99": 158.0,
+      "exceeds_2k_with_32_output_tokens": 0
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "wrapper_sha256": "e43e79574f18bed52f855c1f1fc0eeede96488cf52e989f48463fed88205eb06",
+  "shared_runner_sha256": "120a22a245f1274539c7984a0ce7897efad68389075ad1f108a6f7d122ba2a95",
+  "scope": "Explicit separate 1.5B model; same frozen prompts/caps, different weights; no same-checkpoint optimization or automatic routing claim",
+  "waited_for": "Completed 0.5B three-precision quality runs and tokenizer study"
+}

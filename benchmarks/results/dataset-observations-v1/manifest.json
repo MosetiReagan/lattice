@@ -1,0 +1,37 @@
+{
+  "version": "intake-observations-v1",
+  "observations": 2400,
+  "unique_tasks": 600,
+  "models": [
+    "qwen2.5-0.5b-instruct-f16",
+    "qwen2.5-0.5b-instruct-q4_k_m",
+    "qwen2.5-0.5b-instruct-q8_0",
+    "qwen2.5-1.5b-instruct-q8"
+  ],
+  "source_files": [
+    {
+      "path": "benchmarks/results/dataset-quality-v1/qwen2.5-0.5b-instruct-f16.jsonl",
+      "sha256": "3414a38cb60776ed576a03a534b399c9b0f7af77864baaa478b110a6c617f92c"
+    },
+    {
+      "path": "benchmarks/results/dataset-quality-v1/qwen2.5-0.5b-instruct-q8_0.jsonl",
+      "sha256": "eebcbb2ed09f9ff3103715ae4ab8c0462fcd41c62f87962483272bd942dc671c"
+    },
+    {
+      "path": "benchmarks/results/dataset-quality-v1/qwen2.5-0.5b-instruct-q4_k_m.jsonl",
+      "sha256": "a9821c09173693626093b97ffff79ac6091edcfb7a02e00b2fea6ee6249fc5c0"
+    },
+    {
+      "path": "benchmarks/results/dataset-quality-1.5b-v1/qwen2.5-1.5b-instruct-q8.jsonl",
+      "sha256": "b393df777691db4e85be4b72ae1421a87d810f6baf68ff03733c3a2c9e025944"
+    }
+  ],
+  "csv_sha256": "166fd275eb9831d077e72489c26ce99c4f0ad19d240d4ee6d4cf43133534b351",
+  "jsonl_sha256": "0fe89aeb3216652ea7088579d42072e7663d31a879dff29a7271c3a942d57d85",
+  "exporter_sha256": "d346b4fbf0cf3a96a43ccffb2dbc67e79d4ca3268d6f5a7e262f33da32e66093",
+  "policy_use": "Frozen evaluation only; do not train a controller or tune thresholds on these outcomes",
+  "timing": "Operational seconds include tokenization and wrapper overhead on a shared VM; not isolated latency/throughput labels",
+  "quality": "Lattice generated-answer scoring, not official leaderboard scores; null score fields never count as failures or passes",
+  "license": "Source terms retained per observation; no blanket relicensing of external data",
+  "counting": "Multiple model outputs for one task are observations, not new task records"
+}

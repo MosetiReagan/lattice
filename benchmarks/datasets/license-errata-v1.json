@@ -1,0 +1,23 @@
+{
+  "version": "license-errata-v1",
+  "scope": "Corrects metadata interpretation without rewriting historical data files, source locks or measured results",
+  "datasets": {
+    "wikitext2": {
+      "historical_record_label": "CC-BY-SA-3.0 OR GFDL",
+      "catalog_label": "LicenseRef-WikiText-Upstream-Conflict",
+      "status": "Unresolved upstream version conflict; no legal OR operator inferred",
+      "evidence": {
+        "url": "https://huggingface.co/datasets/Salesforce/wikitext/raw/b08601e04326c79dfdd32d625aee71d232d685c3/README.md",
+        "snapshot": "source_audit/Salesforce--wikitext-card.txt",
+        "sha256": "d5aabf145d341366745ac703b5844c442c143943b6c77929481395c822b1c28c",
+        "yaml_metadata": [
+          "cc-by-sa-3.0",
+          "gfdl"
+        ],
+        "body_statement": "The dataset is available under the Creative Commons Attribution-ShareAlike License (CC BY-SA 4.0)."
+      },
+      "handling": "Retained for local research measurements with source attribution; raw/prepared text is not redistributed in Lattice code packages. Resolve applicable upstream terms before redistributing the corpus; Lattice does not grant dataset rights.",
+      "historical_metadata_notice": "The historical OR label is an intake interpretation, not an authoritative license expression. Current curated catalog overrides it; original byte hashes remain reproducible."
+    }
+  }
+}

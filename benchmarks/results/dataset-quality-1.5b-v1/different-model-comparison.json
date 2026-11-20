@@ -1,0 +1,310 @@
+{
+  "baseline": "qwen2.5-0.5b-instruct-q8_0",
+  "candidate": "qwen2.5-1.5b-instruct-q8",
+  "tokenizer_metadata_match": true,
+  "paired": {
+    "arc_challenge": {
+      "excluded": [],
+      "answer": {
+        "paired_records": 60,
+        "baseline_only_correct": 3,
+        "candidate_only_correct": 27,
+        "accuracy_loss_vs_baseline": -0.4,
+        "accuracy_loss_interval95": [
+          -0.5934619031960464,
+          -0.1514940629430162
+        ],
+        "interval_method": "Conservative paired discordance interval: Bonferroni exact Clopper-Pearson bounds",
+        "mcnemar_exact_two_sided_p": 8.430331945419334e-06,
+        "multiple_comparison_adjusted": false,
+        "automatic_policy_qualification": false
+      }
+    },
+    "arc_easy": {
+      "excluded": [],
+      "answer": {
+        "paired_records": 60,
+        "baseline_only_correct": 2,
+        "candidate_only_correct": 25,
+        "accuracy_loss_vs_baseline": -0.38333333333333336,
+        "accuracy_loss_interval95": [
+          -0.5662304476714529,
+          -0.14632383800889576
+        ],
+        "interval_method": "Conservative paired discordance interval: Bonferroni exact Clopper-Pearson bounds",
+        "mcnemar_exact_two_sided_p": 5.647540092468294e-06,
+        "multiple_comparison_adjusted": false,
+        "automatic_policy_qualification": false
+      }
+    },
+    "boolq": {
+      "excluded": [],
+      "answer": {
+        "paired_records": 60,
+        "baseline_only_correct": 8,
+        "candidate_only_correct": 22,
+        "accuracy_loss_vs_baseline": -0.23333333333333334,
+        "accuracy_loss_interval95": [
+          -0.4669724089982255,
+          0.031410300301755234
+        ],
+        "interval_method": "Conservative paired discordance interval: Bonferroni exact Clopper-Pearson bounds",
+        "mcnemar_exact_two_sided_p": 0.016124801710248073,
+        "multiple_comparison_adjusted": false,
+        "automatic_policy_qualification": false
+      }
+    },
+    "commonsense_qa": {
+      "excluded": [],
+      "answer": {
+        "paired_records": 60,
+        "baseline_only_correct": 5,
+        "candidate_only_correct": 14,
+        "accuracy_loss_vs_baseline": -0.15,
+        "accuracy_loss_interval95": [
+          -0.35532290400633304,
+          0.0765500642671827
+        ],
+        "interval_method": "Conservative paired discordance interval: Bonferroni exact Clopper-Pearson bounds",
+        "mcnemar_exact_two_sided_p": 0.06356811523437508,
+        "multiple_comparison_adjusted": false,
+        "automatic_policy_qualification": false
+      }
+    },
+    "gsm8k": {
+      "excluded": [],
+      "answer": {
+        "paired_records": 60,
+        "baseline_only_correct": 3,
+        "candidate_only_correct": 3,
+        "accuracy_loss_vs_baseline": 0.0,
+        "accuracy_loss_interval95": [
+          -0.14543411577304116,
+          0.14543411577304116
+        ],
+        "interval_method": "Conservative paired discordance interval: Bonferroni exact Clopper-Pearson bounds",
+        "mcnemar_exact_two_sided_p": 1.0,
+        "multiple_comparison_adjusted": false,
+        "automatic_policy_qualification": false
+      }
+    },
+    "lattice_arithmetic": {
+      "excluded": [],
+      "answer": {
+        "paired_records": 60,
+        "baseline_only_correct": 1,
+        "candidate_only_correct": 1,
+        "accuracy_loss_vs_baseline": 0.0,
+        "accuracy_loss_interval95": [
+          -0.10149315955885753,
+          0.10149315955885753
+        ],
+        "interval_method": "Conservative paired discordance interval: Bonferroni exact Clopper-Pearson bounds",
+        "mcnemar_exact_two_sided_p": 1.0,
+        "multiple_comparison_adjusted": false,
+        "automatic_policy_qualification": false
+      }
+    },
+    "lattice_instructions": {
+      "excluded": [],
+      "answer": {
+        "paired_records": 60,
+        "baseline_only_correct": 1,
+        "candidate_only_correct": 27,
+        "accuracy_loss_vs_baseline": -0.43333333333333335,
+        "accuracy_loss_interval95": [
+          -0.6012565066577803,
+          -0.2032296226189337
+        ],
+        "interval_method": "Conservative paired discordance interval: Bonferroni exact Clopper-Pearson bounds",
+        "mcnemar_exact_two_sided_p": 2.1606683731078726e-07,
+        "multiple_comparison_adjusted": false,
+        "automatic_policy_qualification": false
+      }
+    },
+    "lattice_retrieval": {
+      "excluded": [
+        {
+          "id": "lattice_retrieval:intake-v1:000833",
+          "small_status": "skipped_context_limit",
+          "large_status": "skipped_context_limit"
+        },
+        {
+          "id": "lattice_retrieval:intake-v1:000854",
+          "small_status": "skipped_context_limit",
+          "large_status": "skipped_context_limit"
+        },
+        {
+          "id": "lattice_retrieval:intake-v1:000808",
+          "small_status": "skipped_context_limit",
+          "large_status": "skipped_context_limit"
+        },
+        {
+          "id": "lattice_retrieval:intake-v1:001209",
+          "small_status": "skipped_context_limit",
+          "large_status": "skipped_context_limit"
+        },
+        {
+          "id": "lattice_retrieval:intake-v1:000843",
+          "small_status": "skipped_context_limit",
+          "large_status": "skipped_context_limit"
+        },
+        {
+          "id": "lattice_retrieval:intake-v1:000824",
+          "small_status": "skipped_context_limit",
+          "large_status": "skipped_context_limit"
+        },
+        {
+          "id": "lattice_retrieval:intake-v1:000438",
+          "small_status": "skipped_context_limit",
+          "large_status": "skipped_context_limit"
+        },
+        {
+          "id": "lattice_retrieval:intake-v1:000819",
+          "small_status": "skipped_context_limit",
+          "large_status": "skipped_context_limit"
+        },
+        {
+          "id": "lattice_retrieval:intake-v1:000813",
+          "small_status": "skipped_context_limit",
+          "large_status": "skipped_context_limit"
+        },
+        {
+          "id": "lattice_retrieval:intake-v1:000014",
+          "small_status": "skipped_context_limit",
+          "large_status": "skipped_context_limit"
+        },
+        {
+          "id": "lattice_retrieval:intake-v1:001248",
+          "small_status": "skipped_context_limit",
+          "large_status": "skipped_context_limit"
+        },
+        {
+          "id": "lattice_retrieval:intake-v1:000829",
+          "small_status": "skipped_context_limit",
+          "large_status": "skipped_context_limit"
+        },
+        {
+          "id": "lattice_retrieval:intake-v1:000463",
+          "small_status": "skipped_context_limit",
+          "large_status": "skipped_context_limit"
+        },
+        {
+          "id": "lattice_retrieval:intake-v1:000064",
+          "small_status": "skipped_context_limit",
+          "large_status": "skipped_context_limit"
+        },
+        {
+          "id": "lattice_retrieval:intake-v1:001278",
+          "small_status": "skipped_context_limit",
+          "large_status": "skipped_context_limit"
+        },
+        {
+          "id": "lattice_retrieval:intake-v1:000439",
+          "small_status": "skipped_context_limit",
+          "large_status": "skipped_context_limit"
+        },
+        {
+          "id": "lattice_retrieval:intake-v1:000073",
+          "small_status": "skipped_context_limit",
+          "large_status": "skipped_context_limit"
+        },
+        {
+          "id": "lattice_retrieval:intake-v1:000474",
+          "small_status": "skipped_context_limit",
+          "large_status": "skipped_context_limit"
+        },
+        {
+          "id": "lattice_retrieval:intake-v1:000048",
+          "small_status": "skipped_context_limit",
+          "large_status": "skipped_context_limit"
+        },
+        {
+          "id": "lattice_retrieval:intake-v1:001269",
+          "small_status": "skipped_context_limit",
+          "large_status": "skipped_context_limit"
+        },
+        {
+          "id": "lattice_retrieval:intake-v1:000803",
+          "small_status": "skipped_context_limit",
+          "large_status": "skipped_context_limit"
+        },
+        {
+          "id": "lattice_retrieval:intake-v1:001264",
+          "small_status": "skipped_context_limit",
+          "large_status": "skipped_context_limit"
+        },
+        {
+          "id": "lattice_retrieval:intake-v1:001238",
+          "small_status": "skipped_context_limit",
+          "large_status": "skipped_context_limit"
+        },
+        {
+          "id": "lattice_retrieval:intake-v1:000839",
+          "small_status": "skipped_context_limit",
+          "large_status": "skipped_context_limit"
+        }
+      ],
+      "answer": {
+        "paired_records": 36,
+        "baseline_only_correct": 4,
+        "candidate_only_correct": 12,
+        "accuracy_loss_vs_baseline": -0.2222222222222222,
+        "accuracy_loss_interval95": [
+          -0.5078871276411755,
+          0.11373644774343167
+        ],
+        "interval_method": "Conservative paired discordance interval: Bonferroni exact Clopper-Pearson bounds",
+        "mcnemar_exact_two_sided_p": 0.0768127441406251,
+        "multiple_comparison_adjusted": false,
+        "automatic_policy_qualification": false
+      }
+    },
+    "lattice_structured": {
+      "excluded": [],
+      "answer": {
+        "paired_records": 60,
+        "baseline_only_correct": 1,
+        "candidate_only_correct": 8,
+        "accuracy_loss_vs_baseline": -0.11666666666666667,
+        "accuracy_loss_interval95": [
+          -0.26243604604089743,
+          0.04948029043627851
+        ],
+        "interval_method": "Conservative paired discordance interval: Bonferroni exact Clopper-Pearson bounds",
+        "mcnemar_exact_two_sided_p": 0.039062499999999965,
+        "multiple_comparison_adjusted": false,
+        "automatic_policy_qualification": false
+      }
+    },
+    "squad_v2": {
+      "excluded": [],
+      "answer": {
+        "paired_records": 60,
+        "baseline_only_correct": 2,
+        "candidate_only_correct": 14,
+        "accuracy_loss_vs_baseline": -0.2,
+        "accuracy_loss_interval95": [
+          -0.3755943683362381,
+          0.0058853219865533934
+        ],
+        "interval_method": "Conservative paired discordance interval: Bonferroni exact Clopper-Pearson bounds",
+        "mcnemar_exact_two_sided_p": 0.004180908203124997,
+        "multiple_comparison_adjusted": false,
+        "automatic_policy_qualification": false
+      }
+    }
+  },
+  "source_files": [
+    {
+      "path": "benchmarks/results/dataset-quality-v1/qwen2.5-0.5b-instruct-q8_0.jsonl",
+      "sha256": "eebcbb2ed09f9ff3103715ae4ab8c0462fcd41c62f87962483272bd942dc671c"
+    },
+    {
+      "path": "benchmarks/results/dataset-quality-1.5b-v1/qwen2.5-1.5b-instruct-q8.jsonl",
+      "sha256": "b393df777691db4e85be4b72ae1421a87d810f6baf68ff03733c3a2c9e025944"
+    }
+  ],
+  "scope": "Different checkpoint/parameter count, not a same-source optimization; no cost/latency or validated routing claim",
+  "reporter_sha256": "0fb18eb61fe3bd7a33c2a50d5d3f032d0c12cbe24b7e11b19bac30841f2fb835"
+}

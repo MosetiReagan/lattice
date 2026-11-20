@@ -4,6 +4,7 @@ Preserves the 2k baseline and all its honest skips. This is a different context
 configuration, not proof of a latency optimization or broad long-context ability.
 """
 
+import argparse
 import asyncio
 import json
 from collections import Counter, defaultdict
@@ -24,6 +25,11 @@ MODEL = "qwen2.5-0.5b-instruct-f16"
 
 
 async def main():
+    global OUT
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output", type=Path, default=OUT)
+    args = parser.parse_args()
+    OUT = args.output
     while not (
         ROOT / "benchmarks/results/dataset-intake-1.5b-corpus-subset-v1/summary.json"
     ).exists():
