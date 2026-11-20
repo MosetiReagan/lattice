@@ -3,3 +3,5 @@ benchmarks/datasets/source_audit/*.txt -text -whitespace
 # Preserve native tool logs verbatim for reproducible evidence.
 benchmarks/results/dataset-intake-*/**/*.txt -text -whitespace
 benchmarks/results/dataset-intake-*/*.txt -text -whitespace
+# Keep RFC 4180 CSV exports byte-exact (CRLF is part of the artifact hash).
+benchmarks/results/dataset-observations-v1/*.csv -text -whitespace
