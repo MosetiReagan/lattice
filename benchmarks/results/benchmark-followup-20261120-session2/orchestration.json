@@ -1,0 +1,29 @@
+{
+  "started_utc": "2026-11-20T21:03:36.471881+00:00",
+  "workload_file": "benchmarks/workloads/cpu-v2-followup.json",
+  "workload_sha256": "77ada88450705a394a0ba0670cfbc3933975e8091e8f88570e158e6941eece60",
+  "order": [
+    "qwen2.5-0.5b-instruct-q4_k_m",
+    "qwen2.5-0.5b-instruct-q8_0",
+    "qwen2.5-0.5b-instruct-f16"
+  ],
+  "status": {
+    "qwen2.5-0.5b-instruct-q4_k_m": {
+      "exit_code": 0,
+      "completed_utc": "2026-11-20T21:05:03.299458+00:00",
+      "summary_exists": true
+    },
+    "qwen2.5-0.5b-instruct-q8_0": {
+      "exit_code": 0,
+      "completed_utc": "2026-11-20T21:06:27.234546+00:00",
+      "summary_exists": true
+    },
+    "qwen2.5-0.5b-instruct-f16": {
+      "exit_code": 0,
+      "completed_utc": "2026-11-20T21:08:00.473138+00:00",
+      "summary_exists": true
+    }
+  },
+  "note": "Second sequential block, varied model order, same workload hash and runtime settings. One native slot.",
+  "finished_utc": "2026-11-20T21:08:00.473535+00:00"
+}

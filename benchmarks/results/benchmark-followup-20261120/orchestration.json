@@ -1,0 +1,30 @@
+{
+  "started_utc": "2026-11-20T20:57:25.890823+00:00",
+  "workload_file": "benchmarks/workloads/cpu-v2-followup.json",
+  "workload_sha256": "77ada88450705a394a0ba0670cfbc3933975e8091e8f88570e158e6941eece60",
+  "order": [
+    "qwen2.5-0.5b-instruct-q8_0",
+    "qwen2.5-0.5b-instruct-f16",
+    "qwen2.5-0.5b-instruct-q4_k_m"
+  ],
+  "status": {
+    "qwen2.5-0.5b-instruct-q8_0": {
+      "exit_code": 0,
+      "completed_utc": "2026-11-20T20:58:55.684499+00:00",
+      "summary_exists": true
+    },
+    "qwen2.5-0.5b-instruct-f16": {
+      "exit_code": 0,
+      "completed_utc": "2026-11-20T21:00:34.154400+00:00",
+      "summary_exists": true
+    },
+    "qwen2.5-0.5b-instruct-q4_k_m": {
+      "exit_code": 0,
+      "completed_utc": "2026-11-20T21:02:25.353212+00:00",
+      "summary_exists": true,
+      "validity": "contaminated by unintended overlapping second-session launch; exclude entire Q4 block from performance and quality comparisons"
+    }
+  },
+  "note": "Sequential fresh runs; same eight workloads/configuration, 10 trials, 2 warmups, one native slot, fixed worker settings. Concurrent workload cases queue on one slot; they are not two-slot batching evidence. Q4 block 1 is retained but excluded due to a brief overlapping benchmark attempt during its final quality stage.",
+  "finished_utc": "2026-11-20T21:02:25.353626+00:00"
+}

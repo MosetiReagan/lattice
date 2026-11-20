@@ -11,3 +11,5 @@ artifacts/requests.jsonl
 benchmarks/results/**/private/
 benchmarks/datasets/external/
 benchmarks/datasets/generated/
+
+benchmarks/results/**/private-*/

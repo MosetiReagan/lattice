@@ -5,3 +5,8 @@ benchmarks/results/dataset-intake-*/**/*.txt -text -whitespace
 benchmarks/results/dataset-intake-*/*.txt -text -whitespace
 # Keep RFC 4180 CSV exports byte-exact (CRLF is part of the artifact hash).
 benchmarks/results/dataset-observations-v1/*.csv -text -whitespace
+
+# Benchmark CSV line endings participate in output artifact hashes.
+benchmarks/results/benchmark-followup-*/*.csv -text -whitespace
+benchmarks/results/benchmark-followup-*/*/*.csv -text -whitespace
+benchmarks/results/benchmark-followup-*/*/*.txt -whitespace

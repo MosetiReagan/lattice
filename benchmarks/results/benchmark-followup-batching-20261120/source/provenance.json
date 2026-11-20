@@ -1,0 +1,5 @@
+{
+  "runner_sha256": "c7455aa560a0984a3703a19c19fdd0fc45e01f7686b8ad73191bd0c6bd58fa67",
+  "command": "PYTHONPATH=src .venv/bin/python experiments/serving/benchmark.py --output benchmarks/results/benchmark-followup-batching-20261120 --trials 10 --quality",
+  "note": "Exact executed runner source archived; result manifest pins runtime package source."
+}

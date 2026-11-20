@@ -1,0 +1,172 @@
+{
+  "created_utc": "2026-11-20T21:03:36.563185+00:00",
+  "model": {
+    "id": "qwen2.5-0.5b-instruct-q4_k_m",
+    "sha256": "e367f9277d5bd544cc5e8432ee87b7498574df40e8f0784793e2288e9229b971",
+    "source_repository": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
+    "source_revision": "9217f5db79a29953eb74d5343926648285ec7e67",
+    "license": "Apache-2.0",
+    "kv_bytes_per_token": 12288,
+    "precision": "GGUF Q4_K_M"
+  },
+  "backend_commit": "b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+  "backend_sha256": "9e954cd7ced8851cbcd03170fb93ed864cdf5c7f38b743a5f8481e5235ea1b7b",
+  "shared_libraries": {
+    "/data/workspace/lattice/.local/llama.cpp/build/bin/libggml-base.so.1.0.0": "1337c53e3df820f9f970ce6ae4da5a7ea5ff0075a9abced7c5682a374844cd8d",
+    "/data/workspace/lattice/.local/llama.cpp/build/bin/libggml-cpu.so.1.0.0": "55ed9e2f9e45a9fd151093121b55b71f345111c199ad8e3223e90b1808696dad",
+    "/data/workspace/lattice/.local/llama.cpp/build/bin/libggml.so.1.0.0": "435497b41238258adc0e7e4de7a25984d528a80408b59e5efcb26b776bac1fff",
+    "/data/workspace/lattice/.local/llama.cpp/build/bin/libllama-bench-impl.so": "3ba2b4f802c6b7b627d40e6d3409d10fd6d2301054b9179fb57f2cdad9907a01",
+    "/data/workspace/lattice/.local/llama.cpp/build/bin/libllama-common.so.1.0.0": "a980843582c250d555a099e3bc2e28733713dbe0ea786b5ff2385a0eaa495c43",
+    "/data/workspace/lattice/.local/llama.cpp/build/bin/libllama-server-impl.so": "1c3b881c22316ee6bc10b5899d184d699a2615be353e414b9fbe26a6598a11bb",
+    "/data/workspace/lattice/.local/llama.cpp/build/bin/libllama.so.1.0.0": "830d41dba92848c9b572a75df19c493da09ae1c0dd621d29b80873746c5d7ce5",
+    "/data/workspace/lattice/.local/llama.cpp/build/bin/libmtmd.so.1.0.0": "5f2a505cff1aa1918b6849d90bcbd3233de3bf124288b64d9532528403aa5de7"
+  },
+  "settings": {
+    "backend_sha256": "9e954cd7ced8851cbcd03170fb93ed864cdf5c7f38b743a5f8481e5235ea1b7b",
+    "backend_commit": "b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+    "backend_files": {
+      "/data/workspace/lattice/.local/llama.cpp/build/bin/libggml-base.so.1.0.0": "1337c53e3df820f9f970ce6ae4da5a7ea5ff0075a9abced7c5682a374844cd8d",
+      "/data/workspace/lattice/.local/llama.cpp/build/bin/libggml-cpu.so.1.0.0": "55ed9e2f9e45a9fd151093121b55b71f345111c199ad8e3223e90b1808696dad",
+      "/data/workspace/lattice/.local/llama.cpp/build/bin/libggml.so.1.0.0": "435497b41238258adc0e7e4de7a25984d528a80408b59e5efcb26b776bac1fff",
+      "/data/workspace/lattice/.local/llama.cpp/build/bin/libllama-bench-impl.so": "3ba2b4f802c6b7b627d40e6d3409d10fd6d2301054b9179fb57f2cdad9907a01",
+      "/data/workspace/lattice/.local/llama.cpp/build/bin/libllama-common.so.1.0.0": "a980843582c250d555a099e3bc2e28733713dbe0ea786b5ff2385a0eaa495c43",
+      "/data/workspace/lattice/.local/llama.cpp/build/bin/libllama-server-impl.so": "1c3b881c22316ee6bc10b5899d184d699a2615be353e414b9fbe26a6598a11bb",
+      "/data/workspace/lattice/.local/llama.cpp/build/bin/libllama.so.1.0.0": "830d41dba92848c9b572a75df19c493da09ae1c0dd621d29b80873746c5d7ce5",
+      "/data/workspace/lattice/.local/llama.cpp/build/bin/libmtmd.so.1.0.0": "5f2a505cff1aa1918b6849d90bcbd3233de3bf124288b64d9532528403aa5de7"
+    },
+    "policy_file": "/data/workspace/lattice/configs/measured-policy.json",
+    "cache_limit_mb": 32,
+    "cache_min_tokens": 64,
+    "draft_model_id": null,
+    "draft_tokens": 4,
+    "context_tokens": 2048,
+    "threads": 4,
+    "native_slots": 1,
+    "max_queue": 8,
+    "worker_address_space_mb": 4096,
+    "host_reserve_mb": 2048,
+    "startup_timeout_seconds": 120.0,
+    "requests_per_minute": 60
+  },
+  "workload_file_sha256": "77ada88450705a394a0ba0670cfbc3933975e8091e8f88570e158e6941eece60",
+  "workloads": [
+    {
+      "id": "short",
+      "kind": "serial",
+      "input_words": 24,
+      "output_tokens": 16
+    },
+    {
+      "id": "long_prompt",
+      "kind": "serial",
+      "input_words": 900,
+      "output_tokens": 16
+    },
+    {
+      "id": "short_response",
+      "kind": "serial",
+      "input_words": 128,
+      "output_tokens": 4
+    },
+    {
+      "id": "long_response",
+      "kind": "serial",
+      "input_words": 24,
+      "output_tokens": 128
+    },
+    {
+      "id": "repeated_prefix",
+      "kind": "serial",
+      "input_words": 512,
+      "output_tokens": 16
+    },
+    {
+      "id": "concurrent",
+      "kind": "concurrent",
+      "input_words": 64,
+      "output_tokens": 32,
+      "concurrency": 4
+    },
+    {
+      "id": "mixed",
+      "kind": "concurrent",
+      "input_words": 128,
+      "output_tokens": 32,
+      "concurrency": 4
+    },
+    {
+      "id": "memory_constrained",
+      "kind": "serial",
+      "input_words": 128,
+      "output_tokens": 16,
+      "worker_limit_mb": 2048
+    }
+  ],
+  "trials": 10,
+  "warmups": 2,
+  "seed": 1701,
+  "source": {
+    "files": {
+      "src/lattice/__init__.py": "fa5a11251ba31d2ca3e099c7b8207ea4faa6fbd9bda41b830985282bc8314ce1",
+      "src/lattice/api.py": "2a8a43262ff0c1f9373c169f62cd384ed021e3ea8bc80a5888505c9b880c52e2",
+      "src/lattice/backends/__init__.py": "241e4bb83b1ccaed6e003c80a0bd2d5ef3203da92801828c36728a997f3511fe",
+      "src/lattice/backends/batched.py": "8e804aae3277210693f3c56f2834623a158736a5a9da60a737475de2e6424bfb",
+      "src/lattice/backends/llama_cpp.py": "9bf4551e8cab5bc88d8187ee48ca862a42bba36c2764c1c68c2f7a2354d5d6fe",
+      "src/lattice/cache/__init__.py": "688facb5768072a11155f2a7ccecc400e981ff12e2238ad6ed725a5f063404ae",
+      "src/lattice/cache/prefix.py": "62dbeca648eab2d38a200011b87de0d3620e973d8d726bed7dbe09ebb0cef965",
+      "src/lattice/cli.py": "978b0da5b66d39ec1ffcfd2e05e50709652949c45c7b7888b0765b57fcaa259f",
+      "src/lattice/config.py": "b6c4b7db0718af4b7f3d5960f4b26bc15f091b25d12a5c2a7948079c39f9a33c",
+      "src/lattice/controller/__init__.py": "3ec6cd6fa45131db9fed7ab62f5266e83cb8a8b518c70d168d04700f268ecd3d",
+      "src/lattice/controller/policy.py": "feb86ca4bcbf67569a92fdd15b7fe5598492bf1c52911f1b8330dfc4af73ea83",
+      "src/lattice/data/__init__.py": "084a777ac3e9c800873ac99368d8a085b1082f6cb72b9203a80161943524cf40",
+      "src/lattice/data/comparison.py": "1e749bbf7563aceaa2472a87b0979fe654cbe82c6e9567bec29038ea7c097c7c",
+      "src/lattice/data/normalize.py": "89f4ab215bd444f89067370b0201386114e7485542f68dd2f2568eb00858c1d8",
+      "src/lattice/data/schema.py": "2d1ac0a488835516bb5c22e799d5412c8a704e44120c56589fe88adfcf85f04d",
+      "src/lattice/data/scoring.py": "81307c44ca47f093dd8c527a95148c4b7e1b10c3a8cec62f904626444347ec80",
+      "src/lattice/evaluation/__init__.py": "b8dfb70397a6697020c59052ea979e422a9a4057d1abf99df2bf9742c4c552d2",
+      "src/lattice/evaluation/benchmark.py": "8256a71623298d8176d6ece0bafd69f2b6b07abff741e213ffa1fb02335119da",
+      "src/lattice/evaluation/quality.py": "7a314b7898439936c03a7a74c4685f349b39cbf2f130bb9b16cac49d0a19ef0b",
+      "src/lattice/observability/__init__.py": "66fc2c467a33ed8dda8ae0d214092746dd888f8bcd6488c28e5c98c9207ae52b",
+      "src/lattice/observability/hardware.py": "aeb6db045098ee3223d3fe0e48e6971f44f2ac2884513ce32d3d0c7845ac2bbf",
+      "src/lattice/observability/measure.py": "52f1c93263506b7a2a2f57ac1bcc75b23f0c01e7fffabd2dabc188ce36b30b3d",
+      "src/lattice/optimizations/__init__.py": "d59ee4ec581358011c4a1d1ffccec5341ec5711b93be2ad2ca638ee777cf66d3",
+      "src/lattice/optimizations/speculative/__init__.py": "c026a7d47cea12b911c8c94ff0554702a502e44d011284bb386206df535dba79",
+      "src/lattice/optimizations/speculative/compatibility.py": "a3d314aca9fa437057fef395db337c10f43ffaa3290a3d04cef69783b4b0fbe0",
+      "src/lattice/optimizations/speculative/sampling.py": "84a02c3b7b10b81c9b1cc5f1334da994f8bf810b5ffb2f1b495767accb6b2f1f",
+      "src/lattice/quantization/__init__.py": "b73276a1be9bb386eabfe4efd09a837b5fe3366fbf79ffc75f6e8c947347c0c0",
+      "src/lattice/quantization/capabilities.py": "a5e70672333b754c07ea1b21325af2e435186aec020f10297beb84c3e922bd11",
+      "src/lattice/routing/__init__.py": "581a35adb0f3cd687309215629242dda442674bd08f101fa7c69a5bfcf6163cd",
+      "src/lattice/routing/router.py": "08118eed741191409f0a94a30130e6953bb230c2b83a1cf3ea311cfaa626b8c8",
+      "src/lattice/runtime.py": "157af77bb3267a933c4243e8dc9d5f2b82b73c8e31ad55403e65420c576b96d5",
+      "src/lattice/scheduler/__init__.py": "697dfc2f8dca6a2b4391bdefc25e8948d10aa1254da2a8537d1658e1615eabf9",
+      "src/lattice/scheduler/budget.py": "821d32787e03ea7c9409999ae8f916a39a0ee25a236502bffc21380d5a92686b",
+      "src/lattice/scheduler/fair.py": "561f39eedda698012e2ecb7523a72e7efede9f7030a7d5abbce15208a9f7db6b",
+      "src/lattice/types.py": "ffeaebea661aeac50715869e2524d855709b138e6a79e7a023fb34eaf95abc92",
+      "src/lattice/worker.py": "93d7a59e34174a13ce068657c50f3f696fcad07647741b750002ba93f02f6b37",
+      "uv.lock": "80fb4e4a94bc6f166972e78a7379a92a95e7c8b4c07d7af3bd7abdf6437e4828",
+      "pyproject.toml": "757c9d9445ba309788a59558a7b45f5214b42399f30643233cee98c4396e1ce8"
+    },
+    "sha256": "849447c8731b8149a446da38e349f8976e6ac868cd755c69ea7f4497b2ba8e92"
+  },
+  "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]",
+  "platform": "Linux-6.18.60-instabox-x86_64-with-glibc2.41",
+  "packages": {
+    "httpx": "0.28.1",
+    "pydantic": "2.14.4",
+    "fastapi": "0.165.0"
+  },
+  "loadavg_at_start": [
+    "1.73",
+    "2.51",
+    "1.26"
+  ],
+  "sampling": {
+    "temperature": 0.0,
+    "seed": 0,
+    "stop": "native EOS; output cap is not guaranteed length"
+  },
+  "rss_interval_seconds": 0.01,
+  "energy": null,
+  "gpu": null,
+  "note": "Single VM session, not three-session acceptance evidence; word targets are not token counts."
+}

@@ -1,0 +1,12 @@
+{
+  "started_utc": "2026-11-20T21:02:02.509528+00:00",
+  "workload_file": "benchmarks/workloads/cpu-v2-followup.json",
+  "workload_sha256": "77ada88450705a394a0ba0670cfbc3933975e8091e8f88570e158e6941eece60",
+  "order": [
+    "qwen2.5-0.5b-instruct-q4_k_m",
+    "qwen2.5-0.5b-instruct-q8_0",
+    "qwen2.5-0.5b-instruct-f16"
+  ],
+  "status": {},
+  "note": "Second sequential block, varied model order, same workload hash and runtime settings. One native slot."
+}

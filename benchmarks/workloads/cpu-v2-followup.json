@@ -1,0 +1,59 @@
+{
+  "version": 2,
+  "warmups": 2,
+  "trials": 10,
+  "workloads": [
+    {
+      "id": "short",
+      "kind": "serial",
+      "input_words": 24,
+      "output_tokens": 16
+    },
+    {
+      "id": "long_prompt",
+      "kind": "serial",
+      "input_words": 900,
+      "output_tokens": 16
+    },
+    {
+      "id": "short_response",
+      "kind": "serial",
+      "input_words": 128,
+      "output_tokens": 4
+    },
+    {
+      "id": "long_response",
+      "kind": "serial",
+      "input_words": 24,
+      "output_tokens": 128
+    },
+    {
+      "id": "repeated_prefix",
+      "kind": "serial",
+      "input_words": 512,
+      "output_tokens": 16
+    },
+    {
+      "id": "concurrent",
+      "kind": "concurrent",
+      "input_words": 64,
+      "output_tokens": 32,
+      "concurrency": 4
+    },
+    {
+      "id": "mixed",
+      "kind": "concurrent",
+      "input_words": 128,
+      "output_tokens": 32,
+      "concurrency": 4
+    },
+    {
+      "id": "memory_constrained",
+      "kind": "serial",
+      "input_words": 128,
+      "output_tokens": 16,
+      "worker_limit_mb": 2048
+    }
+  ],
+  "note": "Fresh dataset-followup session. Same 8 existing workloads; 10 measured trials and 2 warmups, sequential one-slot worker. Concurrent workload cases enter the queue and do not measure multi-slot native batching. See manifest."
+}
