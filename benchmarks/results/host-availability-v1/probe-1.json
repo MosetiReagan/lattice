@@ -1,0 +1,27 @@
+{
+  "utc": "2026-11-20T23:41:22.959016+00:00",
+  "workers": 4,
+  "duration_seconds": 3.0,
+  "worker_samples": [
+    {
+      "cpu_seconds": 0.820115474,
+      "wall_seconds": 3.0000319959945045
+    },
+    {
+      "cpu_seconds": 0.764440094,
+      "wall_seconds": 3.0000464460026706
+    },
+    {
+      "cpu_seconds": 0.732780956,
+      "wall_seconds": 3.000023335996957
+    },
+    {
+      "cpu_seconds": 0.7074666629999999,
+      "wall_seconds": 3.0000454960027128
+    }
+  ],
+  "available_cpu_fraction": 0.25206383871258436,
+  "cpu_steal_fraction": 0.7367576243980738,
+  "eligible": false,
+  "contract": "Preflight only, not an inference speed result. Require <=5% aggregate CPU steal and >=90% requested CPU time. This does not guarantee future availability; confirmation must independently record and gate every arm's steal counters."
+}

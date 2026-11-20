@@ -1,0 +1,60 @@
+{
+  "stage": "draft_awaiting_host_eligibility_and_completed_development",
+  "version": "chat-burst-confirmation-v1",
+  "not_a_result": "No held-out chat confirmation has run. Candidate/baseline selection is provisional. Do not promote this draft without completing development on an eligible host.",
+  "candidate": "lattice_coalesce8",
+  "baselines": [
+    "native4",
+    "simple_cost8"
+  ],
+  "arm_settings": {
+    "lattice_coalesce8": {
+      "native_slots": 8,
+      "batch_tokens": 256,
+      "ubatch_tokens": 256
+    },
+    "native4": {
+      "native_slots": 4,
+      "batch_tokens": 256,
+      "ubatch_tokens": 256
+    },
+    "simple_cost8": {
+      "native_slots": 8,
+      "batch_tokens": 256,
+      "ubatch_tokens": 256
+    }
+  },
+  "sessions": [
+    {
+      "seed": 10001,
+      "traces": 10
+    },
+    {
+      "seed": 11001,
+      "traces": 10
+    },
+    {
+      "seed": 12001,
+      "traces": 10
+    }
+  ],
+  "source_sha256": "969f168f55d616eda57970b48d22b628282f2889166c698432249600b0d93a43",
+  "runner_sha256": "b685f3813b173f349b9206fe501166acf4a1ebedc569656f5e3925648e492ac2",
+  "transport_runner_sha256": "95e640798464a58573eb22f362b381b91aa9f74f56afc6775264c63ea6a829c0",
+  "model_sha256": "8e0ae26000627ed62de0e78e41860af70094558b9d2913385c842a6aa06cf3fc",
+  "backend_sha256": "9e954cd7ced8851cbcd03170fb93ed864cdf5c7f38b743a5f8481e5235ea1b7b",
+  "threads": 4,
+  "context_per_request": 2048,
+  "worker_address_space_mb": 4096,
+  "latency_ratio_max": 0.8,
+  "throughput_ratio_min": 0.95,
+  "host_cpu_steal_max": 0.05,
+  "host_cpu_interval_steal_max": 0.1,
+  "host_preflight_path": "benchmarks/results/host-availability-v1/probe-1.json",
+  "preflight": "Must be eligible and no more than120seconds old when starting. All model arms independently retain host counters. A failed CPU gate invalidates qualification; do not drop/retry traces.",
+  "quality": "Every request token IDs, text, prompt length and task-correctness classification must match primary native baseline, with zero failures. Report absolute strict copy-task accuracy, including incorrect answers and EOS/cap finishes.",
+  "uncertainty": "10000 fixed-seed hierarchical paired bootstrap replicates; sessions then whole paired traces. Require latency and throughput thresholds in every session and corresponding confidence bounds. No optional stopping, added traces or relaxed thresholds.",
+  "scope": "Chat-template-framed synthetic long-input/short-input burst only, one Qwen0.5B CPU artifact. Conventional admission heuristic; no general competitor or base-model-quality win. Earlier raw-completion study remains failed.",
+  "failure_policy": "Retain and report every result and gate failure. New prompts/framing do not repair the failed original study. CPU contention discovered after earlier development means no existing chat measurement establishes a clean held-out win.",
+  "status_notes": "Unexecuted four-thread draft retained. Pinned one-thread feasibility is separate development. Refresh all source/runner/configuration hashes and finish baseline selection before freezing any executable protocol."
+}

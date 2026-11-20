@@ -1,0 +1,8 @@
+{
+  "status": "interrupted_environment_unavailable",
+  "utc": "2026-11-20T23:39:43.266107+00:00",
+  "reason": "Sustained approximately 74-75 percent CPU steal observed during four-thread model execution. Preserve completed exploratory arms and do not qualify performance or select a win from this incomplete sweep.",
+  "completed_arm_traces": 13,
+  "cpu_stat": "cpu  4314120 0 73022 17089234 19729 0 15669 63055 0 0",
+  "cpu_pressure": "some avg10=13.19 avg60=15.49 avg300=14.10 total=1872560068\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n"
+}

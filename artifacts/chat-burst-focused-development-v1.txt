@@ -1,0 +1,95 @@
+native4_b1024 0 P95 11079.61197724819 tps 3.146912467096353 errors 0 correct 12
+native4_b128 0 P95 9513.485387499575 tps 2.9220239621351243 errors 0 correct 12
+lattice_coalesce2_b1024 0 P95 1664.9057164966944 tps 3.1080679550878214 errors 0 correct 12
+lattice_coalesce8_b512 0 P95 11282.393503501386 tps 3.0273845636968915 errors 0 correct 12
+native4_b512 0 P95 11294.760450497517 tps 3.087374686243916 errors 0 correct 12
+lattice_coalesce8_b1024 0 P95 6043.988912750705 tps 3.012006550613996 errors 0 correct 12
+simple_cost8 0 P95 10040.282357001415 tps 3.0558337001590985 errors 0 correct 12
+simple_cost2 0 P95 4059.114016251304 tps 3.1704136143506934 errors 0 correct 12
+lattice_coalesce2_b512 0 P95 618.6518034963665 tps 3.041068803017617 errors 0 correct 12
+native4_b64 0 P95 8685.977972746172 tps 2.73299710826476 errors 0 correct 12
+native4_b1024 1 P95 26711.45719124793 tps 1.2689236683653755 errors 0 correct 10
+native4_b128 1 P95 44975.54526349707 tps 0.5842291244826233 errors 0 correct 10
+lattice_coalesce8_b512 1 P95 28374.353255252427 tps 0.6283194782854687 errors 0 correct 10
+Traceback (most recent call last):
+  File "/usr/lib/python3.13/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/data/workspace/lattice/experiments/chat_burst_admission.py", line 88, in main
+    result = await run_trace(arm, trace, args.output)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/workspace/lattice/experiments/burst_admission.py", line 303, in run_trace
+    await asyncio.gather(*(submit(request) for request in trace))
+  File "/data/workspace/lattice/experiments/burst_admission.py", line 267, in submit
+    data = await direct(backend, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/workspace/lattice/experiments/burst_admission.py", line 149, in direct
+    async for line in response.aiter_lines():
+    ...<11 lines>...
+        chunks.append(event.get("content", ""))
+  File "/data/workspace/lattice/.venv/lib/python3.13/site-packages/httpx/_models.py", line 1031, in aiter_lines
+    async for text in self.aiter_text():
+        for line in decoder.decode(text):
+            yield line
+  File "/data/workspace/lattice/.venv/lib/python3.13/site-packages/httpx/_models.py", line 1018, in aiter_text
+    async for byte_content in self.aiter_bytes():
+    ...<2 lines>...
+            yield chunk
+  File "/data/workspace/lattice/.venv/lib/python3.13/site-packages/httpx/_models.py", line 997, in aiter_bytes
+    async for raw_bytes in self.aiter_raw():
+    ...<2 lines>...
+            yield chunk
+  File "/data/workspace/lattice/.venv/lib/python3.13/site-packages/httpx/_models.py", line 1055, in aiter_raw
+    async for raw_stream_bytes in self.stream:
+    ...<2 lines>...
+            yield chunk
+  File "/data/workspace/lattice/.venv/lib/python3.13/site-packages/httpx/_client.py", line 176, in __aiter__
+    async for chunk in self._stream:
+        yield chunk
+  File "/data/workspace/lattice/.venv/lib/python3.13/site-packages/httpx/_transports/default.py", line 271, in __aiter__
+    async for part in self._httpcore_stream:
+        yield part
+  File "/data/workspace/lattice/.venv/lib/python3.13/site-packages/httpcore/_async/connection_pool.py", line 407, in __aiter__
+    raise exc from None
+  File "/data/workspace/lattice/.venv/lib/python3.13/site-packages/httpcore/_async/connection_pool.py", line 403, in __aiter__
+    async for part in self._stream:
+        yield part
+  File "/data/workspace/lattice/.venv/lib/python3.13/site-packages/httpcore/_async/http11.py", line 342, in __aiter__
+    raise exc
+  File "/data/workspace/lattice/.venv/lib/python3.13/site-packages/httpcore/_async/http11.py", line 334, in __aiter__
+    async for chunk in self._connection._receive_response_body(**kwargs):
+        yield chunk
+  File "/data/workspace/lattice/.venv/lib/python3.13/site-packages/httpcore/_async/http11.py", line 203, in _receive_response_body
+    event = await self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/workspace/lattice/.venv/lib/python3.13/site-packages/httpcore/_async/http11.py", line 217, in _receive_event
+    data = await self._network_stream.read(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.READ_NUM_BYTES, timeout=timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/data/workspace/lattice/.venv/lib/python3.13/site-packages/httpcore/_backends/anyio.py", line 35, in read
+    return await self._stream.receive(max_bytes=max_bytes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/workspace/lattice/.venv/lib/python3.13/site-packages/anyio/_backends/_asyncio.py", line 1431, in receive
+    await self._protocol.read_event.wait()
+  File "/usr/lib/python3.13/asyncio/locks.py", line 213, in wait
+    await fut
+asyncio.exceptions.CancelledError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/data/workspace/lattice/experiments/chat_burst_admission.py", line 110, in <module>
+    asyncio.run(main())
+    ~~~~~~~~~~~^^^^^^^^
+  File "/usr/lib/python3.13/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.13/asyncio/runners.py", line 123, in run
+    raise KeyboardInterrupt()
+KeyboardInterrupt

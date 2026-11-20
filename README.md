@@ -16,6 +16,7 @@ The present workspace is already provisioned. A fresh Linux checkout needs Pytho
 
 - [Competitive baseline and execution plan](docs/competitive_execution_plan.md)
 - [CPU admission experiments](docs/admission_experiments.md), [frozen burst confirmation](docs/burst_admission_confirmation.md) and [boundary diagnostics](docs/admission_boundaries.md)
+- [Current CPU availability concern](docs/benchmark_environment_concern.md) and [chat-framed development](docs/chat_admission_development.md): no qualifying competitor win; chat confirmation remains a draft.
 - [Fresh CPU precision and batching benchmarks](docs/benchmark_followup_results.md)
 - [Measured results and acceptance gates](docs/benchmark_results.md), [comparison frame](docs/comparison_matrix.md) and [release readiness](docs/release_readiness.md).
 - [Run instructions and API](docs/baseline_runtime.md), [concurrent serving](docs/concurrent_serving.md) and [its measured results](docs/concurrent_serving_results.md)

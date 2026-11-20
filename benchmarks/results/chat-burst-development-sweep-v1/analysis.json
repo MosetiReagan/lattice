@@ -1,0 +1,263 @@
+{
+  "status": "Exploratory only; focused tuning interrupted by sustained CPU steal. No final confirmation selection or win.",
+  "baseline_by_interactive_p95": "native4",
+  "candidate_by_development_gates": "lattice_coalesce8",
+  "arms": {
+    "simple_cost4": {
+      "interactive_p95_ms": 7911.5893253004415,
+      "bulk_p95_ms": 11045.959129401943,
+      "tokens_per_second": 3.1216605089462384,
+      "errors": 0,
+      "exact_correct": 22,
+      "requests": 24,
+      "output_mismatches": 0,
+      "per_seed_throughput_ratio": [
+        0.9828454674086751,
+        0.9974086706316545
+      ]
+    },
+    "lattice_coalesce4": {
+      "interactive_p95_ms": 1366.2289510529806,
+      "bulk_p95_ms": 11405.051222901422,
+      "tokens_per_second": 3.0178369074587876,
+      "errors": 0,
+      "exact_correct": 22,
+      "requests": 24,
+      "output_mismatches": 0,
+      "per_seed_throughput_ratio": [
+        0.9297110238602215,
+        0.9859502726500093
+      ]
+    },
+    "native8": {
+      "interactive_p95_ms": 11048.25288089407,
+      "bulk_p95_ms": 11085.64848394657,
+      "tokens_per_second": 3.1092425918794158,
+      "errors": 0,
+      "exact_correct": 22,
+      "requests": 24,
+      "output_mismatches": 0,
+      "per_seed_throughput_ratio": [
+        0.9797058654461277,
+        0.9926595242921687
+      ]
+    },
+    "native16": {
+      "interactive_p95_ms": 10818.334808303893,
+      "bulk_p95_ms": 10619.256598552553,
+      "tokens_per_second": 3.2216242140638616,
+      "errors": 0,
+      "exact_correct": 22,
+      "requests": 24,
+      "output_mismatches": 0,
+      "per_seed_throughput_ratio": [
+        1.000532029416581,
+        1.0437516550814292
+      ]
+    },
+    "native4": {
+      "interactive_p95_ms": 10544.43670950065,
+      "bulk_p95_ms": 10931.239042803732,
+      "tokens_per_second": 3.152804767443667,
+      "errors": 0,
+      "exact_correct": 22,
+      "requests": 24,
+      "output_mismatches": 0,
+      "per_seed_throughput_ratio": [
+        1.0,
+        1.0
+      ]
+    },
+    "native8_b64": {
+      "interactive_p95_ms": 12398.61308910251,
+      "bulk_p95_ms": 12412.666042700215,
+      "tokens_per_second": 2.7750779035920843,
+      "errors": 0,
+      "exact_correct": 22,
+      "requests": 24,
+      "output_mismatches": 0,
+      "per_seed_throughput_ratio": [
+        0.8767186353112834,
+        0.8836495352895739
+      ]
+    },
+    "native16_b64": {
+      "interactive_p95_ms": 12308.269316495314,
+      "bulk_p95_ms": 11720.281815397533,
+      "tokens_per_second": 2.8185505833036544,
+      "errors": 0,
+      "exact_correct": 22,
+      "requests": 24,
+      "output_mismatches": 0,
+      "per_seed_throughput_ratio": [
+        0.8959144987862364,
+        0.8920829980391958
+      ]
+    },
+    "native16_b1024": {
+      "interactive_p95_ms": 10701.025374448558,
+      "bulk_p95_ms": 10678.6463257511,
+      "tokens_per_second": 3.297282303413987,
+      "errors": 0,
+      "exact_correct": 22,
+      "requests": 24,
+      "output_mismatches": 0,
+      "per_seed_throughput_ratio": [
+        1.012610081668885,
+        1.0808107936518723
+      ]
+    },
+    "native16_b128": {
+      "interactive_p95_ms": 11950.792445504621,
+      "bulk_p95_ms": 11256.516820249488,
+      "tokens_per_second": 2.9989052865246997,
+      "errors": 0,
+      "exact_correct": 22,
+      "requests": 24,
+      "output_mismatches": 0,
+      "per_seed_throughput_ratio": [
+        0.9863803973610021,
+        0.9188338887430894
+      ]
+    },
+    "native3": {
+      "interactive_p95_ms": 11126.368886450213,
+      "bulk_p95_ms": 11038.701949650975,
+      "tokens_per_second": 3.116103512053769,
+      "errors": 0,
+      "exact_correct": 22,
+      "requests": 24,
+      "output_mismatches": 0,
+      "per_seed_throughput_ratio": [
+        0.9916457196290808,
+        0.985137147076175
+      ]
+    },
+    "native8_b1024": {
+      "interactive_p95_ms": 11567.529208900989,
+      "bulk_p95_ms": 11603.911854299575,
+      "tokens_per_second": 3.045414291086455,
+      "errors": 0,
+      "exact_correct": 22,
+      "requests": 24,
+      "output_mismatches": 0,
+      "per_seed_throughput_ratio": [
+        0.9851142287307567,
+        0.9477323559975392
+      ]
+    },
+    "native8_b512": {
+      "interactive_p95_ms": 11322.970371202173,
+      "bulk_p95_ms": 11433.919589697904,
+      "tokens_per_second": 3.0262015929682677,
+      "errors": 0,
+      "exact_correct": 22,
+      "requests": 24,
+      "output_mismatches": 0,
+      "per_seed_throughput_ratio": [
+        0.9765612875450368,
+        0.9438989301851455
+      ]
+    },
+    "lattice_coalesce8": {
+      "interactive_p95_ms": 6766.258843295485,
+      "bulk_p95_ms": 11285.705004398551,
+      "tokens_per_second": 3.0555911398826305,
+      "errors": 0,
+      "exact_correct": 22,
+      "requests": 24,
+      "output_mismatches": 0,
+      "per_seed_throughput_ratio": [
+        0.9670172197103892,
+        0.9712958672545324
+      ]
+    },
+    "lattice_coalesce2": {
+      "interactive_p95_ms": 846.3737024511529,
+      "bulk_p95_ms": 11345.290217800082,
+      "tokens_per_second": 3.032504793392598,
+      "errors": 0,
+      "exact_correct": 22,
+      "requests": 24,
+      "output_mismatches": 0,
+      "per_seed_throughput_ratio": [
+        0.9773815904912927,
+        0.946986674879302
+      ]
+    },
+    "native16_b512": {
+      "interactive_p95_ms": 11540.932126052043,
+      "bulk_p95_ms": 11127.222152300092,
+      "tokens_per_second": 3.0788032957118845,
+      "errors": 0,
+      "exact_correct": 22,
+      "requests": 24,
+      "output_mismatches": 0,
+      "per_seed_throughput_ratio": [
+        1.0031072197434572,
+        0.9516447943469853
+      ]
+    },
+    "native2": {
+      "interactive_p95_ms": 11216.934624548736,
+      "bulk_p95_ms": 10766.218821899194,
+      "tokens_per_second": 3.103122851089368,
+      "errors": 0,
+      "exact_correct": 22,
+      "requests": 24,
+      "output_mismatches": 0,
+      "per_seed_throughput_ratio": [
+        0.9912439105257634,
+        0.9774284914808308
+      ]
+    },
+    "lattice_coalesce3": {
+      "interactive_p95_ms": 1450.5407287018108,
+      "bulk_p95_ms": 11667.882057000345,
+      "tokens_per_second": 2.954155879577281,
+      "errors": 0,
+      "exact_correct": 22,
+      "requests": 24,
+      "output_mismatches": 0,
+      "per_seed_throughput_ratio": [
+        0.9497758275636383,
+        0.9247111569949588
+      ]
+    },
+    "native8_b128": {
+      "interactive_p95_ms": 11658.013419499479,
+      "bulk_p95_ms": 11680.871247950414,
+      "tokens_per_second": 2.9501970668322546,
+      "errors": 0,
+      "exact_correct": 22,
+      "requests": 24,
+      "output_mismatches": 0,
+      "per_seed_throughput_ratio": [
+        0.9328941419865451,
+        0.9385601270391984
+      ]
+    },
+    "native1": {
+      "interactive_p95_ms": 11306.653613355515,
+      "bulk_p95_ms": 10700.652455553058,
+      "tokens_per_second": 3.093451161903988,
+      "errors": 0,
+      "exact_correct": 22,
+      "requests": 24,
+      "output_mismatches": 0,
+      "per_seed_throughput_ratio": [
+        0.9546643705144735,
+        1.0088196415326847
+      ]
+    }
+  },
+  "focused_interruption": {
+    "status": "interrupted_environment_unavailable",
+    "utc": "2026-11-20T23:39:43.266107+00:00",
+    "reason": "Sustained approximately 74-75 percent CPU steal observed during four-thread model execution. Preserve completed exploratory arms and do not qualify performance or select a win from this incomplete sweep.",
+    "completed_arm_traces": 13,
+    "cpu_stat": "cpu  4314120 0 73022 17089234 19729 0 15669 63055 0 0",
+    "cpu_pressure": "some avg10=13.19 avg60=15.49 avg300=14.10 total=1872560068\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n"
+  },
+  "focused_completed_arm_traces": 13
+}

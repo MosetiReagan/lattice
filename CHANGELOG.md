@@ -7,6 +7,9 @@
 - Preserved negative development experiments, native slot/batch sweeps and a frozen three-session confirmation protocol with paired uncertainty and exact-output checks.
 - Added boundary diagnostics, including interactive-only, bulk-only, altered mixes, late arrivals and additional native concurrency challengers.
 - Conventional scheduling heuristics and native batching are attributed explicitly; no new-kernel, broad model-quality or 1.0 claim follows.
+- Recorded the raw confirmation as failed on exact greedy output preservation, retained boundary regressions and separated actual task correctness from output equality.
+- Added model-template-framed development, then preserved its focused interruption when sustained CPU steal invalidated further tuning; no held-out chat win claimed.
+- Bounded grace/drain waiters and added tested Linux CPU-steal counters, a bounded host preflight and prospective per-arm eligibility gates. Current unit/real CPU suite:158 passed.
 
 ## Multilingual data addition — evaluation preparation
 

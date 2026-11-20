@@ -4,6 +4,7 @@ import argparse
 import asyncio
 import hashlib
 import json
+import os
 import random
 from pathlib import Path
 
@@ -14,6 +15,7 @@ from lattice.backends.http_client import native_ssl_context
 from lattice.backends.llama_cpp import LlamaCppBackend
 from lattice.config import file_hash, load_settings, select_model
 from lattice.evaluation.benchmark import source_manifest
+from lattice.observability.host import CpuStealSampler
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -68,6 +70,12 @@ async def main():
         "traces": traces,
         "arms": args.arms,
         "source": source_manifest(),
+        "settings_sha256": file_hash(
+            Path(os.environ.get("LATTICE_CONFIG", "configs/local.json"))
+        ),
+        "cpu_affinity": sorted(os.sched_getaffinity(0))
+        if hasattr(os, "sched_getaffinity")
+        else None,
         "runner_sha256": file_hash(Path(__file__)),
         "transport_runner_sha256": file_hash(ROOT / "experiments/burst_admission.py"),
         "backend_sha256": settings.backend_sha256,
@@ -85,7 +93,9 @@ async def main():
             arms = args.arms.copy()
             rng.shuffle(arms)
             for arm in arms:
-                result = await run_trace(arm, trace, args.output)
+                async with CpuStealSampler() as host_cpu:
+                    result = await run_trace(arm, trace, args.output)
+                result["host_cpu"] = host_cpu.summary()
                 result["trace"] = index
                 results.append(result)
                 raw.write(json.dumps(result) + "\n")

@@ -1,0 +1,6 @@
+{
+  "status": "interrupted_source_metadata_change",
+  "utc": "2026-11-20T23:54:06.561948+00:00",
+  "reason": "Runner metadata was edited during development startup. Do not use this incomplete block for selection or confirmation; restart only after source is frozen.",
+  "completed_arm_traces": 0
+}
