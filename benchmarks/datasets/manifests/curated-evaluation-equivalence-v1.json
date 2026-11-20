@@ -1,0 +1,8 @@
+{
+  "original_selection": "eval-subsets-v1.json",
+  "curated_selection": "eval-subsets-curated-v1.json",
+  "selected_cases": 600,
+  "identical_ids_prompts_references_strata": true,
+  "quarantined_inventory_questions_selected": 0,
+  "note": "Source-file hashes change after quarantine, but every selected model-study case is retained byte-identically; no historical outcome or selection was replaced."
+}

@@ -131,11 +131,21 @@ def main():
     parser.add_argument(
         "--output", type=Path, default=ROOT / "benchmarks/datasets/catalog-v1.json"
     )
+    parser.add_argument(
+        "--curated",
+        action="store_true",
+        help="Audit the semantic-curated authored view",
+    )
     args = parser.parse_args()
     report = audit(
         [
             ROOT / "benchmarks/datasets/external/prepared/intake-v1/manifest.json",
-            ROOT / "benchmarks/datasets/generated/intake-v1/manifest.json",
+            ROOT
+            / (
+                "benchmarks/datasets/generated/intake-v1-curated/manifest.json"
+                if args.curated
+                else "benchmarks/datasets/generated/intake-v1/manifest.json"
+            ),
         ]
     )
     args.output.write_text(json.dumps(report, indent=2) + "\n")

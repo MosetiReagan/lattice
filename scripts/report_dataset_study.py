@@ -28,7 +28,7 @@ def main():
     quality = load("benchmarks/results/dataset-quality-v1/summary.json")
     paired = load("benchmarks/results/dataset-quality-v1/paired-comparison.json")
     lengths = load("benchmarks/results/dataset-token-lengths-v1/summary.json")
-    catalog = load("benchmarks/datasets/catalog-v1.json")
+    catalog = load("benchmarks/datasets/catalog-curated-v1.json")
     if (
         completion["models"] != IDS
         or set(corpus["models"]) != set(IDS)
@@ -42,9 +42,9 @@ def main():
     lines = [
         "# Dataset intake study",
         "",
-        f"The intake-v1 catalog contains **{catalog['prepared_records']:,} exported records: {catalog['task_records']:,} tasks and {catalog['article_documents']:,} WikiText article documents**. Nine external source families (ten configurations) and four authored suites are documented in [datasets.md](datasets.md). This is evaluation data, not model pretraining, an official leaderboard submission or proof of representative quality preservation.",
+        f"The intake-v1 curated catalog contains **{catalog['prepared_records']:,} retained records: {catalog['task_records']:,} tasks and {catalog['article_documents']:,} WikiText article documents**. Nine external source families (ten configurations) and four authored suites are documented in [datasets.md](datasets.md). This is evaluation data, not model pretraining, an official leaderboard submission or proof of representative quality preservation.",
         "",
-        "The independent audit verified every prepared file hash, schema, ID/prompt uniqueness and active cross-partition source-group isolation. All 10,400 authored canonical responses passed their declared answer and strict scorer. Code execution and official IFEval verification remain deferred. The original 22-task smoke and 32-chunk precision studies are preserved separately.",
+        "The independent audit verified every prepared file hash, schema, ID/prompt uniqueness and active cross-partition source-group isolation. All 10,400 original authored canonical responses passed their declared answer and strict scorer, but a separate semantic audit found 11 physically impossible inventory setups; the curated view excludes those 11 and retains 10,389 authored cases. Scorer-valid references were not sufficient to prove semantic validity. Code execution and official IFEval verification remain deferred. The original 22-task smoke and 32-chunk precision studies are preserved separately. All 600 selected model-study prompts, references and strata are identical in the curated view; none was quarantined.",
         "",
         "## Corpus loss",
         "",
@@ -66,7 +66,7 @@ def main():
         "",
         "Before generation, 60 evaluation IDs per scoring-ready configuration were frozen: **600 cases per representation, 1,800 attempted model–case pairs**. Seed 84721, greedy temperature zero, pinned Qwen user chat template, 2,048-token context and task-specific output caps are fixed. Equal class/template/tier quotas differ from source-prevalence weighting. Prompt/reference/model hashes, actual token lengths, outputs, extraction decisions and exclusions are retained in [quality results](../benchmarks/results/dataset-quality-v1/manifest.json).",
         "",
-        "Each cell reports answer-correct / scored, followed by strict-correct / scored. Answer correctness permits documented normalization/extraction; strict correctness also requires the declared response format. No heterogeneous aggregate accuracy is reported.",
+        "Each cell reports answer-correct / scored, followed by strict-correct / scored. Answer correctness permits documented normalization/extraction; strict correctness also requires the declared response format. No heterogeneous aggregate accuracy is reported. Instruction exact-text rubrics require canonical whitespace and can reject other semantically valid responses; these are canonical-rubric scores, not complete semantic instruction-compliance judgments.",
         "",
         "| Configuration | FP16 answer; strict | Q8_0 answer; strict | Q4_K_M answer; strict |",
         "|---|---:|---:|---:|---:|",
@@ -127,7 +127,7 @@ def main():
         "",
         "## Measured prompt-length compatibility",
         "",
-        f"All **{lengths['records']:,} authored prompts** were tokenized through the pinned Qwen user chat template (`add_special=true`, `parse_special=true`). Row tiers are not token counts. Measurements establish tokenizer/context compatibility, not answer quality or throughput. Exact per-record lengths and prompt hashes are in [length results](../benchmarks/results/dataset-token-lengths-v1/lengths.jsonl).",
+        f"All **{lengths['records']:,} original authored prompts** were tokenized through the pinned Qwen user chat template (`add_special=true`, `parse_special=true`). Row tiers are not token counts. Measurements establish tokenizer/context compatibility, not answer quality or throughput. Exact per-record lengths and prompt hashes are in [length results](../benchmarks/results/dataset-token-lengths-v1/lengths.jsonl).",
         "",
         "| Suite / nominal retrieval rows | Prompts | Minimum tokens | P50 tokens | Maximum tokens | Exceed 2,048 with 32 output tokens |",
         "|---|---:|---:|---:|---:|---:|",
@@ -138,7 +138,7 @@ def main():
         )
     lines += [
         "",
-        "The 32-token reserve in this compatibility table is an explicitly chosen inspection setting; the generated-answer study uses its own fixed per-task caps. Large retrieval tiers are retained as future-context data, not reported as successful 2k-context evaluations.",
+        "Length measurements include the original 11 later-quarantined inventory questions and do not make them valid tasks. The 32-token reserve in this compatibility table is an explicitly chosen inspection setting; the generated-answer study uses its own fixed per-task caps. Large retrieval tiers are retained as future-context data, not reported as successful 2k-context evaluations.",
         "",
         "## Reproduction and limitations",
         "",

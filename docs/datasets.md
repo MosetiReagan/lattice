@@ -1,8 +1,8 @@
 # Versioned evaluation data
 
-Lattice's intake-v1 contains **nine external source families (ten configurations), four authored suites, 192,895 task records and 746 WikiText article documents**. Total exported records: **193,641**. Of the task records, **191,219 have implemented generated-answer scorers**; 1,135 code tasks and 541 official IFEval tasks retain explicit deferred scorers. The old 22-task smoke suite remains separate and unchanged. Counts do not imply independent statistical samples, model training data, benchmark results or permission to relicense upstream content.
+Lattice's intake-v1 contains **nine external source families (ten configurations) and four authored suites**. Original exports contain **193,641 records**; the recommended **curated view has 193,630 records: 192,884 tasks and 746 WikiText article documents**, after quarantining 11 physically impossible authored inventory questions. Of the curated task records, **191,208 have implemented generated-answer scorers**; 1,135 code tasks and 541 official IFEval tasks retain explicit deferred scorers. The old 22-task smoke suite remains separate and unchanged. Counts do not imply independent statistical samples, model training data, benchmark results or permission to relicense upstream content.
 
-The machine-readable [catalog](../benchmarks/datasets/catalog-v1.json) records counts, class/template distributions and SHA-256 of every prepared file. [Source lock](../benchmarks/datasets/sources.lock.json) records immutable revisions, raw sizes, hashes, upstream URLs, attribution and licensing basis. External/raw/prepared data and large authored exports stay outside git; recipes, compact authored examples and [intake manifests](../benchmarks/datasets/manifests/) are tracked.
+The recommended [curated catalog](../benchmarks/datasets/catalog-curated-v1.json) and preserved [original catalog](../benchmarks/datasets/catalog-v1.json) record counts, class/template distributions and SHA-256 of every prepared file. [Source lock](../benchmarks/datasets/sources.lock.json) records immutable revisions, raw sizes, hashes, upstream URLs, attribution and licensing basis. External/raw/prepared data and large authored exports stay outside git; recipes, compact authored examples and [intake manifests](../benchmarks/datasets/manifests/) are tracked.
 
 | Dataset/configuration | Development | Validation | Evaluation | Unit / status |
 |---|---:|---:|---:|---|
@@ -15,7 +15,7 @@ The machine-readable [catalog](../benchmarks/datasets/catalog-v1.json) records c
 | IFEval | 302 | 137 | 102 | Official verifier deferred |
 | HumanEval | 0 | 0 | 164 | Execution scorer deferred |
 | MBPP full | 306 | 165 | 500 | Execution scorer deferred |
-| Lattice arithmetic | 2,400 | 800 | 800 | Procedural numeric gold |
+| Lattice arithmetic (curated) | 2,390 | 800 | 799 | Procedural numeric gold; 11 original inventory cases quarantined |
 | Lattice structured | 1,440 | 480 | 480 | Typed JSON gold |
 | Lattice instructions | 1,440 | 480 | 480 | Explicit procedural constraints |
 | Lattice retrieval | 960 | 320 | 320 | Exact lookup/pointer/abstention/version |
@@ -49,7 +49,17 @@ Official test is the evaluation partition. If no labeled test is available, offi
 
 Preparation quarantined: ARC 3 exact duplicates and 16 group-overlap rows; BoolQ 1,434 passage-overlap rows; MBPP 3 overlapping groups; SQuAD 124 rows with differing reference payloads for identical prompts plus 34 exact duplicates; WikiText 5 duplicate documents. Differing SQuAD references may be legitimate alternative annotations; Lattice conservatively quarantines them rather than guessing or declaring the source incorrect. Full removed records/reasons remain in the local audit SQLite database. Zero invalid references were emitted. A second complete preparation reproduced all 26 external JSONL file hashes and quarantine counts; a second full authored generation reproduced all 12 authored file hashes. Compact verification reports are retained with the intake manifests; temporary duplicate exports were removed and never counted as new data. The independent catalog audit checks every exported hash, count, ID, prompt uniqueness and cross-partition group isolation.
 
+The overlap audit detects exact normalized prompts and declared source groups; it does not establish absence of semantic/near duplicates. Coverage is predominantly English and does not establish multilingual, safety or production-workload representativeness.
+
 These policy partitions are **not** evidence that foundation-model pretraining excluded public benchmark content. Synthetic templates also occur in all partitions; this is instance/domain separation, not held-out-template generalization. Training a controller on development data requires a separate, frozen policy-evaluation protocol; no policy is promoted by this intake.
+
+## Authored semantic errata
+
+A semantic audit found 11 inventory questions (10 development, one evaluation) whose removal count exceeds available physical stock. Their numeric formulas have valid arithmetic answers, but their physical word-problem setup is invalid. `scripts/curate_lattice_datasets.py` excludes them without modifying prompts, labels or originals. The curated view retains **10,389 authored cases**, with exact rejected IDs/reasons in [the curated manifest](../benchmarks/datasets/manifests/generated-curated-intake-v1.json). The original 10,400 exports/recipe remain reproducible. References passing their scorer did not establish complete semantic validity; this is an explicit additional content audit.
+
+All **600 frozen evaluation selections are unchanged** in the curated view: IDs, prompts, references and strata match exactly. None of the 11 quarantined records was selected. [Equivalence report](../benchmarks/datasets/manifests/curated-evaluation-equivalence-v1.json) preserves that check; historical outcomes and original file hashes are not rewritten. The [curated subset file](../benchmarks/datasets/eval-subsets-curated-v1.json) points to the new source-file hashes.
+
+Exact-text instruction rubrics require canonical whitespace. They measure the declared canonical-response rubric and may reject other semantically valid instruction responses; they are not a complete semantic instruction-compliance judge. No acceptance criterion was relaxed after observing model scores.
 
 ## Authored suite cards
 
@@ -57,7 +67,7 @@ All four suites use seed 73021, version intake-v1, deterministic procedural refe
 
 | Suite | Cases | Templates | Intended use / limitation |
 |---|---:|---|---|
-| Arithmetic | 4,000 | Binary integer arithmetic, linear equations, rational addition, inventory, unit conversion | Exact bounded rational checking; limited English templates, not a GSM8K replacement |
+| Arithmetic | 4,000 original / 3,989 curated | Binary integer arithmetic, linear equations, rational addition, inventory, unit conversion | Exact bounded rational checking; limited English templates, not a GSM8K replacement |
 | Structured | 2,400 | Extraction, filter/sort, aggregates, type preservation, Unicode/escaping, nested sums | Exact typed JSON; object key order ignored; arrays ordered; no general schema-following claim |
 | Instructions | 2,400 | Literal/case, word count, numbered lines, header/footer, keyword frequency/forbidden word, JSON | Whitespace words/nonempty lines and explicit constraints; not official IFEval |
 | Retrieval | 1,600 | Direct key, one-hop pointer, absent key, highest-version override | 16/32/64/128/256 nominal record rows; exact values; synthetic task, not broad long-context comprehension |
@@ -88,10 +98,14 @@ uv run --no-sync python scripts/fetch_dataset_sources.py
 uv run --no-sync python scripts/prepare_dataset_catalog.py --version intake-v1
 uv run --no-sync python scripts/generate_lattice_datasets.py --version intake-v1 --seed 73021
 uv run --no-sync python scripts/audit_dataset_catalog.py
+uv run --no-sync python scripts/curate_lattice_datasets.py
+uv run --no-sync python scripts/audit_dataset_catalog.py --curated --output benchmarks/datasets/catalog-curated-v1.json
+uv run --no-sync python scripts/freeze_dataset_eval.py --catalog benchmarks/datasets/catalog-curated-v1.json --output benchmarks/datasets/eval-subsets-curated-v1.json --verify
 uv run --no-sync python scripts/freeze_dataset_eval.py --count 60 --seed 84721 --verify
 uv run --no-sync python experiments/datasets/full_corpus.py
 uv run --no-sync python experiments/datasets/quality_baseline.py
 uv run --no-sync python experiments/datasets/token_lengths.py
+uv run --no-sync python scripts/validate_dataset_observations.py
 uv run --no-sync python scripts/compare_dataset_quality.py
 uv run --no-sync python scripts/report_dataset_study.py
 uv run --no-sync pytest -q -m 'not integration'
@@ -101,6 +115,6 @@ Use the checked-in source lock to reproduce. `lock_dataset_sources.py --output N
 
 The prepared JSONL plus raw downloads require roughly 400 MiB; full audit SQLite (including preserved rows/JSON and indices) adds roughly 523 MiB on this machine. Authored active exports add roughly 13 MiB; model weights/native binaries are separate. Downloader reserves 3 GiB free disk. CPU quality evaluation runs model variants sequentially and avoids overlapping corpus-loss jobs; operational wall times are not speed benchmarks. See [dataset study results](dataset_results.md) for measured outcomes and remaining exclusions.
 
-Optional separate model observations use `experiments/datasets/larger_model_quality.py` and `experiments/datasets/larger_model_corpus.py` after the primary studies finish. These use the explicit registered Qwen 1.5B Q8 checkpoint and preserve separate result folders. They are different-model observations, not same-checkpoint optimization results or validated routing. They do not add new task records to the catalog.
+Optional separate model observations use `experiments/datasets/larger_model_quality.py` and `experiments/datasets/larger_model_corpus.py` after the primary studies finish. These use the explicit registered Qwen 1.5B Q8 checkpoint and preserve separate result folders. Its additional corpus observation uses a predeclared first-256-chunk subset (not the full 1,167-chunk primary study) to bound compute. They are different-model observations, not same-checkpoint optimization results or validated routing. They do not add new task records to the catalog.
 
 `scripts/export_dataset_observations.py --include-larger-model` exports completed measured model–case outcomes as CSV/JSONL with source hashes and per-row licensing. These frozen evaluation outcomes must not become controller training or threshold-tuning data. Multiple representations answering one case add observations, not task records. Operational duration fields are not isolated cost/latency labels.

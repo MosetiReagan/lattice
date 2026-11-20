@@ -1,0 +1,241 @@
+{
+  "version": "intake-v1-curated",
+  "parent_version": "intake-v1",
+  "source_manifest_sha256": "3c9d20ffe81a133412712479b86af367f1302e34c1fed90f87ff51854889f2c3",
+  "curator_sha256": "b158ae07a7cb37dd74ecb6c020ded42caeae6fe6606d2a32d6c042f61fc5fd4f",
+  "source_records": 10400,
+  "records": 10389,
+  "quarantined_records": 11,
+  "dataset_counts": {
+    "lattice_arithmetic": 3989,
+    "lattice_structured": 2400,
+    "lattice_instructions": 2400,
+    "lattice_retrieval": 1600
+  },
+  "files": [
+    {
+      "dataset": "lattice_arithmetic",
+      "partition": "evaluation",
+      "rows": 799,
+      "path": "benchmarks/datasets/generated/intake-v1-curated/lattice_arithmetic/evaluation.jsonl",
+      "sha256": "bd02f3b29156af60fca97b1dae7112ee90c22d2a65b116ae74427ab7be0b6686",
+      "bytes": 577727
+    },
+    {
+      "dataset": "lattice_arithmetic",
+      "partition": "validation",
+      "rows": 800,
+      "path": "benchmarks/datasets/generated/intake-v1-curated/lattice_arithmetic/validation.jsonl",
+      "sha256": "1df0f17d6cfc5dac39ce06349c782ac7bdde2b1e00bc2bebfb78fc8c2adbcdb4",
+      "bytes": 578131
+    },
+    {
+      "dataset": "lattice_arithmetic",
+      "partition": "development",
+      "rows": 2390,
+      "path": "benchmarks/datasets/generated/intake-v1-curated/lattice_arithmetic/development.jsonl",
+      "sha256": "0f349ed795f3ab9e315e6488c6560491609635d14dee29dafa0be1d80842ca36",
+      "bytes": 1721731
+    },
+    {
+      "dataset": "lattice_structured",
+      "partition": "evaluation",
+      "rows": 480,
+      "path": "benchmarks/datasets/generated/intake-v1-curated/lattice_structured/evaluation.jsonl",
+      "sha256": "b9b41b7881db2276f600cc0f18f1ff892e27fef473d3b5eee9758c90f4c0e492",
+      "bytes": 459824
+    },
+    {
+      "dataset": "lattice_structured",
+      "partition": "validation",
+      "rows": 480,
+      "path": "benchmarks/datasets/generated/intake-v1-curated/lattice_structured/validation.jsonl",
+      "sha256": "767a3b5183bc4e50be0cac7a3de03bc5f1146be0b1eea0c503f293ad4109990d",
+      "bytes": 460209
+    },
+    {
+      "dataset": "lattice_structured",
+      "partition": "development",
+      "rows": 1440,
+      "path": "benchmarks/datasets/generated/intake-v1-curated/lattice_structured/development.jsonl",
+      "sha256": "a99efbe7de93cfe67d9c6e3ea8e066000bcb1a094eee8ebff7cbb6c1159a1b0c",
+      "bytes": 1380394
+    },
+    {
+      "dataset": "lattice_instructions",
+      "partition": "evaluation",
+      "rows": 480,
+      "path": "benchmarks/datasets/generated/intake-v1-curated/lattice_instructions/evaluation.jsonl",
+      "sha256": "ea3fd5217d1aa16b1c44a2367f477aa6d692f43be1ea5dffd484a599b8e4e718",
+      "bytes": 468546
+    },
+    {
+      "dataset": "lattice_instructions",
+      "partition": "validation",
+      "rows": 480,
+      "path": "benchmarks/datasets/generated/intake-v1-curated/lattice_instructions/validation.jsonl",
+      "sha256": "c5a344d909ee5d28c64ef447074a9987e07e37de366e97a556a9d9681df170af",
+      "bytes": 469096
+    },
+    {
+      "dataset": "lattice_instructions",
+      "partition": "development",
+      "rows": 1440,
+      "path": "benchmarks/datasets/generated/intake-v1-curated/lattice_instructions/development.jsonl",
+      "sha256": "33a4ed97a9d2d29c450cd3ebb222ffcaef5810f9959f6e22c1d5c661f0d193fc",
+      "bytes": 1407231
+    },
+    {
+      "dataset": "lattice_retrieval",
+      "partition": "evaluation",
+      "rows": 320,
+      "path": "benchmarks/datasets/generated/intake-v1-curated/lattice_retrieval/evaluation.jsonl",
+      "sha256": "7fd96d977cd33bc91471476d275ff32f530316df1170afc66c3f1147921d881c",
+      "bytes": 1068550
+    },
+    {
+      "dataset": "lattice_retrieval",
+      "partition": "validation",
+      "rows": 320,
+      "path": "benchmarks/datasets/generated/intake-v1-curated/lattice_retrieval/validation.jsonl",
+      "sha256": "f45838ad59e080a82ad972057782ca94875210c644d86ab22be5c91425da242e",
+      "bytes": 1068620
+    },
+    {
+      "dataset": "lattice_retrieval",
+      "partition": "development",
+      "rows": 960,
+      "path": "benchmarks/datasets/generated/intake-v1-curated/lattice_retrieval/development.jsonl",
+      "sha256": "fc01b746073064ff24811dcfefa7eb4e901f30098d1c56d048bd3d2a83759edf",
+      "bytes": 3110192
+    }
+  ],
+  "quarantine": [
+    {
+      "id": "lattice_arithmetic:intake-v1:000308",
+      "dataset": "lattice_arithmetic",
+      "partition": "evaluation",
+      "reasons": [
+        "physical_inventory_removal_exceeds_available_stock"
+      ],
+      "prompt_sha256": "c71b676e36fbc8bdf0d0d518fd257029ced6e4f49e3e64cfd0b3e58a31e8561f",
+      "reference_sha256": "2dbdc57afeb01646437f72c9dcc6f146d711fa02d584b3e430ffea3b792aa88c",
+      "original_file": "benchmarks/datasets/generated/intake-v1/lattice_arithmetic/evaluation.jsonl"
+    },
+    {
+      "id": "lattice_arithmetic:intake-v1:000353",
+      "dataset": "lattice_arithmetic",
+      "partition": "development",
+      "reasons": [
+        "physical_inventory_removal_exceeds_available_stock"
+      ],
+      "prompt_sha256": "e0efc6aefa74590aed7d5e9e0e318a14bba71bfe597e48a7d9f0a2a70de4255b",
+      "reference_sha256": "dafa3fe67e37f919fe1146ffc26c9507b9968075e8634e3e277be7616845a277",
+      "original_file": "benchmarks/datasets/generated/intake-v1/lattice_arithmetic/development.jsonl"
+    },
+    {
+      "id": "lattice_arithmetic:intake-v1:000478",
+      "dataset": "lattice_arithmetic",
+      "partition": "development",
+      "reasons": [
+        "physical_inventory_removal_exceeds_available_stock"
+      ],
+      "prompt_sha256": "cc53a2bfeadc2418c14ea527e73f30ce8ba4d10d17b65857d01bffe4ed358869",
+      "reference_sha256": "e19ed05101f4d62ea078f2901844368172136ecbd6c1e744c3fbeef7d68a783b",
+      "original_file": "benchmarks/datasets/generated/intake-v1/lattice_arithmetic/development.jsonl"
+    },
+    {
+      "id": "lattice_arithmetic:intake-v1:000878",
+      "dataset": "lattice_arithmetic",
+      "partition": "development",
+      "reasons": [
+        "physical_inventory_removal_exceeds_available_stock"
+      ],
+      "prompt_sha256": "e1a273c756f21da1ae183d0690e4d725207df7f87c4dbfa1a99c63da0059e30f",
+      "reference_sha256": "ccd8dfda546389409ca657856a717cc201018211201967a921f8a6eaf3197cf6",
+      "original_file": "benchmarks/datasets/generated/intake-v1/lattice_arithmetic/development.jsonl"
+    },
+    {
+      "id": "lattice_arithmetic:intake-v1:001758",
+      "dataset": "lattice_arithmetic",
+      "partition": "development",
+      "reasons": [
+        "physical_inventory_removal_exceeds_available_stock"
+      ],
+      "prompt_sha256": "4ae8a0fa44b8d0537518634e469575cd0255038a7c04e07aa11a3bd3adc7c99f",
+      "reference_sha256": "5eb027476ad6420a4f964f08533867c8293db72745b4099d017430b8667fe5aa",
+      "original_file": "benchmarks/datasets/generated/intake-v1/lattice_arithmetic/development.jsonl"
+    },
+    {
+      "id": "lattice_arithmetic:intake-v1:001863",
+      "dataset": "lattice_arithmetic",
+      "partition": "development",
+      "reasons": [
+        "physical_inventory_removal_exceeds_available_stock"
+      ],
+      "prompt_sha256": "90a33f69f2f60f51711ad55329ddfbea41c6481f62abcc3734591666b2f3adca",
+      "reference_sha256": "e1c9a263146ad80fde948dd005410db1ee616d3d4934d566fba07e0d166f10c1",
+      "original_file": "benchmarks/datasets/generated/intake-v1/lattice_arithmetic/development.jsonl"
+    },
+    {
+      "id": "lattice_arithmetic:intake-v1:002553",
+      "dataset": "lattice_arithmetic",
+      "partition": "development",
+      "reasons": [
+        "physical_inventory_removal_exceeds_available_stock"
+      ],
+      "prompt_sha256": "b2a39a4773e486d902430a37fbd91ec1ef46f0e3cfda7d92ff453a03f11d02dd",
+      "reference_sha256": "9d2b1969dfadc42453b34d5320444d4392c92c3c8a3bfc9b56712d2603153b98",
+      "original_file": "benchmarks/datasets/generated/intake-v1/lattice_arithmetic/development.jsonl"
+    },
+    {
+      "id": "lattice_arithmetic:intake-v1:002753",
+      "dataset": "lattice_arithmetic",
+      "partition": "development",
+      "reasons": [
+        "physical_inventory_removal_exceeds_available_stock"
+      ],
+      "prompt_sha256": "450f906c02cc94fe8cb30e8483b37cb4c5390bca3ec4ad3fd195495baf7af76c",
+      "reference_sha256": "8e999fe4562eb140136aaa70b86072f2bb8e22b19596eeb09045c6185d848e82",
+      "original_file": "benchmarks/datasets/generated/intake-v1/lattice_arithmetic/development.jsonl"
+    },
+    {
+      "id": "lattice_arithmetic:intake-v1:002758",
+      "dataset": "lattice_arithmetic",
+      "partition": "development",
+      "reasons": [
+        "physical_inventory_removal_exceeds_available_stock"
+      ],
+      "prompt_sha256": "6c7e83f674ade0b1a811e7b7434798617675a5e52792c64749f89f054b556086",
+      "reference_sha256": "89c769d9cbfeacb44aaf30709656dda13a9eab09af6406be66251ea9f61f3778",
+      "original_file": "benchmarks/datasets/generated/intake-v1/lattice_arithmetic/development.jsonl"
+    },
+    {
+      "id": "lattice_arithmetic:intake-v1:002778",
+      "dataset": "lattice_arithmetic",
+      "partition": "development",
+      "reasons": [
+        "physical_inventory_removal_exceeds_available_stock"
+      ],
+      "prompt_sha256": "890fe2c283f39de50597c1eb1c2abf2e64a4c64abac1a49335cf5a67bb6e9b1a",
+      "reference_sha256": "8a0c11d84f55a6f938c5bcb535572d6c0e96b4d8517e9e788b7507333139e2a2",
+      "original_file": "benchmarks/datasets/generated/intake-v1/lattice_arithmetic/development.jsonl"
+    },
+    {
+      "id": "lattice_arithmetic:intake-v1:002793",
+      "dataset": "lattice_arithmetic",
+      "partition": "development",
+      "reasons": [
+        "physical_inventory_removal_exceeds_available_stock"
+      ],
+      "prompt_sha256": "e7bfc8212c745e01dccaff299b9b7e2b2b3d40e8a1c06e63b03cd60bd3460051",
+      "reference_sha256": "21c484b705639ce47bb0c6ea9e7e821dbae5b1fcfd99ff0f974bbff756f2c88f",
+      "original_file": "benchmarks/datasets/generated/intake-v1/lattice_arithmetic/development.jsonl"
+    }
+  ],
+  "policy": "No repairs or relabeling; original files and historical frozen evaluation selections preserved",
+  "known_rubric_limitations": [
+    "Instruction exact-text checks require canonical whitespace; they measure declared canonical-rubric compliance and can reject other semantically valid instruction responses."
+  ],
+  "audit_scope": "Deterministic authored-template invariants, not a complete semantic quality or near-duplicate audit"
+}

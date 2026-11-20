@@ -61,6 +61,9 @@ def main():
     parser.add_argument("--count", type=int, default=60)
     parser.add_argument("--seed", type=int, default=84721)
     parser.add_argument(
+        "--catalog", type=Path, default=ROOT / "benchmarks/datasets/catalog-v1.json"
+    )
+    parser.add_argument(
         "--output", type=Path, default=ROOT / "benchmarks/datasets/eval-subsets-v1.json"
     )
     parser.add_argument(
@@ -73,7 +76,7 @@ def main():
         raise SystemExit(
             "Frozen subsets already exist; choose an explicitly new output"
         )
-    catalog_path = ROOT / "benchmarks/datasets/catalog-v1.json"
+    catalog_path = args.catalog
     catalog = json.loads(catalog_path.read_text())
     result = {
         "version": "intake-eval-v1",

@@ -26,7 +26,7 @@ async def main():
         ROOT / "benchmarks/results/dataset-quality-1.5b-v1/completed.json"
     ).exists():
         await asyncio.sleep(5)
-    out = ROOT / "benchmarks/results/dataset-intake-1.5b-corpus-v1"
+    out = ROOT / "benchmarks/results/dataset-intake-1.5b-corpus-subset-v1"
     out.mkdir(exist_ok=False)
     downloads = json.loads(
         (ROOT / "benchmarks/datasets/external/download-manifest.json").read_text()
@@ -56,7 +56,7 @@ async def main():
         "context_tokens": 256,
         "batch_tokens": 256,
         "threads": 4,
-        "chunk_selection": "all full 256-token chunks",
+        "chunk_selection": "first 256 full 256-token chunks; subset fixed before observing this model",
         "scoring": "Native default scores final half of each non-overlapping chunk; not all corpus tokens",
         "timing_scope": "Operational wall time only, not an isolated performance result",
         "models": {},
@@ -83,7 +83,7 @@ async def main():
             "--ubatch-size",
             "256",
             "--chunks",
-            "-1",
+            "256",
             "--threads",
             "4",
             "--threads-batch",
@@ -124,7 +124,7 @@ async def main():
             "perplexity": ppl,
             "cross_entropy_nats": math.log(ppl),
             "native_ppl_uncertainty": float(match[2]),
-            "full_chunks": count,
+            "evaluated_chunks": count,
             "nominal_scored_tokens": count * 128,
             "operational_seconds": time.monotonic() - started,
             "command": command,
