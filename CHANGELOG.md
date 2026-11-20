@@ -1,5 +1,13 @@
 # Changelog
 
+## CPU admission research — unreleased
+
+- Profiled native HTTP setup and reused a verified SSL context without sharing request credentials or prompts.
+- Added explicit 3/4/8-slot configuration and opt-in cost-priority, reservation and bounded burst-coalescing admission experiments; defaults remain unchanged.
+- Preserved negative development experiments, native slot/batch sweeps and a frozen three-session confirmation protocol with paired uncertainty and exact-output checks.
+- Added boundary diagnostics, including interactive-only, bulk-only, altered mixes, late arrivals and additional native concurrency challengers.
+- Conventional scheduling heuristics and native batching are attributed explicitly; no new-kernel, broad model-quality or 1.0 claim follows.
+
 ## Multilingual data addition — evaluation preparation
 
 - Added pinned TyDiQA and XQuAD data-only intake recipes and 17,825 prepared evaluation records across nine/twelve language configurations.

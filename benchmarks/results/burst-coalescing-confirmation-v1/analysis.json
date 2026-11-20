@@ -1,0 +1,228 @@
+{
+  "protocol_sha256": "368853901aa608c8c4b904cbe5870278652872937a62c7911fa04efd528aa28c",
+  "analysis_sha256": "d49ab67239b3dda8c101d3955bc3a8f1990caaf01e696226048c729a66aaba7b",
+  "sessions": [
+    {
+      "manifest_path": "benchmarks/results/burst-coalescing-confirmation-v1/session-1/manifest.json",
+      "manifest_sha256": "63f262e8c0212925fb128372d1615ba245886aa61f45b92c12a407c53f1ea2de",
+      "results_sha256": "5e0c62473bf2da65c836eb90778200f2d9c260072a73ae1816e8dc5fce3e2213",
+      "seed": 2001
+    },
+    {
+      "manifest_path": "benchmarks/results/burst-coalescing-confirmation-v1/session-2/manifest.json",
+      "manifest_sha256": "cebf61a5a5128a832c0980c2fc7635fc6420520b1eacd55d944eb841dae90f40",
+      "results_sha256": "b054ea36c5d3489b7535890b61185b175445f7958001a427e6d22cc3f1a93294",
+      "seed": 3001
+    },
+    {
+      "manifest_path": "benchmarks/results/burst-coalescing-confirmation-v1/session-3/manifest.json",
+      "manifest_sha256": "61bea82ea74a8ccfe0349324908c11f3b2b50c73093dd79d7edac00b285a5762",
+      "results_sha256": "a75c5b217ecdfda5ff3c6165168b6e72a3982e203166512193950e2fec723e32",
+      "seed": 4001
+    }
+  ],
+  "source_sha256": "b7a9768ae84ef639ce8a0277ba5cdbaa9fb6fb2fdffca3ed6ba5ae5fc1b0b34f",
+  "runner_sha256": "95e640798464a58573eb22f362b381b91aa9f74f56afc6775264c63ea6a829c0",
+  "backend_model_sha256": [
+    "9e954cd7ced8851cbcd03170fb93ed864cdf5c7f38b743a5f8481e5235ea1b7b",
+    "8e0ae26000627ed62de0e78e41860af70094558b9d2913385c842a6aa06cf3fc"
+  ],
+  "paired_traces": 30,
+  "completed_request_counts": {
+    "native8": 360,
+    "simple_cost4": 360,
+    "lattice_coalesce4": 360
+  },
+  "task_correctness": {
+    "native8": {
+      "completed": 360,
+      "exact_correct": 0
+    },
+    "simple_cost4": {
+      "completed": 360,
+      "exact_correct": 0
+    },
+    "lattice_coalesce4": {
+      "completed": 360,
+      "exact_correct": 0
+    }
+  },
+  "mismatches": [
+    {
+      "session": 1,
+      "trace": 1,
+      "arm": "lattice_coalesce4",
+      "id": "2002-1"
+    },
+    {
+      "session": 1,
+      "trace": 1,
+      "arm": "simple_cost4",
+      "id": "2002-1"
+    },
+    {
+      "session": 3,
+      "trace": 3,
+      "arm": "lattice_coalesce4",
+      "id": "4004-1"
+    }
+  ],
+  "errors": [],
+  "comparisons": {
+    "native8": {
+      "point_estimates": {
+        "baseline_p95_ms": 12125.267223898813,
+        "candidate_p95_ms": 4843.536580100522,
+        "p95_ratio": 0.39945813074980707,
+        "baseline_tokens_per_second": 9.638354470741382,
+        "candidate_tokens_per_second": 10.734177637210959,
+        "throughput_ratio": 1.1136940096772854,
+        "baseline_bulk_p95_ms": 12383.508457848973,
+        "candidate_bulk_p95_ms": 12945.30023200358,
+        "baseline_errors": 0,
+        "candidate_errors": 0
+      },
+      "per_session": [
+        {
+          "baseline_p95_ms": 11676.653376199509,
+          "candidate_p95_ms": 3409.265473250489,
+          "p95_ratio": 0.2919728250390292,
+          "baseline_tokens_per_second": 11.243356425071177,
+          "candidate_tokens_per_second": 10.921976259183843,
+          "throughput_ratio": 0.9714159941447111,
+          "baseline_bulk_p95_ms": 11837.54742989933,
+          "candidate_bulk_p95_ms": 12089.583778304359,
+          "baseline_errors": 0,
+          "candidate_errors": 0
+        },
+        {
+          "baseline_p95_ms": 11960.518647594257,
+          "candidate_p95_ms": 5537.52413095113,
+          "p95_ratio": 0.46298361250955866,
+          "baseline_tokens_per_second": 11.261423340097151,
+          "candidate_tokens_per_second": 11.123073835356902,
+          "throughput_ratio": 0.9877147407958952,
+          "baseline_bulk_p95_ms": 12328.358143500527,
+          "candidate_bulk_p95_ms": 12464.791903597978,
+          "baseline_errors": 0,
+          "candidate_errors": 0
+        },
+        {
+          "baseline_p95_ms": 19854.73057710029,
+          "candidate_p95_ms": 6566.278689849909,
+          "p95_ratio": 0.3307160812055144,
+          "baseline_tokens_per_second": 7.476912411305593,
+          "candidate_tokens_per_second": 10.196369035077694,
+          "throughput_ratio": 1.363713853282553,
+          "baseline_bulk_p95_ms": 66352.45020324698,
+          "candidate_bulk_p95_ms": 15417.609608051236,
+          "baseline_errors": 0,
+          "candidate_errors": 0
+        }
+      ],
+      "uncertainty": {
+        "replicates": 10000,
+        "seed": 780912,
+        "p95_ratio_95_interval": [
+          0.10219409349716749,
+          0.5400011548542506
+        ],
+        "throughput_ratio_95_interval": [
+          0.9640727631633217,
+          1.5054467562384735
+        ],
+        "method": "Percentile hierarchical paired bootstrap: resample sessions then whole paired traces within sessions; statistics recomputed on sampled trace requests."
+      }
+    },
+    "simple_cost4": {
+      "point_estimates": {
+        "baseline_p95_ms": 10434.59146344798,
+        "candidate_p95_ms": 4843.536580100522,
+        "p95_ratio": 0.46418075849612955,
+        "baseline_tokens_per_second": 11.008768756925662,
+        "candidate_tokens_per_second": 10.734177637210959,
+        "throughput_ratio": 0.9750570544465332,
+        "baseline_bulk_p95_ms": 12472.492221701226,
+        "candidate_bulk_p95_ms": 12945.30023200358,
+        "baseline_errors": 0,
+        "candidate_errors": 0
+      },
+      "per_session": [
+        {
+          "baseline_p95_ms": 9866.008137250827,
+          "candidate_p95_ms": 3409.265473250489,
+          "p95_ratio": 0.3455567262688762,
+          "baseline_tokens_per_second": 11.009736634328132,
+          "candidate_tokens_per_second": 10.921976259183843,
+          "throughput_ratio": 0.9920288397389404,
+          "baseline_bulk_p95_ms": 11982.66628700243,
+          "candidate_bulk_p95_ms": 12089.583778304359,
+          "baseline_errors": 0,
+          "candidate_errors": 0
+        },
+        {
+          "baseline_p95_ms": 10289.205325551704,
+          "candidate_p95_ms": 5537.52413095113,
+          "p95_ratio": 0.538187737122858,
+          "baseline_tokens_per_second": 11.089768265349663,
+          "candidate_tokens_per_second": 11.123073835356902,
+          "throughput_ratio": 1.0030032701504956,
+          "baseline_bulk_p95_ms": 12616.727038048193,
+          "candidate_bulk_p95_ms": 12464.791903597978,
+          "baseline_errors": 0,
+          "candidate_errors": 0
+        },
+        {
+          "baseline_p95_ms": 10449.335893752586,
+          "candidate_p95_ms": 6566.278689849909,
+          "p95_ratio": 0.6283919625720649,
+          "baseline_tokens_per_second": 10.926072587571301,
+          "candidate_tokens_per_second": 10.196369035077694,
+          "throughput_ratio": 0.9332144696417572,
+          "baseline_bulk_p95_ms": 12402.420347497735,
+          "candidate_bulk_p95_ms": 15417.609608051236,
+          "baseline_errors": 0,
+          "candidate_errors": 0
+        }
+      ],
+      "uncertainty": {
+        "replicates": 10000,
+        "seed": 780912,
+        "p95_ratio_95_interval": [
+          0.3267807681778692,
+          0.6480720108020346
+        ],
+        "throughput_ratio_95_interval": [
+          0.9272991240379788,
+          1.0039588250386275
+        ],
+        "method": "Percentile hierarchical paired bootstrap: resample sessions then whole paired traces within sessions; statistics recomputed on sampled trace requests."
+      }
+    }
+  },
+  "resources": {
+    "native8": {
+      "max_worker_rss_bytes": 1605791744,
+      "max_control_plane_rss_bytes": 62054400,
+      "max_dispatch_lateness_ms": 8.441794003592804
+    },
+    "simple_cost4": {
+      "max_worker_rss_bytes": 1526177792,
+      "max_control_plane_rss_bytes": 62038016,
+      "max_dispatch_lateness_ms": 7.624101004505064
+    },
+    "candidate": {
+      "max_worker_rss_bytes": 1511284736,
+      "max_control_plane_rss_bytes": 61739008,
+      "max_dispatch_lateness_ms": 5.2297610022942544
+    }
+  },
+  "gates": {
+    "latency": true,
+    "throughput": true,
+    "quality_and_errors": false,
+    "worker_cap_and_no_swap": true
+  },
+  "restricted_gate_pass": false,
+  "scope": "Only the frozen synthetic long-input/short-input CPU burst and finite native tuning sweep. Not broad engine/model/production superiority. A conventional bounded admission heuristic, not a novel attention/kernel algorithm. Default serving configuration unchanged."
+}

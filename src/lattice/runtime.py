@@ -103,7 +103,12 @@ class Runtime:
                 404,
                 "model_not_served",
             )
-        if self.lock.locked() and self.waiting >= self.settings.max_queue:
+        # Grace/drain waiters also consume admission capacity while native slots
+        # may still be free. Bound all outstanding work, not just lock waiters.
+        if (
+            self.waiting + self.lock.active
+            >= self.settings.max_queue + self.settings.native_slots
+        ):
             self.counters["rejected_queue_full"] += 1
             raise LatticeError("Request queue is full; retry later", 429, "queue_full")
         request_id = "lattice-" + uuid.uuid4().hex

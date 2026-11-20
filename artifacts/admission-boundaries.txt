@@ -1,0 +1,13 @@
+interactive_only native8 throughput 96.750419473908 errors 0
+interactive_only lattice_coalesce4 throughput 83.51279798647386 errors 0
+bulk_only lattice_coalesce4 throughput 7.774153128225419 errors 0
+bulk_only native8 throughput 7.837284158422834 errors 0
+mixed_25_percent_interactive native8 throughput 9.130805643397133 errors 0
+mixed_25_percent_interactive lattice_coalesce4 throughput 9.068689876102743 errors 0
+mixed_75_percent_interactive lattice_coalesce4 throughput 16.602839517931148 errors 0
+mixed_75_percent_interactive native8 throughput 17.805209486370185 errors 0
+interactive_arrives_late native8 throughput 12.314550255466118 errors 0
+interactive_arrives_late lattice_coalesce4 throughput 11.840096790344067 errors 0
+extra_native_slot_challengers_development_seed native16 throughput 12.088261226608775 errors 0
+extra_native_slot_challengers_development_seed native32 throughput 8.539125045369113 errors 5
+extra_native_slot_challengers_development_seed lattice_coalesce4 throughput 11.593839249334229 errors 0

@@ -17,4 +17,6 @@ The local CPU build remains at 0.3.0.dev0. The 1.0 decision follows the original
 
 The 1.0 acceptance decision remains open because broad adaptive quality and independent reproduction lack evidence. This checkout has no configured Git remote or publication destination.
 
+The later [held-out CPU burst confirmation](burst_admission_confirmation.md) did not qualify a competitor win: performance gates passed against the frozen native baseline, but exact greedy output preservation failed. Strict task correctness was also zero with raw prompt framing. The policy remains experimental and opt-in; G7's existing warmed-prefix evidence must not be recast as superiority over native prefix caching. Boundary regressions and failures remain [visible](admission_boundaries.md).
+
 See [benchmarks](benchmark_results.md), [quality](quality_preservation.md) and [multilingual evaluation](multilingual_datasets.md).

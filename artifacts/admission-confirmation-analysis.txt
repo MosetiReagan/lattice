@@ -1,0 +1,74 @@
+{
+  "gate_pass": false,
+  "gates": {
+    "latency": true,
+    "throughput": true,
+    "quality_and_errors": false,
+    "worker_cap_and_no_swap": true
+  },
+  "native_comparison": {
+    "point_estimates": {
+      "baseline_p95_ms": 12125.267223898813,
+      "candidate_p95_ms": 4843.536580100522,
+      "p95_ratio": 0.39945813074980707,
+      "baseline_tokens_per_second": 9.638354470741382,
+      "candidate_tokens_per_second": 10.734177637210959,
+      "throughput_ratio": 1.1136940096772854,
+      "baseline_bulk_p95_ms": 12383.508457848973,
+      "candidate_bulk_p95_ms": 12945.30023200358,
+      "baseline_errors": 0,
+      "candidate_errors": 0
+    },
+    "per_session": [
+      {
+        "baseline_p95_ms": 11676.653376199509,
+        "candidate_p95_ms": 3409.265473250489,
+        "p95_ratio": 0.2919728250390292,
+        "baseline_tokens_per_second": 11.243356425071177,
+        "candidate_tokens_per_second": 10.921976259183843,
+        "throughput_ratio": 0.9714159941447111,
+        "baseline_bulk_p95_ms": 11837.54742989933,
+        "candidate_bulk_p95_ms": 12089.583778304359,
+        "baseline_errors": 0,
+        "candidate_errors": 0
+      },
+      {
+        "baseline_p95_ms": 11960.518647594257,
+        "candidate_p95_ms": 5537.52413095113,
+        "p95_ratio": 0.46298361250955866,
+        "baseline_tokens_per_second": 11.261423340097151,
+        "candidate_tokens_per_second": 11.123073835356902,
+        "throughput_ratio": 0.9877147407958952,
+        "baseline_bulk_p95_ms": 12328.358143500527,
+        "candidate_bulk_p95_ms": 12464.791903597978,
+        "baseline_errors": 0,
+        "candidate_errors": 0
+      },
+      {
+        "baseline_p95_ms": 19854.73057710029,
+        "candidate_p95_ms": 6566.278689849909,
+        "p95_ratio": 0.3307160812055144,
+        "baseline_tokens_per_second": 7.476912411305593,
+        "candidate_tokens_per_second": 10.196369035077694,
+        "throughput_ratio": 1.363713853282553,
+        "baseline_bulk_p95_ms": 66352.45020324698,
+        "candidate_bulk_p95_ms": 15417.609608051236,
+        "baseline_errors": 0,
+        "candidate_errors": 0
+      }
+    ],
+    "uncertainty": {
+      "replicates": 10000,
+      "seed": 780912,
+      "p95_ratio_95_interval": [
+        0.10219409349716749,
+        0.5400011548542506
+      ],
+      "throughput_ratio_95_interval": [
+        0.9640727631633217,
+        1.5054467562384735
+      ],
+      "method": "Percentile hierarchical paired bootstrap: resample sessions then whole paired traces within sessions; statistics recomputed on sampled trace requests."
+    }
+  }
+}

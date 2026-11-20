@@ -1,0 +1,42 @@
+{
+  "stage": "Post-confirmation boundary diagnostics only. These cases do not replace the frozen primary workload or determine new policy parameters.",
+  "cases": [
+    [
+      "interactive_only",
+      0,
+      12,
+      0.0
+    ],
+    [
+      "bulk_only",
+      6,
+      0,
+      0.0
+    ],
+    [
+      "mixed_25_percent_interactive",
+      9,
+      3,
+      0.03
+    ],
+    [
+      "mixed_75_percent_interactive",
+      3,
+      9,
+      0.03
+    ],
+    [
+      "interactive_arrives_late",
+      6,
+      6,
+      0.15
+    ]
+  ],
+  "arms": [
+    "native8",
+    "lattice_coalesce4"
+  ],
+  "runner_sha256": "dee47d140c1361751104c80b635df7c4ff48385e4c92787924167f29d575abf0",
+  "trace_generator_sha256": "95e640798464a58573eb22f362b381b91aa9f74f56afc6775264c63ea6a829c0",
+  "seed_start": 8001
+}

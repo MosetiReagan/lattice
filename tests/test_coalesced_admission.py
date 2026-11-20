@@ -7,7 +7,7 @@ import pytest
 
 from lattice.config import Settings
 from lattice.runtime import Runtime
-from lattice.types import GenerationRequest
+from lattice.types import GenerationRequest, LatticeError
 
 
 class ReadyBackend:
@@ -74,6 +74,50 @@ async def test_grace_cancellation_never_leaks_admission(settings):
     assert not backend.received
     assert runtime.waiting == runtime.lock.active == 0
     assert runtime.metrics()["counters"]["cancelled"] == 1
+
+
+@pytest.mark.parametrize("max_queue", [0, 1])
+async def test_grace_waiters_are_bounded_before_slots_are_occupied(settings, max_queue):
+    settings.max_queue = max_queue
+    runtime, backend = create(settings)
+    entered = asyncio.Queue()
+    release = asyncio.Event()
+
+    async def grace(_delay):
+        entered.put_nowait(True)
+        await release.wait()
+
+    def request():
+        return GenerationRequest(model="test-model", prompt="x" * 2000, max_tokens=16)
+
+    tasks = []
+    with patch("lattice.runtime.asyncio.sleep", grace):
+        try:
+            for _ in range(4 + max_queue):
+                tasks.append(asyncio.create_task(runtime.generate(request())))
+                await entered.get()
+            assert runtime.waiting == 4 + max_queue
+            assert runtime.lock.active == 0
+            with pytest.raises(LatticeError) as exc:
+                await runtime.generate(request())
+            assert exc.value.code == "queue_full"
+            assert not backend.received
+            # A cancelled grace waiter frees capacity immediately.
+            cancelled = tasks.pop()
+            cancelled.cancel()
+            with pytest.raises(asyncio.CancelledError):
+                await cancelled
+            tasks.append(asyncio.create_task(runtime.generate(request())))
+            await entered.get()
+            release.set()
+            await asyncio.gather(*tasks)
+            assert runtime.waiting == runtime.lock.active == 0
+            assert len(backend.received) == 4 + max_queue
+        finally:
+            for task in tasks:
+                if not task.done():
+                    task.cancel()
+            await asyncio.gather(*tasks, return_exceptions=True)
 
 
 def test_policy_is_configurable_and_default_unchanged(settings):

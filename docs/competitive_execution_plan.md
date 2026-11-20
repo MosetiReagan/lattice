@@ -2,6 +2,12 @@
 
 ## Decision
 
+The subsequent frozen burst confirmation **failed the overall gate**. Its latency and throughput conditions passed against the frozen native8 baseline, but two Lattice responses differed from greedy baseline outputs (a third comparison mismatch involved the thin queue baseline). Strict copy-task correctness was 0/360 in every arm under raw completion framing. These results do not establish a qualifying win. See [confirmation](burst_admission_confirmation.md) and [all boundary diagnostics](admission_boundaries.md).
+
+The candidate's pooled interactive P95 was 4,843.5 ms versus 12,125.3 ms, with throughput 10.73 versus 9.64 tokens/s. The native throughput aggregate includes a large unexplained shared-VM slowdown; it must not be marketed as a reliable throughput gain. Interactive-only diagnostics lost throughput, and late-arriving short requests benefited less. Defaults stay unchanged.
+
+The next development study uses the model's actual chat template on both arms, recorded before measurement, because instruction prompts submitted as raw completion continuations did not produce strict valid copy-task answers. It is separately versioned, uses new development/confirmation seeds, preserves the failed study, and retains exact-output and absolute task-quality checks. A framing change cannot retroactively rescue the failed gate. Numerical batching differences are a possible cause of the divergent continuations, not an established diagnosis.
+
 The first pilot does not establish a competitive speed advantage over matched direct llama.cpp. Standard single-slot execution is near parity, two-slot runtime overhead is measurable, and native prompt caching recovers essentially the same repeated-prefix benefit as Lattice's qualified cache path. These are engineering findings, not a reason to lower the original 1.0 gates or claim a win against a deliberately weak baseline.
 
 The product hypothesis remains: preserve model quality while improving interactive tail latency under heterogeneous CPU workloads, within an explicit memory budget. Evidence so far supports running the next focused engineering iteration, not publishing a superiority claim.
@@ -29,7 +35,7 @@ Use held-out trace seeds and a separate development trace family. Do not choose 
 
 ## Prospective competitive gate
 
-The machine-readable [protocol](../benchmarks/workloads/competitive-gate-v1.json) freezes these targets. Current pilots are baseline diagnostics; no confirmatory pass is asserted.
+The machine-readable [protocol](../benchmarks/workloads/competitive-gate-v1.json) freezes these targets. The first confirmation is reported as failed, with no change to these targets.
 
 For a named workload class and fixed model, require at least 20% lower interactive P95 than the strongest matching tuned baseline, no more than 5% aggregate throughput loss, the same explicit worker/host memory budget, no additional failures or starvation, and matched deterministic outputs. Run at least three clean randomized sessions with confidence intervals clustered by session/trace. One session's favorable P95 is not sufficient. If using approximate precision/model substitution, preserve the existing <=2% relative PPL and <=1 percentage-point task-loss tolerances with adequate uncertainty; exact output equality cannot be assumed for those paths.
 
