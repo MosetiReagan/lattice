@@ -1,0 +1,16 @@
+{
+  "output": "/data/workspace/lattice/benchmarks/results/adaptive-cache-vs-direct-20261120",
+  "trials": 30,
+  "greedy_mismatches": 0,
+  "strategies": {
+    "direct_uncached": {
+      "direct_uncached": 30
+    },
+    "direct_native_cache": {
+      "direct_native_cache": 30
+    },
+    "lattice_adaptive": {
+      "cached": 30
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "manifest_sha256": "3d64b3cc0287e4e92ebdc8e8a35fc24e283fbdd56be664ba633b4cb576369d0c",
+  "requests_sha256": "93268658bf5ddcbb4afbb5ce5adf69e71d2229ae8a949917077b24d48a69692d",
+  "pairs_sha256": "a8bba0b395c2a9b1fb568077ba83c50010ddff88e9d041fa4d6cb9cf4559b995",
+  "source_manifest_hash": "849447c8731b8149a446da38e349f8976e6ac868cd755c69ea7f4497b2ba8e92",
+  "runner_sha256": "3b1f04ec81245e46ed8fbbe1670e51019d773f84a05a9bed2eb47435d1aa0acd",
+  "greedy_mismatches": 0,
+  "text_mismatches": 0,
+  "workloads": {
+    "short": {
+      "n": 10,
+      "direct_p50_ms": 227.59776800012332,
+      "direct_p95_ms": 306.21076529896527,
+      "lattice_p50_ms": 253.4627159984666,
+      "lattice_p95_ms": 261.5383726046275,
+      "lattice_p50_change_percent": 11.364324099315981,
+      "direct_tokens_per_second": 54.79171040896044,
+      "lattice_tokens_per_second": 55.82661697354921
+    },
+    "long_prompt": {
+      "n": 10,
+      "direct_p50_ms": 1591.696318500908,
+      "direct_p95_ms": 1677.3057771992171,
+      "lattice_p50_ms": 1604.8479579985724,
+      "lattice_p95_ms": 1655.4476976009028,
+      "lattice_p50_change_percent": 0.8262656227068899,
+      "direct_tokens_per_second": 9.437187497561508,
+      "lattice_tokens_per_second": 9.43587742067466
+    },
+    "long_response": {
+      "n": 10,
+      "direct_p50_ms": 247.97441749979043,
+      "direct_p95_ms": 302.78764159884304,
+      "lattice_p50_ms": 244.18069899911643,
+      "lattice_p95_ms": 299.10704650210386,
+      "lattice_p50_change_percent": -1.5298830173387623,
+      "direct_tokens_per_second": 53.57503498174329,
+      "lattice_tokens_per_second": 54.410466680078386
+    },
+    "repeated_prefix": {
+      "n": 10,
+      "direct_p50_ms": 989.6628730020893,
+      "direct_p95_ms": 1002.8096623002057,
+      "lattice_p50_ms": 998.7478744951659,
+      "lattice_p95_ms": 1021.3061789494532,
+      "lattice_p50_change_percent": 0.917989523595808,
+      "direct_tokens_per_second": 16.195563195757703,
+      "lattice_tokens_per_second": 16.045090341296543
+    },
+    "memory_constrained": {
+      "n": 10,
+      "direct_p50_ms": 378.99122099770466,
+      "direct_p95_ms": 419.7565431979456,
+      "lattice_p50_ms": 387.6313715009019,
+      "lattice_p95_ms": 425.33126740236185,
+      "lattice_p50_change_percent": 2.279775895719105,
+      "direct_tokens_per_second": 36.693964006804805,
+      "lattice_tokens_per_second": 36.2990462217292
+    }
+  },
+  "interpretation": "The direct arm uses the same pinned llama.cpp server as the Lattice arm. This isolates runtime/control-plane overhead and does not compare against another inference engine.",
+  "scope_limit": "Single VM, ten trials per workload, one model, one slot, standard execution. Does not compare adaptive policies, quantized paths, concurrency, or other inference engines.",
+  "rss": {
+    "direct_llama_cpp": {
+      "short": 1399668736.0,
+      "long_prompt": 1387421696.0,
+      "long_response": 1400197120.0,
+      "repeated_prefix": 1392656384.0,
+      "memory_constrained": 1400197120.0
+    },
+    "lattice": {
+      "short": 1399820288.0,
+      "long_prompt": 1387589632.0,
+      "long_response": 1400360960.0,
+      "repeated_prefix": 1392820224.0,
+      "memory_constrained": 1400360960.0
+    }
+  },
+  "limitations": [
+    "n=10 per workload: medians and P95s are exploratory, with no formal population claim.",
+    "The two workers were resident concurrently and the arms were randomized per trial; CPU performance still varies with host load.",
+    "The direct arm uses a thin Python client around the native completion endpoint; the Lattice arm includes request validation, queue admission, runtime metrics and audit logging.",
+    "The memory-constrained label uses the same 2,048 MiB worker cap in both arms; failures would remain in the raw records.",
+    "No GPU, energy, multi-slot, adaptive-cache or speculative comparison is included."
+  ]
+}

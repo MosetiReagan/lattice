@@ -1,0 +1,1063 @@
+{
+  "sessions": [
+    {
+      "manifest_sha256": "f56a972271a52207bcd15b98263fe5dccc9cac2fe4bc6d9236229057d3af58ce",
+      "pairs_sha256": "9311139e79926302472eb3bb217ae47081c85b9101f37de4744eece85a680686",
+      "requests_sha256": "18934820f6bab5c3e58bfb24bd37052a03d0f97e6c93176f04e11738e5ec2761",
+      "runner_sha256": "b6a55740acbc8cb2f5a0781e1423fb2ec88c3177d1c40009fb9b95b46eee0c8e",
+      "arm_order_seed": null,
+      "summary": {
+        "workloads": {},
+        "pairs": 50,
+        "greedy_mismatches": 0,
+        "text_mismatches": 0,
+        "arms": {
+          "direct_llama_cpp": {
+            "short": {
+              "completed": 10,
+              "elapsed_ms": {
+                "n": 10,
+                "mean": 256.58065660027205,
+                "stddev": 21.255794745720447,
+                "median": 247.6860120004858,
+                "p50": 247.6860120004858,
+                "p90": 280.0792548019672,
+                "p95": 285.1715664008225,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "prompt_tokens": {
+                "n": 10,
+                "mean": 64,
+                "stddev": 0.0,
+                "median": 64.0,
+                "p50": 64.0,
+                "p90": 64.0,
+                "p95": 64.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "completion_tokens": {
+                "n": 10,
+                "mean": 13.6,
+                "stddev": 2.0655911179772892,
+                "median": 12.0,
+                "p50": 12.0,
+                "p90": 16.0,
+                "p95": 16.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "sampled_worker_rss_bytes": {
+                "n": 10,
+                "mean": 1363184844.8,
+                "stddev": 79700.85824269537,
+                "median": 1363208192.0,
+                "p50": 1363208192.0,
+                "p90": 1363255296.0,
+                "p95": 1363255296.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "swap_observed": 0
+            },
+            "long_prompt": {
+              "completed": 10,
+              "elapsed_ms": {
+                "n": 10,
+                "mean": 1547.7956512004312,
+                "stddev": 35.872366025111575,
+                "median": 1552.66848050087,
+                "p50": 1552.66848050087,
+                "p90": 1588.6407794969273,
+                "p95": 1591.9040602493624,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "prompt_tokens": {
+                "n": 10,
+                "mean": 1023,
+                "stddev": 0.0,
+                "median": 1023.0,
+                "p50": 1023.0,
+                "p90": 1023.0,
+                "p95": 1023.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "completion_tokens": {
+                "n": 10,
+                "mean": 15.1,
+                "stddev": 1.449137674618944,
+                "median": 16.0,
+                "p50": 16.0,
+                "p90": 16.0,
+                "p95": 16.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "sampled_worker_rss_bytes": {
+                "n": 10,
+                "mean": 1377386905.6,
+                "stddev": 194735.49792429275,
+                "median": 1377472512.0,
+                "p50": 1377472512.0,
+                "p90": 1377488896.0,
+                "p95": 1377488896.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "swap_observed": 0
+            },
+            "long_response": {
+              "completed": 10,
+              "elapsed_ms": {
+                "n": 10,
+                "mean": 262.53414490274736,
+                "stddev": 34.331549857909216,
+                "median": 259.6603905039956,
+                "p50": 259.6603905039956,
+                "p90": 305.88884930402855,
+                "p95": 308.6840256513824,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "prompt_tokens": {
+                "n": 10,
+                "mean": 64,
+                "stddev": 0.0,
+                "median": 64.0,
+                "p50": 64.0,
+                "p90": 64.0,
+                "p95": 64.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "completion_tokens": {
+                "n": 10,
+                "mean": 13.6,
+                "stddev": 2.0655911179772892,
+                "median": 12.0,
+                "p50": 12.0,
+                "p90": 16.0,
+                "p95": 16.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "sampled_worker_rss_bytes": {
+                "n": 10,
+                "mean": 1363106201.6,
+                "stddev": 79358.6419955494,
+                "median": 1363126272.0,
+                "p50": 1363126272.0,
+                "p90": 1363177472.0,
+                "p95": 1363177472.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "swap_observed": 0
+            },
+            "repeated_prefix": {
+              "completed": 10,
+              "elapsed_ms": {
+                "n": 10,
+                "mean": 974.5803163008532,
+                "stddev": 31.199799276936016,
+                "median": 962.9733790025057,
+                "p50": 962.9733790025057,
+                "p90": 1004.5346685001277,
+                "p95": 1026.7421392491087,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "prompt_tokens": {
+                "n": 10,
+                "mean": 598,
+                "stddev": 0.0,
+                "median": 598.0,
+                "p50": 598.0,
+                "p90": 598.0,
+                "p95": 598.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "completion_tokens": {
+                "n": 10,
+                "mean": 16,
+                "stddev": 0.0,
+                "median": 16.0,
+                "p50": 16.0,
+                "p90": 16.0,
+                "p95": 16.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "sampled_worker_rss_bytes": {
+                "n": 10,
+                "mean": 1376953548.8,
+                "stddev": 159048.7342649695,
+                "median": 1377021952.0,
+                "p50": 1377021952.0,
+                "p90": 1377046528.0,
+                "p95": 1377046528.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "swap_observed": 0
+            },
+            "memory_constrained": {
+              "completed": 10,
+              "elapsed_ms": {
+                "n": 10,
+                "mean": 401.8408884992823,
+                "stddev": 18.200633211518237,
+                "median": 405.2376945001015,
+                "p50": 405.2376945001015,
+                "p90": 421.2015220968169,
+                "p95": 421.47665704687824,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "prompt_tokens": {
+                "n": 10,
+                "mean": 178,
+                "stddev": 0.0,
+                "median": 178.0,
+                "p50": 178.0,
+                "p90": 178.0,
+                "p95": 178.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "completion_tokens": {
+                "n": 10,
+                "mean": 14.2,
+                "stddev": 1.5491933384829668,
+                "median": 13.0,
+                "p50": 13.0,
+                "p90": 16.0,
+                "p95": 16.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "sampled_worker_rss_bytes": {
+                "n": 10,
+                "mean": 1370782924.8,
+                "stddev": 87866.38706682879,
+                "median": 1370814464.0,
+                "p50": 1370814464.0,
+                "p90": 1370845184.0,
+                "p95": 1370845184.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "swap_observed": 0
+            }
+          },
+          "lattice": {
+            "short": {
+              "completed": 10,
+              "elapsed_ms": {
+                "n": 10,
+                "mean": 252.87795400072355,
+                "stddev": 30.060803576677856,
+                "median": 244.41138000111096,
+                "p50": 244.41138000111096,
+                "p90": 288.3953264034062,
+                "p95": 290.64087320184626,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "prompt_tokens": {
+                "n": 10,
+                "mean": 64,
+                "stddev": 0.0,
+                "median": 64.0,
+                "p50": 64.0,
+                "p90": 64.0,
+                "p95": 64.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "completion_tokens": {
+                "n": 10,
+                "mean": 13.6,
+                "stddev": 2.0655911179772892,
+                "median": 12.0,
+                "p50": 12.0,
+                "p90": 16.0,
+                "p95": 16.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "sampled_worker_rss_bytes": {
+                "n": 10,
+                "mean": 1363075891.2,
+                "stddev": 81069.07392917063,
+                "median": 1363097600.0,
+                "p50": 1363097600.0,
+                "p90": 1363148800.0,
+                "p95": 1363148800.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "swap_observed": 0
+            },
+            "long_prompt": {
+              "completed": 10,
+              "elapsed_ms": {
+                "n": 10,
+                "mean": 1562.673830598942,
+                "stddev": 35.47054090997224,
+                "median": 1563.7396884994814,
+                "p50": 1563.7396884994814,
+                "p90": 1601.9201613948098,
+                "p95": 1604.1125901967462,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "prompt_tokens": {
+                "n": 10,
+                "mean": 1023,
+                "stddev": 0.0,
+                "median": 1023.0,
+                "p50": 1023.0,
+                "p90": 1023.0,
+                "p95": 1023.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "completion_tokens": {
+                "n": 10,
+                "mean": 15.1,
+                "stddev": 1.449137674618944,
+                "median": 16.0,
+                "p50": 16.0,
+                "p90": 16.0,
+                "p95": 16.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "sampled_worker_rss_bytes": {
+                "n": 10,
+                "mean": 1377368883.2,
+                "stddev": 196124.32357098846,
+                "median": 1377452032.0,
+                "p50": 1377452032.0,
+                "p90": 1377472921.6,
+                "p95": 1377474764.8,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "swap_observed": 0
+            },
+            "long_response": {
+              "completed": 10,
+              "elapsed_ms": {
+                "n": 10,
+                "mean": 269.58629560031113,
+                "stddev": 26.526701607632074,
+                "median": 273.0874105000112,
+                "p50": 273.0874105000112,
+                "p90": 302.4227830959717,
+                "p95": 303.2858700491488,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "prompt_tokens": {
+                "n": 10,
+                "mean": 64,
+                "stddev": 0.0,
+                "median": 64.0,
+                "p50": 64.0,
+                "p90": 64.0,
+                "p95": 64.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "completion_tokens": {
+                "n": 10,
+                "mean": 13.6,
+                "stddev": 2.0655911179772892,
+                "median": 12.0,
+                "p50": 12.0,
+                "p90": 16.0,
+                "p95": 16.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "sampled_worker_rss_bytes": {
+                "n": 10,
+                "mean": 1363153305.6,
+                "stddev": 77726.92893457196,
+                "median": 1363173376.0,
+                "p50": 1363173376.0,
+                "p90": 1363222528.0,
+                "p95": 1363222528.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "swap_observed": 0
+            },
+            "repeated_prefix": {
+              "completed": 10,
+              "elapsed_ms": {
+                "n": 10,
+                "mean": 984.0599848001148,
+                "stddev": 45.409198341284814,
+                "median": 970.3050140014966,
+                "p50": 970.3050140014966,
+                "p90": 1012.1736561020953,
+                "p95": 1057.1506120526465,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "prompt_tokens": {
+                "n": 10,
+                "mean": 598,
+                "stddev": 0.0,
+                "median": 598.0,
+                "p50": 598.0,
+                "p90": 598.0,
+                "p95": 598.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "completion_tokens": {
+                "n": 10,
+                "mean": 16,
+                "stddev": 0.0,
+                "median": 16.0,
+                "p50": 16.0,
+                "p90": 16.0,
+                "p95": 16.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "sampled_worker_rss_bytes": {
+                "n": 10,
+                "mean": 1376772505.6,
+                "stddev": 156131.70220838845,
+                "median": 1376841728.0,
+                "p50": 1376841728.0,
+                "p90": 1376858112.0,
+                "p95": 1376858112.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "swap_observed": 0
+            },
+            "memory_constrained": {
+              "completed": 10,
+              "elapsed_ms": {
+                "n": 10,
+                "mean": 407.8941758009023,
+                "stddev": 38.18731969991224,
+                "median": 404.2193294990284,
+                "p50": 404.2193294990284,
+                "p90": 456.80491930106655,
+                "p95": 471.1126481510291,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "prompt_tokens": {
+                "n": 10,
+                "mean": 178,
+                "stddev": 0.0,
+                "median": 178.0,
+                "p50": 178.0,
+                "p90": 178.0,
+                "p95": 178.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "completion_tokens": {
+                "n": 10,
+                "mean": 14.2,
+                "stddev": 1.5491933384829668,
+                "median": 13.0,
+                "p50": 13.0,
+                "p90": 16.0,
+                "p95": 16.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "sampled_worker_rss_bytes": {
+                "n": 10,
+                "mean": 1370738688,
+                "stddev": 83049.98441367169,
+                "median": 1370769408.0,
+                "p50": 1370769408.0,
+                "p90": 1370791936.0,
+                "p95": 1370791936.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "swap_observed": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "manifest_sha256": "98c6e867283b015ecbc0f45399ed1a02b60e85cddcfab16d640588af46bbba10",
+      "pairs_sha256": "04ecf6900270e8f7f33327562ac42d1ac96781c7a0ddcc83e1369eca88628f15",
+      "requests_sha256": "a68a5a3ddcd3115d342bfa4c4606744aada1a8d2186626b8d81b2fcaf528c4e6",
+      "runner_sha256": "3b16aefcb62affd7a67a32a17cc23193378f6f3b449cc900b79d95cee91104cb",
+      "arm_order_seed": 98123,
+      "summary": {
+        "workloads": {},
+        "pairs": 50,
+        "greedy_mismatches": 0,
+        "text_mismatches": 0,
+        "arms": {
+          "direct_llama_cpp": {
+            "short": {
+              "completed": 10,
+              "elapsed_ms": {
+                "n": 10,
+                "mean": 277.21516439924017,
+                "stddev": 17.47091984248369,
+                "median": 276.03535749949515,
+                "p50": 276.03535749949515,
+                "p90": 302.46594949858263,
+                "p95": 305.30596024982515,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "prompt_tokens": {
+                "n": 10,
+                "mean": 64,
+                "stddev": 0.0,
+                "median": 64.0,
+                "p50": 64.0,
+                "p90": 64.0,
+                "p95": 64.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "completion_tokens": {
+                "n": 10,
+                "mean": 13.6,
+                "stddev": 2.0655911179772892,
+                "median": 12.0,
+                "p50": 12.0,
+                "p90": 16.0,
+                "p95": 16.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "sampled_worker_rss_bytes": {
+                "n": 10,
+                "mean": 1363096371.2,
+                "stddev": 81069.07392917063,
+                "median": 1363118080.0,
+                "p50": 1363118080.0,
+                "p90": 1363169280.0,
+                "p95": 1363169280.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "swap_observed": 0
+            },
+            "long_prompt": {
+              "completed": 10,
+              "elapsed_ms": {
+                "n": 10,
+                "mean": 1651.523422399623,
+                "stddev": 42.695491706653655,
+                "median": 1649.749835498369,
+                "p50": 1649.749835498369,
+                "p90": 1694.0314978986862,
+                "p95": 1705.7680284517119,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "prompt_tokens": {
+                "n": 10,
+                "mean": 1023,
+                "stddev": 0.0,
+                "median": 1023.0,
+                "p50": 1023.0,
+                "p90": 1023.0,
+                "p95": 1023.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "completion_tokens": {
+                "n": 10,
+                "mean": 15.1,
+                "stddev": 1.449137674618944,
+                "median": 16.0,
+                "p50": 16.0,
+                "p90": 16.0,
+                "p95": 16.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "sampled_worker_rss_bytes": {
+                "n": 10,
+                "mean": 1377468825.6,
+                "stddev": 194217.88681741498,
+                "median": 1377550336.0,
+                "p50": 1377550336.0,
+                "p90": 1377571225.6,
+                "p95": 1377573068.8,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "swap_observed": 0
+            },
+            "long_response": {
+              "completed": 10,
+              "elapsed_ms": {
+                "n": 10,
+                "mean": 276.2050053999701,
+                "stddev": 33.89403704247984,
+                "median": 271.8187489990669,
+                "p50": 271.8187489990669,
+                "p90": 307.22951859861496,
+                "p95": 324.1438557994115,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "prompt_tokens": {
+                "n": 10,
+                "mean": 64,
+                "stddev": 0.0,
+                "median": 64.0,
+                "p50": 64.0,
+                "p90": 64.0,
+                "p95": 64.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "completion_tokens": {
+                "n": 10,
+                "mean": 13.6,
+                "stddev": 2.0655911179772892,
+                "median": 12.0,
+                "p50": 12.0,
+                "p90": 16.0,
+                "p95": 16.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "sampled_worker_rss_bytes": {
+                "n": 10,
+                "mean": 1363102105.6,
+                "stddev": 79358.6419955494,
+                "median": 1363122176.0,
+                "p50": 1363122176.0,
+                "p90": 1363173376.0,
+                "p95": 1363173376.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "swap_observed": 0
+            },
+            "repeated_prefix": {
+              "completed": 10,
+              "elapsed_ms": {
+                "n": 10,
+                "mean": 1040.4700992010476,
+                "stddev": 16.307691508798058,
+                "median": 1040.7451645005494,
+                "p50": 1040.7451645005494,
+                "p90": 1053.7775392003823,
+                "p95": 1062.1459921021597,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "prompt_tokens": {
+                "n": 10,
+                "mean": 598,
+                "stddev": 0.0,
+                "median": 598.0,
+                "p50": 598.0,
+                "p90": 598.0,
+                "p95": 598.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "completion_tokens": {
+                "n": 10,
+                "mean": 16,
+                "stddev": 0.0,
+                "median": 16.0,
+                "p50": 16.0,
+                "p90": 16.0,
+                "p95": 16.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "sampled_worker_rss_bytes": {
+                "n": 10,
+                "mean": 1376777011.2,
+                "stddev": 158963.73772712372,
+                "median": 1376841728.0,
+                "p50": 1376841728.0,
+                "p90": 1376867532.8,
+                "p95": 1376873062.4,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "swap_observed": 0
+            },
+            "memory_constrained": {
+              "completed": 10,
+              "elapsed_ms": {
+                "n": 10,
+                "mean": 450.13027009990765,
+                "stddev": 24.7283780124151,
+                "median": 443.40397199994186,
+                "p50": 443.40397199994186,
+                "p90": 478.37884920445504,
+                "p95": 485.6746911020309,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "prompt_tokens": {
+                "n": 10,
+                "mean": 178,
+                "stddev": 0.0,
+                "median": 178.0,
+                "p50": 178.0,
+                "p90": 178.0,
+                "p95": 178.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "completion_tokens": {
+                "n": 10,
+                "mean": 14.2,
+                "stddev": 1.5491933384829668,
+                "median": 13.0,
+                "p50": 13.0,
+                "p90": 16.0,
+                "p95": 16.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "sampled_worker_rss_bytes": {
+                "n": 10,
+                "mean": 1370774323.2,
+                "stddev": 84827.75455238692,
+                "median": 1370806272.0,
+                "p50": 1370806272.0,
+                "p90": 1370829209.6,
+                "p95": 1370831052.8,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "swap_observed": 0
+            }
+          },
+          "lattice": {
+            "short": {
+              "completed": 10,
+              "elapsed_ms": {
+                "n": 10,
+                "mean": 273.89595189961256,
+                "stddev": 23.721224524773493,
+                "median": 274.91704700150876,
+                "p50": 274.91704700150876,
+                "p90": 298.8948124984745,
+                "p95": 308.2199397467775,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "prompt_tokens": {
+                "n": 10,
+                "mean": 64,
+                "stddev": 0.0,
+                "median": 64.0,
+                "p50": 64.0,
+                "p90": 64.0,
+                "p95": 64.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "completion_tokens": {
+                "n": 10,
+                "mean": 13.6,
+                "stddev": 2.0655911179772892,
+                "median": 12.0,
+                "p50": 12.0,
+                "p90": 16.0,
+                "p95": 16.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "sampled_worker_rss_bytes": {
+                "n": 10,
+                "mean": 1363140198.4,
+                "stddev": 82947.79250588891,
+                "median": 1363159040.0,
+                "p50": 1363159040.0,
+                "p90": 1363218432.0,
+                "p95": 1363218432.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "swap_observed": 0
+            },
+            "long_prompt": {
+              "completed": 10,
+              "elapsed_ms": {
+                "n": 10,
+                "mean": 1659.0180506005709,
+                "stddev": 41.189454382933896,
+                "median": 1658.1414315005532,
+                "p50": 1658.1414315005532,
+                "p90": 1703.9946615048393,
+                "p95": 1707.115877252727,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "prompt_tokens": {
+                "n": 10,
+                "mean": 1023,
+                "stddev": 0.0,
+                "median": 1023.0,
+                "p50": 1023.0,
+                "p90": 1023.0,
+                "p95": 1023.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "completion_tokens": {
+                "n": 10,
+                "mean": 15.1,
+                "stddev": 1.449137674618944,
+                "median": 16.0,
+                "p50": 16.0,
+                "p90": 16.0,
+                "p95": 16.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "sampled_worker_rss_bytes": {
+                "n": 10,
+                "mean": 1377332019.2,
+                "stddev": 191867.47141642674,
+                "median": 1377411072.0,
+                "p50": 1377411072.0,
+                "p90": 1377435648.0,
+                "p95": 1377435648.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "swap_observed": 0
+            },
+            "long_response": {
+              "completed": 10,
+              "elapsed_ms": {
+                "n": 10,
+                "mean": 292.6527532014006,
+                "stddev": 54.01071909046107,
+                "median": 278.7538440024946,
+                "p50": 278.7538440024946,
+                "p90": 340.55752850545105,
+                "p95": 375.0330207541992,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "prompt_tokens": {
+                "n": 10,
+                "mean": 64,
+                "stddev": 0.0,
+                "median": 64.0,
+                "p50": 64.0,
+                "p90": 64.0,
+                "p95": 64.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "completion_tokens": {
+                "n": 10,
+                "mean": 13.6,
+                "stddev": 2.0655911179772892,
+                "median": 12.0,
+                "p50": 12.0,
+                "p90": 16.0,
+                "p95": 16.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "sampled_worker_rss_bytes": {
+                "n": 10,
+                "mean": 1363110707.2,
+                "stddev": 78386.06853091519,
+                "median": 1363130368.0,
+                "p50": 1363130368.0,
+                "p90": 1363181568.0,
+                "p95": 1363181568.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "swap_observed": 0
+            },
+            "repeated_prefix": {
+              "completed": 10,
+              "elapsed_ms": {
+                "n": 10,
+                "mean": 1040.2725550004106,
+                "stddev": 19.524670535660697,
+                "median": 1037.9418730008183,
+                "p50": 1037.9418730008183,
+                "p90": 1062.9070154973306,
+                "p95": 1072.4123047475587,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "prompt_tokens": {
+                "n": 10,
+                "mean": 598,
+                "stddev": 0.0,
+                "median": 598.0,
+                "p50": 598.0,
+                "p90": 598.0,
+                "p95": 598.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "completion_tokens": {
+                "n": 10,
+                "mean": 16,
+                "stddev": 0.0,
+                "median": 16.0,
+                "p50": 16.0,
+                "p90": 16.0,
+                "p95": 16.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "sampled_worker_rss_bytes": {
+                "n": 10,
+                "mean": 1376838451.2,
+                "stddev": 158787.73837687986,
+                "median": 1376907264.0,
+                "p50": 1376907264.0,
+                "p90": 1376928153.6,
+                "p95": 1376929996.8,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "swap_observed": 0
+            },
+            "memory_constrained": {
+              "completed": 10,
+              "elapsed_ms": {
+                "n": 10,
+                "mean": 453.93215459916973,
+                "stddev": 27.25375956138995,
+                "median": 445.920608995948,
+                "p50": 445.920608995948,
+                "p90": 488.7509812011558,
+                "p95": 489.8140711000451,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "prompt_tokens": {
+                "n": 10,
+                "mean": 178,
+                "stddev": 0.0,
+                "median": 178.0,
+                "p50": 178.0,
+                "p90": 178.0,
+                "p95": 178.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "completion_tokens": {
+                "n": 10,
+                "mean": 14.2,
+                "stddev": 1.5491933384829668,
+                "median": 13.0,
+                "p50": 13.0,
+                "p90": 16.0,
+                "p95": 16.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "sampled_worker_rss_bytes": {
+                "n": 10,
+                "mean": 1370889420.8,
+                "stddev": 87866.38706682879,
+                "median": 1370920960.0,
+                "p50": 1370920960.0,
+                "p90": 1370951680.0,
+                "p95": 1370951680.0,
+                "p99": null,
+                "p99_unavailable_reason": "fewer than 1000 samples"
+              },
+              "swap_observed": 0
+            }
+          }
+        }
+      }
+    }
+  ],
+  "workloads": {
+    "short": {
+      "pairs": 20,
+      "direct_p50_ms": 270.23796800131095,
+      "lattice_p50_ms": 265.9189805017377,
+      "lattice_p50_change_percent": -1.5982163911002711,
+      "direct_tokens_per_second": 50.955812934370755,
+      "lattice_tokens_per_second": 51.635055752260726,
+      "direct_median_sampled_rss_bytes": 1363161088,
+      "lattice_median_sampled_rss_bytes": 1363128320
+    },
+    "long_prompt": {
+      "pairs": 20,
+      "direct_p50_ms": 1591.5414734990918,
+      "lattice_p50_ms": 1603.868986996531,
+      "lattice_p50_change_percent": 0.7745643894743415,
+      "direct_tokens_per_second": 9.439508628321105,
+      "lattice_tokens_per_second": 9.373956639439964,
+      "direct_median_sampled_rss_bytes": 1377480704,
+      "lattice_median_sampled_rss_bytes": 1377419264
+    },
+    "long_response": {
+      "pairs": 20,
+      "direct_p50_ms": 263.598028501292,
+      "lattice_p50_ms": 273.0874105000112,
+      "lattice_p50_change_percent": 3.599944222903262,
+      "direct_tokens_per_second": 50.48825574439193,
+      "lattice_tokens_per_second": 48.37799874976807,
+      "direct_median_sampled_rss_bytes": 1363116032,
+      "lattice_median_sampled_rss_bytes": 1363148800
+    },
+    "repeated_prefix": {
+      "pairs": 20,
+      "direct_p50_ms": 1016.5752515022177,
+      "lattice_p50_ms": 1018.5256930017204,
+      "lattice_p50_change_percent": 0.19186395661514588,
+      "direct_tokens_per_second": 15.880495968647796,
+      "lattice_tokens_per_second": 15.807679504649583,
+      "direct_median_sampled_rss_bytes": 1376866304,
+      "lattice_median_sampled_rss_bytes": 1376858112
+    },
+    "memory_constrained": {
+      "pairs": 20,
+      "direct_p50_ms": 421.44608649687143,
+      "lattice_p50_ms": 427.4499460007064,
+      "lattice_p50_change_percent": 1.4245854205789499,
+      "direct_tokens_per_second": 33.334461751845275,
+      "lattice_tokens_per_second": 32.95327492119708,
+      "direct_median_sampled_rss_bytes": 1370808320,
+      "lattice_median_sampled_rss_bytes": 1370791936
+    }
+  },
+  "greedy_mismatches": 0,
+  "text_mismatches": 0,
+  "interpretation": "Both arms use the same pinned llama.cpp engine; this measures Lattice control-plane overhead, not superiority over another inference engine.",
+  "limits": [
+    "20 paired trials per workload across two sessions; still exploratory.",
+    "Single shared CPU VM.",
+    "No accelerators, energy, adaptive strategy, or multi-slot comparison.",
+    "An earlier excluded exploratory run failed to apply the 2048 MiB workload override to either worker; both used 4096 MiB. The initial-cap-mismatch archive preserves it. Both reported sessions explicitly apply matched caps on every workload."
+  ]
+}

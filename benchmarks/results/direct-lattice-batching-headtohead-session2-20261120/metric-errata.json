@@ -1,0 +1,12 @@
+{
+  "scope": "Raw summaries remain preserved. Do not use direct-arm short_ttft_ms or short_queue_ms in summary.json.",
+  "reason": "Initial summary code incorrectly placed direct total latency into the TTFT field and used zero for unavailable native queue time. The first block lacks direct TTFT; the second records real direct TTFT in raw short.client_ttft_ms. Native direct queue time is unavailable in both blocks.",
+  "valid_metrics": [
+    "Raw total request latency",
+    "Pair makespan",
+    "Token IDs",
+    "Prompt token lengths",
+    "Sampled worker RSS"
+  ],
+  "report_policy": "Final report compares total request latency only and omits misleading TTFT/queue summary fields."
+}

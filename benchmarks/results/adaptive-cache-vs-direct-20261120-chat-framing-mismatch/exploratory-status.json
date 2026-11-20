@@ -1,0 +1,7 @@
+{
+  "status": "Preserved exploratory run; adaptive path did not select cached execution",
+  "evidence": "All 30 adaptive requests reported standard strategy despite using cache-qualified repeated-prefix workloads. This run is excluded from adaptive-versus-native-cache claims.",
+  "finding": "The run submitted user messages through the chat template, while the frozen cache-policy profile uses exact raw-prompt hashes. This framing mismatch prevented policy scope matching.",
+  "runner_sha256": "6e39bf3dbc6432a571652a88c23391f50c7768e8200dfb3f466c617a622cccaa",
+  "data_path": "benchmarks/results/adaptive-cache-vs-direct-20261120-chat-framing-mismatch"
+}

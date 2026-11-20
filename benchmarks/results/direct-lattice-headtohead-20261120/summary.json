@@ -1,0 +1,492 @@
+{
+  "workloads": {},
+  "pairs": 50,
+  "greedy_mismatches": 0,
+  "text_mismatches": 0,
+  "arms": {
+    "direct_llama_cpp": {
+      "short": {
+        "completed": 10,
+        "elapsed_ms": {
+          "n": 10,
+          "mean": 256.58065660027205,
+          "stddev": 21.255794745720447,
+          "median": 247.6860120004858,
+          "p50": 247.6860120004858,
+          "p90": 280.0792548019672,
+          "p95": 285.1715664008225,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "prompt_tokens": {
+          "n": 10,
+          "mean": 64,
+          "stddev": 0.0,
+          "median": 64.0,
+          "p50": 64.0,
+          "p90": 64.0,
+          "p95": 64.0,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "completion_tokens": {
+          "n": 10,
+          "mean": 13.6,
+          "stddev": 2.0655911179772892,
+          "median": 12.0,
+          "p50": 12.0,
+          "p90": 16.0,
+          "p95": 16.0,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "sampled_worker_rss_bytes": {
+          "n": 10,
+          "mean": 1363184844.8,
+          "stddev": 79700.85824269537,
+          "median": 1363208192.0,
+          "p50": 1363208192.0,
+          "p90": 1363255296.0,
+          "p95": 1363255296.0,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "swap_observed": 0
+      },
+      "long_prompt": {
+        "completed": 10,
+        "elapsed_ms": {
+          "n": 10,
+          "mean": 1547.7956512004312,
+          "stddev": 35.872366025111575,
+          "median": 1552.66848050087,
+          "p50": 1552.66848050087,
+          "p90": 1588.6407794969273,
+          "p95": 1591.9040602493624,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "prompt_tokens": {
+          "n": 10,
+          "mean": 1023,
+          "stddev": 0.0,
+          "median": 1023.0,
+          "p50": 1023.0,
+          "p90": 1023.0,
+          "p95": 1023.0,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "completion_tokens": {
+          "n": 10,
+          "mean": 15.1,
+          "stddev": 1.449137674618944,
+          "median": 16.0,
+          "p50": 16.0,
+          "p90": 16.0,
+          "p95": 16.0,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "sampled_worker_rss_bytes": {
+          "n": 10,
+          "mean": 1377386905.6,
+          "stddev": 194735.49792429275,
+          "median": 1377472512.0,
+          "p50": 1377472512.0,
+          "p90": 1377488896.0,
+          "p95": 1377488896.0,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "swap_observed": 0
+      },
+      "long_response": {
+        "completed": 10,
+        "elapsed_ms": {
+          "n": 10,
+          "mean": 262.53414490274736,
+          "stddev": 34.331549857909216,
+          "median": 259.6603905039956,
+          "p50": 259.6603905039956,
+          "p90": 305.88884930402855,
+          "p95": 308.6840256513824,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "prompt_tokens": {
+          "n": 10,
+          "mean": 64,
+          "stddev": 0.0,
+          "median": 64.0,
+          "p50": 64.0,
+          "p90": 64.0,
+          "p95": 64.0,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "completion_tokens": {
+          "n": 10,
+          "mean": 13.6,
+          "stddev": 2.0655911179772892,
+          "median": 12.0,
+          "p50": 12.0,
+          "p90": 16.0,
+          "p95": 16.0,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "sampled_worker_rss_bytes": {
+          "n": 10,
+          "mean": 1363106201.6,
+          "stddev": 79358.6419955494,
+          "median": 1363126272.0,
+          "p50": 1363126272.0,
+          "p90": 1363177472.0,
+          "p95": 1363177472.0,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "swap_observed": 0
+      },
+      "repeated_prefix": {
+        "completed": 10,
+        "elapsed_ms": {
+          "n": 10,
+          "mean": 974.5803163008532,
+          "stddev": 31.199799276936016,
+          "median": 962.9733790025057,
+          "p50": 962.9733790025057,
+          "p90": 1004.5346685001277,
+          "p95": 1026.7421392491087,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "prompt_tokens": {
+          "n": 10,
+          "mean": 598,
+          "stddev": 0.0,
+          "median": 598.0,
+          "p50": 598.0,
+          "p90": 598.0,
+          "p95": 598.0,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "completion_tokens": {
+          "n": 10,
+          "mean": 16,
+          "stddev": 0.0,
+          "median": 16.0,
+          "p50": 16.0,
+          "p90": 16.0,
+          "p95": 16.0,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "sampled_worker_rss_bytes": {
+          "n": 10,
+          "mean": 1376953548.8,
+          "stddev": 159048.7342649695,
+          "median": 1377021952.0,
+          "p50": 1377021952.0,
+          "p90": 1377046528.0,
+          "p95": 1377046528.0,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "swap_observed": 0
+      },
+      "memory_constrained": {
+        "completed": 10,
+        "elapsed_ms": {
+          "n": 10,
+          "mean": 401.8408884992823,
+          "stddev": 18.200633211518237,
+          "median": 405.2376945001015,
+          "p50": 405.2376945001015,
+          "p90": 421.2015220968169,
+          "p95": 421.47665704687824,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "prompt_tokens": {
+          "n": 10,
+          "mean": 178,
+          "stddev": 0.0,
+          "median": 178.0,
+          "p50": 178.0,
+          "p90": 178.0,
+          "p95": 178.0,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "completion_tokens": {
+          "n": 10,
+          "mean": 14.2,
+          "stddev": 1.5491933384829668,
+          "median": 13.0,
+          "p50": 13.0,
+          "p90": 16.0,
+          "p95": 16.0,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "sampled_worker_rss_bytes": {
+          "n": 10,
+          "mean": 1370782924.8,
+          "stddev": 87866.38706682879,
+          "median": 1370814464.0,
+          "p50": 1370814464.0,
+          "p90": 1370845184.0,
+          "p95": 1370845184.0,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "swap_observed": 0
+      }
+    },
+    "lattice": {
+      "short": {
+        "completed": 10,
+        "elapsed_ms": {
+          "n": 10,
+          "mean": 252.87795400072355,
+          "stddev": 30.060803576677856,
+          "median": 244.41138000111096,
+          "p50": 244.41138000111096,
+          "p90": 288.3953264034062,
+          "p95": 290.64087320184626,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "prompt_tokens": {
+          "n": 10,
+          "mean": 64,
+          "stddev": 0.0,
+          "median": 64.0,
+          "p50": 64.0,
+          "p90": 64.0,
+          "p95": 64.0,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "completion_tokens": {
+          "n": 10,
+          "mean": 13.6,
+          "stddev": 2.0655911179772892,
+          "median": 12.0,
+          "p50": 12.0,
+          "p90": 16.0,
+          "p95": 16.0,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "sampled_worker_rss_bytes": {
+          "n": 10,
+          "mean": 1363075891.2,
+          "stddev": 81069.07392917063,
+          "median": 1363097600.0,
+          "p50": 1363097600.0,
+          "p90": 1363148800.0,
+          "p95": 1363148800.0,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "swap_observed": 0
+      },
+      "long_prompt": {
+        "completed": 10,
+        "elapsed_ms": {
+          "n": 10,
+          "mean": 1562.673830598942,
+          "stddev": 35.47054090997224,
+          "median": 1563.7396884994814,
+          "p50": 1563.7396884994814,
+          "p90": 1601.9201613948098,
+          "p95": 1604.1125901967462,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "prompt_tokens": {
+          "n": 10,
+          "mean": 1023,
+          "stddev": 0.0,
+          "median": 1023.0,
+          "p50": 1023.0,
+          "p90": 1023.0,
+          "p95": 1023.0,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "completion_tokens": {
+          "n": 10,
+          "mean": 15.1,
+          "stddev": 1.449137674618944,
+          "median": 16.0,
+          "p50": 16.0,
+          "p90": 16.0,
+          "p95": 16.0,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "sampled_worker_rss_bytes": {
+          "n": 10,
+          "mean": 1377368883.2,
+          "stddev": 196124.32357098846,
+          "median": 1377452032.0,
+          "p50": 1377452032.0,
+          "p90": 1377472921.6,
+          "p95": 1377474764.8,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "swap_observed": 0
+      },
+      "long_response": {
+        "completed": 10,
+        "elapsed_ms": {
+          "n": 10,
+          "mean": 269.58629560031113,
+          "stddev": 26.526701607632074,
+          "median": 273.0874105000112,
+          "p50": 273.0874105000112,
+          "p90": 302.4227830959717,
+          "p95": 303.2858700491488,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "prompt_tokens": {
+          "n": 10,
+          "mean": 64,
+          "stddev": 0.0,
+          "median": 64.0,
+          "p50": 64.0,
+          "p90": 64.0,
+          "p95": 64.0,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "completion_tokens": {
+          "n": 10,
+          "mean": 13.6,
+          "stddev": 2.0655911179772892,
+          "median": 12.0,
+          "p50": 12.0,
+          "p90": 16.0,
+          "p95": 16.0,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "sampled_worker_rss_bytes": {
+          "n": 10,
+          "mean": 1363153305.6,
+          "stddev": 77726.92893457196,
+          "median": 1363173376.0,
+          "p50": 1363173376.0,
+          "p90": 1363222528.0,
+          "p95": 1363222528.0,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "swap_observed": 0
+      },
+      "repeated_prefix": {
+        "completed": 10,
+        "elapsed_ms": {
+          "n": 10,
+          "mean": 984.0599848001148,
+          "stddev": 45.409198341284814,
+          "median": 970.3050140014966,
+          "p50": 970.3050140014966,
+          "p90": 1012.1736561020953,
+          "p95": 1057.1506120526465,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "prompt_tokens": {
+          "n": 10,
+          "mean": 598,
+          "stddev": 0.0,
+          "median": 598.0,
+          "p50": 598.0,
+          "p90": 598.0,
+          "p95": 598.0,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "completion_tokens": {
+          "n": 10,
+          "mean": 16,
+          "stddev": 0.0,
+          "median": 16.0,
+          "p50": 16.0,
+          "p90": 16.0,
+          "p95": 16.0,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "sampled_worker_rss_bytes": {
+          "n": 10,
+          "mean": 1376772505.6,
+          "stddev": 156131.70220838845,
+          "median": 1376841728.0,
+          "p50": 1376841728.0,
+          "p90": 1376858112.0,
+          "p95": 1376858112.0,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "swap_observed": 0
+      },
+      "memory_constrained": {
+        "completed": 10,
+        "elapsed_ms": {
+          "n": 10,
+          "mean": 407.8941758009023,
+          "stddev": 38.18731969991224,
+          "median": 404.2193294990284,
+          "p50": 404.2193294990284,
+          "p90": 456.80491930106655,
+          "p95": 471.1126481510291,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "prompt_tokens": {
+          "n": 10,
+          "mean": 178,
+          "stddev": 0.0,
+          "median": 178.0,
+          "p50": 178.0,
+          "p90": 178.0,
+          "p95": 178.0,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "completion_tokens": {
+          "n": 10,
+          "mean": 14.2,
+          "stddev": 1.5491933384829668,
+          "median": 13.0,
+          "p50": 13.0,
+          "p90": 16.0,
+          "p95": 16.0,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "sampled_worker_rss_bytes": {
+          "n": 10,
+          "mean": 1370738688,
+          "stddev": 83049.98441367169,
+          "median": 1370769408.0,
+          "p50": 1370769408.0,
+          "p90": 1370791936.0,
+          "p95": 1370791936.0,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "swap_observed": 0
+      }
+    }
+  }
+}

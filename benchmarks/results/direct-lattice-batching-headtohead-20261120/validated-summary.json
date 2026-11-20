@@ -1,0 +1,261 @@
+{
+  "sessions": [
+    {
+      "path": "benchmarks/results/direct-lattice-batching-headtohead-20261120",
+      "manifest_sha256": "2f3c8b6d20b8e15f920ad0a46efb7defa9f0b30350715ae0ab242b034a860e91",
+      "requests_sha256": "1ed013c32ea897e81ddd30e8a1228293fb453bccbf15f0343c3001ed0b3ca349",
+      "pairs_sha256": "65e8f59251d29c18239259e16b88679668d39379bbba9d14ac07b3a6f169b6de",
+      "greedy_mismatches": 0,
+      "direct": {
+        "long_p50_ms": {
+          "n": 10,
+          "mean": 407.52403820006293,
+          "stddev": 33.987812595578305,
+          "median": 398.01854449979146,
+          "p50": 398.01854449979146,
+          "p90": 456.4300011006708,
+          "p95": 456.8599540489231,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "short_p50_ms": {
+          "n": 10,
+          "mean": 244.5465121003508,
+          "stddev": 12.718770072663165,
+          "median": 243.57802950180485,
+          "p50": 243.57802950180485,
+          "p90": 260.3677234998031,
+          "p95": 263.3619672513305,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "makespan_ms": {
+          "n": 10,
+          "mean": 407.7462814988394,
+          "stddev": 33.92858727095499,
+          "median": 398.18036499855225,
+          "p50": 398.18036499855225,
+          "p90": 456.580192095862,
+          "p95": 457.0190145448578,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "short_finished_before_long": 8,
+        "rss_bytes": {
+          "n": 10,
+          "mean": 1392748953.6,
+          "stddev": 52390.38592719088,
+          "median": 1392762880.0,
+          "p50": 1392762880.0,
+          "p90": 1392795648.0,
+          "p95": 1392795648.0,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "swap_trials": 0
+      },
+      "lattice": {
+        "long_p50_ms": {
+          "n": 10,
+          "mean": 425.38129149907036,
+          "stddev": 39.564117249992485,
+          "median": 417.82367449923186,
+          "p50": 417.82367449923186,
+          "p90": 475.69926109863445,
+          "p95": 475.8745860483032,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "short_p50_ms": {
+          "n": 10,
+          "mean": 277.6568066998152,
+          "stddev": 18.64499820788336,
+          "median": 281.60947149808635,
+          "p50": 281.60947149808635,
+          "p90": 295.15708740000264,
+          "p95": 297.74821620267176,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "short_ttft_ms": {
+          "n": 10,
+          "mean": 113.52540230000159,
+          "stddev": 11.428723843822802,
+          "median": 112.25262049993034,
+          "p50": 112.25262049993034,
+          "p90": 124.6347388063441,
+          "p95": 129.7804474044824,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "short_queue_ms": {
+          "n": 10,
+          "mean": 0.05675000065821223,
+          "stddev": 0.007727052418665979,
+          "median": 0.058444999012863263,
+          "p50": 0.058444999012863263,
+          "p90": 0.06494399713119492,
+          "p95": 0.06509699960588478,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "makespan_ms": {
+          "n": 10,
+          "mean": 425.85604150008294,
+          "stddev": 39.37345834118949,
+          "median": 418.35074949631235,
+          "p50": 418.35074949631235,
+          "p90": 476.1200220986211,
+          "p95": 476.17416655084526,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "short_finished_before_long": 7,
+        "rss_bytes": {
+          "n": 10,
+          "mean": 1393431756.8,
+          "stddev": 711903.3131974532,
+          "median": 1393758208.0,
+          "p50": 1393758208.0,
+          "p90": 1393892966.4,
+          "p95": 1394315059.2,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "swap_trials": 0
+      }
+    },
+    {
+      "path": "benchmarks/results/direct-lattice-batching-headtohead-session2-20261120",
+      "manifest_sha256": "cc0433449d80ef9813014c224b7b856fd0218a498aae0fb3ec33b0bfb2afaf8c",
+      "requests_sha256": "3212542cfb6696f4e7a92a5802f0f125f70d15cfbc78420d0ea7892dcc75eca8",
+      "pairs_sha256": "e4037697536c37f421032bfa56f6790a108bda4ecc5ff0f0694852fe33af0e6f",
+      "greedy_mismatches": 0,
+      "direct": {
+        "long_p50_ms": {
+          "n": 10,
+          "mean": 355.5925283981196,
+          "stddev": 32.4906689819267,
+          "median": 343.6570359990583,
+          "p50": 343.6570359990583,
+          "p90": 386.7592533984862,
+          "p95": 401.8059457001072,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "short_p50_ms": {
+          "n": 10,
+          "mean": 223.93235830095364,
+          "stddev": 8.79309253925272,
+          "median": 222.7157739980612,
+          "p50": 222.7157739980612,
+          "p90": 235.85509860131424,
+          "p95": 239.66102130289073,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "makespan_ms": {
+          "n": 10,
+          "mean": 357.2662324993871,
+          "stddev": 32.119063271407434,
+          "median": 350.7978359994013,
+          "p50": 350.7978359994013,
+          "p90": 386.89057839874295,
+          "p95": 401.9283381978311,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "short_finished_before_long": 5,
+        "rss_bytes": {
+          "n": 10,
+          "mean": 1392726835.2,
+          "stddev": 53293.49167852383,
+          "median": 1392742400.0,
+          "p50": 1392742400.0,
+          "p90": 1392779673.6,
+          "p95": 1392781516.8,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "swap_trials": 0
+      },
+      "lattice": {
+        "long_p50_ms": {
+          "n": 10,
+          "mean": 380.94363669879385,
+          "stddev": 42.85867479818545,
+          "median": 366.9995629970799,
+          "p50": 366.9995629970799,
+          "p90": 422.6799052048591,
+          "p95": 448.9580026020121,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "short_p50_ms": {
+          "n": 10,
+          "mean": 249.87339079962112,
+          "stddev": 14.750125380544038,
+          "median": 248.08971300080884,
+          "p50": 248.08971300080884,
+          "p90": 265.50832379653,
+          "p95": 270.6063503963378,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "short_ttft_ms": {
+          "n": 10,
+          "mean": 109.54955529887229,
+          "stddev": 13.259242690716336,
+          "median": 105.65646549730445,
+          "p50": 105.65646549730445,
+          "p90": 129.61844860183191,
+          "p95": 133.42210330119997,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "short_queue_ms": {
+          "n": 10,
+          "mean": 0.055567099479958415,
+          "stddev": 0.006550141357117491,
+          "median": 0.056695498642511666,
+          "p50": 0.056695498642511666,
+          "p90": 0.06216599795152433,
+          "p95": 0.06300299974100199,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "makespan_ms": {
+          "n": 10,
+          "mean": 382.53903269942384,
+          "stddev": 42.25012845604744,
+          "median": 373.60709749918897,
+          "p50": 373.60709749918897,
+          "p90": 422.93140519977896,
+          "p95": 449.2025725998246,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "short_finished_before_long": 4,
+        "rss_bytes": {
+          "n": 10,
+          "mean": 1395662028.8,
+          "stddev": 2026521.5437837648,
+          "median": 1397102592.0,
+          "p50": 1397102592.0,
+          "p90": 1397149696.0,
+          "p95": 1397149696.0,
+          "p99": null,
+          "p99_unavailable_reason": "fewer than 1000 samples"
+        },
+        "swap_trials": 0
+      }
+    }
+  ],
+  "interpretation": "The repeated 10-pair blocks estimate this narrow CPU arrival trace. Both paths use llama.cpp's native continuous batching; any measured difference is Lattice runtime/control-plane overhead, not a new batching algorithm.",
+  "limits": [
+    "Two blocks of ten pairs on one shared VM; still exploratory.",
+    "Both arms ran sequentially while both workers were resident.",
+    "Measured memory is sampled worker RSS; no energy or GPU measurements.",
+    "This does not compare the Lattice product to another model-serving engine."
+  ]
+}

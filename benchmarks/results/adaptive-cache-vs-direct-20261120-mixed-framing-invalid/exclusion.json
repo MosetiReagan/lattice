@@ -1,0 +1,6 @@
+{
+  "status": "Excluded invalid benchmark: different prompt framing",
+  "reason": "The adaptive arm used raw prompt strings while the direct arm still applied a chat template. All 30 triples differed; the results are not a valid cache-quality/performance comparison.",
+  "replacement": "../adaptive-cache-vs-direct-20261120",
+  "preservation": "Raw requests, mismatches and native timings remain unchanged."
+}

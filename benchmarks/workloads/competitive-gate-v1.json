@@ -1,0 +1,44 @@
+{
+  "version": "competitive-gate-v1",
+  "status": "Prospective acceptance protocol; current pilots do not pass it",
+  "primary_objective": "Interactive P95 improvement at fixed model, hardware, memory cap and quality",
+  "baseline": "Strongest compatible tuned native baseline including native caching and continuous batching; a weak one-slot uncached baseline is insufficient",
+  "required_improvement_fraction": 0.2,
+  "max_throughput_loss_fraction": 0.05,
+  "quality": {
+    "exact_paths": "Exact token-ID equality for all evaluated greedy requests",
+    "approximate_paths": {
+      "max_relative_ppl_increase": 0.02,
+      "max_absolute_task_loss": 0.01,
+      "requires_adequate_confidence": true
+    }
+  },
+  "resources": {
+    "same_weights": true,
+    "same_sampling": true,
+    "same_hardware": true,
+    "same_worker_memory_cap": true,
+    "report_control_plane_memory": true
+  },
+  "required_sessions": 3,
+  "minimum_measurement_scope": "Power/sample planning must precede confirmatory P95 claims; existing n=10 pilots are exploratory",
+  "trace_families": [
+    "interactive_only",
+    "long_only",
+    "mixed_25_percent_interactive",
+    "mixed_50_percent_interactive",
+    "mixed_75_percent_interactive",
+    "burst_overload",
+    "repeated_prefix",
+    "memory_constrained"
+  ],
+  "latency_requirements": [
+    "Preserve identical exogenous arrival traces across arms",
+    "Do not condition arrivals on a faster arms completion for a throughput claim",
+    "Record actual EOS/output lengths and never silently force or exclude them",
+    "Report queue, first-text, total, long-request slowdown, throughput, makespan and failures"
+  ],
+  "model_policy": "No implicit model/precision substitution",
+  "evaluation_isolation": "Development trace seeds and held-out confirmation seeds must remain separate; do not select a favorable evaluation mix after seeing results",
+  "stop_rule": "After overhead profiling and two admission/scheduling iterations, review unchanged gates and narrow or pivot if no useful win exists"
+}

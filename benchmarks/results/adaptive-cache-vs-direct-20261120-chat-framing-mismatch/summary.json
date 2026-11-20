@@ -1,0 +1,189 @@
+{
+  "trials": 30,
+  "greedy_mismatches": 0,
+  "arms": {
+    "direct_uncached": {
+      "elapsed_ms": {
+        "n": 30,
+        "mean": 965.8012951670875,
+        "stddev": 16.490449189057482,
+        "median": 968.3836875010456,
+        "p50": 968.3836875010456,
+        "p90": 985.1331365003716,
+        "p95": 992.0976460492966,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "prompt_tokens": {
+        "n": 30,
+        "mean": 598,
+        "stddev": 0.0,
+        "median": 598.0,
+        "p50": 598.0,
+        "p90": 598.0,
+        "p95": 598.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "completion_tokens": {
+        "n": 30,
+        "mean": 16,
+        "stddev": 0.0,
+        "median": 16.0,
+        "p50": 16.0,
+        "p90": 16.0,
+        "p95": 16.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "tokens_cached": {
+        "n": 30,
+        "mean": 0,
+        "stddev": 0.0,
+        "median": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "p95": 0.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "strategies": {
+        "direct_uncached": 30
+      },
+      "rss_bytes": {
+        "n": 30,
+        "mean": 1376949998.9333334,
+        "stddev": 25447.617834360804,
+        "median": 1376960512.0,
+        "p50": 1376960512.0,
+        "p90": 1376968704.0,
+        "p95": 1376968704.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "swap_trials": 0
+    },
+    "direct_native_cache": {
+      "elapsed_ms": {
+        "n": 30,
+        "mean": 233.67094279965386,
+        "stddev": 23.996499850116088,
+        "median": 237.2459344951494,
+        "p50": 237.2459344951494,
+        "p90": 269.72515899760765,
+        "p95": 274.65345280070323,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "prompt_tokens": {
+        "n": 30,
+        "mean": 598,
+        "stddev": 0.0,
+        "median": 598.0,
+        "p50": 598.0,
+        "p90": 598.0,
+        "p95": 598.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "completion_tokens": {
+        "n": 30,
+        "mean": 16,
+        "stddev": 0.0,
+        "median": 16.0,
+        "p50": 16.0,
+        "p90": 16.0,
+        "p95": 16.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "tokens_cached": {
+        "n": 30,
+        "mean": 591.6666666666666,
+        "stddev": 5.074162634049249,
+        "median": 587.0,
+        "p50": 587.0,
+        "p90": 597.0,
+        "p95": 597.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "strategies": {
+        "direct_native_cache": 30
+      },
+      "rss_bytes": {
+        "n": 30,
+        "mean": 1376949862.4,
+        "stddev": 27709.52847145445,
+        "median": 1376960512.0,
+        "p50": 1376960512.0,
+        "p90": 1376968704.0,
+        "p95": 1376968704.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "swap_trials": 0
+    },
+    "lattice_adaptive": {
+      "elapsed_ms": {
+        "n": 30,
+        "mean": 984.7444662664202,
+        "stddev": 30.60881399048638,
+        "median": 977.9530939995311,
+        "p50": 977.9530939995311,
+        "p90": 1025.5522037004994,
+        "p95": 1051.5740935501526,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "prompt_tokens": {
+        "n": 30,
+        "mean": 598,
+        "stddev": 0.0,
+        "median": 598.0,
+        "p50": 598.0,
+        "p90": 598.0,
+        "p95": 598.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "completion_tokens": {
+        "n": 30,
+        "mean": 16,
+        "stddev": 0.0,
+        "median": 16.0,
+        "p50": 16.0,
+        "p90": 16.0,
+        "p95": 16.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "tokens_cached": {
+        "n": 30,
+        "mean": 0,
+        "stddev": 0.0,
+        "median": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "p95": 0.0,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "strategies": {
+        "standard": 30
+      },
+      "rss_bytes": {
+        "n": 30,
+        "mean": 1376866850.1333334,
+        "stddev": 104531.64971292544,
+        "median": 1376899072.0,
+        "p50": 1376899072.0,
+        "p90": 1376911360.0,
+        "p95": 1376913612.8,
+        "p99": null,
+        "p99_unavailable_reason": "fewer than 1000 samples"
+      },
+      "swap_trials": 0
+    }
+  }
+}

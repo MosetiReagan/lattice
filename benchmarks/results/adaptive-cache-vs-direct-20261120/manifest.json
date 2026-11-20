@@ -1,0 +1,85 @@
+{
+  "created_utc": "2026-11-20T22:23:31.791652+00:00",
+  "model_sha256": "8e0ae26000627ed62de0e78e41860af70094558b9d2913385c842a6aa06cf3fc",
+  "backend_sha256": "9e954cd7ced8851cbcd03170fb93ed864cdf5c7f38b743a5f8481e5235ea1b7b",
+  "backend_commit": "b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+  "source_manifest": {
+    "files": {
+      "src/lattice/__init__.py": "fa5a11251ba31d2ca3e099c7b8207ea4faa6fbd9bda41b830985282bc8314ce1",
+      "src/lattice/api.py": "2a8a43262ff0c1f9373c169f62cd384ed021e3ea8bc80a5888505c9b880c52e2",
+      "src/lattice/backends/__init__.py": "241e4bb83b1ccaed6e003c80a0bd2d5ef3203da92801828c36728a997f3511fe",
+      "src/lattice/backends/batched.py": "8e804aae3277210693f3c56f2834623a158736a5a9da60a737475de2e6424bfb",
+      "src/lattice/backends/llama_cpp.py": "9bf4551e8cab5bc88d8187ee48ca862a42bba36c2764c1c68c2f7a2354d5d6fe",
+      "src/lattice/cache/__init__.py": "688facb5768072a11155f2a7ccecc400e981ff12e2238ad6ed725a5f063404ae",
+      "src/lattice/cache/prefix.py": "62dbeca648eab2d38a200011b87de0d3620e973d8d726bed7dbe09ebb0cef965",
+      "src/lattice/cli.py": "978b0da5b66d39ec1ffcfd2e05e50709652949c45c7b7888b0765b57fcaa259f",
+      "src/lattice/config.py": "b6c4b7db0718af4b7f3d5960f4b26bc15f091b25d12a5c2a7948079c39f9a33c",
+      "src/lattice/controller/__init__.py": "3ec6cd6fa45131db9fed7ab62f5266e83cb8a8b518c70d168d04700f268ecd3d",
+      "src/lattice/controller/policy.py": "feb86ca4bcbf67569a92fdd15b7fe5598492bf1c52911f1b8330dfc4af73ea83",
+      "src/lattice/data/__init__.py": "084a777ac3e9c800873ac99368d8a085b1082f6cb72b9203a80161943524cf40",
+      "src/lattice/data/comparison.py": "1e749bbf7563aceaa2472a87b0979fe654cbe82c6e9567bec29038ea7c097c7c",
+      "src/lattice/data/normalize.py": "89f4ab215bd444f89067370b0201386114e7485542f68dd2f2568eb00858c1d8",
+      "src/lattice/data/schema.py": "2d1ac0a488835516bb5c22e799d5412c8a704e44120c56589fe88adfcf85f04d",
+      "src/lattice/data/scoring.py": "81307c44ca47f093dd8c527a95148c4b7e1b10c3a8cec62f904626444347ec80",
+      "src/lattice/evaluation/__init__.py": "b8dfb70397a6697020c59052ea979e422a9a4057d1abf99df2bf9742c4c552d2",
+      "src/lattice/evaluation/benchmark.py": "8256a71623298d8176d6ece0bafd69f2b6b07abff741e213ffa1fb02335119da",
+      "src/lattice/evaluation/quality.py": "7a314b7898439936c03a7a74c4685f349b39cbf2f130bb9b16cac49d0a19ef0b",
+      "src/lattice/observability/__init__.py": "66fc2c467a33ed8dda8ae0d214092746dd888f8bcd6488c28e5c98c9207ae52b",
+      "src/lattice/observability/hardware.py": "aeb6db045098ee3223d3fe0e48e6971f44f2ac2884513ce32d3d0c7845ac2bbf",
+      "src/lattice/observability/measure.py": "52f1c93263506b7a2a2f57ac1bcc75b23f0c01e7fffabd2dabc188ce36b30b3d",
+      "src/lattice/optimizations/__init__.py": "d59ee4ec581358011c4a1d1ffccec5341ec5711b93be2ad2ca638ee777cf66d3",
+      "src/lattice/optimizations/speculative/__init__.py": "c026a7d47cea12b911c8c94ff0554702a502e44d011284bb386206df535dba79",
+      "src/lattice/optimizations/speculative/compatibility.py": "a3d314aca9fa437057fef395db337c10f43ffaa3290a3d04cef69783b4b0fbe0",
+      "src/lattice/optimizations/speculative/sampling.py": "84a02c3b7b10b81c9b1cc5f1334da994f8bf810b5ffb2f1b495767accb6b2f1f",
+      "src/lattice/quantization/__init__.py": "b73276a1be9bb386eabfe4efd09a837b5fe3366fbf79ffc75f6e8c947347c0c0",
+      "src/lattice/quantization/capabilities.py": "a5e70672333b754c07ea1b21325af2e435186aec020f10297beb84c3e922bd11",
+      "src/lattice/routing/__init__.py": "581a35adb0f3cd687309215629242dda442674bd08f101fa7c69a5bfcf6163cd",
+      "src/lattice/routing/router.py": "08118eed741191409f0a94a30130e6953bb230c2b83a1cf3ea311cfaa626b8c8",
+      "src/lattice/runtime.py": "157af77bb3267a933c4243e8dc9d5f2b82b73c8e31ad55403e65420c576b96d5",
+      "src/lattice/scheduler/__init__.py": "697dfc2f8dca6a2b4391bdefc25e8948d10aa1254da2a8537d1658e1615eabf9",
+      "src/lattice/scheduler/budget.py": "821d32787e03ea7c9409999ae8f916a39a0ee25a236502bffc21380d5a92686b",
+      "src/lattice/scheduler/fair.py": "561f39eedda698012e2ecb7523a72e7efede9f7030a7d5abbce15208a9f7db6b",
+      "src/lattice/types.py": "ffeaebea661aeac50715869e2524d855709b138e6a79e7a023fb34eaf95abc92",
+      "src/lattice/worker.py": "93d7a59e34174a13ce068657c50f3f696fcad07647741b750002ba93f02f6b37",
+      "uv.lock": "80fb4e4a94bc6f166972e78a7379a92a95e7c8b4c07d7af3bd7abdf6437e4828",
+      "pyproject.toml": "757c9d9445ba309788a59558a7b45f5214b42399f30643233cee98c4396e1ce8"
+    },
+    "sha256": "849447c8731b8149a446da38e349f8976e6ac868cd755c69ea7f4497b2ba8e92"
+  },
+  "runner_sha256": "4e72e87e0fc8d39576558080f410e3c3f5141d1e94e0e9c93d62ef2f7b43eba1",
+  "policy_file": "/data/workspace/lattice/configs/measured-policy.json",
+  "policy_sha256": "bb0eb7df7d7b77cf7bbf3584e87ce4429e2d36bcaad637cad613ccdf4d7f5f4d",
+  "workload": {
+    "id": "repeated_prefix",
+    "kind": "serial",
+    "input_words": 512,
+    "output_tokens": 16
+  },
+  "input_protocol": "Raw prompt string, identical to the exact input-hash framing used by measured-policy.json; no chat template is applied.",
+  "workload_prompt_hashes": [
+    "253db0de1ef1e756b15c8a7fc09b73e03fa4355ef49960351d937757dd51819f",
+    "5a4c4371e6c130592d8cc0920e6fd6f614ba6a3ef5bbbf25e0da9347d23c0284",
+    "8b5993a8fc60c400a829b649529e73f0d76e17594e6a65abd735bc2a84121000",
+    "f5acdf8ba92ff66f50395b0bbdbb7b3c94900ad9f137ca600f2513ddddd1c57d"
+  ],
+  "settings": {
+    "threads": 4,
+    "context_tokens": 2048,
+    "slots": 1,
+    "worker_address_space_mb": 4096
+  },
+  "trials": 30,
+  "warmups_per_arm": 2,
+  "order_seed": 26791,
+  "arms": {
+    "direct_uncached": "Raw native completion, cache_prompt=false.",
+    "direct_native_cache": "Same raw native endpoint, cache_prompt=true on every request; strongest fixed upstream-cache baseline.",
+    "lattice_adaptive": "Lattice Runtime with the measured exact-prompt adaptive policy. Only exact qualified hashes may select cached execution."
+  },
+  "limitations": [
+    "All paths use the same llama.cpp server implementation.",
+    "Repeated-prefix workload only; no generalization claim.",
+    "Worker cold-start and checksum admission excluded; both workers stay resident.",
+    "No official task-quality claim; exact greedy token comparison is enforced."
+  ]
+}

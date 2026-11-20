@@ -1,0 +1,6 @@
+{
+  "output": "/data/workspace/lattice/benchmarks/results/direct-lattice-headtohead-20261120",
+  "pairs": 50,
+  "greedy_mismatches": 0,
+  "text_mismatches": 0
+}

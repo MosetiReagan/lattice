@@ -1,0 +1,6 @@
+{
+  "status": "Exploratory run; memory_constrained workload excluded from direct-vs-Lattice conclusions.",
+  "reason": "Correction after code inspection: both workers used the default 4096 MiB cap, so the memory_constrained workload failed to apply its requested 2048 MiB override to either arm. The arms were not unequal; the workload label was wrong. Entire exploratory run excluded from the final report.",
+  "source_sha256": "3b1f04ec81245e46ed8fbbe1670e51019d773f84a05a9bed2eb47435d1aa0acd",
+  "note": "All original outputs are preserved for provenance, including the noncomparable memory-limited rows."
+}

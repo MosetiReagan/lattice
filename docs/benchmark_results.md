@@ -69,3 +69,8 @@ The recommended catalog has 193,630 curated records across nine external familie
 ## Fresh benchmark followup
 
 A new sequential two-block, ten-trial same-source precision matrix and paired one-/two-slot serving run is documented in [benchmark_followup_results.md](benchmark_followup_results.md). One accidental overlap invalidated all Q4 measurements in block 1; they are preserved but excluded. The clean second block and the direct 10-pair batching test are reported separately. The targeted two-slot study retained greedy equivalence and reduced measured short-request queueing for this workload; it does not generalize to all workloads or establish production throughput.
+
+
+## Direct native baseline audit
+
+[One-slot](direct_lattice_comparison.md), [two-slot](direct_lattice_batching_comparison.md), and [native-cache](adaptive_native_cache_comparison.md) pilots compare Lattice against direct calls to the same pinned llama.cpp implementation with matched execution settings. They do not establish a Lattice-specific performance win. Prior one-slot/two-slot improvements are upstream-configuration/integration evidence. See [the competitive decision and prospective gates](competitive_execution_plan.md); no quality gates or release classification changed.

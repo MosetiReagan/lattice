@@ -14,6 +14,7 @@ uv run --no-sync lattice serve --model qwen2.5-0.5b-instruct-f16 --native-slots 
 
 The present workspace is already provisioned. A fresh Linux checkout needs Python >=3.11, uv, git, GCC/G++, RAM admission and disk reserve. Backend/model downloads are operator actions; inference clients cannot request filesystem paths or downloads. Set `LATTICE_API_KEY` for bearer authentication; non-loopback CLI binding requires it.
 
+- [Competitive baseline and execution plan](docs/competitive_execution_plan.md)
 - [Fresh CPU precision and batching benchmarks](docs/benchmark_followup_results.md)
 - [Measured results and acceptance gates](docs/benchmark_results.md), [comparison frame](docs/comparison_matrix.md) and [release readiness](docs/release_readiness.md).
 - [Run instructions and API](docs/baseline_runtime.md), [concurrent serving](docs/concurrent_serving.md) and [its measured results](docs/concurrent_serving_results.md)
