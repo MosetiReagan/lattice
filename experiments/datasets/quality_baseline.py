@@ -7,6 +7,7 @@ No execution policy is trained or promoted. Code/official IFEval stay deferred.
 import argparse
 import asyncio
 import datetime
+import inspect
 import json
 import math
 import platform
@@ -114,7 +115,8 @@ async def tokenize(backend, client, prompt):
     return len(response["tokens"])
 
 
-async def main():
+async def main(*, subset_path=None, caps=None, scorer=score_record):
+    caps = CAPS if caps is None else caps
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--output", type=Path, default=ROOT / "benchmarks/results/dataset-quality-v1"
@@ -127,7 +129,7 @@ async def main():
         ).exists():
             await asyncio.sleep(5)
     args.output.mkdir(parents=True, exist_ok=False)
-    subset_path = ROOT / "benchmarks/datasets/eval-subsets-v1.json"
+    subset_path = subset_path or ROOT / "benchmarks/datasets/eval-subsets-v1.json"
     frozen = json.loads(subset_path.read_text())
     tasks = []
     for dataset in frozen["datasets"]:
@@ -160,7 +162,7 @@ async def main():
         "worker_address_space_mb": settings.worker_address_space_mb,
         "host_reserve_mb": settings.host_reserve_mb,
         "frozen_subset_sha256": file_hash(subset_path),
-        "scorer_sha256": file_hash(ROOT / "src/lattice/data/scoring.py"),
+        "scorer_sha256": file_hash(Path(inspect.getfile(scorer))),
         "runner_sha256": file_hash(Path(__file__)),
         "backend_sha256": settings.backend_sha256,
         "backend_commit": settings.backend_commit,
@@ -170,7 +172,7 @@ async def main():
         "seed": 84721,
         "context_tokens": 2048,
         "native_slots": 1,
-        "output_caps": CAPS,
+        "output_caps": caps,
         "timing_scope": "Operational only; no speed comparison",
         "protocol": "Zero-shot user chat, generated answers; not official leaderboard scores",
         "selection": frozen["selection"],
@@ -221,7 +223,7 @@ async def main():
                             "reference_sha256": record.reference_sha256(),
                             "license": record.license,
                             "source": record.source,
-                            "max_tokens": CAPS[record.dataset],
+                            "max_tokens": caps[record.dataset],
                         }
                         try:
                             prompt_tokens = await tokenize(
@@ -230,7 +232,7 @@ async def main():
                             row["prompt_tokens"] = prompt_tokens
                             if (
                                 len(record.prompt.encode()) > 32768
-                                or prompt_tokens + CAPS[record.dataset]
+                                or prompt_tokens + caps[record.dataset]
                                 > settings.context_tokens
                             ):
                                 row.update(status="skipped_context_limit", score=None)
@@ -240,7 +242,7 @@ async def main():
                                     messages=[
                                         Message(role="user", content=record.prompt)
                                     ],
-                                    max_tokens=CAPS[record.dataset],
+                                    max_tokens=caps[record.dataset],
                                     temperature=0.0,
                                     seed=84721,
                                     timeout_seconds=120.0,
@@ -249,7 +251,7 @@ async def main():
                                 row.update(
                                     status="completed",
                                     text=result["text"],
-                                    score=asdict(score_record(record, result["text"])),
+                                    score=asdict(scorer(record, result["text"])),
                                     completion_tokens=result["metadata"][
                                         "completion_tokens"
                                     ],

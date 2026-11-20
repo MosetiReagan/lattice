@@ -25,7 +25,7 @@ Raw/prepared content stays local, gitignored and outside code packages. Recipes,
 
 ## Scoring limitations
 
-Prompts use English instructions around original-language contexts/questions. Existing span_v1 normalization uses English articles/ASCII punctuation and is not validated as an official multilingual scorer. No model runs, accuracy, quality preservation or multilingual runtime support are claimed. Next steps require frozen language/article-stratified cases, validated multilingual scoring and measured tokenizer/context compatibility. These evaluation additions are not policy-training data.
+Prompts use English instructions around original-language contexts/questions. Existing span_v1 normalization uses English articles/ASCII punctuation and is not validated as an official multilingual scorer. The CPU pilot below uses a separate Unicode exact-match scorer and measures context compatibility on frozen cases. Official scoring and broader multilingual quality remain unverified. These evaluation additions are not policy-training data.
 
 ## Reproduction
 
@@ -37,3 +37,19 @@ uv run --no-sync pytest -q tests/test_multilingual_data.py
 ```
 
 Recipes verify pinned cards/raw hashes, quarantine offset failures and refuse changed exports/manifests. Both preparations reproduced byte-identical exports on a second run. Cross-intake auditing requires the previous curated exports; see [preparation instructions](datasets.md). No remote dataset code executes.
+
+## Measured CPU pilot
+
+The frozen sample contains 168 cases, eight per language in each source. Selection uses a fixed hash ranking and distinct groups within each source language. Both models ran with greedy decoding, a 2,048-token context and a 64-token output cap. The pilot scorer compares whole answers after Unicode NFC and whitespace normalization. Strict scoring only trims surrounding whitespace.
+
+| Qwen2.5 configuration | Scored | Exact matches | Context skips | Output cap reached |
+|---|---:|---:|---:|---:|
+| 0.5B FP16 | 166 | 48 | 2 | 5 |
+| 1.5B Q8 | 166 | 77 | 2 | 6 |
+
+Strict counts were identical. Both models skipped the same two oversized cases without truncation. The replay verified the stored scores, prompt token counts and output limits. The small balanced sample, shared translations and English prompt framing limit interpretation. The metric is specific to this pilot and the checkpoints differ in both size and representation. See the [verified results](../benchmarks/results/multilingual-quality-v1/verified.json) and [per-language counts](../benchmarks/results/multilingual-quality-v1/summary.json).
+
+```bash
+uv run --no-sync python experiments/datasets/multilingual_quality.py --output .local/multilingual-repeat
+uv run --no-sync python scripts/verify_multilingual_quality.py .local/multilingual-repeat
+```

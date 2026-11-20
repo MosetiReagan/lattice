@@ -1,0 +1,18 @@
+{
+  "qwen2.5-0.5b-instruct-f16": {
+    "completed": 166,
+    "unicode_exact_match": 48,
+    "strict_exact_match": 48,
+    "output_cap_finishes": 5,
+    "skipped_context_limit": 2,
+    "outcomes_sha256": "21152d1da4301a1978805ecada0e129b3783acd1009dea47335daebb5a631426"
+  },
+  "qwen2.5-1.5b-instruct-q8": {
+    "completed": 166,
+    "unicode_exact_match": 77,
+    "strict_exact_match": 77,
+    "output_cap_finishes": 6,
+    "skipped_context_limit": 2,
+    "outcomes_sha256": "f7f53924b17e3ddfa7854dc0ef45427f5f101bcf95325c81e5cc630e88a07edb"
+  }
+}
