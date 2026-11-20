@@ -4,6 +4,7 @@ This measures corpus loss, not request latency. Concurrent dataset preparation
 may use the CPU; wall time is operational information, never a speed benchmark.
 """
 
+import argparse
 import asyncio
 import datetime
 import json
@@ -22,7 +23,15 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 async def main():
-    out = ROOT / "benchmarks/results/dataset-intake-full-corpus-v1"
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=ROOT / "benchmarks/results/dataset-intake-full-corpus-v1",
+    )
+    args = parser.parse_args()
+    out = args.output
+    out.parent.mkdir(parents=True, exist_ok=True)
     out.mkdir(exist_ok=False)
     downloads = json.loads(
         (ROOT / "benchmarks/datasets/external/download-manifest.json").read_text()

@@ -1,0 +1,5 @@
+{
+  "source_commit": "3b47fe6",
+  "runner_sha256": "e3d7eebf096ac87f87518396dd6dc03323b5f49aa9a2ed35a9daaa9ca04e08c4",
+  "note": "Exact executed script before adding an output-directory CLI flag; native result commands and settings unchanged."
+}

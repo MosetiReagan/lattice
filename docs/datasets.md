@@ -102,18 +102,21 @@ uv run --no-sync python scripts/curate_lattice_datasets.py
 uv run --no-sync python scripts/audit_dataset_catalog.py --curated --output benchmarks/datasets/catalog-curated-v1.json
 uv run --no-sync python scripts/freeze_dataset_eval.py --catalog benchmarks/datasets/catalog-curated-v1.json --output benchmarks/datasets/eval-subsets-curated-v1.json --verify
 uv run --no-sync python scripts/freeze_dataset_eval.py --count 60 --seed 84721 --verify
-uv run --no-sync python experiments/datasets/full_corpus.py
-uv run --no-sync python experiments/datasets/quality_baseline.py
-uv run --no-sync python experiments/datasets/token_lengths.py
-uv run --no-sync python scripts/validate_dataset_observations.py
-uv run --no-sync python scripts/compare_dataset_quality.py
+uv run --no-sync python experiments/datasets/full_corpus.py --output .local/dataset-reproduction/full-corpus
+uv run --no-sync python experiments/datasets/quality_baseline.py --output .local/dataset-reproduction/quality
+uv run --no-sync python experiments/datasets/token_lengths.py --output .local/dataset-reproduction/token-lengths
+uv run --no-sync python scripts/validate_dataset_observations.py --results .local/dataset-reproduction/quality
+uv run --no-sync python scripts/compare_dataset_quality.py --results .local/dataset-reproduction/quality
+# Re-render the preserved published study from its committed evidence:
 uv run --no-sync python scripts/report_dataset_study.py
 uv run --no-sync pytest -q -m 'not integration'
 ```
 
+New measurement commands above use fresh `.local/dataset-reproduction/` directories so they never overwrite committed published results. Change that run prefix for each repetition; defaults intentionally refuse existing folders. The report command re-renders the committed study, while reproduced measurements remain in the explicit new folders.
+
 Use the checked-in source lock to reproduce. `lock_dataset_sources.py --output NEW_LOCK.json` discovers a new candidate lock and pinned cards for explicit review; it does not reproduce this intake and its hardcoded license expectations are not automatic legal validation of future upstream changes. Re-locking requires inspection before download.
 
-The prepared JSONL plus raw downloads require roughly 400 MiB; full audit SQLite (including preserved rows/JSON and indices) adds roughly 523 MiB on this machine. Authored active exports add roughly 13 MiB; model weights/native binaries are separate. Downloader reserves 3 GiB free disk. CPU quality evaluation runs model variants sequentially and avoids overlapping corpus-loss jobs; operational wall times are not speed benchmarks. See [dataset study results](dataset_results.md) for measured outcomes and remaining exclusions.
+The prepared JSONL plus raw downloads require roughly 400 MiB; full audit SQLite (including preserved rows/JSON and indices) adds roughly 523 MiB on this machine. Each original/curated authored export adds roughly 13 MiB; preserving both keeps the errata auditable; model weights/native binaries are separate. Downloader reserves 3 GiB free disk. CPU quality evaluation runs model variants sequentially and avoids overlapping corpus-loss jobs; operational wall times are not speed benchmarks. See [dataset study results](dataset_results.md) for measured outcomes and remaining exclusions.
 
 Optional separate model observations use `experiments/datasets/larger_model_quality.py` and `experiments/datasets/larger_model_corpus.py` after the primary studies finish. These use the explicit registered Qwen 1.5B Q8 checkpoint and preserve separate result folders. Its additional corpus observation uses a predeclared first-256-chunk subset (not the full 1,167-chunk primary study) to bound compute. They are different-model observations, not same-checkpoint optimization results or validated routing. They do not add new task records to the catalog.
 

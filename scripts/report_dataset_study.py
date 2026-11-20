@@ -82,7 +82,7 @@ def main():
         lines.append("| " + dataset + " | " + " | ".join(cells) + " |")
     lines += [
         "",
-        "No oversized input is truncated. Skips/errors are excluded from accuracy only with explicit selected/scored coverage below; length-limited **output** completions remain scored. Every exclusion ID/status and per-stratum outcome is retained. Results on supported prompt lengths cannot be generalized to skipped long contexts.",
+        "No oversized input is truncated. Skips/errors are excluded from accuracy only with explicit selected/scored coverage below; length-limited **output** completions remain scored. Every exclusion ID/status and per-stratum outcome is retained. High math output-cap hit rates mean these are quality-at-fixed-output-budget observations, not unconstrained reasoning-accuracy estimates. Results on supported prompt lengths cannot be generalized to skipped long contexts.",
         "",
         "| Configuration | Selected/model | Scored FP16 / Q8 / Q4 | Excluded FP16 / Q8 / Q4 | Output-cap finishes FP16 / Q8 / Q4 |",
         "|---|---:|---:|---:|---:|",

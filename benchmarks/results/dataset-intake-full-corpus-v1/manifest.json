@@ -1,0 +1,14 @@
+{
+  "created_utc": "2026-11-19T23:29:06.049982+00:00",
+  "corpus_sha256": "bbf94c53a05abe9ee670d3b6343608095822c85e26de37c70b24fc571964574a",
+  "source_revision": "b08601e04326c79dfdd32d625aee71d232d685c3",
+  "source_parquet_sha256": "5f1bea067869d04849c0f975a2b29c4ff47d867f484f5010ea5e861eab246d91",
+  "tool_sha256": "e5ec5d4a1a00eccd50eb0511edf57d6f04e1657bc6a1313d96b42d17f7fcb811",
+  "context_tokens": 256,
+  "batch_tokens": 256,
+  "threads": 4,
+  "chunk_selection": "all full 256-token chunks",
+  "scoring": "Native default scores final half of each non-overlapping chunk; not all corpus tokens",
+  "timing_scope": "Operational wall time only, not an isolated performance result",
+  "models": {}
+}

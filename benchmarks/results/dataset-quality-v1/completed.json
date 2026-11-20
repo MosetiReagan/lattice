@@ -1,0 +1,9 @@
+{
+  "models": [
+    "qwen2.5-0.5b-instruct-f16",
+    "qwen2.5-0.5b-instruct-q8_0",
+    "qwen2.5-0.5b-instruct-q4_k_m"
+  ],
+  "records_per_model": 600,
+  "completed_utc": "2026-11-20T00:07:17.999291+00:00"
+}

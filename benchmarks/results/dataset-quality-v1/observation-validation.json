@@ -1,0 +1,28 @@
+{
+  "frozen_cases": 600,
+  "models": {
+    "qwen2.5-0.5b-instruct-f16": {
+      "observations": 600,
+      "reproduced_scores": 576,
+      "verified_context_skips": 24,
+      "other_errors": [],
+      "outcomes_sha256": "3414a38cb60776ed576a03a534b399c9b0f7af77864baaa478b110a6c617f92c"
+    },
+    "qwen2.5-0.5b-instruct-q8_0": {
+      "observations": 600,
+      "reproduced_scores": 576,
+      "verified_context_skips": 24,
+      "other_errors": [],
+      "outcomes_sha256": "eebcbb2ed09f9ff3103715ae4ab8c0462fcd41c62f87962483272bd942dc671c"
+    },
+    "qwen2.5-0.5b-instruct-q4_k_m": {
+      "observations": 600,
+      "reproduced_scores": 576,
+      "verified_context_skips": 24,
+      "other_errors": [],
+      "outcomes_sha256": "a9821c09173693626093b97ffff79ac6091edcfb7a02e00b2fea6ee6249fc5c0"
+    }
+  },
+  "validator_sha256": "49848654e2c660df146c2ccad5d3f23b745f84e11268ba27f511894049ae857e",
+  "policy_qualification": false
+}

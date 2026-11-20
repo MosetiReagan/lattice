@@ -137,6 +137,11 @@ def main():
         help="Audit the semantic-curated authored view",
     )
     args = parser.parse_args()
+    args.output = args.output or ROOT / (
+        "benchmarks/datasets/catalog-curated-v1.json"
+        if args.curated
+        else "benchmarks/datasets/catalog-v1.json"
+    )
     report = audit(
         [
             ROOT / "benchmarks/datasets/external/prepared/intake-v1/manifest.json",
