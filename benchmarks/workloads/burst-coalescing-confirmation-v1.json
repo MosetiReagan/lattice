@@ -1,0 +1,18 @@
+{
+  "version": "burst-coalescing-confirmation-v1",
+  "stage": "Frozen after development seeds 1001/1002 and before inspecting any confirmation seed",
+  "candidate": "lattice_coalesce4",
+  "baselines": ["native8", "simple_cost4"],
+  "candidate_parameters": {"native_slots": 4, "batch_tokens": 256, "ubatch_tokens": 256, "admission_policy": "priority_cost_coalesce", "bulk_input_bytes_threshold": 1024, "bulk_output_cap_threshold": 32, "default_priority_bulk_grace_seconds": 0.05},
+  "baseline_selection": "Native 1/2/3/4/8 slots and native8 logical batch sizes 64/128/256/512/1024 were evaluated on development only. Native8 batch256 was selected for best interactive P95. simple_cost4 is a thin cost-priority queue outside Lattice without the grace interval.",
+  "sessions": [{"seed": 2001, "traces": 10}, {"seed": 3001, "traces": 10}, {"seed": 4001, "traces": 10}],
+  "scope": "Synthetic CPU burst: six diverse long-input copy tasks, followed by six short-input copy tasks. Bulk means prefill cost, not sustained long output. No production prevalence or broad competitor claim.",
+  "arrival_contract": "All arms receive identical absolute-from-origin request offsets and source prompts. End-to-end latency includes intentional grace and queueing. No arrivals wait for completions.",
+  "limits_contract": "Same pinned model, greedy sampler, 2048-token per-request context, 4096-MiB worker address-space cap, four CPU threads. Actual prompt/output token lengths, EOS, failures, worker and control-plane RSS and dispatch lateness are reported.",
+  "quality_gate": "Every request has identical token IDs and text to the corresponding native8 request. No exclusion of failures or output-cap finishes.",
+  "latency_gate": {"interactive_p95_ratio_upper_95_percent_bound": 0.8, "every_session_point_ratio_at_most": 0.8},
+  "throughput_gate": {"candidate_over_native_lower_95_percent_bound": 0.95, "every_session_point_ratio_at_least": 0.95},
+  "uncertainty": "10000 seeded hierarchical bootstrap replicates: resample sessions, then whole paired traces within sessions. Latency statistic pools all interactive requests in sampled traces; throughput is sum actual completed tokens divided by sum trace makespans. Report central 95% intervals and raw session/trace results. Three shared-VM sessions are not independent hardware/site replications.",
+  "sample_planning": "30 paired traces, 180 interactive requests per arm. This is a fixed-budget confirmation for a large latency effect, not a general tail-SLA study. Throughput gate may remain inconclusive; no optional stopping or added traces after results are inspected.",
+  "decision": "A pass is restricted to this workload, CPU, model, baseline sweep and configuration. If any gate fails or is inconclusive, do not claim a win and do not relax the gate. Do not call bounded grace or cost-priority scheduling novel algorithms. Default serving policy stays unchanged."
+}

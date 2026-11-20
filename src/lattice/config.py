@@ -3,8 +3,9 @@
 import hashlib
 import os
 from pathlib import Path
+from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from .types import LatticeError
 
@@ -35,13 +36,27 @@ class Settings(BaseModel):
     draft_tokens: int = Field(default=4, ge=1, le=16)
     context_tokens: int = Field(default=2048, ge=128, le=8192)
     threads: int = Field(default=4, ge=1, le=64)
-    native_slots: int = Field(default=1, ge=1, le=2)
+    batch_tokens: int = Field(default=256, ge=32, le=2048)
+    ubatch_tokens: int = Field(default=256, ge=32, le=2048)
+    native_slots: Literal[1, 2, 3, 4, 8] = 1
     max_queue: int = Field(default=8, ge=0, le=128)
+    admission_policy: Literal[
+        "priority_fifo",
+        "priority_cost",
+        "priority_cost_reserve",
+        "priority_cost_coalesce",
+    ] = "priority_fifo"
     worker_address_space_mb: int = Field(default=4096, ge=1024)
     host_reserve_mb: int = Field(default=2048, ge=256)
     startup_timeout_seconds: float = Field(default=120.0, gt=0, le=600)
     log_directory: str = "artifacts"
     requests_per_minute: int = Field(default=60, ge=1, le=100000)
+
+    @model_validator(mode="after")
+    def valid_native_batch(self):
+        if self.ubatch_tokens > self.batch_tokens:
+            raise ValueError("ubatch_tokens cannot exceed batch_tokens")
+        return self
 
 
 def file_hash(path: Path) -> str:

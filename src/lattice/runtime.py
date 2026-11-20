@@ -34,7 +34,23 @@ class Runtime:
             )
         if settings.native_slots > getattr(backend, "native_slots", 1):
             raise ValueError("Admission capacity exceeds backend slot capacity")
-        self.lock = FairSemaphore(settings.native_slots)
+        self.lock = FairSemaphore(
+            settings.native_slots,
+            cost_aware=settings.admission_policy != "priority_fifo",
+        )
+        if (
+            settings.admission_policy == "priority_cost_reserve"
+            and settings.native_slots < 2
+        ):
+            raise ValueError("Reserved admission requires at least two native slots")
+        self.bulk_lock = (
+            FairSemaphore(settings.native_slots - 1, cost_aware=True)
+            if settings.admission_policy == "priority_cost_reserve"
+            else None
+        )
+        self._small_pending = 0
+        self._small_drained = asyncio.Event()
+        self._small_drained.set()
         self.waiting = 0
         self.counters: Counter = Counter()
         self.recent: deque = deque(maxlen=100)
@@ -45,6 +61,7 @@ class Runtime:
             "queue_depth": self.waiting,
             "active_requests": self.lock.active,
             "max_active_requests": self.settings.native_slots,
+            "admission_policy": self.settings.admission_policy,
             "backend_slots": getattr(self.backend, "slot_stats", lambda: None)(),
             "recent": list(self.recent),
             "unavailable": [
@@ -93,6 +110,8 @@ class Runtime:
         start = time.perf_counter()
         self.waiting += 1
         acquired = False
+        bulk_acquired = False
+        small_registered = False
         queued = True
         record = {
             "id": request_id,
@@ -108,6 +127,7 @@ class Runtime:
             "completion_tokens": 0,
             "max_tokens": request.max_tokens,
             "priority": request.priority,
+            "admission_policy": self.settings.admission_policy,
             "max_memory_mb": request.max_memory_mb,
             "latency_budget_ms": request.latency_budget_ms,
             "temperature": request.temperature,
@@ -120,7 +140,50 @@ class Runtime:
         previous_chunk = None
         try:
             async with asyncio.timeout(request.timeout_seconds):
-                await self.lock.acquire(request.priority)
+                if self.settings.admission_policy != "priority_fifo":
+                    input_bytes = (
+                        len(request.prompt.encode())
+                        if request.prompt is not None
+                        else sum(
+                            len(message.content.encode())
+                            for message in request.messages or []
+                        )
+                    )
+                    # A deterministic workload-size proxy, not a validated compute
+                    # forecast or task-complexity assessment. Priorities and aging
+                    # outrank this tiebreaker. Limits and model/sampling stay fixed.
+                    estimated_work = input_bytes + 64 * request.max_tokens
+                    is_bulk = input_bytes > 1024 or request.max_tokens > 32
+                    if (
+                        self.settings.admission_policy == "priority_cost_coalesce"
+                        and is_bulk
+                        and request.priority == 0
+                    ):
+                        # Opt-in bounded burst shaping. A short grace interval
+                        # lets small requests enter native slots before expensive
+                        # prefills; it is included in the original timeout/budget.
+                        await asyncio.sleep(0.05)
+                    # An explicit higher priority bypasses the bulk lane; this
+                    # preserves caller ordering rather than inferring task value.
+                    if self.bulk_lock is not None:
+                        if is_bulk and request.priority == 0:
+                            await self.bulk_lock.acquire(
+                                request.priority, estimated_work
+                            )
+                            bulk_acquired = True
+                            # Bound the drain hold so sustained small traffic
+                            # cannot indefinitely stop bulk admissions.
+                            try:
+                                await asyncio.wait_for(self._small_drained.wait(), 5.0)
+                            except TimeoutError:
+                                pass
+                        else:
+                            self._small_pending += 1
+                            small_registered = True
+                            self._small_drained.clear()
+                    await self.lock.acquire(request.priority, estimated_work)
+                else:
+                    await self.lock.acquire(request.priority)
                 acquired = True
                 if request.model != self.model_id:
                     self.backend.stop()
@@ -208,6 +271,12 @@ class Runtime:
                 self.waiting -= 1
             if acquired:
                 self.lock.release()
+            if bulk_acquired:
+                self.bulk_lock.release()
+            if small_registered:
+                self._small_pending -= 1
+                if self._small_pending == 0:
+                    self._small_drained.set()
             record["total_ms"] = (time.perf_counter() - start) * 1000
             record["latency_budget_met"] = (
                 None

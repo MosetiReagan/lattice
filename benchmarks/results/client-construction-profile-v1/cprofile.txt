@@ -1,0 +1,23 @@
+         67729 function calls (66241 primitive calls) in 0.172 seconds
+
+   Ordered by: cumulative time
+   List reduced from 1010 to 15 due to restriction <15>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+       40    0.000    0.000    0.145    0.004 /data/workspace/lattice/.venv/lib/python3.13/site-packages/httpx/_client.py:1353(__init__)
+       40    0.000    0.000    0.139    0.003 /data/workspace/lattice/.venv/lib/python3.13/site-packages/httpx/_client.py:1432(_init_transport)
+       40    0.000    0.000    0.139    0.003 /data/workspace/lattice/.venv/lib/python3.13/site-packages/httpx/_transports/default.py:280(__init__)
+       40    0.000    0.000    0.114    0.003 /data/workspace/lattice/.venv/lib/python3.13/site-packages/httpx/_config.py:23(create_ssl_context)
+       40    0.000    0.000    0.110    0.003 /usr/lib/python3.13/ssl.py:682(create_default_context)
+       40    0.104    0.003    0.104    0.003 {method 'load_verify_locations' of '_ssl._SSLContext' objects}
+   167/46    0.001    0.000    0.053    0.001 <frozen importlib._bootstrap>:1349(_find_and_load)
+   138/45    0.000    0.000    0.052    0.001 <frozen importlib._bootstrap>:1304(_find_and_load_unlocked)
+     88/7    0.000    0.000    0.048    0.007 <frozen importlib._bootstrap>:911(_load_unlocked)
+     86/7    0.000    0.000    0.048    0.007 <frozen importlib._bootstrap_external>:1020(exec_module)
+   231/52    0.000    0.000    0.047    0.001 <frozen importlib._bootstrap>:480(_call_with_frames_removed)
+    114/7    0.004    0.000    0.046    0.007 {built-in method builtins.exec}
+       40    0.000    0.000    0.026    0.001 /data/workspace/lattice/.venv/lib/python3.13/site-packages/httpx/_client.py:2008(__aexit__)
+       40    0.000    0.000    0.026    0.001 /data/workspace/lattice/.venv/lib/python3.13/site-packages/httpx/_transports/default.py:365(__aexit__)
+       40    0.000    0.000    0.026    0.001 /data/workspace/lattice/.venv/lib/python3.13/site-packages/httpcore/_async/connection_pool.py:358(__aexit__)
+
+

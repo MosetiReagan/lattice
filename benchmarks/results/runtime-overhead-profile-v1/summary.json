@@ -1,0 +1,92 @@
+{
+  "scope": "12 serial submissions through two-slot runtime; startup excluded; client construction time is included in cleanup, so components overlap and must not be summed. Instrumentation pilot, not speed benchmark.",
+  "observations": [
+    {
+      "trial": 0,
+      "total_ms": 138.96636899880832,
+      "http_client_construction_ms": 6.816894994699396,
+      "native_cleanup_ms": 7.026674997177906,
+      "completion_tokens": 8
+    },
+    {
+      "trial": 1,
+      "total_ms": 136.97185800265288,
+      "http_client_construction_ms": 6.609424999624025,
+      "native_cleanup_ms": 6.875455001136288,
+      "completion_tokens": 8
+    },
+    {
+      "trial": 2,
+      "total_ms": 142.89709200238576,
+      "http_client_construction_ms": 7.149395998567343,
+      "native_cleanup_ms": 6.975304997467902,
+      "completion_tokens": 8
+    },
+    {
+      "trial": 3,
+      "total_ms": 135.80630799697246,
+      "http_client_construction_ms": 6.680575002974365,
+      "native_cleanup_ms": 6.716253999911714,
+      "completion_tokens": 8
+    },
+    {
+      "trial": 4,
+      "total_ms": 120.75993599864887,
+      "http_client_construction_ms": 6.596173996513244,
+      "native_cleanup_ms": 14.139769999019336,
+      "completion_tokens": 8
+    },
+    {
+      "trial": 5,
+      "total_ms": 122.89731799683068,
+      "http_client_construction_ms": 6.584673996258061,
+      "native_cleanup_ms": 7.145034993300214,
+      "completion_tokens": 8
+    },
+    {
+      "trial": 6,
+      "total_ms": 112.86863099667244,
+      "http_client_construction_ms": 6.535623993841,
+      "native_cleanup_ms": 6.361214000207838,
+      "completion_tokens": 8
+    },
+    {
+      "trial": 7,
+      "total_ms": 112.59569999674568,
+      "http_client_construction_ms": 6.144905004475731,
+      "native_cleanup_ms": 6.279004999669269,
+      "completion_tokens": 8
+    },
+    {
+      "trial": 8,
+      "total_ms": 112.95758099731756,
+      "http_client_construction_ms": 6.103473999246489,
+      "native_cleanup_ms": 6.547324999701232,
+      "completion_tokens": 8
+    },
+    {
+      "trial": 9,
+      "total_ms": 113.43555100029334,
+      "http_client_construction_ms": 6.5662839988362975,
+      "native_cleanup_ms": 7.097814996086527,
+      "completion_tokens": 8
+    },
+    {
+      "trial": 10,
+      "total_ms": 115.3545720007969,
+      "http_client_construction_ms": 6.748604995664209,
+      "native_cleanup_ms": 7.010255001659971,
+      "completion_tokens": 8
+    },
+    {
+      "trial": 11,
+      "total_ms": 116.15340299613308,
+      "http_client_construction_ms": 6.652404998021666,
+      "native_cleanup_ms": 6.899954998516478,
+      "completion_tokens": 8
+    }
+  ],
+  "median_total_ms": 118.45666949739098,
+  "median_http_client_construction_ms": 6.602799498068634,
+  "median_cleanup_ms": 6.93762999799219
+}

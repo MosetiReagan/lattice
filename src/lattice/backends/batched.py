@@ -16,6 +16,7 @@ import httpx
 from lattice.config import ModelEntry, Settings
 from lattice.types import GenerationRequest, LatticeError
 
+from .http_client import native_ssl_context
 from .llama_cpp import LlamaCppBackend
 
 
@@ -76,7 +77,11 @@ class BatchedLlamaBackend(LlamaCppBackend):
         await super().start()
         try:
             async with httpx.AsyncClient(
-                base_url=self.base_url, headers=self.headers, timeout=2, trust_env=False
+                verify=native_ssl_context(),
+                base_url=self.base_url,
+                headers=self.headers,
+                timeout=2,
+                trust_env=False,
             ) as client:
                 slots = await client.get("/slots")
                 slots.raise_for_status()
@@ -206,6 +211,7 @@ class BatchedLlamaBackend(LlamaCppBackend):
         deadline = time.monotonic() + 5.0
         try:
             async with httpx.AsyncClient(
+                verify=native_ssl_context(),
                 base_url=self.base_url,
                 headers=self.headers,
                 timeout=1.0,

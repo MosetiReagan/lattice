@@ -16,13 +16,17 @@ class Waiter:
     arrived: float
     future: asyncio.Future
     granted: bool = False
+    estimated_work: int = 0
 
 
 class FairSemaphore:
-    def __init__(self, capacity: int = 1, aging_seconds: float = 5.0):
+    def __init__(
+        self, capacity: int = 1, aging_seconds: float = 5.0, *, cost_aware: bool = False
+    ):
         if capacity < 1:
             raise ValueError("Admission capacity must be positive")
         self.capacity = capacity
+        self.cost_aware = cost_aware
         if aging_seconds <= 0:
             raise ValueError("Aging interval must be positive")
         self.aging_seconds = aging_seconds
@@ -37,7 +41,9 @@ class FairSemaphore:
     def locked(self) -> bool:
         return self._active >= self.capacity
 
-    async def acquire(self, priority: int = 0) -> bool:
+    async def acquire(self, priority: int = 0, estimated_work: int = 0) -> bool:
+        if type(estimated_work) is not int or estimated_work < 0:
+            raise ValueError("Estimated work must be a nonnegative integer proxy")
         if not self.locked():
             self._active += 1
             return True
@@ -48,6 +54,7 @@ class FairSemaphore:
             time.monotonic(),
             asyncio.get_running_loop().create_future(),
         )
+        waiter.estimated_work = estimated_work
         self._waiters.append(waiter)
         try:
             await waiter.future
@@ -71,6 +78,7 @@ class FairSemaphore:
             self._waiters,
             key=lambda w: (
                 w.priority + int((now - w.arrived) / self.aging_seconds),
+                -w.estimated_work if self.cost_aware else 0,
                 -w.sequence,
             ),
         )

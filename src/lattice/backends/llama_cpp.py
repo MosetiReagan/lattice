@@ -25,6 +25,8 @@ from lattice.optimizations.speculative.compatibility import tokenizer_fingerprin
 from lattice.scheduler.budget import Budget, ResourceSnapshot
 from lattice.types import GenerationRequest, LatticeError
 
+from .http_client import native_ssl_context
+
 
 class LlamaCppBackend:
     native_slots = 1
@@ -214,9 +216,9 @@ class LlamaCppBackend:
             "--n-gpu-layers",
             "0",
             "--batch-size",
-            "256",
+            str(self.settings.batch_tokens),
             "--ubatch-size",
-            "256",
+            str(self.settings.ubatch_tokens),
             "--cache-type-k",
             "f16",
             "--cache-type-v",
@@ -267,7 +269,9 @@ class LlamaCppBackend:
         finally:
             os.close(fd)
         try:
-            async with httpx.AsyncClient(trust_env=False, timeout=1) as client:
+            async with httpx.AsyncClient(
+                trust_env=False, timeout=1, verify=native_ssl_context()
+            ) as client:
                 deadline = time.monotonic() + self.settings.startup_timeout_seconds
                 while time.monotonic() < deadline:
                     if self.process.poll() is not None:
@@ -352,6 +356,7 @@ class LlamaCppBackend:
         completed = False
         try:
             async with httpx.AsyncClient(
+                verify=native_ssl_context(),
                 base_url=self.base_url,
                 headers=self.headers,
                 timeout=None,

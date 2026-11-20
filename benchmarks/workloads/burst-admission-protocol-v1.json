@@ -1,0 +1,13 @@
+{
+  "version": "burst-admission-v1",
+  "stage": "development pilot followed by held-out confirmation only if development gate passes",
+  "development_seeds": [1001, 1002],
+  "confirmation_sessions": [{"seed": 2001, "traces": 10}, {"seed": 3001, "traces": 10}, {"seed": 4001, "traces": 10}],
+  "candidate": "lattice_cost2",
+  "baselines": ["native1", "native2", "native4", "native8", "lattice_fifo2", "simple_cost2"],
+  "trace": "six bulk long-input requests at 2ms intervals, six short-input interactive requests starting at 30ms at 2ms intervals; all arrival offsets relative to exogenous origin",
+  "quality_gate": "identical greedy token IDs for every corresponding request across all compared configurations; report failures rather than exclude them",
+  "performance_gate": "at least 20% interactive P95 reduction against strongest compatible native slot setting; throughput at least 95% of throughput of that baseline, no extra errors, same per-worker hard memory cap",
+  "independent_baseline_gate": "simple_cost2 uses the same size-proxy admission heuristic outside Lattice; matching it alone is not an algorithmic novelty claim",
+  "limits": ["Synthetic stress trace, not production workload prevalence", "P95 samples per trace are small; confirmation must report trace/session-clustered intervals", "Finite native slot sweep is not proof of globally optimal native tuning", "No task complexity understanding claim from bytes/token cap proxy"]
+}
