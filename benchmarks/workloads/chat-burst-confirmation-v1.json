@@ -1,0 +1,71 @@
+{
+  "stage": "frozen",
+  "version": "chat-single-cpu-confirmation-v1",
+  "not_a_result": "Protocol only. A passing preflight does not certify future CPU availability or a competitive win. Every completed arm retains and gates resource measurements.",
+  "candidate": "lattice_coalesce2",
+  "baselines": [
+    "native4_b64",
+    "native1"
+  ],
+  "arm_settings": {
+    "lattice_coalesce2": {
+      "native_slots": 2,
+      "batch_tokens": 256,
+      "ubatch_tokens": 256
+    },
+    "native4_b64": {
+      "native_slots": 4,
+      "batch_tokens": 64,
+      "ubatch_tokens": 64
+    },
+    "native1": {
+      "native_slots": 1,
+      "batch_tokens": 256,
+      "ubatch_tokens": 256
+    }
+  },
+  "sessions": [
+    {
+      "seed": 10001,
+      "traces": 10
+    },
+    {
+      "seed": 11001,
+      "traces": 10
+    },
+    {
+      "seed": 12001,
+      "traces": 10
+    }
+  ],
+  "source_sha256": "969f168f55d616eda57970b48d22b628282f2889166c698432249600b0d93a43",
+  "runner_sha256": "49b52f3a54119a54fb2d9dddc8370b6dbc937399605f477288232ebc839aaf7a",
+  "transport_runner_sha256": "95e640798464a58573eb22f362b381b91aa9f74f56afc6775264c63ea6a829c0",
+  "model_sha256": "8e0ae26000627ed62de0e78e41860af70094558b9d2913385c842a6aa06cf3fc",
+  "backend_sha256": "9e954cd7ced8851cbcd03170fb93ed864cdf5c7f38b743a5f8481e5235ea1b7b",
+  "threads": 1,
+  "context_per_request": 2048,
+  "worker_address_space_mb": 4096,
+  "latency_ratio_max": 0.8,
+  "throughput_ratio_min": 0.95,
+  "host_cpu_steal_max": 0.05,
+  "host_cpu_interval_steal_max": 0.1,
+  "host_preflight_path": "benchmarks/results/host-availability-v1/resume-pinned-probe.json",
+  "preflight": "Must be eligible and no more than120seconds old when starting. All model arms independently retain host counters. A failed CPU gate invalidates qualification; do not drop/retry traces.",
+  "quality": "Every request token IDs, text, prompt length and task-correctness classification must match primary native baseline, with zero failures. Report absolute strict copy-task accuracy, including incorrect answers and EOS/cap finishes.",
+  "uncertainty": "10000 fixed-seed hierarchical paired bootstrap replicates; sessions then whole paired traces. Require latency and throughput thresholds in every session and corresponding confidence bounds. No optional stopping, added traces or relaxed thresholds.",
+  "scope": "One backend thread; benchmark, controller and native workers pinned to CPU0 on the shared four-vCPU VM. Same Qwen2.5 0.5B FP16 artifact, tokenizer, greedy sampler, output caps and per-request context. Both native development latency and throughput leaders must pass the same conditions against Lattice. Restricted synthetic burst serving only; no general engine/model-quality, production, GPU or1.0claim.",
+  "failure_policy": "Retain and report every result and gate failure. New prompts/framing do not repair the failed original study. CPU contention discovered after earlier development means no existing chat measurement establishes a clean held-out win.",
+  "status_notes": "Frozen before inspecting any held-out seed.30paired traces, three sessions, all previously declared performance, exact-output and host gates retained. Run once; preserve failures without optional stopping or selective retries.",
+  "gate_baselines": [
+    "native4_b64",
+    "native1"
+  ],
+  "cpu_affinity": [
+    0
+  ],
+  "settings_path": "configs/single-thread-experiments.json",
+  "settings_sha256": "385a4ee22e94cf3e6e06a7e98f3245f138964b677874a870404c23751507c302",
+  "frozen_utc": "2026-11-21T06:28:40.491705+00:00",
+  "measurement_source_commit": "9f40661"
+}
