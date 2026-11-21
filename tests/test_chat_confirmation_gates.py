@@ -141,3 +141,43 @@ def test_complete_gate_cannot_hide_cpu_or_output_failures(prepared_analysis, fai
     assert report["gates"]["host_cpu_eligibility"] is (failure != "host")
     assert report["gates"]["quality_and_errors"] is (failure != "output")
     assert report["gates"]["latency"] and report["gates"]["throughput"]
+
+
+def test_second_native_throughput_challenger_is_not_ignored(prepared_analysis):
+    analysis, root = prepared_analysis
+    protocol_path = (
+        analysis.ROOT / "benchmarks/workloads/chat-burst-confirmation-v1.json"
+    )
+    protocol = json.loads(protocol_path.read_text())
+    protocol["baselines"].append("native8")
+    protocol["gate_baselines"] = ["native4", "native8"]
+    protocol["arm_settings"]["native8"] = {
+        **protocol["arm_settings"]["native4"],
+        "native_slots": 8,
+    }
+    protocol_path.write_text(json.dumps(protocol))
+    (root / "orchestration.json").write_text(
+        json.dumps({"status": "completed", "protocol_sha256": file_hash(protocol_path)})
+    )
+    for index in range(1, 4):
+        folder = root / f"session-{index}"
+        manifest_path = folder / "manifest.json"
+        manifest = json.loads(manifest_path.read_text())
+        manifest["arms"].insert(1, "native8")
+        manifest_path.write_text(json.dumps(manifest))
+        path = folder / "results.jsonl"
+        records = [json.loads(line) for line in path.read_text().splitlines()]
+        challenger = {
+            **records[0],
+            "arm": "native8",
+            "native_slots": 8,
+            "makespan_seconds": 0.5,
+        }
+        records.insert(1, challenger)
+        path.write_text("\n".join(json.dumps(record) for record in records) + "\n")
+    analysis.main()
+    report = json.loads((root / "analysis.json").read_text())
+    assert report["comparisons"]["native4"]["point_estimates"]["throughput_ratio"] == 1
+    assert report["gates"]["quality_and_errors"]
+    assert not report["gates"]["throughput"]
+    assert not report["restricted_gate_pass"]

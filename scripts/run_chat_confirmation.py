@@ -29,6 +29,13 @@ def main():
         raise SystemExit("Frozen settings changed")
     os.sched_setaffinity(0, set(protocol["cpu_affinity"]))
     preflight = json.loads((ROOT / protocol["host_preflight_path"]).read_text())
+    if (
+        preflight.get("workers") != protocol["threads"]
+        or preflight.get("cpu_affinity") != protocol["cpu_affinity"]
+    ):
+        raise SystemExit(
+            "Preflight must match the frozen thread budget and CPU affinity"
+        )
     if not preflight["eligible"]:
         raise SystemExit(
             "Host CPU preflight failed; do not start fixed confirmation budget"

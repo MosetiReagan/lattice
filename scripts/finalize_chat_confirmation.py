@@ -11,6 +11,12 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 async def main():
+    protocol_path = ROOT / "benchmarks/workloads/chat-burst-confirmation-v1.json"
+    if not protocol_path.exists():
+        raise SystemExit("No frozen confirmation protocol; no finalization was started")
+    protocol = json.loads(protocol_path.read_text())
+    if protocol.get("stage") != "frozen":
+        raise SystemExit("Do not finalize an unexecuted draft as benchmark evidence")
     status_path = (
         ROOT / "benchmarks/results/chat-burst-confirmation-v1/orchestration.json"
     )
@@ -31,7 +37,13 @@ async def main():
         ),
         (
             "chat-boundaries.txt",
-            [sys.executable, "experiments/chat_admission_boundaries.py"],
+            [
+                "taskset",
+                "-c",
+                ",".join(str(cpu) for cpu in protocol["cpu_affinity"]),
+                sys.executable,
+                "experiments/chat_admission_boundaries.py",
+            ],
         ),
         (
             "chat-boundary-analysis.txt",
@@ -64,7 +76,11 @@ async def main():
             code = subprocess.run(  # noqa: ASYNC221 — no overlapping benchmark/model jobs
                 command,
                 cwd=ROOT,
-                env={**os.environ, "LATTICE_INTEGRATION": "1"},
+                env={
+                    **os.environ,
+                    "LATTICE_INTEGRATION": "1",
+                    "LATTICE_CONFIG": str(ROOT / protocol["settings_path"]),
+                },
                 stdout=output,
                 stderr=subprocess.STDOUT,
                 check=False,

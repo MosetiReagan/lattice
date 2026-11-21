@@ -158,6 +158,7 @@ def main():
         for baseline in baselines
     }
     primary = comparisons[primary_baseline]
+    gate_baselines = protocol.get("gate_baselines", [primary_baseline])
     latency_limit = protocol["latency_ratio_max"]
     throughput_limit = protocol["throughput_ratio_min"]
     gates = {
@@ -168,12 +169,23 @@ def main():
             <= protocol["host_cpu_interval_steal_max"]
             for record in host_cpu_records
         ),
-        "latency": primary["uncertainty"]["p95_ratio_95_interval"][1] <= latency_limit
-        and all(s["p95_ratio"] <= latency_limit for s in primary["per_session"]),
-        "throughput": primary["uncertainty"]["throughput_ratio_95_interval"][0]
-        >= throughput_limit
-        and all(
-            s["throughput_ratio"] >= throughput_limit for s in primary["per_session"]
+        "latency": all(
+            comparisons[baseline]["uncertainty"]["p95_ratio_95_interval"][1]
+            <= latency_limit
+            and all(
+                s["p95_ratio"] <= latency_limit
+                for s in comparisons[baseline]["per_session"]
+            )
+            for baseline in gate_baselines
+        ),
+        "throughput": all(
+            comparisons[baseline]["uncertainty"]["throughput_ratio_95_interval"][0]
+            >= throughput_limit
+            and all(
+                s["throughput_ratio"] >= throughput_limit
+                for s in comparisons[baseline]["per_session"]
+            )
+            for baseline in gate_baselines
         ),
         "quality_and_errors": not mismatches and not failures,
         "worker_cap_and_no_swap": all(
@@ -194,6 +206,7 @@ def main():
         "sessions": provenance,
         "identity_signature": signature,
         "paired_traces": len(paired),
+        "gate_baselines": gate_baselines,
         "host_cpu_records": host_cpu_records,
         "comparisons": comparisons,
         "task_correctness": correctness,
@@ -201,12 +214,29 @@ def main():
         "failures": failures,
         "gates": gates,
         "restricted_gate_pass": all(gates.values()),
+        "resources": {
+            arm: {
+                "max_worker_rss_bytes": max(
+                    trace[arm]["worker_rss_bytes"] for trace in paired
+                ),
+                "max_control_plane_rss_bytes": max(
+                    trace[arm]["control_rss_bytes"] for trace in paired
+                ),
+                "max_dispatch_lateness_ms": max(
+                    value
+                    for trace in paired
+                    for value in trace[arm]["dispatch_lateness_ms"]
+                ),
+            }
+            for arm in baselines + ["candidate"]
+        },
     }
     (root / "analysis.json").write_text(json.dumps(report, indent=2) + "\n")
     lines = [
         "# Chat-framed burst confirmation",
         "",
         "This separately frozen study follows the failed raw-completion study; it does not overwrite or reclassify that failure. Each source instruction is rendered through the model's actual /apply-template endpoint before timing. Every arm receives identical rendered bytes, tokenizer, greedy sampler, output caps and exogenous arrivals. Template preparation and equal one-request warmup are excluded; reported latency includes admission grace, queueing and generation, not the full HTTP chat gateway.",
+        f"Resource envelope: backend threads {protocol['threads']}, CPU affinity {protocol.get('cpu_affinity', 'unrecorded')}, context {protocol['context_per_request']} tokens per request and {protocol['worker_address_space_mb']} MiB worker address-space cap. Worker/control-plane RSS and dispatch lateness are retained in analysis.json; control-plane RSS belongs to the common harness, not an isolated production gateway.",
         "",
         f"Restricted gate pass: **{report['restricted_gate_pass']}**. Frozen gates: `{json.dumps(gates, sort_keys=True)}`.",
         "",

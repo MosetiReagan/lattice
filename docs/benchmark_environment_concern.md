@@ -25,7 +25,7 @@ A second isolated probe at 23:44:30 UTC again failed: 24.65% of requested CPU ti
 - Chat-framed development: the model's actual chat template was applied identically before timing. Completed initial blocks matched outputs across all tested configurations and scored 22/24 strict copy-task answers per arm. This is exploratory evidence, not held-out quality qualification or a fix for arbitrary batching-related divergence.
 - Focused diagnostics retain unfavorable outcomes, including large slowdowns under contention. They cannot finalize a candidate/baseline selection or certify a clean CPU history for preceding development.
 - Admission now bounds grace/drain waiters even before native slots are occupied. Defaults stay priority/FIFO with one slot.
-- Current real CPU and mocked/control-plane suite: **158 passed**. These tests establish functionality in their tested scope, not a competitive performance win or GPU support.
+- Current real CPU and mocked/control-plane suite: **159 passed**. These tests establish functionality in their tested scope, not a competitive performance win or GPU support.
 
 ## Eligibility and next execution
 
@@ -36,3 +36,15 @@ The chat runner now records whole-VM CPU counters for each complete arm, includi
 The next protocol remains explicitly **draft** at `benchmarks/workloads/chat-burst-confirmation-v1.draft.json`. Its candidate/baseline choices are provisional. The executable runner refuses to start without a reviewed frozen protocol and a fresh passing host probe. No held-out chat seeds have been generated or measured. Complete a separately named development block on eligible CPU resources, freeze source/configuration and sample budget, then execute confirmation once and report every gate without relaxing thresholds. Do not run repeated confirmations until one happens to pass.
 
 Resource availability is an outstanding prerequisite, not a successful result. The project stays at unreleased `0.3.0.dev0`, with no release/tag or remote publication.
+
+## Pinned single-CPU follow-up, November 21
+
+A single-worker microprobe received 94.32% of requested CPU time, so development also tested one backend thread with the benchmark, controller and native workers pinned to virtual CPU 0. This is a separately documented resource envelope, with the same model/sampling/context/caps. It does not rescue the failed raw study or certify the original four-thread environment.
+
+The complete [single-CPU development sweep](single_cpu_admission_development.md) tested native slots 1/2/4/8/16, additional native4 batch sizes 64/128/512/1024, a thin two-slot cost queue and Lattice two-slot coalescing. All eleven configurations preserved corresponding outputs and scored 10/12 strict copy-task answers on that development trace. The pinned pilot on a different development seed scored 12/12 in both arms.
+
+The candidate's development interactive P95 was 3,487 ms versus 32,110 ms for the lowest-P95 native configuration. Its actual throughput was 0.883 tokens/s versus 0.903 tokens/s for the highest-throughput native configuration, about 2.2% lower. These are exploratory point estimates from a small development set, without held-out confidence or a winning claim.
+
+Crucially, four of the eleven completed pinned development arms still exceeded the unchanged 10% sampled-interval CPU-steal limit; the highest was 13.8%, despite whole-arm means below 5%. All spikes and unfavorable measurements remain in the table/raw records. A passing three-second probe is not sufficient to certify a complete inference experiment. Consequently the fixed three-session confirmation budget was not launched on this unstable allocation.
+
+The separate `chat-single-cpu-confirmation-v1.draft.json` retains thirty paired traces and the 20% latency / 5% throughput targets. It names both the development latency leader and throughput leader as challengers, with the same conditions required against each. Host availability, zero failed requests and exact output preservation remain mandatory; no threshold or result is relaxed to manufacture a win. No held-out chat seeds have been generated or measured.

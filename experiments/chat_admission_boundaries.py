@@ -3,6 +3,7 @@
 import asyncio
 import hashlib
 import json
+import os
 from pathlib import Path
 
 import httpx
@@ -12,6 +13,7 @@ from lattice.backends.http_client import native_ssl_context
 from lattice.backends.llama_cpp import LlamaCppBackend
 from lattice.config import file_hash, load_settings, select_model
 from lattice.evaluation.benchmark import source_manifest
+from lattice.observability.host import CpuStealSampler
 
 ROOT = Path(__file__).resolve().parents[1]
 CASES = [
@@ -67,6 +69,11 @@ async def main():
     manifest = {
         "protocol_sha256": file_hash(protocol_path),
         "source": source_manifest(),
+        "threads": settings.threads,
+        "cpu_affinity": sorted(os.sched_getaffinity(0)),
+        "settings_sha256": file_hash(
+            Path(os.environ.get("LATTICE_CONFIG", "configs/local.json"))
+        ),
         "runner_sha256": file_hash(Path(__file__)),
         "arms": arms,
         "traces": traces,
@@ -78,7 +85,9 @@ async def main():
         for index, case in enumerate(traces):
             order = arms if index % 2 == 0 else list(reversed(arms))
             for arm in order:
-                result = await run_trace(arm, case["requests"], output)
+                async with CpuStealSampler() as host_cpu:
+                    result = await run_trace(arm, case["requests"], output)
+                result["host_cpu"] = host_cpu.summary()
                 result["case"] = case["case"]
                 results.append(result)
                 stream.write(json.dumps(result) + "\n")

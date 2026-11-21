@@ -1,0 +1,14 @@
+[
+  {
+    "artifact": "lattice_inference-0.3.0.dev0-py3-none-any.whl",
+    "sha256": "bae304b01d01e04706ebe088273bbf676f65c2784453a1d92b1e0b99e09c8ffc",
+    "files": 44,
+    "excluded_model_weights_external_data_private_logs_and_results": true
+  },
+  {
+    "artifact": "lattice_inference-0.3.0.dev0.tar.gz",
+    "sha256": "5528be5d5edf2965edf826e17d0f98a781bb95af005e718c431fe8e6ccc92037",
+    "files": 272,
+    "excluded_model_weights_external_data_private_logs_and_results": true
+  }
+]

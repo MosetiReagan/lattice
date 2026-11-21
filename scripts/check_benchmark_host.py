@@ -67,6 +67,7 @@ def main():
     report = {
         "utc": datetime.datetime.now(datetime.UTC).isoformat(),
         "workers": args.workers,
+        "cpu_affinity": sorted(os.sched_getaffinity(0)),
         "duration_seconds": args.duration,
         "worker_samples": results,
         "available_cpu_fraction": available,
