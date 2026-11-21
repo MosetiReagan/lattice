@@ -1,0 +1,10 @@
+interactive_only native4_b64 12.902205515830255 errors 0
+interactive_only lattice_coalesce2 9.092700420321467 errors 0
+bulk_only lattice_coalesce2 0.4012681818940697 errors 0
+bulk_only native4_b64 0.40624196631121523 errors 0
+mixed_25_percent_interactive native4_b64 0.5660990213647997 errors 0
+mixed_25_percent_interactive lattice_coalesce2 0.6021357196434654 errors 0
+mixed_75_percent_interactive lattice_coalesce2 1.601712124510438 errors 0
+mixed_75_percent_interactive native4_b64 1.4456859599749914 errors 0
+interactive_arrives_late native4_b64 0.782877676640588 errors 0
+interactive_arrives_late lattice_coalesce2 0.8534699715983539 errors 0
