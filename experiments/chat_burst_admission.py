@@ -15,7 +15,7 @@ from lattice.backends.http_client import native_ssl_context
 from lattice.backends.llama_cpp import LlamaCppBackend
 from lattice.config import file_hash, load_settings, select_model
 from lattice.evaluation.benchmark import source_manifest
-from lattice.observability.host import CpuStealSampler
+from lattice.observability.host import CpuStealSampler, cpu_bandwidth_snapshot
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -83,6 +83,7 @@ async def main():
         "worker_address_space_mb": settings.worker_address_space_mb,
         "context_per_request": settings.context_tokens,
         "threads": settings.threads,
+        "cpu_bandwidth": cpu_bandwidth_snapshot(),
         "protocol": "Separate chat-framed development study after the failed raw-prompt confirmation. Actual model /apply-template applied before timing to every source prompt. Identical rendered bytes/tokenizer/sampling/caps across arms. No exclusions or forced output lengths. This is not a reinterpretation of the original confirmation.",
     }
     (args.output / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
@@ -93,9 +94,12 @@ async def main():
             arms = args.arms.copy()
             rng.shuffle(arms)
             for arm in arms:
+                budget_before = cpu_bandwidth_snapshot()
                 async with CpuStealSampler() as host_cpu:
                     result = await run_trace(arm, trace, args.output)
                 result["host_cpu"] = host_cpu.summary()
+                result["cpu_bandwidth_before"] = budget_before
+                result["cpu_bandwidth_after"] = cpu_bandwidth_snapshot()
                 result["trace"] = index
                 results.append(result)
                 raw.write(json.dumps(result) + "\n")

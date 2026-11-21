@@ -19,7 +19,7 @@ from lattice.evaluation.benchmark import source_manifest
 from lattice.observability.measure import RssSampler, summarize
 from lattice.runtime import Runtime
 from lattice.scheduler.fair import FairSemaphore
-from lattice.types import GenerationRequest
+from lattice.types import GenerationRequest, Optimization
 
 ROOT = Path(__file__).resolve().parents[1]
 MODEL = "qwen2.5-0.5b-instruct-f16"
@@ -76,6 +76,13 @@ WORDS = [
     "yarrow",
     "zinc",
 ]
+
+
+class NativeSlotOnlyCache(LlamaCppBackend):
+    """Upstream per-slot caching without the optional RAM snapshot archive."""
+
+    def extra_server_arguments(self):
+        return ["--cache-ram", "0", "--no-cache-idle-slots", "--cache-reuse", "0"]
 
 
 def make_trace(seed, bulk=6, interactive=6):
@@ -178,11 +185,32 @@ async def direct(backend, request):
 
 async def run_trace(arm, trace, output):
     full_arm = arm
+    native_no_ram = arm.endswith("_noram")
+    if native_no_ram:
+        arm = arm.removesuffix("_noram")
+        if not arm.startswith("native"):
+            raise ValueError("Native RAM-cache ablation requires a native arm")
+    isolated = arm.endswith("_isolated")
+    if isolated:
+        arm = arm.removesuffix("_isolated")
+        if not arm.startswith("lattice_"):
+            raise ValueError("Isolated control requires a Lattice arm")
+    cached = arm.endswith("_cached")
+    if cached:
+        arm = arm.removesuffix("_cached")
+        if not arm.startswith("lattice_"):
+            raise ValueError(
+                "Cached suffix selects the explicit Lattice slot-cache path"
+            )
     if "_b" in arm:
         arm, batch = arm.rsplit("_b", 1)
     else:
         batch = "256"
     settings = load_settings()
+    if cached or isolated:
+        settings.concurrent_prefix_cache = True
+        settings.cache_limit_mb = 64
+        settings.cache_min_tokens = 1
     settings.batch_tokens = int(batch)
     settings.ubatch_tokens = min(256, int(batch))
     settings.policy_file = None
@@ -191,7 +219,9 @@ async def run_trace(arm, trace, output):
     entry = select_model(settings, MODEL)
     if arm.startswith("native"):
         slots = int(arm[6:])
-        backend = LlamaCppBackend(settings, entry)
+        backend = (NativeSlotOnlyCache if native_no_ram else LlamaCppBackend)(
+            settings, entry
+        )
         backend.native_slots = slots
         runtime = None
     elif arm.startswith("simple_cost"):
@@ -219,6 +249,9 @@ async def run_trace(arm, trace, output):
     results = []
     try:
         await backend.start()
+        worker_cpu_cgroup = (
+            Path(f"/proc/{backend.process.pid}/cgroup").read_text().strip()
+        )
         # Identical one-request warmup; prompt does not appear in any measured trace.
         warmup = {"prompt": "Return only READY:", "max_tokens": 8}
         if runtime:
@@ -228,6 +261,7 @@ async def run_trace(arm, trace, output):
                     prompt=warmup["prompt"],
                     max_tokens=8,
                     timeout_seconds=120.0,
+                    optimization=Optimization(mode="cached" if cached else "standard"),
                 )
             )
         else:
@@ -253,6 +287,9 @@ async def run_trace(arm, trace, output):
                             prompt=request["prompt"],
                             max_tokens=request["max_tokens"],
                             timeout_seconds=120.0,
+                            optimization=Optimization(
+                                mode="cached" if cached else "standard"
+                            ),
                         )
                     )
                     data = {
@@ -262,6 +299,9 @@ async def run_trace(arm, trace, output):
                         "completion_tokens": result["metadata"]["completion_tokens"],
                         "finish_reason": result["metadata"]["finish_reason"],
                         "queue_wait_ms": result["metadata"]["queue_wait_ms"],
+                        "backend_timings": result["metadata"]["backend_timings"],
+                        "strategy": result["metadata"]["strategy"],
+                        "tokens_cached": result["metadata"]["tokens_cached"],
                     }
                 else:
                     data = await direct(backend, request)
@@ -308,6 +348,19 @@ async def run_trace(arm, trace, output):
             "batch_tokens": settings.batch_tokens,
             "ubatch_tokens": settings.ubatch_tokens,
             "native_slots": slots,
+            "cache_policy": "explicit_slot_compatible"
+            if cached
+            else "isolated_no_reuse"
+            if isolated
+            else "disabled"
+            if runtime
+            else "native_prefix",
+            "cache_limit_mb": settings.cache_limit_mb,
+            "cache_min_tokens": settings.cache_min_tokens,
+            "native_ram_archive": False
+            if native_no_ram or cached or isolated
+            else "upstream_default",
+            "worker_cpu_cgroup": worker_cpu_cgroup,
             "rows": results,
             "makespan_seconds": makespan,
             "tokens_per_second": sum(r["completion_tokens"] for r in completed)

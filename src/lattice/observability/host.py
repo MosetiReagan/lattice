@@ -27,6 +27,31 @@ def read_cpu_times() -> CpuTimes:
     return parse_cpu_times(Path("/proc/stat").read_text().splitlines()[0])
 
 
+def cpu_bandwidth_snapshot() -> dict:
+    """Read actual cgroup-v2 limits; absent controls are unavailable, not unlimited."""
+    try:
+        relative = next(
+            line.split(":", 2)[2]
+            for line in Path("/proc/self/cgroup").read_text().splitlines()
+            if line.startswith("0::")
+        )
+        root = Path("/sys/fs/cgroup").resolve()
+        group = (root / relative.lstrip("/")).resolve()
+        if not group.is_relative_to(root):
+            raise ValueError("Invalid cgroup path")
+        quota = group / "cpu.max"
+        return {
+            "path": relative,
+            "cpu_max": quota.read_text().strip() if quota.exists() else None,
+            "cpu_stat": {
+                row.split()[0]: int(row.split()[1])
+                for row in (group / "cpu.stat").read_text().splitlines()
+            },
+        }
+    except (OSError, ValueError, StopIteration):
+        return {"path": None, "cpu_max": None, "cpu_stat": None}
+
+
 def steal_fraction(before: CpuTimes, after: CpuTimes) -> float | None:
     total = after.total - before.total
     steal = after.steal - before.steal

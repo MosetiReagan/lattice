@@ -248,6 +248,7 @@ class LlamaCppBackend:
                     str(self.settings.threads),
                 ]
             )
+        args.extend(self.extra_server_arguments())
         env = {k: v for k, v in os.environ.items() if not k.startswith("LLAMA_ARG_")}
         try:
             # Only process creation is synchronous; no preexec_fn or waiting here.
@@ -325,11 +326,17 @@ class LlamaCppBackend:
     def completion_headers(self, execution_context=None) -> dict:
         return {}
 
+    def extra_server_arguments(self) -> list[str]:
+        return []
+
     def completion_payload(self, body: dict, execution_context=None) -> dict:
         return body
 
     def completion_response(self, execution_context=None) -> None:
         pass
+
+    def execution_state(self, request: GenerationRequest, execution_context=None):
+        return self._strategy, self.prefix
 
     async def abort_generation(self) -> None:
         self.stop()
@@ -353,6 +360,7 @@ class LlamaCppBackend:
             await self.configure(standard)
             await self.start()
             fallback = "Draft exceeds available memory budget; target standard execution preserved"
+        strategy, prefix = self.execution_state(request, execution_context)
         completed = False
         try:
             async with httpx.AsyncClient(
@@ -396,9 +404,7 @@ class LlamaCppBackend:
                 )
                 policy = None
                 if request.optimization.mode == "adaptive":
-                    preview = self.prefix.plan(
-                        cache_identity, tuple(token_ids), count=False
-                    )
+                    preview = prefix.plan(cache_identity, tuple(token_ids), count=False)
                     meminfo = dict(
                         line.split(":", 1)
                         for line in Path("/proc/meminfo").read_text().splitlines()
@@ -432,6 +438,7 @@ class LlamaCppBackend:
                     )
                     self._strategy = policy.strategy
                     self.identity["strategy"] = self._strategy
+                    strategy = self._strategy
                 if request.max_estimated_compute_ms is not None and policy is None:
                     raise LatticeError(
                         "An estimated-compute budget requires a qualified adaptive profile",
@@ -439,28 +446,27 @@ class LlamaCppBackend:
                         "budget_infeasible",
                     )
                 cache_allowed = (
-                    self._strategy == "cached"
-                    and self.model.kv_bytes_per_token is not None
+                    strategy == "cached" and self.model.kv_bytes_per_token is not None
                 )
-                if self._strategy == "cached" and not cache_allowed:
+                if strategy == "cached" and not cache_allowed:
                     raise LatticeError(
                         "KV byte accounting is unknown for this model",
                         422,
                         "cache_accounting_unknown",
                     )
                 decision = (
-                    self.prefix.plan(cache_identity, tuple(token_ids))
+                    prefix.plan(cache_identity, tuple(token_ids))
                     if cache_allowed
                     else None
                 )
                 if not cache_allowed:
-                    self.prefix.invalidate()
+                    prefix.invalidate()
                 yield {
                     "type": "prefill",
                     "prompt_tokens": len(token_ids),
-                    "strategy": self._strategy,
+                    "strategy": strategy,
                     "fallback_reason": fallback,
-                    "backend": dict(self.identity),
+                    "backend": {**self.identity, "strategy": strategy},
                     "policy": {
                         **asdict(policy),
                         "evidence_file_sha256": self.policy_sha256,
@@ -519,10 +525,8 @@ class LlamaCppBackend:
                                 )
                             completed = True
                             if cache_allowed or request.optimization.mode == "adaptive":
-                                self.prefix.remember(cache_identity, tuple(token_ids))
-                                self.prefix.observe(
-                                    raw.get("timings", {}).get("cache_n", 0)
-                                )
+                                prefix.remember(cache_identity, tuple(token_ids))
+                                prefix.observe(raw.get("timings", {}).get("cache_n", 0))
                             yield {
                                 "type": "backend_done",
                                 "completion_tokens": raw.get("tokens_predicted", count),
@@ -560,6 +564,7 @@ class LlamaCppBackend:
             ) from exc
         finally:
             if not completed:
+                prefix.invalidate()
                 # Serial mode terminates the worker. Concurrent mode overrides this hook
                 # and verifies cancellation through its private native session/slot controls.
                 await self.abort_generation()

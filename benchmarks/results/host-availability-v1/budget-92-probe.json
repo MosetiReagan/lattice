@@ -1,0 +1,18 @@
+{
+  "utc": "2026-11-21T07:46:28.158100+00:00",
+  "workers": 1,
+  "cpu_affinity": [
+    0
+  ],
+  "duration_seconds": 30.0,
+  "worker_samples": [
+    {
+      "cpu_seconds": 27.600696137,
+      "wall_seconds": 30.00005077700189
+    }
+  ],
+  "available_cpu_fraction": 0.9200216473686358,
+  "cpu_steal_fraction": 0.0003295164346321773,
+  "eligible": true,
+  "contract": "Preflight only, not an inference speed result. Require <=5% aggregate CPU steal and >=90% requested CPU time. This does not guarantee future availability; confirmation must independently record and gate every arm's steal counters."
+}

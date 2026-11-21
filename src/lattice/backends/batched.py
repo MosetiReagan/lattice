@@ -13,6 +13,7 @@ from dataclasses import dataclass
 
 import httpx
 
+from lattice.cache.prefix import PrefixCache
 from lattice.config import ModelEntry, Settings
 from lattice.types import GenerationRequest, LatticeError
 
@@ -29,6 +30,7 @@ class SlotLease:
     acknowledged: bool = False
     completed: bool = False
     released: bool = False
+    cache_enabled: bool = False
 
 
 class BatchedLlamaBackend(LlamaCppBackend):
@@ -45,6 +47,14 @@ class BatchedLlamaBackend(LlamaCppBackend):
             )
         super().__init__(settings, model)
         self.native_slots = settings.native_slots
+        self._prefixes = {
+            slot: PrefixCache(
+                settings.cache_limit_mb * 1024**2 // self.native_slots,
+                model.kv_bytes_per_token,
+                min_tokens=settings.cache_min_tokens,
+            )
+            for slot in range(self.native_slots)
+        }
         self.identity["native_slots"] = self.native_slots
         self._drain_ready = asyncio.Event()
         self._drain_ready.set()
@@ -74,6 +84,8 @@ class BatchedLlamaBackend(LlamaCppBackend):
         await asyncio.shield(self._startup_task)
 
     async def _start_and_verify(self) -> None:
+        for prefix in self._prefixes.values():
+            prefix.invalidate()
         await super().start()
         try:
             async with httpx.AsyncClient(
@@ -120,6 +132,8 @@ class BatchedLlamaBackend(LlamaCppBackend):
             ) from exc
 
     def stop(self) -> None:
+        for prefix in getattr(self, "_prefixes", {}).values():
+            prefix.invalidate()
         self._verified_pid = None
         task = self._startup_task
         with contextlib.suppress(RuntimeError):
@@ -139,9 +153,9 @@ class BatchedLlamaBackend(LlamaCppBackend):
             await asyncio.gather(self._startup_task, return_exceptions=True)
 
     async def configure(self, request: GenerationRequest) -> str | None:
-        if request.optimization.mode != "standard":
+        if request.optimization.mode not in self.supported_modes():
             raise LatticeError(
-                "Concurrent native worker requires standard execution",
+                "Concurrent worker requires standard or explicitly enabled cached execution",
                 422,
                 "concurrent_strategy_unqualified",
             )
@@ -165,13 +179,45 @@ class BatchedLlamaBackend(LlamaCppBackend):
             )
         return None
 
+    def supported_modes(self) -> set[str]:
+        pool_bytes = (
+            self.native_slots
+            * self.settings.context_tokens
+            * (self.model.kv_bytes_per_token or 0)
+        )
+        if (
+            self.settings.concurrent_prefix_cache
+            and pool_bytes <= self.settings.cache_limit_mb * 1024**2
+        ):
+            return {"standard", "cached"}
+        return {"standard"}
+
+    def extra_server_arguments(self) -> list[str]:
+        # Eligibility belongs to an exclusive slot lease, not a global prompt
+        # archive that could restore states from another slot's request history.
+        if self.settings.concurrent_prefix_cache:
+            return ["--cache-ram", "0", "--no-cache-idle-slots", "--cache-reuse", "0"]
+        return []
+
+    def execution_state(self, request: GenerationRequest, execution_context=None):
+        if execution_context is None:
+            raise RuntimeError("Missing slot lease")
+        execution_context.cache_enabled = (
+            request.optimization.mode == "cached" and "cached" in self.supported_modes()
+        )
+        return request.optimization.mode, self._prefixes[execution_context.slot]
+
     def completion_payload(self, body: dict, execution_context=None) -> dict:
         lease = execution_context
         if lease is None:
             raise RuntimeError("Missing slot lease")
         lease.submitted = True
         lease.pid = self.process.pid
-        return {**body, "id_slot": lease.slot, "cache_prompt": False}
+        return {
+            **body,
+            "id_slot": lease.slot,
+            "cache_prompt": bool(body.get("cache_prompt") and lease.cache_enabled),
+        }
 
     def completion_headers(self, execution_context=None) -> dict:
         lease = execution_context
@@ -193,6 +239,8 @@ class BatchedLlamaBackend(LlamaCppBackend):
         if lease.released:
             return
         lease.released = True
+        if not lease.completed:
+            self._prefixes[lease.slot].invalidate()
         self._quarantined.discard(lease)
         self._leases.pop(lease.slot, None)
         self._available.put_nowait(lease.slot)
@@ -265,14 +313,19 @@ class BatchedLlamaBackend(LlamaCppBackend):
 
     async def events(self, request: GenerationRequest) -> AsyncIterator[dict]:
         fallback = None
-        if request.optimization.mode != "standard":
+        if request.optimization.mode not in self.supported_modes():
+            reason = (
+                "Concurrent prefix reuse needs operator opt-in and a budget covering the dense KV pool"
+                if request.optimization.mode == "cached"
+                else "Concurrent batching uses standard execution; serial optimization evidence does not apply"
+            )
             if not request.optimization.allow_fallback:
                 raise LatticeError(
-                    "Concurrent optimized paths lack quality evidence",
+                    reason,
                     422,
                     "concurrent_strategy_unqualified",
                 )
-            fallback = "Concurrent batching uses standard execution; serial optimization evidence does not apply"
+            fallback = reason
             request = request.model_copy(deep=True)
             request.optimization.mode = "standard"
         while True:
@@ -312,6 +365,10 @@ class BatchedLlamaBackend(LlamaCppBackend):
     def slot_stats(self) -> dict:
         return {
             "capacity": self.native_slots,
+            "prefix_cache_enabled": "cached" in self.supported_modes(),
+            "prefix_cache": {
+                str(slot): cache.stats() for slot, cache in self._prefixes.items()
+            },
             "draining": not self._drain_ready.is_set(),
             "free": self._available.qsize(),
             "leased": len(self._leases),
