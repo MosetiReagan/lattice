@@ -197,7 +197,7 @@ class BatchedLlamaBackend(LlamaCppBackend):
         # archive that could restore states from another slot's request history.
         if self.settings.concurrent_prefix_cache:
             return ["--cache-ram", "0", "--no-cache-idle-slots", "--cache-reuse", "0"]
-        return []
+        return super().extra_server_arguments()
 
     def execution_state(self, request: GenerationRequest, execution_context=None):
         if execution_context is None:

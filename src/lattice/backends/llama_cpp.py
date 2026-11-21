@@ -327,6 +327,8 @@ class LlamaCppBackend:
         return {}
 
     def extra_server_arguments(self) -> list[str]:
+        if not self.settings.native_ram_prompt_archive:
+            return ["--cache-ram", "0", "--no-cache-idle-slots", "--cache-reuse", "0"]
         return []
 
     def completion_payload(self, body: dict, execution_context=None) -> dict:

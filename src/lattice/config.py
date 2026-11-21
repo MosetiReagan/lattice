@@ -33,6 +33,7 @@ class Settings(BaseModel):
     cache_limit_mb: int = Field(default=32, ge=1, le=4096)
     cache_min_tokens: int = Field(default=64, ge=1)
     concurrent_prefix_cache: bool = False
+    native_ram_prompt_archive: bool = True
     draft_model_id: str | None = None
     draft_tokens: int = Field(default=4, ge=1, le=16)
     context_tokens: int = Field(default=2048, ge=128, le=8192)

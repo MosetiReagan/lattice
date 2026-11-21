@@ -7,6 +7,7 @@ from pathlib import Path
 
 import pytest
 
+from lattice.backends import create_backend
 from lattice.backends.batched import BatchedLlamaBackend
 from lattice.config import load_settings
 from lattice.runtime import Runtime
@@ -136,3 +137,34 @@ async def test_cached_peer_survives_standard_request_cancellation(tmp_path):
             task.cancel()
         await asyncio.gather(task, return_exceptions=True)
         await backend.aclose()
+
+
+async def test_serial_cached_path_uses_product_configuration(tmp_path):
+    settings = load_settings(Path(__file__).resolve().parents[1] / "configs/local.json")
+    settings.native_slots = 1
+    settings.native_ram_prompt_archive = False
+    settings.cache_limit_mb = 64
+    settings.cache_min_tokens = 1
+    settings.log_directory = str(tmp_path)
+    backend = create_backend(settings, settings.models[0])
+    runtime = Runtime(settings, settings.models[0].id, backend)
+    prompt = "Reference: " + "alpha beta gamma delta " * 60 + "\nReturn READY:"
+    try:
+        results = []
+        for mode in ("standard", "cached", "cached", "standard", "cached"):
+            result = await runtime.generate(
+                GenerationRequest(
+                    model=runtime.model_id,
+                    prompt=prompt,
+                    max_tokens=4,
+                    optimization=Optimization(mode=mode),
+                )
+            )
+            assert result["metadata"]["strategy"] == mode
+            results.append(result)
+        assert len({tuple(result["token_ids"]) for result in results}) == 1
+        cached = [result["metadata"]["tokens_cached"] for result in results]
+        assert cached[:2] == [0, 0] and cached[2] > 100
+        assert cached[3:] == [0, 0]
+    finally:
+        backend.stop()

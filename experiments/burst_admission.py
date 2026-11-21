@@ -78,13 +78,6 @@ WORDS = [
 ]
 
 
-class NativeSlotOnlyCache(LlamaCppBackend):
-    """Upstream per-slot caching without the optional RAM snapshot archive."""
-
-    def extra_server_arguments(self):
-        return ["--cache-ram", "0", "--no-cache-idle-slots", "--cache-reuse", "0"]
-
-
 def make_trace(seed, bulk=6, interactive=6):
     rng = random.Random(seed)
     rows = []
@@ -188,8 +181,8 @@ async def run_trace(arm, trace, output):
     native_no_ram = arm.endswith("_noram")
     if native_no_ram:
         arm = arm.removesuffix("_noram")
-        if not arm.startswith("native"):
-            raise ValueError("Native RAM-cache ablation requires a native arm")
+        if not arm.startswith(("native", "lattice_")):
+            raise ValueError("RAM-cache ablation requires a native or Lattice arm")
     isolated = arm.endswith("_isolated")
     if isolated:
         arm = arm.removesuffix("_isolated")
@@ -207,6 +200,8 @@ async def run_trace(arm, trace, output):
     else:
         batch = "256"
     settings = load_settings()
+    if native_no_ram:
+        settings.native_ram_prompt_archive = False
     if cached or isolated:
         settings.concurrent_prefix_cache = True
         settings.cache_limit_mb = 64
@@ -219,9 +214,7 @@ async def run_trace(arm, trace, output):
     entry = select_model(settings, MODEL)
     if arm.startswith("native"):
         slots = int(arm[6:])
-        backend = (NativeSlotOnlyCache if native_no_ram else LlamaCppBackend)(
-            settings, entry
-        )
+        backend = LlamaCppBackend(settings, entry)
         backend.native_slots = slots
         runtime = None
     elif arm.startswith("simple_cost"):
@@ -358,7 +351,7 @@ async def run_trace(arm, trace, output):
             "cache_limit_mb": settings.cache_limit_mb,
             "cache_min_tokens": settings.cache_min_tokens,
             "native_ram_archive": False
-            if native_no_ram or cached or isolated
+            if "--cache-ram" in backend.extra_server_arguments()
             else "upstream_default",
             "worker_cpu_cgroup": worker_cpu_cgroup,
             "rows": results,
