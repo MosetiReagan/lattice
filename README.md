@@ -1,36 +1,37 @@
 # ⚡ Lattice
 
-> **Instant chat replies for local LLMs — even while heavy background tasks are running.**
-> **A fast, responsive local AI inference server powered by `llama.cpp`.**
+> **Instant chat replies for local LLMs — even while heavy background tasks are running on your CPU.**
+> A fast, responsive, OpenAI-compatible local AI inference server powered by `llama.cpp`.
 
 [![Status: Alpha Research Preview (0.3.0.dev0)](https://img.shields.io/badge/status-Alpha%20Preview-orange.svg)](docs/release_readiness.md)
 [![Python: 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](pyproject.toml)
 [![Platform: Linux & macOS](https://img.shields.io/badge/platform-Linux%20%7C%20macOS-blue.svg)](docs/hardware_compatibility.md)
 [![Backend: llama.cpp](https://img.shields.io/badge/powered%20by-llama.cpp-green.svg)](https://github.com/ggerganov/llama.cpp)
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
-[![Tests: 164+ Passing](https://img.shields.io/badge/tests-164%2B%20passing-brightgreen.svg)](tests/)
+[![Tests: 167+ Passing](https://img.shields.io/badge/tests-167%2B%20passing-brightgreen.svg)](tests/)
 
 ---
 
 ## 💡 What is Lattice?
 
-Running Large Language Models (LLMs) locally on a CPU is practical with modern open-weight models like **Qwen 2.5**, **Llama 3.1**, or **Mistral**. However, local execution on CPUs faces a fundamental bottleneck: **compute resource contention**.
+If you run AI models locally on your laptop or desktop CPU, you’ve probably hit this frustrating problem:
 
-When an inference runtime (such as `llama-server` or Ollama) is actively processing a heavy background task—such as a 30-page document summary, code indexing, or an autonomous agent loop—it saturates your CPU cores for 30 to 60+ seconds.
+You start a heavy background task—like summarizing a 30-page PDF, indexing a codebase, or running an autonomous AI agent. It pegs your CPU cores at 100% for 30 to 60+ seconds.
 
-If you then open your chat interface to ask a quick question ("*Fix this typo*" or "*What is the syntax for a Python generator?*"):
-* **In standard runners:** Your chat query is placed into a sequential First-In, First-Out (FIFO) queue. You are forced to stare at a loading spinner for **30 to 60 seconds** until the background task completes before your chat even begins generating.
-* **With Lattice:** Your interactive chat gets **instant priority**. Lattice pauses the heavy background job cooperatively at a token boundary, answers your chat query immediately, and then automatically resumes the background job right where it left off.
+While that is running, you open your chat interface to ask a quick question (*"Fix this typo"* or *"What is the syntax for a Python generator?"*):
+
+* **In standard tools (Ollama, llama-server, LM Studio):** Your chat query is stuck waiting in a sequential First-In, First-Out (FIFO) queue. You are forced to stare at a loading spinner for **30 to 60 seconds** until the background task completely finishes.
+* **With Lattice:** You get an **instant reply**. Lattice pauses the heavy background task at a token boundary, gives your chat request immediate priority, answers your question in under 3 seconds, and then seamlessly resumes the background job right where it left off with 100% exact output integrity.
 
 ```
 ❌ STANDARD RUNNERS (FIFO Queue):
-[Heavy Document Summary (takes 45s)] ─────────► [Chat: "Hi"] (Stuck waiting 45 seconds!)
+[Heavy Background Task (takes 45s)] ─────────► [Chat: "Fix typo"] (Stuck waiting 45 seconds!)
 
 ✅ LATTICE (Preemptive Priority Admission):
-[Heavy Document Summary] ──► [PAUSED at token boundary] ──► [RESUMED from prefix cache]
-                                    │                                ▲
-                                    ▼                                │
-                              [Chat: "Hi"] ──► ⚡ Instant Reply!
+[Heavy Background Task] ──► [PAUSED at token boundary] ──► [RESUMED cleanly]
+                                    │                           ▲
+                                    ▼                           │
+                              [Chat: "Fix typo"] ──► ⚡ Instant Reply!
 ```
 
 ---
