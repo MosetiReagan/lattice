@@ -47,7 +47,9 @@ class Settings(BaseModel):
         "priority_cost",
         "priority_cost_reserve",
         "priority_cost_coalesce",
+        "priority_preemptive",
     ] = "priority_fifo"
+    preemption_auto_resume: bool = True
     worker_address_space_mb: int = Field(default=4096, ge=1024)
     host_reserve_mb: int = Field(default=2048, ge=256)
     startup_timeout_seconds: float = Field(default=120.0, gt=0, le=600)
