@@ -157,15 +157,21 @@ PYTHONPATH=src uv run --no-sync python benchmarks/run_contention_benchmark.py --
 
 ### 5. Start the Multi-Slot API Server
 
-Start the OpenAI-compatible HTTP streaming server with preemptive scheduling enabled:
+Start the OpenAI-compatible HTTP streaming server. Use `--preset chat` to automatically enable preemptive priority admission, 2 continuous slots, and auto-tuned host memory safety:
 
 ```bash
 uv run --no-sync lattice serve \
   --model qwen2.5-0.5b-instruct-f16 \
-  --native-slots 2 \
-  --admission-policy priority_preemptive \
+  --preset chat \
   --host 127.0.0.1 \
   --port 8000
+```
+
+*(You can also pass individual flags like `--native-slots 2 --admission-policy priority_preemptive --host-reserve-mb 1024`)*.
+
+Check live server and host status at any time:
+```bash
+uv run --no-sync lattice status
 ```
 
 ### 6. Connect via cURL or Python
@@ -273,13 +279,16 @@ Because Lattice provides standard OpenAI-compatible endpoints (`/v1/chat/complet
 | **LibreChat** | Add custom endpoint with baseURL `http://127.0.0.1:8000/v1` |
 | **LangChain / LlamaIndex** | Initialize `ChatOpenAI(base_url="http://127.0.0.1:8000/v1", api_key="none")` |
 
+*See [docs/integrations/open_webui.md](docs/integrations/open_webui.md) for complete end-to-end recipes.*
+
 ---
 
 ## 🛠️ CLI Command Reference
 
 | Command | Description | Example |
 | :--- | :--- | :--- |
-| `lattice serve` | Start the OpenAI-compatible HTTP inference server | `lattice serve --model <model> --native-slots 2 --admission-policy priority_preemptive` |
+| `lattice serve` | Start the OpenAI-compatible HTTP inference server | `lattice serve --model <model> --preset chat` |
+| `lattice status` | Inspect host CPU/RAM headroom, registered models, and server health | `lattice status` (or `lattice status --json`) |
 | `lattice generate` | Run a single one-shot CLI generation | `lattice generate --model <model> --prompt "Hello"` |
 | `lattice models list` | List all registered models | `lattice models list` |
 | `lattice models add` | Register a local GGUF file or download from a URL | `lattice models add /path/to/model.gguf --name my-model` |

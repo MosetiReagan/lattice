@@ -1,5 +1,6 @@
 """Tests for cross-platform host telemetry and dynamic model registration."""
 
+import json
 from pathlib import Path
 
 import pytest
@@ -112,3 +113,71 @@ def test_macos_telemetry_fallbacks_when_proc_missing(monkeypatch):
     # cpu_fingerprint falls back without crashing
     fp = cpu_fingerprint()
     assert len(fp) == 64
+
+
+def test_auto_registers_kv_bytes_per_token(settings, tmp_path):
+    dummy_model = tmp_path / "custom-llama-3.2-1b-instruct.q4_k_m.gguf"
+    dummy_model.write_bytes(b"GGUF" + b"\x00" * 1024)
+
+    entry = select_model(settings, str(dummy_model))
+    assert entry.kv_bytes_per_token is not None
+    assert entry.kv_bytes_per_token > 0
+
+
+def test_actionable_memory_guard_suggestion(settings, monkeypatch, tmp_path):
+    backend_bin = tmp_path / "llama-server"
+    backend_bin.write_bytes(b"mock_bin")
+    dummy_model = tmp_path / "model.gguf"
+    dummy_model.write_bytes(b"mock_model")
+
+    from lattice.backends.llama_cpp import LlamaCppBackend
+    settings.backend_binary = str(backend_bin)
+    settings.backend_sha256 = "0" * 64
+    settings.backend_files = {}
+    entry = settings.models[0]
+    entry.path = str(dummy_model)
+    entry.sha256 = "0" * 64
+
+    monkeypatch.setattr("lattice.backends.llama_cpp.file_hash", lambda p: "0" * 64)
+
+    backend = LlamaCppBackend(settings, entry)
+
+    # Force low memory
+    monkeypatch.setattr(
+        "lattice.observability.host.get_host_memory_kb",
+        lambda: {"MemTotal": 4096 * 1024, "MemAvailable": 512 * 1024},
+    )
+    with pytest.raises(LatticeError) as exc_info:
+        import asyncio
+        asyncio.run(backend.start())
+    assert exc_info.value.status == 503
+    assert "Suggestion: rerun with --host-reserve-mb" in str(exc_info.value)
+
+
+def test_cli_status_command(settings, tmp_path, monkeypatch, capsys):
+    from lattice.cli import main
+
+    config_file = tmp_path / "configs" / "local.json"
+    config_file.parent.mkdir(parents=True)
+    config_file.write_text(settings.model_dump_json(indent=2))
+
+    monkeypatch.setattr(
+        "sys.argv", ["lattice", "--config", str(config_file), "status", "--json"]
+    )
+    main()
+    out = capsys.readouterr().out
+    data = json.loads(out)
+    assert "server" in data
+    assert "host" in data
+    assert "models" in data
+    assert data["host"]["cpu_count"] > 0
+    assert data["host"]["total_memory_mb"] > 0
+
+    # Text mode
+    monkeypatch.setattr("sys.argv", ["lattice", "--config", str(config_file), "status"])
+    main()
+    text_out = capsys.readouterr().out
+    assert "LATTICE SYSTEM & SERVER STATUS" in text_out
+    assert "Registered Models" in text_out
+
+

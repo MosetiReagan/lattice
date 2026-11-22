@@ -127,6 +127,77 @@ def detect_precision(name: str) -> str:
     return "GGUF"
 
 
+def estimate_or_read_kv_bytes(path: Path) -> int:
+    """Extract exact KV bytes per token from GGUF header or estimate from model architecture heuristics."""
+    try:
+        with path.open("rb") as f:
+            header = f.read(24)
+            if len(header) >= 24 and header[:4] == b"GGUF":
+                import struct
+
+                _magic, _ver, _n_tensors, n_kv = struct.unpack("<4sIQQ", header)
+                kv_dict: dict[str, int] = {}
+                for _ in range(min(64, n_kv)):
+                    k_len_bytes = f.read(8)
+                    if len(k_len_bytes) < 8:
+                        break
+                    k_len = struct.unpack("<Q", k_len_bytes)[0]
+                    if k_len > 128:
+                        break
+                    k_bytes = f.read(k_len)
+                    key = k_bytes.decode("utf-8", errors="replace")
+                    vtype_bytes = f.read(4)
+                    if len(vtype_bytes) < 4:
+                        break
+                    vtype = struct.unpack("<I", vtype_bytes)[0]
+                    if vtype in (0, 1, 7):
+                        f.read(1)
+                    elif vtype in (2, 3):
+                        f.read(2)
+                    elif vtype in (4, 5, 6):
+                        val = struct.unpack("<I", f.read(4))[0]
+                        if any(term in key for term in ("block_count", "head_count", "embedding_length")):
+                            kv_dict[key] = val
+                    elif vtype in (10, 11, 12):
+                        val = struct.unpack("<Q", f.read(8))[0]
+                        if any(term in key for term in ("block_count", "head_count", "embedding_length")):
+                            kv_dict[key] = val
+                    elif vtype == 8:
+                        s_len_bytes = f.read(8)
+                        if len(s_len_bytes) < 8:
+                            break
+                        s_len = struct.unpack("<Q", s_len_bytes)[0]
+                        f.read(s_len)
+                    else:
+                        break
+
+                layers = next((v for k, v in kv_dict.items() if "block_count" in k), None)
+                kv_heads = next((v for k, v in kv_dict.items() if "head_count_kv" in k), None)
+                heads = next((v for k, v in kv_dict.items() if "head_count" in k and "head_count_kv" not in k), None)
+                embed_dim = next((v for k, v in kv_dict.items() if "embedding_length" in k), None)
+
+                if layers:
+                    kv_h = kv_heads or heads or 2
+                    head_dim = (embed_dim // heads) if (embed_dim and heads) else 64
+                    computed = 4 * layers * kv_h * head_dim
+                    if computed > 0:
+                        return computed
+    except (OSError, ValueError):
+        pass
+
+    try:
+        size_mb = path.stat().st_size / (1024 * 1024)
+        if size_mb < 800:
+            return 12288
+        if size_mb < 2500:
+            return 28672
+        if size_mb < 5500:
+            return 65536
+        return 131072
+    except OSError:
+        return 12288
+
+
 def auto_register_file_model(
     settings: Settings, path: Path, model_id: str | None = None
 ) -> ModelEntry:
@@ -141,6 +212,7 @@ def auto_register_file_model(
         if (model_id and "/" not in model_id and "\\" not in model_id)
         else resolved.stem
     )
+    entry_kv_bytes = estimate_or_read_kv_bytes(resolved)
     entry = ModelEntry(
         id=entry_id,
         path=str(resolved),
@@ -149,7 +221,7 @@ def auto_register_file_model(
         source_revision="local",
         license="custom",
         precision=precision,
-        kv_bytes_per_token=None,
+        kv_bytes_per_token=entry_kv_bytes,
     )
     settings.models = [m for m in settings.models if m.id != entry_id] + [entry]
     return entry
@@ -183,6 +255,7 @@ def register_model(
     source: str,
     name: str | None = None,
     precision: str | None = None,
+    kv_bytes_per_token: int | None = None,
     save: bool = True,
     config_path: str | Path | None = None,
 ) -> ModelEntry:
@@ -211,6 +284,7 @@ def register_model(
     sha = file_hash(local_path)
     entry_id = name or local_path.stem
     entry_precision = precision or detect_precision(local_path.name)
+    entry_kv_bytes = kv_bytes_per_token or estimate_or_read_kv_bytes(local_path)
 
     entry = ModelEntry(
         id=entry_id,
@@ -220,7 +294,7 @@ def register_model(
         source_revision="local",
         license="custom",
         precision=entry_precision,
-        kv_bytes_per_token=None,
+        kv_bytes_per_token=entry_kv_bytes,
     )
 
     settings.models = [m for m in settings.models if m.id != entry_id] + [entry]
@@ -237,6 +311,7 @@ def register_model(
                 "source_revision": entry.source_revision,
                 "license": entry.license,
                 "precision": entry.precision,
+                "kv_bytes_per_token": entry.kv_bytes_per_token,
             }
             existing_models = [m for m in data.get("models", []) if m.get("id") != entry_id]
             existing_models.append(model_dict)

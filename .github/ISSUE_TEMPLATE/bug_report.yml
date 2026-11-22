@@ -1,0 +1,54 @@
+name: "Bug Report"
+description: "File a reproducible bug report for Lattice"
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting an issue! Please provide as much context as possible so we can reproduce and fix it quickly.
+  - type: input
+    id: version
+    attributes:
+      label: "Lattice Version"
+      description: "Run `lattice status` or check your installed version"
+      placeholder: "e.g., 0.3.0.dev0"
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: "OS & Hardware Details"
+      description: "Output from `lattice system-info` or OS name, CPU architecture, and total RAM"
+      placeholder: "e.g., Ubuntu 24.04, x86_64, 4 vCPU, 8 GB RAM / macOS Apple Silicon M2"
+    validations:
+      required: true
+  - type: input
+    id: model
+    attributes:
+      label: "Model & GGUF Quantization"
+      description: "The model file or Hugging Face repository you are running"
+      placeholder: "e.g., Qwen/Qwen2.5-0.5B-Instruct-GGUF (q4_k_m)"
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: "Command Executed"
+      description: "The exact CLI command or API call that produced the error"
+      placeholder: "lattice serve --model qwen2.5-0.5b-instruct-f16 --preset chat"
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: "Observed Behavior vs Expected Behavior"
+      description: "What happened, and what did you expect to happen instead?"
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: "Terminal Logs / Traceback"
+      description: "Please paste relevant console logs or errors from `artifacts/backend.log`"
+      render: shell

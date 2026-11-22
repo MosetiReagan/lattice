@@ -32,9 +32,11 @@ def parser():
         reg.add_argument("source", help="Path to .gguf file or download URL")
         reg.add_argument("--name", help="Custom model ID (default: filename stem)")
         reg.add_argument("--precision", help="Precision override (e.g. Q4_K_M, F16)")
+        reg.add_argument("--kv-bytes-per-token", type=int, help="KV cache memory size in bytes per token")
     for name in ["generate", "serve"]:
         sub = commands.add_parser(name)
         sub.add_argument("--model", required=True)
+        sub.add_argument("--host-reserve-mb", type=int, help="Host RAM reserve cap in MB")
         if name == "generate":
             sub.add_argument(
                 "--strategy",
@@ -52,6 +54,12 @@ def parser():
             sub.add_argument("--stream", action="store_true")
             sub.add_argument("--json", action="store_true")
         else:
+            sub.add_argument(
+                "--preset",
+                choices=["chat", "batch", "default"],
+                default="default",
+                help="Preset profile (chat: preemptive priority + 2 slots + auto-tuned reserve)",
+            )
             sub.add_argument("--native-slots", type=int, choices=[1, 2, 3, 4, 8])
             sub.add_argument(
                 "--admission-policy",
@@ -88,6 +96,9 @@ def parser():
     compare.add_argument("--trials", type=int, default=30)
     compare.add_argument("--quality", action="store_true")
     commands.add_parser("system-info")
+    for name in ["status", "ps"]:
+        scmd = commands.add_parser(name)
+        scmd.add_argument("--json", action="store_true", help="Output status as JSON")
     return root
 
 
@@ -153,6 +164,84 @@ def main():
             )
             return
         settings = load_settings(args.config)
+        if args.command in ("status", "ps"):
+            import urllib.error
+            import urllib.request
+
+            from .observability.host import get_host_memory_kb
+
+            mem = get_host_memory_kb()
+            total_mb = mem.get("MemTotal", 0) // 1024
+            avail_mb = mem.get("MemAvailable", 0) // 1024
+            reserve_mb = settings.host_reserve_mb
+            headroom_mb = max(0, avail_mb - reserve_mb)
+
+            server_online = False
+            active_models = []
+            try:
+                with urllib.request.urlopen("http://127.0.0.1:8000/v1/models", timeout=0.5) as resp:
+                    if resp.status == 200:
+                        server_online = True
+                        data = json.loads(resp.read().decode())
+                        active_models = [m.get("id") for m in data.get("data", [])]
+            except (OSError, urllib.error.URLError):
+                pass
+
+            status_data = {
+                "server": {
+                    "status": "online" if server_online else "offline",
+                    "endpoint": "http://127.0.0.1:8000" if server_online else None,
+                    "active_models": active_models,
+                },
+                "host": {
+                    "platform": platform.platform(),
+                    "cpu_count": os.cpu_count(),
+                    "total_memory_mb": total_mb,
+                    "available_memory_mb": avail_mb,
+                    "host_reserve_mb": reserve_mb,
+                    "memory_headroom_mb": headroom_mb,
+                },
+                "config": {
+                    "admission_policy": settings.admission_policy,
+                    "native_slots": settings.native_slots,
+                    "context_tokens": settings.context_tokens,
+                },
+                "models": [
+                    {
+                        "id": m.id,
+                        "precision": m.precision,
+                        "kv_bytes_per_token": m.kv_bytes_per_token,
+                        "kv_cache_ready": m.kv_bytes_per_token is not None,
+                    }
+                    for m in settings.models
+                ],
+            }
+
+            if getattr(args, "json", False):
+                print(json.dumps(status_data, indent=2))
+            else:
+                print("=" * 62)
+                print("⚡ LATTICE SYSTEM & SERVER STATUS")
+                print("=" * 62)
+                srv_str = "🟢 Online (http://127.0.0.1:8000)" if server_online else "⚪ Offline (start with 'lattice serve --preset chat')"
+                print(f"Server Status:       {srv_str}")
+                if active_models:
+                    print(f"Loaded Models:       {', '.join(active_models)}")
+                print("-" * 62)
+                print(f"Host OS:             {platform.platform()}")
+                print(f"CPU Cores:           {os.cpu_count()}")
+                print(f"Host Memory:         {avail_mb} MB available / {total_mb} MB total")
+                print(f"Safety Reserve:      {reserve_mb} MB (Headroom: {headroom_mb} MB)")
+                print("-" * 62)
+                print(f"Admission Policy:    {settings.admission_policy}")
+                print(f"Native Slots:        {settings.native_slots}")
+                print("-" * 62)
+                print("Registered Models:")
+                for m in settings.models:
+                    kv_flag = f"✅ Ready ({m.kv_bytes_per_token} B/tok)" if m.kv_bytes_per_token else "⚠️ Missing size"
+                    print(f"  • {m.id:<24} [{m.precision}] (Cache: {kv_flag})")
+                print("=" * 62)
+            return
         if args.command == "models":
             if args.action in ("register", "add"):
                 entry = register_model(
@@ -160,6 +249,7 @@ def main():
                     args.source,
                     name=args.name,
                     precision=args.precision,
+                    kv_bytes_per_token=getattr(args, "kv_bytes_per_token", None),
                     save=True,
                     config_path=args.config,
                 )
@@ -270,21 +360,41 @@ def main():
                 )
             )
         elif args.command == "generate":
+            if getattr(args, "host_reserve_mb", None) is not None:
+                settings.host_reserve_mb = args.host_reserve_mb
             asyncio.run(run_generation(settings, entry, args))
         elif args.command == "serve":
             import uvicorn
 
             from .api import create_app
+            from .observability.host import get_host_memory_kb
 
             key = os.environ.get("LATTICE_API_KEY")
             if args.host not in ("127.0.0.1", "localhost", "::1") and not key:
                 raise LatticeError(
                     "Set LATTICE_API_KEY before binding a non-loopback interface"
                 )
+            if getattr(args, "preset", "default") == "chat":
+                if args.admission_policy is None:
+                    settings.admission_policy = "priority_preemptive"
+                if args.native_slots is None:
+                    settings.native_slots = 2
+                if getattr(args, "host_reserve_mb", None) is None:
+                    mem = get_host_memory_kb()
+                    total_mb = mem.get("MemTotal", 4096 * 1024) // 1024
+                    if total_mb <= 4096:
+                        settings.host_reserve_mb = 1024
+                print(
+                    f"⚡ [Preset: chat enabled] Policy: {settings.admission_policy}, "
+                    f"Slots: {settings.native_slots}, Host reserve: {settings.host_reserve_mb}MB",
+                    file=sys.stderr,
+                )
             if args.native_slots is not None:
                 settings.native_slots = args.native_slots
             if args.admission_policy is not None:
                 settings.admission_policy = args.admission_policy
+            if getattr(args, "host_reserve_mb", None) is not None:
+                settings.host_reserve_mb = args.host_reserve_mb
             backend = create_backend(settings, entry)
             factory = (
                 None

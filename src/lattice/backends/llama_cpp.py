@@ -174,9 +174,16 @@ class LlamaCppBackend:
                 422,
                 "budget_infeasible",
             )
-        if mem.get("MemAvailable", 0) < need_kb + self.settings.host_reserve_mb * 1024:
+        avail_kb = mem.get("MemAvailable", 0)
+        required_kb = need_kb + self.settings.host_reserve_mb * 1024
+        if avail_kb < required_kb:
+            avail_mb = avail_kb // 1024
+            need_mb = need_kb // 1024
+            suggested_mb = max(256, (avail_mb - need_mb - 128))
             raise LatticeError(
-                "Insufficient host memory for weights, working estimate and reserve",
+                f"Insufficient host memory: available {avail_mb}MB < required {required_kb // 1024}MB "
+                f"(model weights & working memory: {need_mb}MB, host reserve: {self.settings.host_reserve_mb}MB). "
+                f"Suggestion: rerun with --host-reserve-mb {suggested_mb}",
                 503,
                 "memory_admission_failed",
             )
