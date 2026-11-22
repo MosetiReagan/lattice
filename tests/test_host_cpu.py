@@ -3,6 +3,7 @@ import pytest
 from lattice.observability.host import (
     CpuStealSampler,
     CpuTimes,
+    cpu_preflight_eligible,
     parse_cpu_times,
     steal_fraction,
 )
@@ -48,3 +49,20 @@ def test_sampler_marks_missing_and_reset_counters_unavailable():
     assert not sampler.summary()["available"]
     with pytest.raises(ValueError):
         CpuStealSampler(interval=0)
+
+
+def test_preflight_requires_aggregate_interval_and_cpu_availability():
+    eligible = {
+        "available": True,
+        "aggregate_steal_fraction": 0.01,
+        "max_interval_steal_fraction": 0.05,
+    }
+    assert cpu_preflight_eligible(eligible, 0.95)
+    assert not cpu_preflight_eligible(
+        {**eligible, "max_interval_steal_fraction": 0.1001}, 0.95
+    )
+    assert not cpu_preflight_eligible(
+        {**eligible, "aggregate_steal_fraction": 0.0501}, 0.95
+    )
+    assert not cpu_preflight_eligible(eligible, 0.8999)
+    assert not cpu_preflight_eligible({**eligible, "available": False}, 0.95)

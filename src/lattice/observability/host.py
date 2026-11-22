@@ -60,6 +60,27 @@ def steal_fraction(before: CpuTimes, after: CpuTimes) -> float | None:
     return steal / total
 
 
+def cpu_preflight_eligible(
+    host_cpu: dict,
+    available_cpu_fraction: float,
+    *,
+    aggregate_steal_max: float = 0.05,
+    interval_steal_max: float = 0.10,
+    available_cpu_min: float = 0.90,
+) -> bool:
+    """Require both short-window stability and sufficient requested CPU time."""
+    aggregate = host_cpu.get("aggregate_steal_fraction")
+    interval = host_cpu.get("max_interval_steal_fraction")
+    return bool(
+        host_cpu.get("available")
+        and aggregate is not None
+        and aggregate <= aggregate_steal_max
+        and interval is not None
+        and interval <= interval_steal_max
+        and available_cpu_fraction >= available_cpu_min
+    )
+
+
 class CpuStealSampler:
     """Whole-VM counters; not process utilization or an isolated-host guarantee."""
 
