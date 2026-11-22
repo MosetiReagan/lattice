@@ -5,10 +5,10 @@
 
 [![Status: 0.3.0.dev0](https://img.shields.io/badge/status-Alpha%20Preview-orange.svg)](docs/release_readiness.md)
 [![Python: 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](pyproject.toml)
-[![Platform: Linux](https://img.shields.io/badge/platform-Linux%20x86__64%20%7C%20aarch64-blue.svg)](docs/hardware_compatibility.md)
+[![Platform: Linux & macOS](https://img.shields.io/badge/platform-Linux%20%7C%20macOS-blue.svg)](docs/hardware_compatibility.md)
 [![Backend: llama.cpp](https://img.shields.io/badge/powered%20by-llama.cpp-green.svg)](https://github.com/ggerganov/llama.cpp)
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
-[![Tests: 156+ Passing](https://img.shields.io/badge/tests-156%2B%20passing-brightgreen.svg)](tests/)
+[![Tests: 164+ Passing](https://img.shields.io/badge/tests-164%2B%20passing-brightgreen.svg)](tests/)
 
 ---
 
@@ -53,19 +53,19 @@ We measured the difference under a realistic CPU contention workload (a heavy 51
 
 * 🚀 **Preemptive Priority Scheduling (`priority_preemptive`)**: High-priority interactive chat requests skip to the front of the queue. Running low-priority background tasks yield cooperatively at token boundaries.
 * 🧠 **Automatic KV Prefix Reuse**: When a paused task resumes, Lattice reuses its prompt Key-Value (KV) cache from memory instead of wasting CPU compute re-processing the prompt from scratch.
-* 🛡️ **Guaranteed Memory Safety (No OOM Crashes)**: Real-time telemetry via Linux `/proc/meminfo` enforces hard host memory reserves and process address space limits, preventing system freezes and Out-Of-Memory kernel kills.
+* 🛡️ **Guaranteed Memory Safety (No OOM Crashes)**: Real-time telemetry via Linux `/proc/meminfo` and macOS `vm_stat` enforces hard host memory reserves and process address space limits, preventing system freezes and Out-Of-Memory kernel kills.
 * 🔄 **Continuous Multi-Slot Batching**: Run 2, 3, 4, or 8 concurrent slots (`--native-slots 2`) backed by native continuous batching from `llama.cpp`.
 * 🌐 **OpenAI-Compatible API**: Drop-in compatible `/v1/chat/completions` and `/v1/models` endpoints. Works out of the box with `curl`, Python `openai` client, Open WebUI, and standard LLM tooling.
-* 🔒 **Operator-Controlled Model Registry**: Strict SHA-256 integrity checks, immutable configurations, and precise KV memory accounting per registered model.
+* 📦 **Universal GGUF Model Support**: Run any GGUF model supported by `llama.cpp` (Llama 3, Qwen 2.5, Mistral, Gemma 2, Phi 3, DeepSeek, etc.) by passing its file path directly or using `lattice models add`.
+* 🍏 **Cross-Platform (Linux & macOS)**: Runs on Linux (`x86_64`, `aarch64`) and macOS (`x86_64`, Apple Silicon) with adaptive memory and CPU telemetry.
 
 ---
 
 ## 💻 System Requirements
 
-* **Operating System**: **Linux** (x86_64 or aarch64).
-  * *Note: Lattice directly reads `/proc/stat` and `/proc/meminfo` for kernel-level CPU and memory management. macOS / Apple Silicon is currently untested and unsupported.*
+* **Operating System**: **Linux** (x86_64 or aarch64) or **macOS** (x86_64 or Apple Silicon/ARM64).
 * **Python**: Python 3.11 or newer.
-* **Hardware**: Any modern x86_64 or aarch64 CPU with at least 4 GB RAM. (GPU execution is not required; Lattice is specifically engineered for CPU serving).
+* **Hardware**: Any modern x86_64 or Apple Silicon CPU with at least 4 GB RAM. (GPU execution is not required; Lattice is specifically engineered for CPU serving).
 * **Package Manager**: [`uv`](https://github.com/astral-sh/uv) (recommended) or `pip`.
 
 ---
@@ -99,6 +99,8 @@ uv run --no-sync lattice generate \
   --model qwen2.5-0.5b-instruct-f16 \
   --prompt "What is the capital of Kenya?"
 ```
+
+*(You can also pass any local `.gguf` file path directly to `--model`)*.
 
 ### 4. Run the Contention Benchmark
 
@@ -143,27 +145,53 @@ curl http://127.0.0.1:8000/v1/chat/completions \
 
 ---
 
-## 🧩 Adding Your Own Models
+## 🧩 Using Any Model
 
-Lattice uses an explicit **Model Registry** (`configs/local.json`) rather than accepting untrusted arbitrary file paths at runtime. This guarantees exact SHA-256 verification and ensures Lattice knows the exact memory footprint of the weights and KV cache before admitting requests.
+Lattice supports any GGUF-compatible model supported by `llama.cpp` (including **Llama 3 / 3.1**, **Qwen 2.5**, **Mistral**, **Gemma 2**, **Phi 3**, **DeepSeek**, etc.). You can load models in three simple ways:
 
-To add any GGUF model supported by `llama.cpp`, add an entry to `configs/local.json`:
+### Option A: Pass the Model File Directly
+Pass the path to any `.gguf` file directly to `generate` or `serve`:
+
+```bash
+uv run --no-sync lattice serve \
+  --model /path/to/my-model.Q4_K_M.gguf \
+  --native-slots 2 \
+  --admission-policy priority_preemptive
+```
+Lattice automatically computes the SHA-256 checksum, detects the quantization precision, and auto-registers the model on the fly.
+
+### Option B: Add or Download via the CLI
+Use `lattice models add` to register a local file or download directly from a URL:
+
+```bash
+# Add a local GGUF file and save it to the registry
+uv run --no-sync lattice models add /path/to/my-model.gguf --name my-model
+
+# Or download and register directly from Hugging Face
+uv run --no-sync lattice models add \
+  https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF/resolve/main/qwen2.5-0.5b-instruct-q4_k_m.gguf \
+  --name qwen-q4
+```
+
+Inspect registered models at any time:
+```bash
+uv run --no-sync lattice models list
+uv run --no-sync lattice models inspect my-model
+```
+
+### Option C: Pre-Configure in `configs/local.json`
+Define models in `configs/local.json` with explicit metadata:
 
 ```json
 {
   "id": "my-custom-model",
-  "path": "artifacts/models/my-custom-model.gguf",
+  "path": "../models/my-custom-model.gguf",
   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "source_repository": "huggingface.co/MyOrg/MyModel",
   "source_revision": "main",
   "license": "Apache-2.0",
-  "precision": "Q4_K_M"
+  "precision": "GGUF Q4_K_M"
 }
-```
-
-Once registered, inspect it with the CLI:
-```bash
-uv run --no-sync lattice models inspect my-custom-model
 ```
 
 ---
@@ -173,11 +201,12 @@ uv run --no-sync lattice models inspect my-custom-model
 | Capability | Raw `llama-server` | Ollama | **Lattice** |
 | :--- | :---: | :---: | :---: |
 | **Inference Engine** | `llama.cpp` (C++) | `llama.cpp` (Go wrapper) | **`llama.cpp` (Python Controller + C++)** |
+| **Platform Support** | Linux / macOS / Windows | Linux / macOS / Windows | **Linux & macOS (CPU-optimized)** |
 | **Scheduling Algorithm** | Standard FIFO Queue | Standard FIFO Queue | **Preemptive Priority Admission (`priority_preemptive`)** |
 | **Interactive Latency Under Contention** | High (stuck behind batch jobs) | High (stuck behind batch jobs) | **⚡ Sub-2s (preempts low-priority jobs)** |
 | **Prompt Prefix Cache** | Manual / `--prompt-cache` | Basic context caching | **Automatic cross-request prefix reuse** |
 | **RAM Safety & OOM Guard** | None (OS handles OOM) | None (OS handles OOM) | **Strict host memory reserve & address space caps** |
-| **Model Verification** | Manual file loading | Modelfile / Registry | **Strict SHA-256 operator registry (`configs/local.json`)** |
+| **Supported Models** | Any GGUF model | Modelfile / Library | **Any GGUF model (direct path, URL, or registry)** |
 | **OpenAI API Support** | ✅ `/v1/chat/completions` | ✅ `/v1/chat/completions` | **✅ `/v1/chat/completions` (with priority support)** |
 
 ---
@@ -194,7 +223,7 @@ uv run --no-sync lattice models inspect my-custom-model
 Most local developers and edge deployments do not have high-end GPUs with 24GB+ VRAM. On CPUs, compute cores and memory bandwidth are strictly constrained, making task contention and queuing delays far more severe than on GPUs. Lattice is designed to make local CPU serving responsive and practical.
 
 #### Is Lattice ready for production?
-Lattice is currently an open-source development preview (`0.3.0.dev0`). It is stable, backed by 156+ passing automated tests, and tested under real-world CPU contention workloads.
+Lattice is currently an open-source development preview (`0.3.0.dev0`). It is stable, backed by 164+ passing automated tests, and tested under real-world CPU contention workloads.
 
 ---
 
@@ -205,7 +234,7 @@ For researchers and engineers wanting to explore the implementation details:
 * 🏛️ **[System Architecture](docs/architecture.md)** — Control plane, worker subprocess management, and execution boundaries.
 * ⏱️ **[Request Scheduling](docs/request_scheduling.md)** — Fair semaphore admission, priority levels, and preemption mechanics.
 * 💾 **[KV Cache Optimization](docs/kv_cache_optimization.md)** — Exact token sequence matching, prefix hashing, and memory budgeting.
-* 🖥️ **[Hardware & OS Compatibility](docs/hardware_compatibility.md)** — Linux-specific kernel telemetry details and hardware scope.
+* 🖥️ **[Hardware & OS Compatibility](docs/hardware_compatibility.md)** — Linux & macOS telemetry details and hardware scope.
 * 🔬 **[Benchmark Confirmation Report](docs/chat-cache-budget-confirmation-v7.md)** — Complete methodology, latency sweeps, and exact-output checks.
 * 📋 **[Release Readiness](docs/release_readiness.md)** — Acceptance criteria and engineering audit checklist.
 

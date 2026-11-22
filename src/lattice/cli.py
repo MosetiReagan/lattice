@@ -13,7 +13,7 @@ from pathlib import Path
 from pydantic import ValidationError
 
 from .backends import create_backend
-from .config import load_settings, public_model, select_model
+from .config import load_settings, public_model, register_model, select_model
 from .runtime import Runtime
 from .types import GenerationRequest, LatticeError
 
@@ -27,6 +27,11 @@ def parser():
     models = commands.add_parser("models").add_subparsers(dest="action", required=True)
     models.add_parser("list")
     models.add_parser("inspect").add_argument("model")
+    for act in ["register", "add"]:
+        reg = models.add_parser(act)
+        reg.add_argument("source", help="Path to .gguf file or download URL")
+        reg.add_argument("--name", help="Custom model ID (default: filename stem)")
+        reg.add_argument("--precision", help="Precision override (e.g. Q4_K_M, F16)")
     for name in ["generate", "serve"]:
         sub = commands.add_parser(name)
         sub.add_argument("--model", required=True)
@@ -149,6 +154,17 @@ def main():
             return
         settings = load_settings(args.config)
         if args.command == "models":
+            if args.action in ("register", "add"):
+                entry = register_model(
+                    settings,
+                    args.source,
+                    name=args.name,
+                    precision=args.precision,
+                    save=True,
+                    config_path=args.config,
+                )
+                print(json.dumps(public_model(entry), indent=2))
+                return
             data = (
                 [public_model(m) for m in settings.models]
                 if args.action == "list"
