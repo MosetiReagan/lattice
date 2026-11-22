@@ -1,16 +1,15 @@
 ---
-title: ⚡ Lattice - Preemptive Priority LLM Scheduler
+title: ⚡ Lattice - Interactive Preemption Simulator
 emoji: ⚡
 colorFrom: blue
 colorTo: indigo
-sdk: gradio
-app_file: app.py
+sdk: static
 pinned: false
 license: apache-2.0
-short_description: Instant chat replies for local LLMs even during heavy background tasks
+short_description: Preemptive priority LLM scheduler for local inference
 ---
 
-# ⚡ Lattice: Interactive CPU Contention Playground
+# ⚡ Lattice: Interactive Preemption Simulator
 
 Witness how **Preemptive Priority Scheduling** eliminates Head-of-Line (HoL) queue delays for local LLMs.
 

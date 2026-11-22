@@ -1,4 +1,4 @@
-"""Deploy Lattice Gradio Space to Hugging Face Spaces."""
+"""Deploy Lattice Space to Hugging Face Spaces."""
 
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ from huggingface_hub import HfApi
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Deploy Gradio demo to Hugging Face Spaces"
+        description="Deploy interactive demo to Hugging Face Spaces"
     )
     parser.add_argument(
         "--token",
@@ -23,6 +23,12 @@ def main() -> None:
         "--space-name",
         default="lattice-preemption-demo",
         help="Name for the Hugging Face Space repository",
+    )
+    parser.add_argument(
+        "--sdk",
+        default="static",
+        choices=["static", "gradio", "docker"],
+        help="Space SDK type (default: static)",
     )
     args = parser.parse_args()
 
@@ -40,11 +46,11 @@ def main() -> None:
     repo_id = f"{username}/{args.space_name}"
 
     print(f"Authenticated as Hugging Face user: {username}")
-    print(f"Creating Space: {repo_id} (if not already exists)...")
+    print(f"Creating Space: {repo_id} (SDK: {args.sdk})...")
     api.create_repo(
         repo_id=repo_id,
         repo_type="space",
-        space_sdk="gradio",
+        space_sdk=args.sdk,
         exist_ok=True,
     )
 

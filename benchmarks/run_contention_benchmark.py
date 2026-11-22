@@ -68,7 +68,6 @@ class RunStats:
     interactive_output: str
 
 
-
 async def run_scenario(
     policy: str,
     slots: int = 1,
@@ -89,7 +88,10 @@ async def run_scenario(
             backend = create_backend(settings, entry)
             await backend.start()
         except (OSError, LatticeError, ValueError) as exc:
-            print(f"[Notice: real backend unavailable ({exc}), falling back to simulated backend]", file=sys.stderr)
+            print(
+                f"[Notice: real backend unavailable ({exc}), falling back to simulated backend]",
+                file=sys.stderr,
+            )
             use_real_backend = False
 
     if not use_real_backend:
@@ -123,14 +125,17 @@ async def run_scenario(
         model=entry.id,
         prompt="Write a concise overview explaining how operating system CPU scheduling algorithms work:"
         if use_real_backend
-        else "Heavy background document summarization task containing lots of context words " * 10,
+        else "Heavy background document summarization task containing lots of context words "
+        * 10,
         max_tokens=bg_tokens,
         priority=0,
     )
 
     int_req = GenerationRequest(
         model=entry.id,
-        prompt="Say hello and count to three:" if use_real_backend else "Short user chat message",
+        prompt="Say hello and count to three:"
+        if use_real_backend
+        else "Short user chat message",
         max_tokens=chat_tokens,
         priority=3,
     )
@@ -188,9 +193,21 @@ async def run_scenario(
         else:
             backend.stop()
 
-    queue_wait = (t_int_admitted - t_int_submit) * 1000 if (t_int_admitted > 0 and t_int_submit > 0) else 0.0
-    int_ttft = (t_int_first_tok - t_int_submit) * 1000 if (t_int_first_tok > 0 and t_int_submit > 0) else queue_wait
-    int_total = (t_int_done - t_int_submit) * 1000 if (t_int_done > 0 and t_int_submit > 0) else 0.0
+    queue_wait = (
+        (t_int_admitted - t_int_submit) * 1000
+        if (t_int_admitted > 0 and t_int_submit > 0)
+        else 0.0
+    )
+    int_ttft = (
+        (t_int_first_tok - t_int_submit) * 1000
+        if (t_int_first_tok > 0 and t_int_submit > 0)
+        else queue_wait
+    )
+    int_total = (
+        (t_int_done - t_int_submit) * 1000
+        if (t_int_done > 0 and t_int_submit > 0)
+        else 0.0
+    )
 
     return RunStats(
         queue_wait_ms=queue_wait,
@@ -214,9 +231,21 @@ async def main():
         default="auto",
         help="Benchmark mode: auto (detect real backend), real (require llama.cpp), simulated (BenchmarkMockBackend)",
     )
-    parser.add_argument("--model", help="Registered model ID to benchmark (for real mode)")
-    parser.add_argument("--bg-tokens", type=int, default=120, help="Number of background tokens (default: 120)")
-    parser.add_argument("--chat-tokens", type=int, default=8, help="Number of interactive tokens (default: 8)")
+    parser.add_argument(
+        "--model", help="Registered model ID to benchmark (for real mode)"
+    )
+    parser.add_argument(
+        "--bg-tokens",
+        type=int,
+        default=120,
+        help="Number of background tokens (default: 120)",
+    )
+    parser.add_argument(
+        "--chat-tokens",
+        type=int,
+        default=8,
+        help="Number of interactive tokens (default: 8)",
+    )
     parser.add_argument(
         "--sweep",
         action="store_true",
@@ -232,7 +261,10 @@ async def main():
             if Path(cfg.backend_binary).is_file() and Path(m.path).is_file():
                 use_real = True
             elif args.mode == "real":
-                print(f"Error: model ({m.path}) or backend ({cfg.backend_binary}) not found. Provision first.", file=sys.stderr)
+                print(
+                    f"Error: model ({m.path}) or backend ({cfg.backend_binary}) not found. Provision first.",
+                    file=sys.stderr,
+                )
                 sys.exit(1)
         except (OSError, LatticeError, ValueError):
             if args.mode == "real":
@@ -244,15 +276,21 @@ async def main():
     if use_real:
         print("Backend: Real CPU Inference (llama.cpp engine + registered GGUF model)")
     else:
-        print("Backend: Synthetic Simulation (BenchmarkMockBackend, 25ms/tok CPU model simulation)")
-    print("Workload: Low-priority background task (P0) competing with incoming interactive chat (P3)")
+        print(
+            "Backend: Synthetic Simulation (BenchmarkMockBackend, 25ms/tok CPU model simulation)"
+        )
+    print(
+        "Workload: Low-priority background task (P0) competing with incoming interactive chat (P3)"
+    )
     print("-" * 78)
 
     if args.sweep:
         sweep_workloads = [48, 96, 160]
         results = []
         for bg_len in sweep_workloads:
-            print(f"\n--- Testing Background Workload: {bg_len} Tokens (Chat: {args.chat_tokens} Tokens) ---")
+            print(
+                f"\n--- Testing Background Workload: {bg_len} Tokens (Chat: {args.chat_tokens} Tokens) ---"
+            )
             print("1. Running FIFO baseline...")
             fifo = await run_scenario(
                 "priority_fifo",
@@ -281,18 +319,34 @@ async def main():
             qw_speedup = f.queue_wait_ms / max(1.0, p.queue_wait_ms)
             ttft_speedup = f.interactive_ttft_ms / max(1.0, p.interactive_ttft_ms)
             tot_speedup = f.interactive_total_ms / max(1.0, p.interactive_total_ms)
-            print(f"\n[Workload: Background {bg_len} tokens | Interactive {args.chat_tokens} tokens]")
-            print(f"  {'Metric':<28} | {'FIFO (Standard)':<19} | {'Preemptive (Lattice)':<20} | {'Speedup'}")
+            print(
+                f"\n[Workload: Background {bg_len} tokens | Interactive {args.chat_tokens} tokens]"
+            )
+            print(
+                f"  {'Metric':<28} | {'FIFO (Standard)':<19} | {'Preemptive (Lattice)':<20} | {'Speedup'}"
+            )
             print(f"  {'-' * 28}+-+{'-' * 19}+-+{'-' * 20}+-+{'-' * 12}")
-            print(f"  {'Queue Wait Time':<28} | {f.queue_wait_ms:>16.1f} ms | {p.queue_wait_ms:>17.1f} ms | {qw_speedup:>8.1f}x faster")
-            print(f"  {'Time To First Token (TTFT)':<28} | {f.interactive_ttft_ms:>16.1f} ms | {p.interactive_ttft_ms:>17.1f} ms | {ttft_speedup:>8.1f}x faster")
-            print(f"  {'Interactive Total Latency':<28} | {f.interactive_total_ms:>16.1f} ms | {p.interactive_total_ms:>17.1f} ms | {tot_speedup:>8.1f}x faster")
-            print(f"  {'Background Makespan':<28} | {f.background_total_ms:>16.1f} ms | {p.background_total_ms:>17.1f} ms | Yield Trade-off")
-            print(f"  {'Preemptions / Resumes':<28} | {f.preemptions:>16} / {f.resumptions:<2} | {p.preemptions:>17} / {p.resumptions:<2} | Clean Recovery")
+            print(
+                f"  {'Queue Wait Time':<28} | {f.queue_wait_ms:>16.1f} ms | {p.queue_wait_ms:>17.1f} ms | {qw_speedup:>8.1f}x faster"
+            )
+            print(
+                f"  {'Time To First Token (TTFT)':<28} | {f.interactive_ttft_ms:>16.1f} ms | {p.interactive_ttft_ms:>17.1f} ms | {ttft_speedup:>8.1f}x faster"
+            )
+            print(
+                f"  {'Interactive Total Latency':<28} | {f.interactive_total_ms:>16.1f} ms | {p.interactive_total_ms:>17.1f} ms | {tot_speedup:>8.1f}x faster"
+            )
+            print(
+                f"  {'Background Makespan':<28} | {f.background_total_ms:>16.1f} ms | {p.background_total_ms:>17.1f} ms | Yield Trade-off"
+            )
+            print(
+                f"  {'Preemptions / Resumes':<28} | {f.preemptions:>16} / {f.resumptions:<2} | {p.preemptions:>17} / {p.resumptions:<2} | Clean Recovery"
+            )
         print("=" * 80)
         return
 
-    print(f"\n1. Running baseline (priority_fifo: standard FIFO queueing, {args.bg_tokens} bg tokens)...")
+    print(
+        f"\n1. Running baseline (priority_fifo: standard FIFO queueing, {args.bg_tokens} bg tokens)..."
+    )
     fifo = await run_scenario(
         "priority_fifo",
         slots=1,
@@ -302,7 +356,9 @@ async def main():
         chat_tokens=args.chat_tokens,
     )
 
-    print(f"2. Running candidate (priority_preemptive: cooperative preemption & auto-resume, {args.bg_tokens} bg tokens)...")
+    print(
+        f"2. Running candidate (priority_preemptive: cooperative preemption & auto-resume, {args.bg_tokens} bg tokens)..."
+    )
     preempt = await run_scenario(
         "priority_preemptive",
         slots=1,
@@ -315,31 +371,65 @@ async def main():
     qw_speedup = fifo.queue_wait_ms / max(1.0, preempt.queue_wait_ms)
     ttft_speedup = fifo.interactive_ttft_ms / max(1.0, preempt.interactive_ttft_ms)
     total_speedup = fifo.interactive_total_ms / max(1.0, preempt.interactive_total_ms)
-    qw_reduction = ((fifo.queue_wait_ms - preempt.queue_wait_ms) / max(1.0, fifo.queue_wait_ms)) * 100
-    ttft_reduction = ((fifo.interactive_ttft_ms - preempt.interactive_ttft_ms) / max(1.0, fifo.interactive_ttft_ms)) * 100
-    total_reduction = ((fifo.interactive_total_ms - preempt.interactive_total_ms) / max(1.0, fifo.interactive_total_ms)) * 100
-    bg_makespan_increase = ((preempt.background_total_ms - fifo.background_total_ms) / max(1.0, fifo.background_total_ms)) * 100
+    qw_reduction = (
+        (fifo.queue_wait_ms - preempt.queue_wait_ms) / max(1.0, fifo.queue_wait_ms)
+    ) * 100
+    ttft_reduction = (
+        (fifo.interactive_ttft_ms - preempt.interactive_ttft_ms)
+        / max(1.0, fifo.interactive_ttft_ms)
+    ) * 100
+    total_reduction = (
+        (fifo.interactive_total_ms - preempt.interactive_total_ms)
+        / max(1.0, fifo.interactive_total_ms)
+    ) * 100
+    bg_makespan_increase = (
+        (preempt.background_total_ms - fifo.background_total_ms)
+        / max(1.0, fifo.background_total_ms)
+    ) * 100
 
     print("\n" + "=" * 78)
     print("CONTENTION BENCHMARK RESULTS SUMMARY")
     print("=" * 78)
     print(f"{'Metric':<34} | {'FIFO (Standard)':<18} | {'Preemptive (Lattice)':<20}")
     print("-" * 78)
-    print(f"{'Interactive Queue Wait Time':<34} | {fifo.queue_wait_ms:>15.1f} ms | {preempt.queue_wait_ms:>17.1f} ms")
-    print(f"{'Interactive TTFT':<34} | {fifo.interactive_ttft_ms:>15.1f} ms | {preempt.interactive_ttft_ms:>17.1f} ms")
-    print(f"{'Interactive Total Latency':<34} | {fifo.interactive_total_ms:>15.1f} ms | {preempt.interactive_total_ms:>17.1f} ms")
-    print(f"{'Background Total Makespan':<34} | {fifo.background_total_ms:>15.1f} ms | {preempt.background_total_ms:>17.1f} ms")
-    print(f"{'Preemptions Triggered':<34} | {fifo.preemptions:>18} | {preempt.preemptions:>20}")
-    print(f"{'Seamless Resumptions':<34} | {fifo.resumptions:>18} | {preempt.resumptions:>20}")
-    print(f"{'Interactive Completed':<34} | {fifo.interactive_completed:>17}/1 | {preempt.interactive_completed:>19}/1")
-    print(f"{'Background Completed':<34} | {fifo.background_completed:>17}/1 | {preempt.background_completed:>19}/1")
+    print(
+        f"{'Interactive Queue Wait Time':<34} | {fifo.queue_wait_ms:>15.1f} ms | {preempt.queue_wait_ms:>17.1f} ms"
+    )
+    print(
+        f"{'Interactive TTFT':<34} | {fifo.interactive_ttft_ms:>15.1f} ms | {preempt.interactive_ttft_ms:>17.1f} ms"
+    )
+    print(
+        f"{'Interactive Total Latency':<34} | {fifo.interactive_total_ms:>15.1f} ms | {preempt.interactive_total_ms:>17.1f} ms"
+    )
+    print(
+        f"{'Background Total Makespan':<34} | {fifo.background_total_ms:>15.1f} ms | {preempt.background_total_ms:>17.1f} ms"
+    )
+    print(
+        f"{'Preemptions Triggered':<34} | {fifo.preemptions:>18} | {preempt.preemptions:>20}"
+    )
+    print(
+        f"{'Seamless Resumptions':<34} | {fifo.resumptions:>18} | {preempt.resumptions:>20}"
+    )
+    print(
+        f"{'Interactive Completed':<34} | {fifo.interactive_completed:>17}/1 | {preempt.interactive_completed:>19}/1"
+    )
+    print(
+        f"{'Background Completed':<34} | {fifo.background_completed:>17}/1 | {preempt.background_completed:>19}/1"
+    )
     print("-" * 78)
-    print(f"\n>>> QUEUE WAIT TIME REDUCTION: {qw_reduction:.1f}% FASTER ({qw_speedup:.1f}x speedup) <<<")
-    print(f">>> INTERACTIVE TTFT REDUCTION: {ttft_reduction:.1f}% FASTER ({ttft_speedup:.1f}x speedup) <<<")
-    print(f">>> INTERACTIVE TOTAL LATENCY: {total_reduction:.1f}% FASTER ({total_speedup:.1f}x speedup) <<<")
-    print(f">>> BACKGROUND MAKESPAN IMPACT: +{bg_makespan_increase:.1f}% (trade-off: yields CPU to chat) <<<")
+    print(
+        f"\n>>> QUEUE WAIT TIME REDUCTION: {qw_reduction:.1f}% FASTER ({qw_speedup:.1f}x speedup) <<<"
+    )
+    print(
+        f">>> INTERACTIVE TTFT REDUCTION: {ttft_reduction:.1f}% FASTER ({ttft_speedup:.1f}x speedup) <<<"
+    )
+    print(
+        f">>> INTERACTIVE TOTAL LATENCY: {total_reduction:.1f}% FASTER ({total_speedup:.1f}x speedup) <<<"
+    )
+    print(
+        f">>> BACKGROUND MAKESPAN IMPACT: +{bg_makespan_increase:.1f}% (trade-off: yields CPU to chat) <<<"
+    )
     print("=" * 78)
-
 
 
 if __name__ == "__main__":
