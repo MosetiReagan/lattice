@@ -161,7 +161,7 @@ wheels = [
 
 [[package]]
 name = "lattice-inference"
-version = "0.3.0.dev0"
+version = "0.3.0a1"
 source = { editable = "." }
 dependencies = [
     { name = "fastapi" },
