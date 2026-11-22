@@ -1,9 +1,10 @@
-"""Linux worker RSS sampling, raw record exports and descriptive statistics."""
+"""Process RSS sampling, raw record exports and descriptive statistics (Linux & macOS)."""
 
 import asyncio
 import csv
 import math
 import statistics
+import subprocess
 from pathlib import Path
 
 
@@ -45,18 +46,33 @@ class RssSampler:
     async def _sample(self):
         while True:
             try:
-                values = dict(
-                    line.split(":", 1)
-                    for line in Path(f"/proc/{self.pid}/status")
-                    .read_text()
-                    .splitlines()
-                    if ":" in line
-                )
-                rss = int(values["VmRSS"].split()[0]) * 1024
-                self.peak_bytes = max(self.peak_bytes or 0, rss)
-                swap = int(values.get("VmSwap", "0 kB").split()[0]) * 1024
-                self.swap_peak_bytes = max(self.swap_peak_bytes or 0, swap)
-                self.samples += 1
+                proc_status = Path(f"/proc/{self.pid}/status")
+                if proc_status.exists():
+                    values = dict(
+                        line.split(":", 1)
+                        for line in proc_status.read_text().splitlines()
+                        if ":" in line
+                    )
+                    rss = int(values["VmRSS"].split()[0]) * 1024
+                    self.peak_bytes = max(self.peak_bytes or 0, rss)
+                    swap = int(values.get("VmSwap", "0 kB").split()[0]) * 1024
+                    self.swap_peak_bytes = max(self.swap_peak_bytes or 0, swap)
+                    self.samples += 1
+                else:
+                    # macOS / BSD fallback via ps
+                    proc = await asyncio.to_thread(
+                        subprocess.run,
+                        ["ps", "-o", "rss=", "-p", str(self.pid)],
+                        capture_output=True,
+                        text=True,
+                    )
+                    if proc.returncode == 0 and proc.stdout.strip():
+                        rss = int(proc.stdout.strip().split()[0]) * 1024
+                        self.peak_bytes = max(self.peak_bytes or 0, rss)
+                        self.swap_peak_bytes = max(self.swap_peak_bytes or 0, 0)
+                        self.samples += 1
+                    else:
+                        return
             except (OSError, KeyError, ValueError):
                 return
             await asyncio.sleep(self.interval)

@@ -84,6 +84,8 @@ def main():
         "-DLLAMA_BUILD_UI=OFF",
         "-DLLAMA_USE_PREBUILT_UI=OFF",
     ]
+    if sys.platform == "darwin":
+        flags.append("-DGGML_METAL=OFF")
     # Refuse stale UI downloads from an earlier build instead of embedding them accidentally.
     if (source / "build/tools/ui/dist/index.html").exists():
         raise SystemExit(
@@ -120,9 +122,11 @@ def main():
     if model.stat().st_size != MODEL_BYTES or sha(model) != MODEL_SHA:
         raise SystemExit("Existing model checksum/size mismatch; refusing to overwrite")
     binary = source / "build/bin/llama-server"
+    lib_patterns = ["*.so*", "*.dylib*"]
     libs = {
         os.path.relpath(p, ROOT / "configs"): sha(p)
-        for p in sorted((source / "build/bin").glob("*.so*"))
+        for pattern in lib_patterns
+        for p in sorted((source / "build/bin").glob(pattern))
         if p.is_file()
     }
     settings = {

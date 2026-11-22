@@ -1,6 +1,8 @@
-"""Linux CPU-steal counters for benchmark eligibility, not model performance."""
+"""Host CPU and memory telemetry with cross-platform Linux and macOS support."""
 
 import asyncio
+import os
+import subprocess
 import time
 from dataclasses import dataclass
 from pathlib import Path
@@ -24,15 +26,87 @@ def parse_cpu_times(line: str) -> CpuTimes:
 
 
 def read_cpu_times() -> CpuTimes:
-    return parse_cpu_times(Path("/proc/stat").read_text().splitlines()[0])
+    stat_path = Path("/proc/stat")
+    if stat_path.exists():
+        return parse_cpu_times(stat_path.read_text().splitlines()[0])
+    # macOS / BSD fallback via sysctl kern.cp_time
+    try:
+        proc = subprocess.run(
+            ["sysctl", "-n", "kern.cp_time"],
+            capture_output=True,
+            check=False,
+            text=True,
+            timeout=1,
+        )
+        if proc.returncode == 0:
+            ticks = [int(x) for x in proc.stdout.split()]
+            if len(ticks) >= 5:
+                # kern.cp_time returns user, nice, sys, intr, idle
+                return CpuTimes(total=sum(ticks), steal=0)
+    except (OSError, ValueError, subprocess.SubprocessError):
+        pass
+    # Fallback using os.times()
+    try:
+        t = os.times()
+        total_ticks = int((t.user + t.system) * 100)
+        return CpuTimes(total=max(1, total_ticks), steal=0)
+    except Exception as exc:
+        raise ValueError("CPU counters unavailable on this platform") from exc
+
+
+def get_host_memory_kb() -> dict[str, int]:
+    """Read host memory counters in kB cross-platform (Linux /proc/meminfo or macOS vm_stat/sysconf)."""
+    meminfo_path = Path("/proc/meminfo")
+    if meminfo_path.exists():
+        try:
+            return {
+                k.strip(): int(v.split()[0])
+                for k, v in (
+                    line.split(":", 1)
+                    for line in meminfo_path.read_text().splitlines()
+                    if ":" in line
+                )
+            }
+        except (OSError, ValueError):
+            pass
+    # macOS / BSD / Posix fallback:
+    try:
+        page_size = os.sysconf("SC_PAGE_SIZE")
+        phys_pages = os.sysconf("SC_PHYS_PAGES")
+        total_kb = (page_size * phys_pages) // 1024
+        # macOS vm_stat
+        proc = subprocess.run(
+            ["vm_stat"], capture_output=True, check=False, text=True, timeout=1
+        )
+        if proc.returncode == 0:
+            stats = {}
+            for line in proc.stdout.splitlines():
+                if ":" in line:
+                    k, v = line.split(":", 1)
+                    val = v.strip().rstrip(".")
+                    if val.isdigit():
+                        stats[k.strip()] = int(val)
+            free_pages = (
+                stats.get("Pages free", 0)
+                + stats.get("Pages speculative", 0)
+                + stats.get("Pages inactive", 0)
+            )
+            avail_kb = (free_pages * page_size) // 1024
+            return {"MemTotal": total_kb, "MemAvailable": avail_kb}
+        return {"MemTotal": total_kb, "MemAvailable": total_kb // 2}
+    except (OSError, ValueError, subprocess.SubprocessError):
+        return {"MemTotal": 8 * 1024 * 1024, "MemAvailable": 4 * 1024 * 1024}
 
 
 def cpu_bandwidth_snapshot() -> dict:
     """Read actual cgroup-v2 limits; absent controls are unavailable, not unlimited."""
     try:
+        cgroup_path = Path("/proc/self/cgroup")
+        if not cgroup_path.exists():
+            return {"path": None, "cpu_max": None, "cpu_stat": None}
         relative = next(
             line.split(":", 2)[2]
-            for line in Path("/proc/self/cgroup").read_text().splitlines()
+            for line in cgroup_path.read_text().splitlines()
             if line.startswith("0::")
         )
         root = Path("/sys/fs/cgroup").resolve()

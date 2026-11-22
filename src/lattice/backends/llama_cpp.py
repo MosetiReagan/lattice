@@ -154,13 +154,9 @@ class LlamaCppBackend:
                     "artifact_mismatch",
                 )
         # Read host availability, not a promise about resident peak memory.
-        mem = {
-            k: int(v.split()[0])
-            for k, v in (
-                line.split(":", 1)
-                for line in Path("/proc/meminfo").read_text().splitlines()
-            )
-        }
+        from lattice.observability.host import get_host_memory_kb
+
+        mem = get_host_memory_kb()
         need_kb = (
             Path(self.model.path).stat().st_size
             + (Path(self._draft.path).stat().st_size if self._draft else 0)
@@ -407,12 +403,12 @@ class LlamaCppBackend:
                 policy = None
                 if request.optimization.mode == "adaptive":
                     preview = prefix.plan(cache_identity, tuple(token_ids), count=False)
-                    meminfo = dict(
-                        line.split(":", 1)
-                        for line in Path("/proc/meminfo").read_text().splitlines()
-                    )
+                    from lattice.observability.host import get_host_memory_kb
+
+                    meminfo = get_host_memory_kb()
+                    avail_mb = meminfo.get("MemAvailable", meminfo.get("MemTotal", 4096 * 1024)) // 1024
                     resources = ResourceSnapshot(
-                        int(meminfo["MemAvailable"].split()[0]) // 1024,
+                        avail_mb,
                         self.settings.host_reserve_mb,
                         self._queue_depth,
                     )

@@ -5,6 +5,7 @@ import datetime
 import hashlib
 import importlib.metadata
 import json
+import os
 import platform
 import random
 import sys
@@ -113,7 +114,11 @@ async def run_benchmark(
         "packages": {
             p: importlib.metadata.version(p) for p in ["httpx", "pydantic", "fastapi"]
         },
-        "loadavg_at_start": Path("/proc/loadavg").read_text().split()[:3],
+        "loadavg_at_start": (
+            Path("/proc/loadavg").read_text().split()[:3]
+            if Path("/proc/loadavg").exists()
+            else [str(x) for x in os.getloadavg()[:3]]
+        ),
         "sampling": {
             "temperature": 0.0,
             "seed": 0,

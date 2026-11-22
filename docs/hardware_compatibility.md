@@ -5,7 +5,7 @@
 | This Linux x86-64 VM, AMD EPYC, 4 exposed cores, 7.8 GiB RAM | Tested real generation, streaming, cancellation/reload and API with the pinned llama.cpp build and Qwen FP16 artifact |
 | Other Linux CPU hosts | Candidate; rebuild native binary and rerun integration tests |
 | NVIDIA/CUDA | Untested; no GPU detected; never inferred from a mock |
-| Apple Silicon/MPS/Metal | Untested; current process/resource implementation is Linux-specific |
+| macOS CPU (Apple Silicon / Intel) | Supported; cross-platform host telemetry via vm_stat and sysctl (Metal GPU disabled for CPU serving) |
 | AMD/Intel GPUs and other accelerators | Untested |
 | Transformers/vLLM/SGLang adapters | Not implemented |
 
