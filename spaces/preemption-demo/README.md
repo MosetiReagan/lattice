@@ -1,21 +1,19 @@
 ---
-title: ⚡ Lattice - Interactive Demo
+title: ⚡ Lattice - Preemptive Priority LLM Scheduler
 emoji: ⚡
 colorFrom: blue
 colorTo: indigo
 sdk: static
 pinned: false
 license: apache-2.0
-short_description: Instant chat replies for local AI during background tasks
+short_description: Preemptive priority scheduling for local LLM inference
 ---
 
-# ⚡ Lattice: Instant Chat Replies for Local AI
+# ⚡ Lattice: Preemptive Priority Scheduling for Local LLMs
 
-Have you ever asked your local AI (like Ollama, LM Studio, or llama.cpp) to summarize a long PDF, and while waiting, wanted to ask a quick question? 
+Standard local LLM servers process requests sequentially (FIFO). Long-running background jobs—such as document indexing or batch generation—block interactive user queries, causing significant queue latency (Head-of-Line blocking).
 
-In standard servers, your question is stuck waiting **30 to 60+ seconds** until the entire background task finishes.
-
-**Lattice fixes this.** It temporarily pauses the background task, answers your quick question in milliseconds, and immediately resumes your background job without losing any work.
+**Lattice** solves this by introducing token-level preemption for CPU backends (`llama.cpp`). When a high-priority request arrives, Lattice pauses the active background generation, serves the interactive query with immediate TTFT, and resumes the background task from its exact state with zero lost compute.
 
 * **GitHub Repository**: [https://github.com/MosetiReagan/lattice](https://github.com/MosetiReagan/lattice)
 * **PyPI Package**: [https://pypi.org/project/lattice-inference/](https://pypi.org/project/lattice-inference/)
