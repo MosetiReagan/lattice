@@ -1,85 +1,99 @@
 # ⚡ Lattice
 
-> **Stop waiting for local AI. Get instant chat replies even while heavy background jobs are running.**
+> **An intelligent CPU inference server and admission controller for local LLMs, powered by `llama.cpp`.**
+> **Stop waiting on local AI: get instant interactive chat responses even while heavy background jobs are running.**
 
 [![Status: 0.3.0.dev0](https://img.shields.io/badge/status-Alpha%20Preview-orange.svg)](docs/release_readiness.md)
 [![Python: 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](pyproject.toml)
+[![Platform: Linux](https://img.shields.io/badge/platform-Linux%20x86__64%20%7C%20aarch64-blue.svg)](docs/hardware_compatibility.md)
 [![Backend: llama.cpp](https://img.shields.io/badge/powered%20by-llama.cpp-green.svg)](https://github.com/ggerganov/llama.cpp)
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
-[![Tests: 155+ Passing](https://img.shields.io/badge/tests-155%2B%20passing-brightgreen.svg)](tests/)
+[![Tests: 156+ Passing](https://img.shields.io/badge/tests-156%2B%20passing-brightgreen.svg)](tests/)
 
 ---
 
-## 💡 What is Lattice? (In 10 Seconds)
+## 💡 What is Lattice?
 
-Have you ever run an open-weights model locally (such as **Llama 3**, **Qwen 2.5**, or **Mistral**) using runners like **Ollama** or **`llama.cpp`**, kicked off a heavy task like summarizing a 20-page document, and then tried to send a quick chat message?
+Running Large Language Models (LLMs) locally on a CPU is practical with modern open-weight models like **Qwen 2.5**, **Llama 3.1**, or **Mistral**. However, local execution on CPUs faces a fundamental bottleneck: **compute resource contention**.
 
-**Normally, you’re stuck waiting 30 to 60 seconds** for the heavy job to finish before your chat message even begins generating a response.
+When an inference runtime (such as `llama-server` or Ollama) is actively processing a heavy background task—such as a 30-page document summary, code indexing, or an autonomous agent loop—it saturates your CPU cores for 30 to 60+ seconds.
 
-**Lattice fixes this.** Sitting between your apps and the `llama.cpp` runtime, it acts as a smart air traffic controller:
-1. It **pauses the heavy document task** at a clean token boundary.
-2. It **answers your quick chat message immediately** (in under 2 seconds).
-3. It **resumes your document task right where it left off** without losing any progress or restarting the prompt from scratch.
+If you then open your chat interface to ask a quick question ("*Fix this typo*" or "*What is the syntax for a Python generator?*"):
+* **In standard runners:** Your chat query is placed into a sequential First-In, First-Out (FIFO) queue. You are forced to stare at a loading spinner for **30 to 60 seconds** until the background task completes before your chat even begins generating.
+* **With Lattice:** Your interactive chat gets **instant priority**. Lattice pauses the heavy background job cooperatively at a token boundary, answers your chat query in under 2 seconds, and then automatically resumes the background job right where it left off.
+
+```
+❌ STANDARD RUNNERS (FIFO Queue):
+[Heavy Document Summary (takes 45s)] ─────────► [Chat: "Hi"] (Stuck waiting 45 seconds!)
+
+✅ LATTICE (Preemptive Priority Admission):
+[Heavy Document Summary] ──► [PAUSED at token boundary] ──► [RESUMED from prefix cache]
+                                    │                                ▲
+                                    ▼                                │
+                              [Chat: "Hi"] ──► ⚡ Answered in 1.8s!
+```
 
 ---
 
-## 📊 Before vs. After Lattice
+## 📊 Real-World Benchmark Results
 
-Imagine a busy coffee shop with only one barista (your CPU):
+We measured the difference under a realistic CPU contention workload (a heavy 512-token background generation competing with an incoming interactive chat query):
 
-```
-❌ WITHOUT LATTICE (Standard FIFO queue in local runners):
-[Heavy Document Summary] ───► In Progress (takes 45s)...
-[Quick Chat: "Hi!"]       ───► ⏳ WAITING IN LINE... (stuck waiting for 45 seconds!)
-
-
-✅ WITH LATTICE (Smart Preemption):
-[Heavy Document Summary] ───► Pauses gracefully (saves place in memory)
-[Quick Chat: "Hi!"]       ───► ⚡ Answers immediately (1.8 seconds)
-[Heavy Document Summary] ───► Resumes instantly from cache and finishes cleanly
-```
-
-### Measured Real-World Benchmark
-
-Under a simulated heavy-workload test on a CPU:
-
-| What happens | Standard Runner (FIFO) | With Lattice | Your Experience |
+| Metric | Standard Runner (FIFO) | With Lattice (`priority_preemptive`) | Your Experience |
 | :--- | :---: | :---: | :--- |
-| **Quick Chat Reply Time** | **875 ms** | **188 ms** | **⚡ 4.7x faster response** |
-| **Heavy Background Task** | Finished | Finished | **Resumed with zero errors** |
-| **Output Integrity** | 100% | 100% | **Exact same answers** |
+| **Interactive Chat Reply Time** | **875 ms** | **188 ms** | **⚡ 4.7x faster (78.5% lower queue delay)** |
+| **Background Task Status** | Finished | Finished | **Resumed automatically with zero errors** |
+| **Output Integrity** | 100% | 100% | **Exact same token output; no corrupted state** |
+
+> *Benchmark measured on Linux x86-64 (AMD EPYC, 4 vCPUs, Qwen2.5-0.5B-Instruct). See [Benchmark Script](benchmarks/run_contention_benchmark.py) to run this benchmark on your own machine.*
 
 ---
 
-## ✨ Features That Make Life Easy
+## ✨ Key Features
 
-* 🚀 **Instant Chat Priority:** High-priority chat queries cut the line ahead of background batch tasks.
-* 🧠 **Zero Wasted Compute:** When a paused job resumes, Lattice reuses its prompt KV cache so it doesn't waste compute re-reading the prompt.
-* 🛡️ **No Memory Crashes (OOM):** Strict memory caps prevent your computer from freezing or crashing when multiple requests arrive.
-* 🔌 **Powered by `llama.cpp`:** Uses the battle-tested, ultra-fast C++ engine from `llama.cpp` under the hood. Any model you run in `llama.cpp` (GGUF format) works with Lattice.
+* 🚀 **Preemptive Priority Scheduling (`priority_preemptive`)**: High-priority interactive chat requests skip to the front of the queue. Running low-priority background tasks yield cooperatively at token boundaries.
+* 🧠 **Automatic KV Prefix Reuse**: When a paused task resumes, Lattice reuses its prompt Key-Value (KV) cache from memory instead of wasting CPU compute re-processing the prompt from scratch.
+* 🛡️ **Guaranteed Memory Safety (No OOM Crashes)**: Real-time telemetry via Linux `/proc/meminfo` enforces hard host memory reserves and process address space limits, preventing system freezes and Out-Of-Memory kernel kills.
+* 🔄 **Continuous Multi-Slot Batching**: Run 2, 3, 4, or 8 concurrent slots (`--native-slots 2`) backed by native continuous batching from `llama.cpp`.
+* 🌐 **OpenAI-Compatible API**: Drop-in compatible `/v1/chat/completions` and `/v1/models` endpoints. Works out of the box with `curl`, Python `openai` client, Open WebUI, and standard LLM tooling.
+* 🔒 **Operator-Controlled Model Registry**: Strict SHA-256 integrity checks, immutable configurations, and precise KV memory accounting per registered model.
 
 ---
 
-## 🚀 Quickstart (Try it in 2 Minutes)
+## 💻 System Requirements
 
-### 1. Requirements
-* Linux or macOS
-* Python 3.11+
-* [`uv`](https://github.com/astral-sh/uv) (recommended) or `pip`
+* **Operating System**: **Linux** (x86_64 or aarch64).
+  * *Note: Lattice directly reads `/proc/stat` and `/proc/meminfo` for kernel-level CPU and memory management. macOS / Apple Silicon is currently untested and unsupported.*
+* **Python**: Python 3.11 or newer.
+* **Hardware**: Any modern x86_64 or aarch64 CPU with at least 4 GB RAM. (GPU execution is not required; Lattice is specifically engineered for CPU serving).
+* **Package Manager**: [`uv`](https://github.com/astral-sh/uv) (recommended) or `pip`.
 
-### 2. Clone and Setup
+---
+
+## 🚀 Quickstart (Get Started in 2 Minutes)
+
+### 1. Clone & Install Dependencies
+
 ```bash
 git clone https://github.com/MosetiReagan/lattice.git
 cd lattice
 
-# Install dependencies
+# Install dependencies with uv
 uv sync --frozen --extra dev --extra provision
+```
 
-# Download llama.cpp backend and a lightweight test model (Qwen2.5 0.5B)
+### 2. Provision llama.cpp Backend & Base Model
+
+Download and build the pinned native `llama.cpp` CPU binary and fetch the verified base model (**Qwen 2.5 0.5B Instruct**):
+
+```bash
 uv run --no-sync python scripts/provision_cpu.py
 ```
 
-### 3. Ask a Quick Question (CLI)
+### 3. Test One-Shot CLI Generation
+
+Verify that the local model generates text properly:
+
 ```bash
 uv run --no-sync lattice generate \
   --model qwen2.5-0.5b-instruct-f16 \
@@ -87,61 +101,117 @@ uv run --no-sync lattice generate \
 ```
 
 ### 4. Run the Contention Benchmark
-See the preemption speedup live on your own machine:
+
+Witness the preemption speedup live on your own CPU:
+
 ```bash
 PYTHONPATH=src uv run --no-sync python benchmarks/run_contention_benchmark.py
 ```
 
-### 5. Launch the Web API Server
-Start a local streaming API server with multi-slot support:
+### 5. Start the Multi-Slot API Server
+
+Start the OpenAI-compatible HTTP streaming server with preemptive scheduling enabled:
+
 ```bash
 uv run --no-sync lattice serve \
   --model qwen2.5-0.5b-instruct-f16 \
   --native-slots 2 \
-  --port 8080
+  --admission-policy priority_preemptive \
+  --host 127.0.0.1 \
+  --port 8000
+```
+
+### 6. Send a Chat Request (OpenAI-Compatible)
+
+In another terminal, send an interactive chat completion request:
+
+```bash
+curl http://127.0.0.1:8000/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "qwen2.5-0.5b-instruct-f16",
+    "messages": [
+      {"role": "system", "content": "You are a concise helpful assistant."},
+      {"role": "user", "content": "Explain what a semaphore is in 20 words."}
+    ],
+    "priority": 3,
+    "stream": true
+  }'
+```
+
+*(Setting `"priority": 3` designates the request as high-priority interactive chat. Default priority is `0` for background tasks).*
+
+---
+
+## 🧩 Adding Your Own Models
+
+Lattice uses an explicit **Model Registry** (`configs/local.json`) rather than accepting untrusted arbitrary file paths at runtime. This guarantees exact SHA-256 verification and ensures Lattice knows the exact memory footprint of the weights and KV cache before admitting requests.
+
+To add any GGUF model supported by `llama.cpp`, add an entry to `configs/local.json`:
+
+```json
+{
+  "id": "my-custom-model",
+  "path": "artifacts/models/my-custom-model.gguf",
+  "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "source_repository": "huggingface.co/MyOrg/MyModel",
+  "source_revision": "main",
+  "license": "Apache-2.0",
+  "precision": "Q4_K_M"
+}
+```
+
+Once registered, inspect it with the CLI:
+```bash
+uv run --no-sync lattice models inspect my-custom-model
 ```
 
 ---
 
 ## 🆚 How Does Lattice Compare?
 
-| Feature | Raw `llama-server` | Ollama | **Lattice** |
+| Capability | Raw `llama-server` | Ollama | **Lattice** |
 | :--- | :---: | :---: | :---: |
-| **Underlying Engine** | `llama.cpp` (C++) | `llama.cpp` (Go/C++) | **`llama.cpp` (C++)** |
-| **Supported Models** | Any GGUF model | Modelfile / Library | **Any GGUF model** |
-| **Interactive Chat Preemption** | ❌ (FIFO only) | ❌ (FIFO only) | **✅ (Pauses & Resumes)** |
-| **Cross-Request Prefix Cache** | ⚠️ (Manual files) | ⚠️ (Basic) | **✅ (Automatic)** |
-| **Strict RAM Ceiling Protection** | ❌ | ❌ | **✅ (Guaranteed)** |
-| **Reproducible Benchmark Suite** | ❌ | ❌ | **✅ (155+ tests)** |
+| **Inference Engine** | `llama.cpp` (C++) | `llama.cpp` (Go wrapper) | **`llama.cpp` (Python Controller + C++)** |
+| **Scheduling Algorithm** | Standard FIFO Queue | Standard FIFO Queue | **Preemptive Priority Admission (`priority_preemptive`)** |
+| **Interactive Latency Under Contention** | High (stuck behind batch jobs) | High (stuck behind batch jobs) | **⚡ Sub-2s (preempts low-priority jobs)** |
+| **Prompt Prefix Cache** | Manual / `--prompt-cache` | Basic context caching | **Automatic cross-request prefix reuse** |
+| **RAM Safety & OOM Guard** | None (OS handles OOM) | None (OS handles OOM) | **Strict host memory reserve & address space caps** |
+| **Model Verification** | Manual file loading | Modelfile / Registry | **Strict SHA-256 operator registry (`configs/local.json`)** |
+| **OpenAI API Support** | ✅ `/v1/chat/completions` | ✅ `/v1/chat/completions` | **✅ `/v1/chat/completions` (with priority support)** |
 
 ---
 
 ## ❓ Frequently Asked Questions
 
-#### Does Lattice make my model generate tokens faster?
-No. Raw token generation speed comes from `llama.cpp`'s C++ matrix kernels. What Lattice eliminates is **queue wait time**—meaning your quick chat queries don't have to wait 30 seconds for a background batch task to finish before generation even starts.
+#### Does Lattice make my CPU generate individual tokens faster?
+**No.** Token decoding speed is determined by `llama.cpp`'s native C++ matrix kernels and your CPU's hardware memory bandwidth. What Lattice eliminates is **queue wait time** (time-to-first-token under contention). Your quick chat messages no longer sit waiting for a 60-second background job to finish before generation begins.
 
-#### What models can I run?
-Any GGUF-compatible model supported by `llama.cpp` (including **Llama 3 / 3.1**, **Qwen 2.5**, **Mistral**, **Gemma 2**, **Phi 3**, **DeepSeek**, etc.).
+#### Can I use Lattice with my existing Web UI or AI tooling?
+**Yes.** Lattice implements standard OpenAI-compatible endpoints (`/v1/chat/completions` and `/v1/models`). You can point Open WebUI, LibreChat, Continue.dev, or any Python/TypeScript OpenAI client to `http://127.0.0.1:8000/v1`.
 
-#### Is this ready for enterprise production?
-Lattice is currently an open-source research preview (`0.3.0.dev0`). It is stable, thoroughly tested (155+ passing tests), and designed for developers and researchers exploring smart CPU serving.
+#### Why focus primarily on CPU inference?
+Most local developers and edge deployments do not have high-end GPUs with 24GB+ VRAM. On CPUs, compute cores and memory bandwidth are strictly constrained, making task contention and queuing delays far more severe than on GPUs. Lattice is designed to make local CPU serving responsive and practical.
 
----
-
-## 📚 Deep Dive Documentation
-
-If you are an engineer or researcher looking for technical specifications:
-
-* 🏛️ **[System Architecture](docs/architecture.md)** — How the control plane and workers are designed.
-* ⏱️ **[Request Scheduling](docs/request_scheduling.md)** — Details on priority queueing and preemption math.
-* 💾 **[KV Cache Optimization](docs/kv_cache_optimization.md)** — How prompt prefixes are tracked and reused.
-* 🔬 **[Benchmark Confirmation Report](docs/chat-cache-budget-confirmation-v7.md)** — Full methodology and raw numbers.
-* 📋 **[Release Readiness](docs/release_readiness.md)** — Our 10 release acceptance criteria.
+#### Is Lattice ready for production?
+Lattice is currently an open-source development preview (`0.3.0.dev0`). It is stable, backed by 156+ passing automated tests, and tested under real-world CPU contention workloads.
 
 ---
 
-## 📄 License & Credits
+## 📚 Technical Documentation
+
+For researchers and engineers wanting to explore the implementation details:
+
+* 🏛️ **[System Architecture](docs/architecture.md)** — Control plane, worker subprocess management, and execution boundaries.
+* ⏱️ **[Request Scheduling](docs/request_scheduling.md)** — Fair semaphore admission, priority levels, and preemption mechanics.
+* 💾 **[KV Cache Optimization](docs/kv_cache_optimization.md)** — Exact token sequence matching, prefix hashing, and memory budgeting.
+* 🖥️ **[Hardware & OS Compatibility](docs/hardware_compatibility.md)** — Linux-specific kernel telemetry details and hardware scope.
+* 🔬 **[Benchmark Confirmation Report](docs/chat-cache-budget-confirmation-v7.md)** — Complete methodology, latency sweeps, and exact-output checks.
+* 📋 **[Release Readiness](docs/release_readiness.md)** — Acceptance criteria and engineering audit checklist.
+
+---
+
+## 📄 License & Attribution
 
 * Lattice is licensed under the [Apache-2.0 License](LICENSE).
-* Core tensor execution and KV management are powered by [`llama.cpp`](https://github.com/ggerganov/llama.cpp).
+* Core tensor execution and KV management are powered by the outstanding work of [`llama.cpp`](https://github.com/ggerganov/llama.cpp).
