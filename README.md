@@ -63,7 +63,7 @@ We measured the difference under a realistic CPU contention workload (a heavy 51
 
 ## 💻 System Requirements
 
-* **Operating System**: **Linux** (x86_64 or aarch64) or **macOS** (x86_64 or Apple Silicon/ARM64).
+* **Operating System**: **Linux** (x86_64 or aarch64) or **macOS** (x86_64 or Apple Silicon / M-series).
 * **Python**: Python 3.11 or newer.
 * **Hardware**: Any modern x86_64 or Apple Silicon CPU with at least 4 GB RAM. (GPU execution is not required; Lattice is specifically engineered for CPU serving).
 * **Package Manager**: [`uv`](https://github.com/astral-sh/uv) (recommended) or `pip`.
@@ -123,10 +123,9 @@ uv run --no-sync lattice serve \
   --port 8000
 ```
 
-### 6. Send a Chat Request (OpenAI-Compatible)
+### 6. Connect via cURL or Python
 
-In another terminal, send an interactive chat completion request:
-
+#### Via cURL:
 ```bash
 curl http://127.0.0.1:8000/v1/chat/completions \
   -H "Content-Type: application/json" \
@@ -141,16 +140,35 @@ curl http://127.0.0.1:8000/v1/chat/completions \
   }'
 ```
 
+#### Via OpenAI Python SDK:
+```python
+from openai import OpenAI
+
+client = OpenAI(base_url="http://127.0.0.1:8000/v1", api_key="not-needed")
+
+response = client.chat.completions.create(
+    model="qwen2.5-0.5b-instruct-f16",
+    messages=[{"role": "user", "content": "Explain what a semaphore is in 20 words."}],
+    extra_body={"priority": 3},  # Priority 3 = interactive chat; 0 = background
+    stream=True,
+)
+
+for chunk in response:
+    content = chunk.choices[0].delta.content or ""
+    print(content, end="", flush=True)
+print()
+```
+
 *(Setting `"priority": 3` designates the request as high-priority interactive chat. Default priority is `0` for background tasks).*
 
 ---
 
 ## 🧩 Using Any Model
 
-Lattice supports any GGUF-compatible model supported by `llama.cpp` (including **Llama 3 / 3.1**, **Qwen 2.5**, **Mistral**, **Gemma 2**, **Phi 3**, **DeepSeek**, etc.). You can load models in three simple ways:
+Lattice supports any GGUF-compatible model supported by `llama.cpp` (including **Llama 3 / 3.1 / 3.2**, **Qwen 2.5**, **Mistral**, **Gemma 2**, **Phi 3**, **DeepSeek**, etc.). You can load models in three simple ways:
 
 ### Option A: Pass the Model File Directly
-Pass the path to any `.gguf` file directly to `generate` or `serve`:
+Pass the path to any local `.gguf` file directly to `generate` or `serve`:
 
 ```bash
 uv run --no-sync lattice serve \
@@ -159,6 +177,9 @@ uv run --no-sync lattice serve \
   --admission-policy priority_preemptive
 ```
 Lattice automatically computes the SHA-256 checksum, detects the quantization precision, and auto-registers the model on the fly.
+
+> [!TIP]
+> If you already use **Ollama** or **LM Studio**, you can point Lattice directly to your existing `.gguf` model files without re-downloading them!
 
 ### Option B: Add or Download via the CLI
 Use `lattice models add` to register a local file or download directly from a URL:
@@ -193,6 +214,32 @@ Define models in `configs/local.json` with explicit metadata:
   "precision": "GGUF Q4_K_M"
 }
 ```
+
+---
+
+## 🔌 Connecting with Frontends & Tools
+
+Because Lattice provides standard OpenAI-compatible endpoints (`/v1/chat/completions` and `/v1/models`), you can connect it directly to your favorite developer tools and web UIs:
+
+| Tool / Frontend | Configuration |
+| :--- | :--- |
+| **Open WebUI** | Set `OPENAI_API_BASE_URL=http://127.0.0.1:8000/v1` and `OPENAI_API_KEY=none` |
+| **Continue.dev (VS Code / JetBrains)** | Add provider `"openai"` with `"apiBase": "http://127.0.0.1:8000/v1"` in `config.json` |
+| **LibreChat** | Add custom endpoint with baseURL `http://127.0.0.1:8000/v1` |
+| **LangChain / LlamaIndex** | Initialize `ChatOpenAI(base_url="http://127.0.0.1:8000/v1", api_key="none")` |
+
+---
+
+## 🛠️ CLI Command Reference
+
+| Command | Description | Example |
+| :--- | :--- | :--- |
+| `lattice serve` | Start the OpenAI-compatible HTTP inference server | `lattice serve --model <model> --native-slots 2 --admission-policy priority_preemptive` |
+| `lattice generate` | Run a single one-shot CLI generation | `lattice generate --model <model> --prompt "Hello"` |
+| `lattice models list` | List all registered models | `lattice models list` |
+| `lattice models add` | Register a local GGUF file or download from a URL | `lattice models add /path/to/model.gguf --name my-model` |
+| `lattice models inspect` | View details and parameters of a registered model | `lattice models inspect qwen2.5-0.5b-instruct-f16` |
+| `lattice system-info` | Display host CPU, memory, and runtime platform info | `lattice system-info` |
 
 ---
 
