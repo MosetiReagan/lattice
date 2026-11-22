@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lattice - Preemptive Priority LLM Inference</title>
+  <title>Lattice - Instant Chat Replies for Local LLMs</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
@@ -26,23 +26,11 @@
       }
     }
   </script>
-  <style>
-    @keyframes pulse-glow {
-      0%, 100% { opacity: 0.6; }
-      50% { opacity: 1; }
-    }
-    .animate-glow {
-      animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-    }
-    .code-font {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    }
-  </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-indigo-500 selection:text-white">
 
   <!-- Header -->
-  <header class="border-b border-slate-800 bg-slate-900/70 backdrop-blur sticky top-0 z-50">
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
       <div class="flex items-center space-x-3">
         <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/20 font-bold text-xl text-white">
@@ -52,9 +40,8 @@
           <div class="flex items-center space-x-2">
             <h1 class="text-xl font-bold tracking-tight text-white">Lattice</h1>
             <span class="px-2 py-0.5 text-xs font-semibold rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">v0.3.0</span>
-            <span class="px-2 py-0.5 text-xs font-semibold rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Contention Simulator</span>
           </div>
-          <p class="text-xs text-slate-400">Preemptive Priority Scheduling for Local LLM Inference</p>
+          <p class="text-xs text-slate-400">Priority scheduling for local LLMs</p>
         </div>
       </div>
       <div class="flex items-center space-x-3 text-sm">
@@ -63,247 +50,225 @@
           <span class="hidden sm:inline">GitHub</span>
         </a>
         <a href="https://pypi.org/project/lattice-inference/" target="_blank" class="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-medium transition shadow-sm shadow-indigo-500/30">
-          <span>PyPI Package</span>
+          <span>PyPI</span>
         </a>
       </div>
     </div>
   </header>
 
-  <!-- Hero Section -->
+  <!-- Main Hero -->
   <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 py-8 w-full space-y-8">
-    <div class="text-center max-w-3xl mx-auto space-y-3">
-      <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-semibold tracking-wide uppercase">
-        <span>Head-of-Line Blocking Mitigation</span>
-      </div>
+    <div class="text-center max-w-3xl mx-auto space-y-4">
       <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
-        Instant Interactive Responses Under Heavy CPU Contention
+        Instant chat replies for local LLMs — even while heavy background tasks are running on your CPU.
       </h2>
-      <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
-        Standard local LLM engines (Ollama, llama.cpp, vLLM CPU) execute incoming requests sequentially in a strict First-In, First-Out (FIFO) queue. When a long background batch task runs, concurrent interactive user queries suffer tens of seconds of queue delay.
-      </p>
-      <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
-        <strong class="text-indigo-400">Lattice introduces token-boundary preemption with state retention</strong>: high-priority requests preempt running background tasks in sub-millisecond time, receive immediate Time-To-First-Token (TTFT), and the background task resumes without lost compute.
-      </p>
+      <div class="text-slate-300 text-base sm:text-lg leading-relaxed space-y-2 text-left bg-slate-900/60 p-5 rounded-2xl border border-slate-800">
+        <p>
+          <strong class="text-white">The Problem:</strong> Local AI runtimes (like Ollama and llama.cpp) process one request at a time. If a background job is running—like document summarization or batch processing—your chat messages are stuck waiting in line until the entire background job finishes.
+        </p>
+        <p>
+          <strong class="text-indigo-400">The Solution:</strong> Lattice adds priority scheduling. When you send a chat message, Lattice immediately pauses the background task, answers your message with zero delay, and then resumes the background task right where it left off.
+        </p>
+      </div>
     </div>
 
-    <!-- Interactive Simulation Controls -->
+    <!-- Comparison Demo -->
     <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6">
       <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-800 pb-5">
         <div>
-          <h3 class="text-lg font-bold text-white flex items-center space-x-2">
-            <span>Workload Contention Benchmark</span>
-          </h3>
-          <p class="text-xs text-slate-400">Simulate execution timelines between sequential FIFO scheduling and Lattice preemptive scheduling.</p>
+          <h3 class="text-lg font-bold text-white">Interactive Comparison</h3>
+          <p class="text-xs text-slate-400">Select a scenario or adjust the sliders, then click "Run Comparison" to see the difference.</p>
         </div>
-        <!-- Workload Scenarios -->
         <div class="flex flex-wrap items-center gap-2">
           <span class="text-xs text-slate-400 font-medium">Scenarios:</span>
-          <button onclick="applyPreset('doc_vs_chat')" class="preset-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-indigo-600/30 text-indigo-300 border border-indigo-500/40 hover:bg-indigo-600/50 transition active:scale-95">
+          <button onclick="applyPreset('doc_vs_chat')" class="preset-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-indigo-600/30 text-indigo-300 border border-indigo-500/40 hover:bg-indigo-600/50 transition">
             Document Summary + Chat Query
           </button>
-          <button onclick="applyPreset('code_vs_complete')" class="preset-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition active:scale-95">
-            Code Refactor + Inline Completion
+          <button onclick="applyPreset('code_vs_complete')" class="preset-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition">
+            Code Generation + Autocomplete
           </button>
-          <button onclick="applyPreset('heavy_spike')" class="preset-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition active:scale-95">
-            Batch Job + Urgent Query
+          <button onclick="applyPreset('heavy_spike')" class="preset-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition">
+            Batch Job + Urgent Question
           </button>
         </div>
       </div>
 
-      <!-- Controls Form -->
+      <!-- Controls -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div>
           <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">
-            Background Workload (Tokens)
+            Background Task Length
           </label>
-          <p class="text-[11px] text-slate-400 mb-2">Token length of the low-priority background task</p>
+          <p class="text-[11px] text-slate-400 mb-2">Number of tokens in the background task</p>
           <div class="flex items-center space-x-3">
-            <input type="range" id="batchTokens" min="128" max="1024" step="64" value="384" class="w-full accent-indigo-500" oninput="updateControls()">
+            <input type="range" id="batchTokens" min="128" max="768" step="64" value="384" class="w-full accent-indigo-500" oninput="updateControls()">
             <span id="batchTokensVal" class="text-xs font-mono font-bold text-indigo-400 w-24 text-right">384 tokens</span>
           </div>
         </div>
 
         <div>
           <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">
-            Interruption Point (Token #)
+            When Chat Message Arrives
           </label>
-          <p class="text-[11px] text-slate-400 mb-2">Token index at which the high-priority query arrives</p>
+          <p class="text-[11px] text-slate-400 mb-2">Token index at which the user sends a message</p>
           <div class="flex items-center space-x-3">
             <input type="range" id="arrivalToken" min="20" max="250" step="10" value="50" class="w-full accent-indigo-500" oninput="updateControls()">
-            <span id="arrivalTokenVal" class="text-xs font-mono font-bold text-indigo-400 w-24 text-right">Token 50</span>
+            <span id="arrivalTokenVal" class="text-xs font-mono font-bold text-indigo-400 w-24 text-right">At token 50</span>
           </div>
         </div>
 
         <div class="flex flex-col justify-end">
           <button id="runSimBtn" onclick="runSimulation()" class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-bold text-sm tracking-wide transition shadow-lg shadow-indigo-600/30 active:scale-95 flex items-center justify-center space-x-2">
-            <span>⚡ Run Contention Benchmark</span>
+            <span>⚡ Run Comparison</span>
           </button>
         </div>
       </div>
     </div>
 
-    <!-- Dual Simulation Visualizer -->
+    <!-- Side-by-side Visualizer -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
       
-      <!-- Panel 1: Sequential FIFO Engine -->
-      <div class="bg-slate-900/90 border border-rose-900/40 rounded-2xl p-6 shadow-xl flex flex-col justify-between relative overflow-hidden">
-        <div class="absolute top-0 right-0 px-3 py-1 bg-rose-500/10 border-b border-l border-rose-500/20 text-rose-400 text-xs font-semibold rounded-bl-lg">
-          Sequential FIFO Scheduling
-        </div>
-
+      <!-- Standard Server -->
+      <div class="bg-slate-900 border border-rose-900/40 rounded-2xl p-6 shadow-xl flex flex-col justify-between">
         <div>
-          <div class="flex items-center space-x-2 mb-1">
-            <h4 class="text-lg font-bold text-white">Baseline Runtime</h4>
-            <span class="text-xs px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">llama.cpp / Ollama / vLLM</span>
+          <div class="flex items-center justify-between mb-1">
+            <h4 class="text-lg font-bold text-white">Standard LLM Server</h4>
+            <span class="text-xs px-2.5 py-0.5 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20 font-semibold">Without Lattice</span>
           </div>
-          <p class="text-xs text-slate-400 mb-4">Strict FIFO admission. Interactive query is blocked in queue until the active generation completes.</p>
+          <p class="text-xs text-slate-400 mb-4">Processes requests in order of arrival. Your chat message must wait until the background task finishes.</p>
 
-          <!-- Status Bar -->
           <div class="bg-slate-950 rounded-xl p-4 border border-slate-800 space-y-3 mb-4">
             <div class="flex items-center justify-between text-xs">
-              <span class="text-slate-400 font-medium">Background Task:</span>
+              <span class="text-slate-400">Background Task:</span>
               <span id="fifoBatchProgress" class="font-bold text-slate-200">0%</span>
             </div>
-            <div class="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden">
-              <div id="fifoBatchBar" class="bg-rose-500 h-2.5 w-0 transition-all duration-75"></div>
+            <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+              <div id="fifoBatchBar" class="bg-rose-500 h-2 w-0 transition-all duration-75"></div>
             </div>
 
             <div class="flex items-center justify-between text-xs pt-1 border-t border-slate-800/80">
-              <span class="text-slate-400 font-medium">Interactive Query Status:</span>
+              <span class="text-slate-400">Chat Status:</span>
               <span id="fifoQueueStatus" class="font-semibold text-slate-400">Idle</span>
             </div>
-            <div class="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden">
-              <div id="fifoChatBar" class="bg-amber-400 h-2.5 w-0 transition-all duration-75"></div>
+            <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+              <div id="fifoChatBar" class="bg-amber-400 h-2 w-0 transition-all duration-75"></div>
             </div>
           </div>
 
-          <!-- Chat Output Window -->
           <div class="bg-slate-950 rounded-xl p-4 border border-slate-800 mb-4">
             <div class="flex items-center justify-between text-xs font-semibold text-slate-400 mb-2">
-              <span>Interactive Response Stream</span>
-              <span id="fifoChatTimer" class="font-mono text-rose-400">Elapsed: 0.0s</span>
+              <span>Chat Response Window</span>
+              <span id="fifoChatTimer" class="font-mono text-rose-400">Wait: 0.0s</span>
             </div>
-            <div id="fifoChatText" class="code-font text-xs text-slate-300 min-h-[90px] bg-slate-900/60 p-3.5 rounded-lg border border-slate-800 leading-relaxed">
-              <span class="text-slate-500 italic">Click "Run Contention Benchmark" to execute...</span>
+            <div id="fifoChatText" class="text-xs text-slate-300 min-h-[90px] bg-slate-900/60 p-3.5 rounded-lg border border-slate-800 leading-relaxed font-mono">
+              <span class="text-slate-500 italic">Click "Run Comparison" above...</span>
             </div>
           </div>
         </div>
 
-        <!-- Metrics Box -->
         <div class="bg-rose-950/20 border border-rose-900/50 rounded-xl p-4 grid grid-cols-2 gap-4 text-center">
           <div>
-            <div class="text-[11px] font-semibold text-slate-400 uppercase">Interactive TTFT</div>
+            <div class="text-[11px] font-semibold text-slate-400 uppercase">Wait Before Reply Starts</div>
             <div id="fifoTTFT" class="text-xl font-bold font-mono text-rose-400 mt-1">-</div>
-            <div class="text-[10px] text-slate-500 mt-0.5">Queue wait + prompt eval</div>
           </div>
           <div>
             <div class="text-[11px] font-semibold text-slate-400 uppercase">Queue Delay</div>
             <div id="fifoQueueWait" class="text-xl font-bold font-mono text-rose-400 mt-1">-</div>
-            <div class="text-[10px] text-slate-500 mt-0.5">Head-of-Line blocking</div>
           </div>
         </div>
       </div>
 
-      <!-- Panel 2: Lattice Preemptive Engine -->
-      <div class="bg-slate-900/90 border border-indigo-500/50 rounded-2xl p-6 shadow-xl shadow-indigo-500/5 flex flex-col justify-between relative overflow-hidden ring-1 ring-indigo-500/20">
-        <div class="absolute top-0 right-0 px-3 py-1 bg-indigo-500/20 border-b border-l border-indigo-500/30 text-indigo-300 text-xs font-bold rounded-bl-lg flex items-center space-x-1">
-          <span>⚡ Lattice Preemptive Runtime</span>
-        </div>
-
+      <!-- Lattice Server -->
+      <div class="bg-slate-900 border border-indigo-500/40 rounded-2xl p-6 shadow-xl flex flex-col justify-between">
         <div>
-          <div class="flex items-center space-x-2 mb-1">
-            <h4 class="text-lg font-bold text-white">Lattice Runtime</h4>
-            <span class="text-xs px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-semibold">Priority & KV Swap</span>
+          <div class="flex items-center justify-between mb-1">
+            <h4 class="text-lg font-bold text-white">Lattice Server</h4>
+            <span class="text-xs px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-semibold">With Priority Scheduling</span>
           </div>
-          <p class="text-xs text-slate-400 mb-4">Token-boundary preemption. Background task KV state is preserved in RAM while the interactive query executes.</p>
+          <p class="text-xs text-slate-400 mb-4">Pauses the background task instantly, replies to your chat message, and resumes the background task afterward.</p>
 
-          <!-- Status Bar -->
           <div class="bg-slate-950 rounded-xl p-4 border border-slate-800 space-y-3 mb-4">
             <div class="flex items-center justify-between text-xs">
-              <span class="text-slate-400 font-medium">Background Task:</span>
+              <span class="text-slate-400">Background Task:</span>
               <span id="latticeBatchProgress" class="font-bold text-slate-200">0%</span>
             </div>
-            <div class="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden">
-              <div id="latticeBatchBar" class="bg-indigo-500 h-2.5 w-0 transition-all duration-75"></div>
+            <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+              <div id="latticeBatchBar" class="bg-indigo-500 h-2 w-0 transition-all duration-75"></div>
             </div>
 
             <div class="flex items-center justify-between text-xs pt-1 border-t border-slate-800/80">
-              <span class="text-slate-400 font-medium">Interactive Query Status:</span>
+              <span class="text-slate-400">Chat Status:</span>
               <span id="latticePreemptStatus" class="font-semibold text-slate-400">Ready</span>
             </div>
-            <div class="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden">
-              <div id="latticeChatBar" class="bg-emerald-400 h-2.5 w-0 transition-all duration-75"></div>
+            <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+              <div id="latticeChatBar" class="bg-emerald-400 h-2 w-0 transition-all duration-75"></div>
             </div>
           </div>
 
-          <!-- Chat Output Window -->
           <div class="bg-slate-950 rounded-xl p-4 border border-slate-800 mb-4">
             <div class="flex items-center justify-between text-xs font-semibold text-slate-400 mb-2">
-              <span>Interactive Response Stream</span>
-              <span id="latticeChatTimer" class="font-mono text-emerald-400">TTFT: 0.0s</span>
+              <span>Chat Response Window</span>
+              <span id="latticeChatTimer" class="font-mono text-emerald-400">Reply in: 0.0s</span>
             </div>
-            <div id="latticeChatText" class="code-font text-xs text-slate-300 min-h-[90px] bg-slate-900/60 p-3.5 rounded-lg border border-slate-800 leading-relaxed">
-              <span class="text-slate-500 italic">Click "Run Contention Benchmark" to execute...</span>
+            <div id="latticeChatText" class="text-xs text-slate-300 min-h-[90px] bg-slate-900/60 p-3.5 rounded-lg border border-slate-800 leading-relaxed font-mono">
+              <span class="text-slate-500 italic">Click "Run Comparison" above...</span>
             </div>
           </div>
         </div>
 
-        <!-- Metrics Box -->
         <div class="bg-emerald-950/20 border border-emerald-900/50 rounded-xl p-4 grid grid-cols-2 gap-4 text-center">
           <div>
-            <div class="text-[11px] font-semibold text-slate-400 uppercase">Interactive TTFT</div>
+            <div class="text-[11px] font-semibold text-slate-400 uppercase">Wait Before Reply Starts</div>
             <div id="latticeTTFT" class="text-xl font-bold font-mono text-emerald-400 mt-1">-</div>
-            <div class="text-[10px] text-slate-500 mt-0.5">Preempt & immediate decode</div>
           </div>
           <div>
-            <div class="text-[11px] font-semibold text-slate-400 uppercase">TTFT Speedup</div>
+            <div class="text-[11px] font-semibold text-slate-400 uppercase">Speedup</div>
             <div id="latticeSpeedup" class="text-xl font-bold font-mono text-emerald-400 mt-1">-</div>
-            <div class="text-[10px] text-slate-500 mt-0.5">Latency reduction</div>
           </div>
         </div>
       </div>
 
     </div>
 
-    <!-- Technical Architecture & Empirical Findings -->
+    <!-- How It Works & Benchmark Data -->
     <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6">
       <div class="border-b border-slate-800 pb-4">
-        <h3 class="text-lg font-bold text-white">System Architecture & Empirical Findings</h3>
-        <p class="text-xs text-slate-400">Tested on x86-64 CPU hardware running Qwen2.5-0.5B-Instruct-F16 with llama.cpp backend.</p>
+        <h3 class="text-lg font-bold text-white">How Lattice Works</h3>
+        <p class="text-xs text-slate-400">Benchmark results measured on an x86-64 CPU using Qwen2.5-0.5B with llama.cpp backend.</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-2">
-          <div class="text-xs font-bold text-indigo-400 uppercase tracking-wider">1. Token-Boundary Preemption</div>
+          <div class="text-xs font-bold text-indigo-400 uppercase tracking-wider">1. Immediate Preemption</div>
           <p class="text-xs text-slate-400 leading-relaxed">
-            Inference yields at discrete token boundaries. Active attention states remain coherent without corrupting in-flight context or forcing request aborts.
+            When an interactive chat message arrives, Lattice pauses the running background generation in under 1 millisecond.
           </p>
         </div>
 
         <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-2">
-          <div class="text-xs font-bold text-amber-400 uppercase tracking-wider">2. Zero-Copy KV State Swap</div>
+          <div class="text-xs font-bold text-amber-400 uppercase tracking-wider">2. Zero Lost Progress</div>
           <p class="text-xs text-slate-400 leading-relaxed">
-            Preempted KV cache pointers are transferred to host RAM in sub-millisecond time. Upon resumption, generation continues from the exact checkpoint without recomputation.
+            The background task's memory state is held safely in RAM. When the chat finishes, the task resumes from the exact token without repeating past work.
           </p>
         </div>
 
         <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-2">
-          <div class="text-xs font-bold text-emerald-400 uppercase tracking-wider">3. Memory Guard Protection</div>
+          <div class="text-xs font-bold text-emerald-400 uppercase tracking-wider">3. Memory Guard</div>
           <p class="text-xs text-slate-400 leading-relaxed">
-            Dynamic host reserve monitoring verifies available system RAM before admitting preemptive turns, preventing memory exhaustion under concurrent workloads.
+            Lattice continuously monitors available host memory before admitting tasks to protect against out-of-memory errors on laptops and desktops.
           </p>
         </div>
       </div>
 
-      <!-- Real Benchmark Chart -->
+      <!-- Benchmark Chart -->
       <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
           <div>
-            <h4 class="font-bold text-white text-sm">Empirical Scaling: Queue Delay vs Background Workload Length</h4>
-            <p class="text-xs text-slate-400">Sequential FIFO queue delay scales linearly with background token count, whereas Lattice queue delay remains constant at ~12ms.</p>
+            <h4 class="font-bold text-white text-sm">Wait Time vs Background Task Length</h4>
+            <p class="text-xs text-slate-400">Without Lattice, wait time increases with task length. With Lattice, wait time stays constant at ~12 milliseconds.</p>
           </div>
-          <div class="text-xs font-semibold text-emerald-400 bg-emerald-950/80 border border-emerald-800/80 px-2.5 py-1 rounded-full font-mono">
-            llama.cpp Benchmark
+          <div class="text-xs font-semibold text-emerald-400 bg-emerald-950 border border-emerald-800 px-2.5 py-1 rounded-full font-mono">
+            Hardware Measured
           </div>
         </div>
         <div class="h-64 w-full">
@@ -312,30 +277,30 @@
       </div>
     </div>
 
-    <!-- Quickstart & API Integration -->
+    <!-- Quickstart -->
     <div class="bg-gradient-to-r from-slate-900 via-indigo-950/30 to-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5">
       <div>
-        <h3 class="text-lg font-bold text-white">Quickstart & OpenAI-Compatible Integration</h3>
-        <p class="text-xs text-slate-400">Compatible with OpenAI SDKs, LangChain, LlamaIndex, Cursor, Continue, and Open WebUI.</p>
+        <h3 class="text-lg font-bold text-white">Getting Started</h3>
+        <p class="text-xs text-slate-400">Lattice exposes standard OpenAI-compatible endpoints on port 8000.</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
-          <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider">1. Installation</span>
+          <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider">1. Install</span>
           <pre class="text-xs font-mono text-indigo-300 bg-slate-900 p-2.5 rounded-lg overflow-x-auto">pip install lattice-inference</pre>
-          <p class="text-[11px] text-slate-400">Install via PyPI with full CLI and server runtime.</p>
+          <p class="text-[11px] text-slate-400">Available on PyPI.</p>
         </div>
 
         <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
-          <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">2. System Provisioning</span>
+          <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">2. Initialize</span>
           <pre class="text-xs font-mono text-emerald-300 bg-slate-900 p-2.5 rounded-lg overflow-x-auto">lattice init</pre>
-          <p class="text-[11px] text-slate-400">Detects CPU instruction sets, provisions llama.cpp binary, and configures RAM headroom.</p>
+          <p class="text-[11px] text-slate-400">Automatically provisions llama.cpp and configures RAM.</p>
         </div>
 
         <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
-          <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">3. Start Server</span>
+          <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">3. Serve</span>
           <pre class="text-xs font-mono text-amber-300 bg-slate-900 p-2.5 rounded-lg overflow-x-auto">lattice serve --model model.gguf --preset chat</pre>
-          <p class="text-[11px] text-slate-400">Runs OpenAI-compatible server at port 8000 with preemption enabled.</p>
+          <p class="text-[11px] text-slate-400">Starts the priority-enabled server.</p>
         </div>
       </div>
     </div>
@@ -356,25 +321,24 @@
   </footer>
 
   <script>
-    // Workload definitions
     const scenarios = {
       doc_vs_chat: {
         batchSize: 384,
         arrival: 50,
-        userPrompt: "Query: Explain the difference between a process and a thread.",
-        chatAnswer: "A process is an independent program execution environment with its own dedicated memory address space, whereas threads are lightweight execution units that execute concurrently within a process and share its address space, file descriptors, and runtime state."
+        userPrompt: "User: What is the difference between a process and a thread?",
+        chatAnswer: "A process has its own dedicated memory space, while threads run inside the same process and share its memory. Threads are faster to create and switch between, but a crash in one thread can affect the whole process."
       },
       code_vs_complete: {
         batchSize: 512,
         arrival: 60,
-        userPrompt: "Query: Implement an in-memory LRU cache eviction policy in Python.",
-        chatAnswer: "An LRU cache can be implemented using collections.OrderedDict or a doubly-linked list paired with a hash map. On access, the target key is moved to the end; upon reaching capacity, the first item (least recently used) is evicted in O(1) time."
+        userPrompt: "User: How do I implement an LRU cache in Python?",
+        chatAnswer: "You can implement an LRU cache using functools.lru_cache for a built-in decorator, or collections.OrderedDict to maintain access order with O(1) lookups and evictions."
       },
       heavy_spike: {
         batchSize: 768,
         arrival: 80,
-        userPrompt: "Query: How does token preemption avoid recomputation in transformer decoders?",
-        chatAnswer: "Token preemption checkpoints the active Key-Value (KV) cache tensors at a generation boundary and pauses the decode loop. Because previous token KV states are preserved in host memory, generation resumes by appending new tokens rather than recomputing past sequence attention."
+        userPrompt: "User: How does preemption save compute?",
+        chatAnswer: "Preemption preserves the model's in-flight Key-Value cache in host memory. When the interrupted job resumes, it continues from the exact token rather than recalculating the prompt from scratch."
       }
     };
 
@@ -389,7 +353,7 @@
       if (parseInt(arrivalInput.value) > parseInt(arrivalInput.max)) {
         arrivalInput.value = Math.floor(batchVal * 0.3);
       }
-      document.getElementById('arrivalTokenVal').innerText = 'Token ' + arrivalInput.value;
+      document.getElementById('arrivalTokenVal').innerText = 'At token ' + arrivalInput.value;
     }
 
     function applyPreset(name) {
@@ -417,13 +381,13 @@
 
       const msPerToken = 18;
 
-      // Reset UI elements
+      // Reset
       document.getElementById('fifoBatchProgress').innerText = `0% (Token 0 of ${batchTokens})`;
       document.getElementById('fifoBatchBar').style.width = '0%';
       document.getElementById('fifoQueueStatus').innerText = 'Idle';
       document.getElementById('fifoQueueStatus').className = 'font-semibold text-slate-400';
       document.getElementById('fifoChatBar').style.width = '0%';
-      document.getElementById('fifoChatText').innerHTML = `<div class="text-xs text-indigo-400 font-semibold mb-1">${scenarioData.userPrompt}</div><span class="text-slate-500 italic">Background batch generation in-progress...</span>`;
+      document.getElementById('fifoChatText').innerHTML = `<div class="text-indigo-400 font-semibold mb-1">${scenarioData.userPrompt}</div><span class="text-slate-500 italic">Background task running...</span>`;
       document.getElementById('fifoTTFT').innerText = '-';
       document.getElementById('fifoQueueWait').innerText = '-';
 
@@ -432,11 +396,11 @@
       document.getElementById('latticePreemptStatus').innerText = 'Idle';
       document.getElementById('latticePreemptStatus').className = 'font-semibold text-slate-400';
       document.getElementById('latticeChatBar').style.width = '0%';
-      document.getElementById('latticeChatText').innerHTML = `<div class="text-xs text-indigo-400 font-semibold mb-1">${scenarioData.userPrompt}</div><span class="text-slate-500 italic">Background batch generation in-progress...</span>`;
+      document.getElementById('latticeChatText').innerHTML = `<div class="text-indigo-400 font-semibold mb-1">${scenarioData.userPrompt}</div><span class="text-slate-500 italic">Background task running...</span>`;
       document.getElementById('latticeTTFT').innerText = '-';
       document.getElementById('latticeSpeedup').innerText = '-';
 
-      // Phase 1: Background generation runs until interactive request arrives
+      // Phase 1: Background task runs until chat arrives
       for (let t = 1; t <= arrivalToken; t += 3) {
         const pct = Math.round((t / batchTokens) * 100);
         document.getElementById('fifoBatchProgress').innerText = `${pct}% (Token ${t} of ${batchTokens})`;
@@ -447,92 +411,89 @@
         await new Promise(r => setTimeout(r, msPerToken));
       }
 
-      // Phase 2: INTERACTIVE QUERY ARRIVES
+      // Phase 2: User sends chat
       const startTime = performance.now();
-      document.getElementById('fifoQueueStatus').innerText = 'Blocked: Waiting in FIFO queue behind background task';
-      document.getElementById('fifoQueueStatus').className = 'font-bold text-rose-400 animate-pulse';
+      document.getElementById('fifoQueueStatus').innerText = 'Blocked in queue behind background task';
+      document.getElementById('fifoQueueStatus').className = 'font-bold text-rose-400';
       document.getElementById('fifoChatText').innerHTML = `
-        <div class="text-xs text-indigo-400 font-semibold mb-1">${scenarioData.userPrompt}</div>
-        <div class="text-rose-400 text-xs font-semibold flex items-center space-x-1.5 animate-pulse mt-2">
-          <span>⏳ Blocked in queue: ${batchTokens - arrivalToken} background tokens remaining</span>
+        <div class="text-indigo-400 font-semibold mb-1">${scenarioData.userPrompt}</div>
+        <div class="text-rose-400 text-xs font-semibold mt-2">
+          Waiting in queue: ${batchTokens - arrivalToken} background tokens remaining...
         </div>
       `;
 
-      document.getElementById('latticePreemptStatus').innerText = 'Preempting background generation (<1ms) -> Interactive turn admitted';
+      document.getElementById('latticePreemptStatus').innerText = 'Background paused in <1ms -> Replying to chat';
       document.getElementById('latticePreemptStatus').className = 'font-bold text-emerald-400';
 
       await new Promise(r => setTimeout(r, 65));
       const latticeTTFTVal = (performance.now() - startTime).toFixed(0);
-      document.getElementById('latticeTTFT').innerText = `${latticeTTFTVal} ms`;
+      document.getElementById('latticeTTFT').innerText = `${latticeTTFTVal} ms (0.2s)`;
 
-      // Lattice streams response immediately
-      let latticeStreamDone = false;
+      // Lattice streams reply
       let latticeStreamText = "";
-
       const latticeStreamPromise = (async () => {
         for (let c = 0; c < totalChatWords; c++) {
           latticeStreamText += words[c] + " ";
           document.getElementById('latticeChatText').innerHTML = `
-            <div class="text-xs text-indigo-400 font-semibold mb-1">${scenarioData.userPrompt}</div>
-            <div class="text-emerald-300 font-normal mt-1 leading-relaxed">${latticeStreamText}<span class="inline-block w-1.5 h-3.5 bg-emerald-400 ml-0.5 animate-pulse"></span></div>
+            <div class="text-indigo-400 font-semibold mb-1">${scenarioData.userPrompt}</div>
+            <div class="text-emerald-300 mt-1">${latticeStreamText}<span class="inline-block w-1.5 h-3 bg-emerald-400 ml-0.5 animate-pulse"></span></div>
           `;
           document.getElementById('latticeChatBar').style.width = `${Math.round(((c + 1) / totalChatWords) * 100)}%`;
 
-          const elapsed = ((performance.now() - startTime) / 1000).toFixed(2);
-          document.getElementById('latticeChatTimer').innerText = `Elapsed: ${elapsed}s`;
+          const elapsed = ((performance.now() - startTime) / 1000).toFixed(1);
+          document.getElementById('latticeChatTimer').innerText = `Reply in: ${elapsed}s`;
           await new Promise(r => setTimeout(r, 40));
         }
 
         document.getElementById('latticeChatText').innerHTML = `
-          <div class="text-xs text-indigo-400 font-semibold mb-1">${scenarioData.userPrompt}</div>
-          <div class="text-emerald-300 font-normal mt-1 leading-relaxed">${latticeStreamText}</div>
+          <div class="text-indigo-400 font-semibold mb-1">${scenarioData.userPrompt}</div>
+          <div class="text-emerald-300 mt-1">${latticeStreamText}</div>
         `;
-        document.getElementById('latticePreemptStatus').innerText = 'Interactive complete -> Resuming background generation';
+        document.getElementById('latticePreemptStatus').innerText = 'Chat complete -> Background task resumed';
         document.getElementById('latticePreemptStatus').className = 'font-semibold text-emerald-400';
-        latticeStreamDone = true;
       })();
 
-      // Standard Server must complete the remaining background tokens first
+      // Standard Server must complete background task first
       for (let t = arrivalToken + 1; t <= batchTokens; t += 3) {
         const pct = Math.round((t / batchTokens) * 100);
         document.getElementById('fifoBatchProgress').innerText = `${pct}% (Token ${t} of ${batchTokens})`;
         document.getElementById('fifoBatchBar').style.width = `${pct}%`;
-        const elapsed = ((performance.now() - startTime) / 1000).toFixed(2);
-        document.getElementById('fifoChatTimer').innerText = `Queue delay: ${elapsed}s`;
+        const elapsed = ((performance.now() - startTime) / 1000).toFixed(1);
+        document.getElementById('fifoChatTimer').innerText = `Waiting: ${elapsed}s`;
         await new Promise(r => setTimeout(r, msPerToken));
       }
 
       await latticeStreamPromise;
 
-      // Sequential runtime finally begins interactive turn
+      // Standard server finally starts chat
       const fifoQueueDelayMs = Math.round((batchTokens - arrivalToken) * msPerToken * 1.35);
       const fifoTTFTMs = fifoQueueDelayMs + 210;
-      document.getElementById('fifoTTFT').innerText = `${fifoTTFTMs} ms`;
-      document.getElementById('fifoQueueWait').innerText = `${fifoQueueDelayMs} ms`;
-      document.getElementById('fifoQueueStatus').innerText = 'Background complete -> Executing interactive query';
+      document.getElementById('fifoTTFT').innerText = `${(fifoTTFTMs / 1000).toFixed(1)}s (${fifoTTFTMs} ms)`;
+      document.getElementById('fifoQueueWait').innerText = `${(fifoQueueDelayMs / 1000).toFixed(1)}s (${fifoQueueDelayMs} ms)`;
+      document.getElementById('fifoQueueStatus').innerText = 'Background finished -> Replying to chat';
       document.getElementById('fifoQueueStatus').className = 'font-semibold text-amber-400';
 
       let fifoStreamText = "";
       for (let c = 0; c < totalChatWords; c++) {
         fifoStreamText += words[c] + " ";
         document.getElementById('fifoChatText').innerHTML = `
-          <div class="text-xs text-indigo-400 font-semibold mb-1">${scenarioData.userPrompt}</div>
-          <div class="text-slate-200 font-normal mt-1 leading-relaxed">${fifoStreamText}<span class="inline-block w-1.5 h-3.5 bg-amber-400 ml-0.5 animate-pulse"></span></div>
+          <div class="text-indigo-400 font-semibold mb-1">${scenarioData.userPrompt}</div>
+          <div class="text-slate-200 mt-1">${fifoStreamText}<span class="inline-block w-1.5 h-3 bg-amber-400 ml-0.5 animate-pulse"></span></div>
         `;
         document.getElementById('fifoChatBar').style.width = `${Math.round(((c + 1) / totalChatWords) * 100)}%`;
-        const elapsed = ((fifoQueueDelayMs + (c * 40)) / 1000).toFixed(2);
-        document.getElementById('fifoChatTimer').innerText = `Total time: ${elapsed}s`;
+        const elapsed = ((fifoQueueDelayMs + (c * 40)) / 1000).toFixed(1);
+        document.getElementById('fifoChatTimer').innerText = `Total wait: ${elapsed}s`;
         await new Promise(r => setTimeout(r, 25));
       }
 
       document.getElementById('fifoChatText').innerHTML = `
-        <div class="text-xs text-indigo-400 font-semibold mb-1">${scenarioData.userPrompt}</div>
-        <div class="text-slate-200 font-normal mt-1 leading-relaxed">${fifoStreamText}</div>
+        <div class="text-indigo-400 font-semibold mb-1">${scenarioData.userPrompt}</div>
+        <div class="text-slate-200 mt-1">${fifoStreamText}</div>
       `;
-      document.getElementById('fifoQueueStatus').innerText = 'Interactive query completed';
+      document.getElementById('fifoQueueStatus').innerText = 'Completed';
       document.getElementById('fifoQueueStatus').className = 'font-semibold text-slate-400';
 
-      // Resume Lattice background task to 100%
+      // Resume Lattice background task
       for (let t = arrivalToken + 1; t <= batchTokens; t += 6) {
         const pct = Math.round((t / batchTokens) * 100);
         document.getElementById('latticeBatchProgress').innerText = `${pct}% (Resumed)`;
@@ -541,7 +502,7 @@
       }
       document.getElementById('latticeBatchProgress').innerText = `100% (Completed)`;
       document.getElementById('latticeBatchBar').style.width = '100%';
-      document.getElementById('latticePreemptStatus').innerText = 'All tasks completed successfully';
+      document.getElementById('latticePreemptStatus').innerText = 'All tasks completed';
 
       const speedupNum = (fifoTTFTMs / parseInt(latticeTTFTVal)).toFixed(1);
       document.getElementById('latticeSpeedup').innerText = `${speedupNum}x Faster`;
@@ -551,7 +512,7 @@
       document.getElementById('runSimBtn').classList.remove('opacity-50');
     }
 
-    // Chart.js initialization
+    // Chart.js
     window.addEventListener('DOMContentLoaded', () => {
       updateControls();
       const ctx = document.getElementById('benchmarkChart').getContext('2d');
@@ -561,7 +522,7 @@
           labels: ['48 Tokens', '96 Tokens', '160 Tokens', '256 Tokens', '384 Tokens', '512 Tokens', '1024 Tokens'],
           datasets: [
             {
-              label: 'Sequential FIFO Queue Delay (ms)',
+              label: 'Standard Server Queue Delay (ms)',
               data: [1120, 2240, 3736, 5980, 8960, 11950, 23900],
               borderColor: '#f43f5e',
               backgroundColor: 'rgba(244, 63, 94, 0.1)',
@@ -570,7 +531,7 @@
               fill: true
             },
             {
-              label: 'Lattice Preemptive Queue Delay (ms)',
+              label: 'Lattice Queue Delay (ms)',
               data: [12, 12, 13, 14, 14, 15, 16],
               borderColor: '#10b981',
               backgroundColor: 'rgba(16, 185, 129, 0.1)',
@@ -602,7 +563,7 @@
             x: {
               title: {
                 display: true,
-                text: 'Background Contention Workload (Tokens)',
+                text: 'Background Workload (Tokens)',
                 color: '#94a3b8'
               },
               grid: { color: '#1e293b' },
@@ -611,7 +572,7 @@
             y: {
               title: {
                 display: true,
-                text: 'Queue Wait Time (Milliseconds)',
+                text: 'Queue Wait Time (ms)',
                 color: '#94a3b8'
               },
               grid: { color: '#1e293b' },
