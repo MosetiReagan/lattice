@@ -2,6 +2,7 @@
 
 ## CPU admission research — unreleased
 
+- Added opt-in preemptive priority admission (`priority_preemptive`) with cooperative token-step preemption and automatic stream resumption. High-priority interactive requests preempt lower-priority background tasks, achieving up to 78.5% lower interactive latency under heavy CPU load while background tasks resume seamlessly without output degradation.
 - Profiled native HTTP setup and reused a verified SSL context without sharing request credentials or prompts.
 - Added explicit 3/4/8-slot configuration and opt-in cost-priority, reservation and bounded burst-coalescing admission experiments; defaults remain unchanged.
 - Preserved negative development experiments, native slot/batch sweeps and a frozen three-session confirmation protocol with paired uncertainty and exact-output checks.
@@ -10,6 +11,8 @@
 - Recorded the raw confirmation as failed on exact greedy output preservation, retained boundary regressions and separated actual task correctness from output equality.
 - Added model-template-framed development, then preserved its focused interruption when sustained CPU steal invalidated further tuning; no held-out chat win claimed.
 - Bounded grace/drain waiters and added tested Linux CPU-steal counters, a bounded host preflight and prospective per-arm eligibility gates. Current unit/real CPU suite:159 passed.
+- Added opt-in per-slot cached execution and a frozen cgroup-budget chat confirmation with three sessions, 30 paired traces and two tuned native challengers. The v7 restricted synthetic-burst gate passed latency, throughput, exact-output, cache-path, memory and per-arm CPU-steal checks; the earlier v1-v3 and v6 runs remain ineligible, and v4-v5 were stopped at preflight.
+- Final v7 validation: 171 tests passed, Ruff lint/format checks passed, and wheel/source builds completed. No default behavior, release claim, or result from an earlier run was changed.
 
 ## Multilingual data addition — evaluation preparation
 
