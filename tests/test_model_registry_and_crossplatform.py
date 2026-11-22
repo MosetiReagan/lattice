@@ -131,6 +131,7 @@ def test_actionable_memory_guard_suggestion(settings, monkeypatch, tmp_path):
     dummy_model.write_bytes(b"mock_model")
 
     from lattice.backends.llama_cpp import LlamaCppBackend
+
     settings.backend_binary = str(backend_bin)
     settings.backend_sha256 = "0" * 64
     settings.backend_files = {}
@@ -149,6 +150,7 @@ def test_actionable_memory_guard_suggestion(settings, monkeypatch, tmp_path):
     )
     with pytest.raises(LatticeError) as exc_info:
         import asyncio
+
         asyncio.run(backend.start())
     assert exc_info.value.status == 503
     assert "Suggestion: rerun with --host-reserve-mb" in str(exc_info.value)
@@ -179,5 +181,3 @@ def test_cli_status_command(settings, tmp_path, monkeypatch, capsys):
     text_out = capsys.readouterr().out
     assert "LATTICE SYSTEM & SERVER STATUS" in text_out
     assert "Registered Models" in text_out
-
-

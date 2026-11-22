@@ -64,7 +64,8 @@ class FairSemaphore:
         if not self.preemptive:
             return
         unpreempted = [
-            h for h in self._holders
+            h
+            for h in self._holders
             if not h.preempted and h.priority < incoming_priority
         ]
         if not unpreempted:

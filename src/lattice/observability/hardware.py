@@ -18,7 +18,9 @@ def cpu_fingerprint() -> str:
         first = cpuinfo_path.read_text().split("\n\n")[0]
         fields = {
             k.strip(): v.strip()
-            for k, v in (line.split(":", 1) for line in first.splitlines() if ":" in line)
+            for k, v in (
+                line.split(":", 1) for line in first.splitlines() if ":" in line
+            )
         }
         return fingerprint(
             {

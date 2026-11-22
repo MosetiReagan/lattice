@@ -32,11 +32,17 @@ def parser():
         reg.add_argument("source", help="Path to .gguf file or download URL")
         reg.add_argument("--name", help="Custom model ID (default: filename stem)")
         reg.add_argument("--precision", help="Precision override (e.g. Q4_K_M, F16)")
-        reg.add_argument("--kv-bytes-per-token", type=int, help="KV cache memory size in bytes per token")
+        reg.add_argument(
+            "--kv-bytes-per-token",
+            type=int,
+            help="KV cache memory size in bytes per token",
+        )
     for name in ["generate", "serve"]:
         sub = commands.add_parser(name)
         sub.add_argument("--model", required=True)
-        sub.add_argument("--host-reserve-mb", type=int, help="Host RAM reserve cap in MB")
+        sub.add_argument(
+            "--host-reserve-mb", type=int, help="Host RAM reserve cap in MB"
+        )
         if name == "generate":
             sub.add_argument(
                 "--strategy",
@@ -179,7 +185,9 @@ def main():
             server_online = False
             active_models = []
             try:
-                with urllib.request.urlopen("http://127.0.0.1:8000/v1/models", timeout=0.5) as resp:
+                with urllib.request.urlopen(
+                    "http://127.0.0.1:8000/v1/models", timeout=0.5
+                ) as resp:
                     if resp.status == 200:
                         server_online = True
                         data = json.loads(resp.read().decode())
@@ -223,22 +231,34 @@ def main():
                 print("=" * 62)
                 print("⚡ LATTICE SYSTEM & SERVER STATUS")
                 print("=" * 62)
-                srv_str = "🟢 Online (http://127.0.0.1:8000)" if server_online else "⚪ Offline (start with 'lattice serve --preset chat')"
+                srv_str = (
+                    "🟢 Online (http://127.0.0.1:8000)"
+                    if server_online
+                    else "⚪ Offline (start with 'lattice serve --preset chat')"
+                )
                 print(f"Server Status:       {srv_str}")
                 if active_models:
                     print(f"Loaded Models:       {', '.join(active_models)}")
                 print("-" * 62)
                 print(f"Host OS:             {platform.platform()}")
                 print(f"CPU Cores:           {os.cpu_count()}")
-                print(f"Host Memory:         {avail_mb} MB available / {total_mb} MB total")
-                print(f"Safety Reserve:      {reserve_mb} MB (Headroom: {headroom_mb} MB)")
+                print(
+                    f"Host Memory:         {avail_mb} MB available / {total_mb} MB total"
+                )
+                print(
+                    f"Safety Reserve:      {reserve_mb} MB (Headroom: {headroom_mb} MB)"
+                )
                 print("-" * 62)
                 print(f"Admission Policy:    {settings.admission_policy}")
                 print(f"Native Slots:        {settings.native_slots}")
                 print("-" * 62)
                 print("Registered Models:")
                 for m in settings.models:
-                    kv_flag = f"✅ Ready ({m.kv_bytes_per_token} B/tok)" if m.kv_bytes_per_token else "⚠️ Missing size"
+                    kv_flag = (
+                        f"✅ Ready ({m.kv_bytes_per_token} B/tok)"
+                        if m.kv_bytes_per_token
+                        else "⚠️ Missing size"
+                    )
                     print(f"  • {m.id:<24} [{m.precision}] (Cache: {kv_flag})")
                 print("=" * 62)
             return

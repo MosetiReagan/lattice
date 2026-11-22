@@ -191,7 +191,9 @@ class Runtime:
                                 # Bound the drain hold so sustained small traffic
                                 # cannot indefinitely stop bulk admissions.
                                 try:
-                                    await asyncio.wait_for(self._small_drained.wait(), 5.0)
+                                    await asyncio.wait_for(
+                                        self._small_drained.wait(), 5.0
+                                    )
                                 except TimeoutError:
                                     pass
                             else:
@@ -226,14 +228,20 @@ class Runtime:
                             if event["type"] == "prefill":
                                 if record["prompt_tokens"] is None:
                                     record["prompt_tokens"] = event["prompt_tokens"]
-                                    record["strategy"] = event.get("strategy", "standard")
+                                    record["strategy"] = event.get(
+                                        "strategy", "standard"
+                                    )
                                     record["backend"] = event.get(
                                         "backend", dict(self.backend.identity)
                                     )
-                                    record["fallback_reason"] = event.get("fallback_reason")
+                                    record["fallback_reason"] = event.get(
+                                        "fallback_reason"
+                                    )
                                     record["policy"] = event.get("policy")
                                     record["native_slot"] = event.get("native_slot")
-                                    record["native_slots"] = event.get("native_slots", 1)
+                                    record["native_slots"] = event.get(
+                                        "native_slots", 1
+                                    )
                                     record["worker_startup_ms"] = getattr(
                                         self.backend, "worker_startup_ms", None
                                     )
@@ -257,7 +265,9 @@ class Runtime:
                                         )
                                     previous_chunk = now
                                 yield event
-                                if is_preemptive and getattr(permit, "is_preempted", False):
+                                if is_preemptive and getattr(
+                                    permit, "is_preempted", False
+                                ):
                                     preempted_during_stream = True
                                     record["preempted"] = True
                                     self.counters["requests_preempted"] += 1

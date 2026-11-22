@@ -413,7 +413,12 @@ class LlamaCppBackend:
                     from lattice.observability.host import get_host_memory_kb
 
                     meminfo = get_host_memory_kb()
-                    avail_mb = meminfo.get("MemAvailable", meminfo.get("MemTotal", 4096 * 1024)) // 1024
+                    avail_mb = (
+                        meminfo.get(
+                            "MemAvailable", meminfo.get("MemTotal", 4096 * 1024)
+                        )
+                        // 1024
+                    )
                     resources = ResourceSnapshot(
                         avail_mb,
                         self.settings.host_reserve_mb,

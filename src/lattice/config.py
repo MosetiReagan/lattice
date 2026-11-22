@@ -156,11 +156,25 @@ def estimate_or_read_kv_bytes(path: Path) -> int:
                         f.read(2)
                     elif vtype in (4, 5, 6):
                         val = struct.unpack("<I", f.read(4))[0]
-                        if any(term in key for term in ("block_count", "head_count", "embedding_length")):
+                        if any(
+                            term in key
+                            for term in (
+                                "block_count",
+                                "head_count",
+                                "embedding_length",
+                            )
+                        ):
                             kv_dict[key] = val
                     elif vtype in (10, 11, 12):
                         val = struct.unpack("<Q", f.read(8))[0]
-                        if any(term in key for term in ("block_count", "head_count", "embedding_length")):
+                        if any(
+                            term in key
+                            for term in (
+                                "block_count",
+                                "head_count",
+                                "embedding_length",
+                            )
+                        ):
                             kv_dict[key] = val
                     elif vtype == 8:
                         s_len_bytes = f.read(8)
@@ -171,10 +185,23 @@ def estimate_or_read_kv_bytes(path: Path) -> int:
                     else:
                         break
 
-                layers = next((v for k, v in kv_dict.items() if "block_count" in k), None)
-                kv_heads = next((v for k, v in kv_dict.items() if "head_count_kv" in k), None)
-                heads = next((v for k, v in kv_dict.items() if "head_count" in k and "head_count_kv" not in k), None)
-                embed_dim = next((v for k, v in kv_dict.items() if "embedding_length" in k), None)
+                layers = next(
+                    (v for k, v in kv_dict.items() if "block_count" in k), None
+                )
+                kv_heads = next(
+                    (v for k, v in kv_dict.items() if "head_count_kv" in k), None
+                )
+                heads = next(
+                    (
+                        v
+                        for k, v in kv_dict.items()
+                        if "head_count" in k and "head_count_kv" not in k
+                    ),
+                    None,
+                )
+                embed_dim = next(
+                    (v for k, v in kv_dict.items() if "embedding_length" in k), None
+                )
 
                 if layers:
                     kv_h = kv_heads or heads or 2
@@ -270,7 +297,10 @@ def register_model(
         target_path = models_dir / filename
         temp_path = target_path.with_suffix(".downloading")
         try:
-            with urllib.request.urlopen(source, timeout=300) as resp, temp_path.open("wb") as out:
+            with (
+                urllib.request.urlopen(source, timeout=300) as resp,
+                temp_path.open("wb") as out,
+            ):
                 shutil.copyfileobj(resp, out, length=4 * 1024 * 1024)
             temp_path.replace(target_path)
         finally:
@@ -279,7 +309,9 @@ def register_model(
     else:
         local_path = Path(source).resolve()
         if not local_path.is_file():
-            raise LatticeError(f"Model file does not exist: {source}", 404, "file_not_found")
+            raise LatticeError(
+                f"Model file does not exist: {source}", 404, "file_not_found"
+            )
 
     sha = file_hash(local_path)
     entry_id = name or local_path.stem
@@ -313,7 +345,9 @@ def register_model(
                 "precision": entry.precision,
                 "kv_bytes_per_token": entry.kv_bytes_per_token,
             }
-            existing_models = [m for m in data.get("models", []) if m.get("id") != entry_id]
+            existing_models = [
+                m for m in data.get("models", []) if m.get("id") != entry_id
+            ]
             existing_models.append(model_dict)
             data["models"] = existing_models
             resolved_config.write_text(json.dumps(data, indent=2) + "\n")
