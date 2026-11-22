@@ -4,11 +4,18 @@ build-backend = "hatchling.build"
 
 [project]
 name = "lattice-inference"
-version = "0.3.0a1"
+version = "0.3.0a2"
 description = "Instant chat replies for local LLMs even while heavy background tasks are running on CPU"
+readme = "README.md"
 requires-python = ">=3.11"
 license = "Apache-2.0"
 dependencies = ["fastapi>=0.115,<1", "uvicorn>=0.34,<1", "httpx>=0.28,<1", "pydantic>=2.10,<3"]
+
+[project.urls]
+Homepage = "https://github.com/MosetiReagan/lattice"
+Repository = "https://github.com/MosetiReagan/lattice"
+Documentation = "https://github.com/MosetiReagan/lattice/tree/main/docs"
+Issues = "https://github.com/MosetiReagan/lattice/issues"
 
 [project.optional-dependencies]
 provision = ["cmake==4.4.5", "ninja==1.13.2"]

@@ -3,7 +3,7 @@
 > **Instant chat replies for local LLMs — even while heavy background tasks are running on your CPU.**
 > A fast, responsive, OpenAI-compatible local AI inference server powered by `llama.cpp`.
 
-[![Status: Alpha Research Preview (0.3.0a1)](https://img.shields.io/badge/status-Alpha%20Preview-orange.svg)](docs/release_readiness.md)
+[![Status: Alpha Research Preview (0.3.0a2)](https://img.shields.io/badge/status-Alpha%20Preview-orange.svg)](docs/release_readiness.md)
 [![Python: 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](pyproject.toml)
 [![Platform: Linux & macOS](https://img.shields.io/badge/platform-Linux%20%7C%20macOS-blue.svg)](docs/hardware_compatibility.md)
 [![Backend: llama.cpp](https://img.shields.io/badge/powered%20by-llama.cpp-green.svg)](https://github.com/ggerganov/llama.cpp)
