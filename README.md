@@ -1,7 +1,7 @@
 # ⚡ Lattice
 
-> **An intelligent CPU inference server and admission controller for local LLMs, powered by `llama.cpp`.**
-> **Stop waiting on local AI: get instant interactive chat responses even while heavy background jobs are running.**
+> **Instant chat replies for local LLMs — even while heavy background tasks are running.**
+> **A fast, responsive local AI inference server powered by `llama.cpp`.**
 
 [![Status: 0.3.0.dev0](https://img.shields.io/badge/status-Alpha%20Preview-orange.svg)](docs/release_readiness.md)
 [![Python: 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](pyproject.toml)

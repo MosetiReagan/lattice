@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "lattice-inference"
 version = "0.3.0.dev0"
-description = "Measured, resource-aware language model inference"
+description = "Instant chat replies for local LLMs even while heavy background tasks are running on CPU"
 requires-python = ">=3.11"
 license = "Apache-2.0"
 dependencies = ["fastapi>=0.115,<1", "uvicorn>=0.34,<1", "httpx>=0.28,<1", "pydantic>=2.10,<3"]
