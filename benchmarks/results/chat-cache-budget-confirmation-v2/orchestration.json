@@ -1,0 +1,21 @@
+{
+  "status": "completed",
+  "protocol_sha256": "b7643e6f8f1cd74a82d0633733795063076beed35d51c456df71100b9d644b64",
+  "sessions": [
+    {
+      "session": 1,
+      "seed": 18001,
+      "exit_code": 0
+    },
+    {
+      "session": 2,
+      "seed": 19001,
+      "exit_code": 0
+    },
+    {
+      "session": 3,
+      "seed": 20001,
+      "exit_code": 0
+    }
+  ]
+}

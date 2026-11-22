@@ -1,0 +1,33 @@
+{
+  "utc": "2026-11-21T09:28:02.914546+00:00",
+  "workers": 1,
+  "cpu_bandwidth": {
+    "path": "/user.slice/user-1000.slice/session-4.scope",
+    "cpu_max": "max 100000",
+    "cpu_stat": {
+      "usage_usec": 48873979269,
+      "user_usec": 48257336939,
+      "system_usec": 616642329,
+      "nice_usec": 0,
+      "nr_periods": 0,
+      "nr_throttled": 0,
+      "throttled_usec": 0,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    }
+  },
+  "cpu_affinity": [
+    0
+  ],
+  "duration_seconds": 3.0,
+  "worker_samples": [
+    {
+      "cpu_seconds": 2.833473639,
+      "wall_seconds": 3.000029535993235
+    }
+  ],
+  "available_cpu_fraction": 0.9444819142628565,
+  "cpu_steal_fraction": 0.01868399675060926,
+  "eligible": true,
+  "contract": "Preflight only, not an inference speed result. Require <=5% aggregate CPU steal and >=90% requested CPU time. This does not guarantee future availability; confirmation must independently record and gate every arm's steal counters."
+}

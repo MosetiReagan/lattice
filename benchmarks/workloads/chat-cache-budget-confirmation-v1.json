@@ -1,0 +1,91 @@
+{
+  "stage": "frozen",
+  "version": "chat-cache-budget-confirmation-v1",
+  "not_a_result": "No held-out cache-enabled confirmation has run. The two-trace cached development run is selection evidence only. This protocol does not alter the failed earlier confirmations.",
+  "candidate": "lattice_coalesce2_cached",
+  "baselines": [
+    "native4_b64_noram",
+    "native1_noram"
+  ],
+  "gate_baselines": [
+    "native4_b64_noram",
+    "native1_noram"
+  ],
+  "arm_settings": {
+    "lattice_coalesce2_cached": {
+      "native_slots": 2,
+      "batch_tokens": 256,
+      "ubatch_tokens": 256,
+      "cache_policy": "explicit_slot_compatible",
+      "cache_limit_mb": 64,
+      "cache_min_tokens": 1,
+      "native_ram_archive": false
+    },
+    "native4_b64_noram": {
+      "native_slots": 4,
+      "batch_tokens": 64,
+      "ubatch_tokens": 64,
+      "cache_policy": "native_prefix",
+      "cache_limit_mb": 32,
+      "cache_min_tokens": 64,
+      "native_ram_archive": false
+    },
+    "native1_noram": {
+      "native_slots": 1,
+      "batch_tokens": 256,
+      "ubatch_tokens": 256,
+      "cache_policy": "native_prefix",
+      "cache_limit_mb": 32,
+      "cache_min_tokens": 64,
+      "native_ram_archive": false
+    }
+  },
+  "sessions": [
+    {
+      "seed": 13001,
+      "traces": 10
+    },
+    {
+      "seed": 14001,
+      "traces": 10
+    },
+    {
+      "seed": 15001,
+      "traces": 10
+    }
+  ],
+  "source_sha256": "21bea3ba9f0792bf84c23c8318aac9ff852bbbc5cfba0502f9ac15e384a0f278",
+  "runner_sha256": "a82c961d58580d535d5eea14c8e511bb6f1b94ac07f71427fb318002c3785a0d",
+  "transport_runner_sha256": "2fdfca953493dc7524a06585876916718ce278b54d80babd50147ff6c9e31202",
+  "model_sha256": "8e0ae26000627ed62de0e78e41860af70094558b9d2913385c842a6aa06cf3fc",
+  "backend_sha256": "9e954cd7ced8851cbcd03170fb93ed864cdf5c7f38b743a5f8481e5235ea1b7b",
+  "threads": 1,
+  "context_per_request": 2048,
+  "worker_address_space_mb": 4096,
+  "latency_ratio_max": 0.8,
+  "throughput_ratio_min": 0.95,
+  "host_cpu_steal_max": 0.05,
+  "host_cpu_interval_steal_max": 0.1,
+  "host_preflight_path": "benchmarks/results/host-availability-v1/probe-chat-cache-budget-start-20261121.json",
+  "preflight": "Require an eligible one-worker preflight no more than 120 seconds old at launch, pinned to CPU 0 inside the exact frozen cgroup budget. This preflight does not guarantee future availability; every confirmation arm independently retains and gates CPU-steal counters.",
+  "quality": "Every request token IDs, text, prompt length and task-correctness classification must match the primary native baseline, with zero failures. Report absolute strict copy-task accuracy, including incorrect answers and EOS/cap finishes.",
+  "uncertainty": "10,000 fixed-seed hierarchical paired bootstrap replicates; sessions then whole paired traces. Require latency and throughput thresholds in every session and corresponding confidence bounds. No optional stopping, added traces or relaxed thresholds.",
+  "scope": "One backend thread, benchmark/control/native processes pinned to CPU 0 inside a dedicated 0.92 CPU cgroup. Same Qwen2.5-0.5B FP16, tokenizer, greedy sampler, output limits and context. Native latency and throughput development leaders both qualify as challengers. No broad engine/model-quality, production, GPU or 1.0 claim.",
+  "failure_policy": "Retain and report every result and gate failure. New prompts/framing/cache settings do not repair previous failed confirmations. Any CPU, cache-path, quality, performance or resource gate failure invalidates qualification; do not drop or selectively rerun traces.",
+  "cpu_affinity": [
+    0
+  ],
+  "cpu_bandwidth": {
+    "path": "/lattice-chat-cache-confirm-v1",
+    "cpu_max": "92000 100000"
+  },
+  "require_cached_execution": true,
+  "settings_path": "configs/single-thread-experiments.json",
+  "settings_sha256": "385a4ee22e94cf3e6e06a7e98f3245f138964b677874a870404c23751507c302",
+  "results_path": "benchmarks/results/chat-cache-budget-confirmation-v1",
+  "report_path": "docs/chat_cache_budget_confirmation.md",
+  "boundary_results_path": "benchmarks/results/chat-cache-budget-boundaries-v1",
+  "boundary_report_path": "docs/chat_cache_budget_boundaries.md",
+  "boundary_seed_start": 16001,
+  "artifact_prefix": "cache-budget-"
+}

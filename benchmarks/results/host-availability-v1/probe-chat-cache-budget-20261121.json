@@ -1,0 +1,33 @@
+{
+  "utc": "2026-11-21T09:40:03.339002+00:00",
+  "workers": 1,
+  "cpu_bandwidth": {
+    "path": "/lattice-chat-cache-confirm-v1",
+    "cpu_max": "92000 100000",
+    "cpu_stat": {
+      "usage_usec": 2890996,
+      "user_usec": 2879208,
+      "system_usec": 11788,
+      "nice_usec": 0,
+      "nr_periods": 32,
+      "nr_throttled": 31,
+      "throttled_usec": 245634,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    }
+  },
+  "cpu_affinity": [
+    0
+  ],
+  "duration_seconds": 3.0,
+  "worker_samples": [
+    {
+      "cpu_seconds": 2.7584963649999996,
+      "wall_seconds": 3.0000248959986493
+    }
+  ],
+  "available_cpu_fraction": 0.9194911577831258,
+  "cpu_steal_fraction": 0.0008130081300813008,
+  "eligible": true,
+  "contract": "Preflight only, not an inference speed result. Require <=5% aggregate CPU steal and >=90% requested CPU time. This does not guarantee future availability; confirmation must independently record and gate every arm's steal counters."
+}

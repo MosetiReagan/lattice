@@ -1,0 +1,97 @@
+{
+  "utc": "2026-11-21T11:08:18.317224+00:00",
+  "workers": 1,
+  "cpu_bandwidth": {
+    "path": "/lattice-chat-cache-confirm-v2",
+    "cpu_max": "92000 100000",
+    "cpu_stat": {
+      "usage_usec": 9453994,
+      "user_usec": 9396445,
+      "system_usec": 57548,
+      "nice_usec": 0,
+      "nr_periods": 102,
+      "nr_throttled": 101,
+      "throttled_usec": 795068,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    }
+  },
+  "cpu_affinity": [
+    0
+  ],
+  "duration_seconds": 10.0,
+  "worker_samples": [
+    {
+      "cpu_seconds": 9.193269352,
+      "wall_seconds": 10.000035442004446
+    }
+  ],
+  "available_cpu_fraction": 0.9193236769326154,
+  "cpu_steal_fraction": 0.000487685930260912,
+  "cpu_steal": {
+    "available": true,
+    "aggregate_steal_fraction": 0.000487685930260912,
+    "max_interval_steal_fraction": 0.0024691358024691358,
+    "samples": [
+      {
+        "monotonic_seconds": 79110.108163349,
+        "total": 31635396,
+        "steal": 294999
+      },
+      {
+        "monotonic_seconds": 79111.233271613,
+        "total": 31635848,
+        "steal": 294999
+      },
+      {
+        "monotonic_seconds": 79112.233851779,
+        "total": 31636255,
+        "steal": 294999
+      },
+      {
+        "monotonic_seconds": 79113.234289515,
+        "total": 31636658,
+        "steal": 294999
+      },
+      {
+        "monotonic_seconds": 79114.23463525,
+        "total": 31637063,
+        "steal": 295000
+      },
+      {
+        "monotonic_seconds": 79115.234983136,
+        "total": 31637470,
+        "steal": 295000
+      },
+      {
+        "monotonic_seconds": 79116.235384661,
+        "total": 31637875,
+        "steal": 295000
+      },
+      {
+        "monotonic_seconds": 79117.235944827,
+        "total": 31638282,
+        "steal": 295001
+      },
+      {
+        "monotonic_seconds": 79118.236291342,
+        "total": 31638689,
+        "steal": 295001
+      },
+      {
+        "monotonic_seconds": 79119.236761138,
+        "total": 31639091,
+        "steal": 295001
+      },
+      {
+        "monotonic_seconds": 79120.233388861,
+        "total": 31639497,
+        "steal": 295001
+      }
+    ],
+    "window": "Whole arm including startup/warmup as well as measured request makespan"
+  },
+  "checker_sha256": "f0b9d9af1445084a9c4f991b60d17392861c529d747659a0ed08cae2d9cf05da",
+  "eligible": true,
+  "contract": "Preflight only, not an inference speed result. Require <=5% aggregate steal, <=10% per sampled interval, and >=90% requested CPU time. This does not guarantee future availability; confirmation must independently record and gate every arm's steal counters."
+}

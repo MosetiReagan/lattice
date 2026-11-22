@@ -1,0 +1,10 @@
+interactive_only native4_b64_noram 11.515204457205092 errors 0
+interactive_only lattice_coalesce2_cached 11.974155099377636 errors 0
+bulk_only lattice_coalesce2_cached 0.4534466413117315 errors 0
+bulk_only native4_b64_noram 0.4370263349506057 errors 0
+mixed_25_percent_interactive native4_b64_noram 0.5292375372099163 errors 0
+mixed_25_percent_interactive lattice_coalesce2_cached 0.5845598805235467 errors 0
+mixed_75_percent_interactive lattice_coalesce2_cached 1.8381656633673886 errors 0
+mixed_75_percent_interactive native4_b64_noram 1.5989995185908026 errors 0
+interactive_arrives_late native4_b64_noram 0.7662162070307416 errors 0
+interactive_arrives_late lattice_coalesce2_cached 0.842479032128834 errors 0

@@ -1,0 +1,8 @@
+lattice_coalesce2_cached 0 P95 2496.7030739942275 tps 0.921252338187181 errors 0 correct 10
+native1_noram 0 P95 40402.35520849936 tps 0.9137231353210211 errors 0 correct 10
+native4_b64_noram 0 P95 31026.87336049971 tps 0.8459014380528125 errors 0 correct 10
+lattice_coalesce1_cached_noram 0 P95 1441.9122492479219 tps 0.9432091307595939 errors 0 correct 10
+native4_b64_noram 1 P95 30170.876342252042 tps 0.8360784197966825 errors 0 correct 11
+lattice_coalesce2_cached 1 P95 1539.3085772596241 tps 0.9003449358976776 errors 0 correct 11
+native1_noram 1 P95 40311.65704350977 tps 0.8910181547973203 errors 0 correct 11
+lattice_coalesce1_cached_noram 1 P95 1517.7980785045656 tps 0.8948235140670687 errors 0 correct 11
