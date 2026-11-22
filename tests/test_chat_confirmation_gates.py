@@ -181,3 +181,40 @@ def test_second_native_throughput_challenger_is_not_ignored(prepared_analysis):
     assert report["gates"]["quality_and_errors"]
     assert not report["gates"]["throughput"]
     assert not report["restricted_gate_pass"]
+
+
+@pytest.mark.parametrize("violation", [None, "budget", "strategy"])
+def test_cpu_budget_and_actual_cached_path_are_hard_gates(prepared_analysis, violation):
+    analysis, root = prepared_analysis
+    protocol_path = (
+        analysis.ROOT / "benchmarks/workloads/chat-burst-confirmation-v1.json"
+    )
+    protocol = json.loads(protocol_path.read_text())
+    budget = {"path": "/lattice-fixture", "cpu_max": "92000 100000"}
+    protocol.update(cpu_bandwidth=budget, require_cached_execution=True)
+    protocol_path.write_text(json.dumps(protocol))
+    (root / "orchestration.json").write_text(
+        json.dumps({"status": "completed", "protocol_sha256": file_hash(protocol_path)})
+    )
+    for index in range(1, 4):
+        path = root / f"session-{index}/results.jsonl"
+        records = [json.loads(line) for line in path.read_text().splitlines()]
+        for record in records:
+            record.update(
+                cpu_bandwidth_before=dict(budget),
+                cpu_bandwidth_after=dict(budget),
+                worker_cpu_cgroup="0::/lattice-fixture",
+            )
+            if record["arm"] == protocol["candidate"]:
+                for row in record["rows"]:
+                    row.update(strategy="cached", tokens_cached=1)
+        if index == 1 and violation == "budget":
+            records[1]["cpu_bandwidth_after"]["cpu_max"] = "max 100000"
+        if index == 1 and violation == "strategy":
+            records[1]["rows"][0]["strategy"] = "standard"
+        path.write_text("\n".join(json.dumps(record) for record in records) + "\n")
+    analysis.main()
+    report = json.loads((root / "analysis.json").read_text())
+    assert report["restricted_gate_pass"] is (violation is None)
+    assert report["gates"]["cpu_bandwidth_budget"] is (violation != "budget")
+    assert report["gates"]["requested_cache_path_observed"] is (violation != "strategy")

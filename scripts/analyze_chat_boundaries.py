@@ -1,5 +1,6 @@
 """Keep chat-framed boundary regressions separate from confirmation gates."""
 
+import argparse
 import json
 from pathlib import Path
 
@@ -10,8 +11,11 @@ from lattice.config import file_hash
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def main():
-    folder = ROOT / "benchmarks/results/chat-admission-boundaries-v1"
+def main(protocol_path=None):
+    protocol = json.loads((ROOT / protocol_path).read_text()) if protocol_path else {}
+    folder = ROOT / protocol.get(
+        "boundary_results_path", "benchmarks/results/chat-admission-boundaries-v1"
+    )
     manifest = json.loads((folder / "manifest.json").read_text())
     results = json.loads((folder / "summary.json").read_text())
     raw_path = folder / "results.jsonl"
@@ -65,9 +69,13 @@ def main():
         "",
     ]
     (folder / "analysis.json").write_text(json.dumps(report, indent=2) + "\n")
-    (ROOT / "docs/chat_admission_boundaries.md").write_text("\n".join(lines))
+    (
+        ROOT / protocol.get("boundary_report_path", "docs/chat_admission_boundaries.md")
+    ).write_text("\n".join(lines))
     print(json.dumps(report, indent=2))
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--protocol")
+    main(parser.parse_args().protocol)

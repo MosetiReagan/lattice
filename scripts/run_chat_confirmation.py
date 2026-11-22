@@ -1,5 +1,6 @@
 """Run the separately frozen chat protocol once, serially, without overwrites."""
 
+import argparse
 import datetime
 import json
 import os
@@ -9,12 +10,15 @@ from pathlib import Path
 
 from lattice.config import file_hash
 from lattice.evaluation.benchmark import source_manifest
+from lattice.observability.host import cpu_bandwidth_snapshot
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def main():
-    protocol_path = ROOT / "benchmarks/workloads/chat-burst-confirmation-v1.json"
+def main(protocol_path=None):
+    protocol_path = ROOT / (
+        protocol_path or "benchmarks/workloads/chat-burst-confirmation-v1.json"
+    )
     if not protocol_path.exists():
         raise SystemExit(
             "No frozen chat protocol: resolve CPU availability and finish development before confirmation"
@@ -28,7 +32,18 @@ def main():
     if file_hash(ROOT / protocol["settings_path"]) != protocol["settings_sha256"]:
         raise SystemExit("Frozen settings changed")
     os.sched_setaffinity(0, set(protocol["cpu_affinity"]))
+    required_budget = protocol.get("cpu_bandwidth")
+    if required_budget and any(
+        cpu_bandwidth_snapshot().get(key) != value
+        for key, value in required_budget.items()
+    ):
+        raise SystemExit("Execution must use the exact frozen cgroup CPU budget")
     preflight = json.loads((ROOT / protocol["host_preflight_path"]).read_text())
+    if (
+        protocol.get("host_preflight_sha256")
+        and preflight.get("checker_sha256") != protocol["host_preflight_sha256"]
+    ):
+        raise SystemExit("Preflight checker differs from frozen protocol")
     if (
         preflight.get("workers") != protocol["threads"]
         or preflight.get("cpu_affinity") != protocol["cpu_affinity"]
@@ -40,6 +55,11 @@ def main():
         raise SystemExit(
             "Host CPU preflight failed; do not start fixed confirmation budget"
         )
+    if required_budget and any(
+        preflight.get("cpu_bandwidth", {}).get(key) != value
+        for key, value in required_budget.items()
+    ):
+        raise SystemExit("Preflight CPU budget differs from frozen execution")
     age = (
         datetime.datetime.now(datetime.UTC)
         - datetime.datetime.fromisoformat(preflight["utc"])
@@ -49,7 +69,9 @@ def main():
             "Host preflight is stale; a fresh eligibility check is required"
         )
     protocol_hash = file_hash(protocol_path)
-    output = ROOT / "benchmarks/results/chat-burst-confirmation-v1"
+    output = ROOT / protocol.get(
+        "results_path", "benchmarks/results/chat-burst-confirmation-v1"
+    )
     output.mkdir(parents=True, exist_ok=False)
     path = output / "orchestration.json"
     state = {"status": "running", "protocol_sha256": protocol_hash, "sessions": []}
@@ -61,6 +83,13 @@ def main():
             or file_hash(ROOT / protocol["settings_path"])
             != protocol["settings_sha256"]
             or sorted(os.sched_getaffinity(0)) != protocol["cpu_affinity"]
+            or (
+                required_budget
+                and any(
+                    cpu_bandwidth_snapshot().get(key) != value
+                    for key, value in required_budget.items()
+                )
+            )
         ):
             state["status"] = "failed"
             path.write_text(json.dumps(state, indent=2) + "\n")
@@ -96,4 +125,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--protocol")
+    main(parser.parse_args().protocol)

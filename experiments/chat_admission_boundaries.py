@@ -1,5 +1,6 @@
 """Predeclared post-confirmation boundaries; these never tune the candidate."""
 
+import argparse
 import asyncio
 import hashlib
 import json
@@ -13,7 +14,7 @@ from lattice.backends.http_client import native_ssl_context
 from lattice.backends.llama_cpp import LlamaCppBackend
 from lattice.config import file_hash, load_settings, select_model
 from lattice.evaluation.benchmark import source_manifest
-from lattice.observability.host import CpuStealSampler
+from lattice.observability.host import CpuStealSampler, cpu_bandwidth_snapshot
 
 ROOT = Path(__file__).resolve().parents[1]
 CASES = [
@@ -25,17 +26,25 @@ CASES = [
 ]
 
 
-async def main():
-    protocol_path = ROOT / "benchmarks/workloads/chat-burst-confirmation-v1.json"
+async def main(protocol_path=None):
+    protocol_path = ROOT / (
+        protocol_path or "benchmarks/workloads/chat-burst-confirmation-v1.json"
+    )
     protocol = json.loads(protocol_path.read_text())
-    output = ROOT / "benchmarks/results/chat-admission-boundaries-v1"
+    output = ROOT / protocol.get(
+        "boundary_results_path", "benchmarks/results/chat-admission-boundaries-v1"
+    )
     output.mkdir(parents=True, exist_ok=False)
     settings = load_settings()
     settings.log_directory = str(output / "private" / "template-preparation")
     backend = LlamaCppBackend(settings, select_model(settings, MODEL))
     traces = []
     for index, (name, bulk, interactive, delay) in enumerate(CASES):
-        trace = make_trace(15001 + index, bulk=bulk, interactive=interactive)
+        trace = make_trace(
+            protocol.get("boundary_seed_start", 15001) + index,
+            bulk=bulk,
+            interactive=interactive,
+        )
         for row in trace:
             if row["class"] == "interactive":
                 row["arrival_seconds"] = (
@@ -85,9 +94,12 @@ async def main():
         for index, case in enumerate(traces):
             order = arms if index % 2 == 0 else list(reversed(arms))
             for arm in order:
+                budget_before = cpu_bandwidth_snapshot()
                 async with CpuStealSampler() as host_cpu:
                     result = await run_trace(arm, case["requests"], output)
                 result["host_cpu"] = host_cpu.summary()
+                result["cpu_bandwidth_before"] = budget_before
+                result["cpu_bandwidth_after"] = cpu_bandwidth_snapshot()
                 result["case"] = case["case"]
                 results.append(result)
                 stream.write(json.dumps(result) + "\n")
@@ -104,4 +116,6 @@ async def main():
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--protocol")
+    asyncio.run(main(parser.parse_args().protocol))

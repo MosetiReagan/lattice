@@ -1,5 +1,6 @@
 """Apply a separately frozen protocol to chat-framed confirmation data."""
 
+import argparse
 import json
 from pathlib import Path
 
@@ -10,10 +11,14 @@ from lattice.config import file_hash
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def main():
-    protocol_path = ROOT / "benchmarks/workloads/chat-burst-confirmation-v1.json"
+def main(protocol_path=None):
+    protocol_path = ROOT / (
+        protocol_path or "benchmarks/workloads/chat-burst-confirmation-v1.json"
+    )
     protocol = json.loads(protocol_path.read_text())
-    root = ROOT / "benchmarks/results/chat-burst-confirmation-v1"
+    root = ROOT / protocol.get(
+        "results_path", "benchmarks/results/chat-burst-confirmation-v1"
+    )
     state = json.loads((root / "orchestration.json").read_text())
     if state["status"] != "completed":
         raise ValueError("Require all predeclared sessions; no optional stopping")
@@ -30,6 +35,8 @@ def main():
     failures = []
     correctness = {arm: {"completed": 0, "exact_correct": 0} for arm in arms}
     host_cpu_records = []
+    budget_violations = []
+    cache_observations = []
     for index, spec in enumerate(protocol["sessions"], 1):
         folder = root / f"session-{index}"
         manifest_path = folder / "manifest.json"
@@ -71,6 +78,18 @@ def main():
             maps = {}
             for arm in arms:
                 result = lookup[trace_index, arm]
+                for name in ("cpu_bandwidth_before", "cpu_bandwidth_after"):
+                    if any(
+                        result.get(name, {}).get(key) != value
+                        for key, value in protocol.get("cpu_bandwidth", {}).items()
+                    ):
+                        budget_violations.append([index, trace_index, arm, name])
+                if (
+                    protocol.get("cpu_bandwidth")
+                    and result.get("worker_cpu_cgroup")
+                    != "0::" + protocol["cpu_bandwidth"]["path"]
+                ):
+                    budget_violations.append([index, trace_index, arm, "worker_cgroup"])
                 host_cpu_records.append(
                     {
                         "session": index,
@@ -83,6 +102,14 @@ def main():
                 for key in ("native_slots", "batch_tokens", "ubatch_tokens"):
                     if result[key] != settings[key]:
                         raise ValueError("Frozen arm settings changed")
+                for key in (
+                    "cache_policy",
+                    "cache_limit_mb",
+                    "cache_min_tokens",
+                    "native_ram_archive",
+                ):
+                    if key in settings and result.get(key) != settings[key]:
+                        raise ValueError("Frozen cache configuration changed")
                 rows = {row["id"]: row for row in result["rows"]}
                 if rows.keys() != expected.keys() or len(rows) != len(result["rows"]):
                     raise ValueError("Incomplete/duplicate request IDs")
@@ -105,6 +132,15 @@ def main():
                         )
                     correctness[arm]["completed"] += 1
                     correctness[arm]["exact_correct"] += int(row["exact_correct"])
+                    if arm == candidate:
+                        cache_observations.append(
+                            {
+                                "session": index,
+                                "trace": trace_index,
+                                "strategy": row.get("strategy"),
+                                "tokens_cached": row.get("tokens_cached", 0),
+                            }
+                        )
                 maps[arm] = rows
             for request_id in expected:
                 reference = maps[primary_baseline][request_id]
@@ -162,6 +198,22 @@ def main():
     latency_limit = protocol["latency_ratio_max"]
     throughput_limit = protocol["throughput_ratio_min"]
     gates = {
+        "cpu_bandwidth_budget": not budget_violations,
+        "requested_cache_path_observed": (
+            not protocol.get("require_cached_execution")
+            or (
+                all(row["strategy"] == "cached" for row in cache_observations)
+                and all(
+                    sum(
+                        row["tokens_cached"]
+                        for row in cache_observations
+                        if row["session"] == index
+                    )
+                    > 0
+                    for index in range(1, len(sessions) + 1)
+                )
+            )
+        ),
         "host_cpu_eligibility": all(
             record.get("available")
             and record["aggregate_steal_fraction"] <= protocol["host_cpu_steal_max"]
@@ -208,6 +260,8 @@ def main():
         "paired_traces": len(paired),
         "gate_baselines": gate_baselines,
         "host_cpu_records": host_cpu_records,
+        "cpu_budget_violations": budget_violations,
+        "cache_observations": cache_observations,
         "comparisons": comparisons,
         "task_correctness": correctness,
         "mismatches": mismatches,
@@ -236,7 +290,7 @@ def main():
         "# Chat-framed burst confirmation",
         "",
         "This separately frozen study follows the failed raw-completion study; it does not overwrite or reclassify that failure. Each source instruction is rendered through the model's actual /apply-template endpoint before timing. Every arm receives identical rendered bytes, tokenizer, greedy sampler, output caps and exogenous arrivals. Template preparation and equal one-request warmup are excluded; reported latency includes admission grace, queueing and generation, not the full HTTP chat gateway.",
-        f"Resource envelope: backend threads {protocol['threads']}, CPU affinity {protocol.get('cpu_affinity', 'unrecorded')}, context {protocol['context_per_request']} tokens per request and {protocol['worker_address_space_mb']} MiB worker address-space cap. Worker/control-plane RSS and dispatch lateness are retained in analysis.json; control-plane RSS belongs to the common harness, not an isolated production gateway.",
+        f"Resource envelope: backend threads {protocol['threads']}, CPU affinity {protocol.get('cpu_affinity', 'unrecorded')}, CPU bandwidth {protocol.get('cpu_bandwidth', 'unrecorded')}, context {protocol['context_per_request']} tokens per request and {protocol['worker_address_space_mb']} MiB worker address-space cap. Worker/control-plane RSS and dispatch lateness are retained in analysis.json; control-plane RSS belongs to the common harness, not an isolated production gateway.",
         "",
         f"Restricted gate pass: **{report['restricted_gate_pass']}**. Frozen gates: `{json.dumps(gates, sort_keys=True)}`.",
         "",
@@ -269,6 +323,7 @@ def main():
         "",
         "Both performance conditions must hold in every session and for 10,000 fixed-seed hierarchical paired bootstrap confidence bounds. No additional confirmation traces or relaxed thresholds are allowed after seeing the result. Three sessions share one four-core CPU VM; they are not independent hardware replications. All source/model/backend/runner/protocol hashes and raw observations are retained.",
         "Every complete arm additionally records CPU steal. Aggregate steal must be <=5% and every sampled interval <=10%; unavailable/reset counters disqualify eligibility. A failed host gate invalidates qualification without dropping or selectively rerunning traces. These are prospective conditions; no earlier unmonitored result is retroactively labeled clean.",
+        f"The cache-path gate requires every candidate request to report `strategy=cached` and positive reused tokens in every session; observed candidate reuse was {sum(row['tokens_cached'] for row in cache_observations)} tokens across {len(cache_observations)} completed responses.",
         "",
         "This is a restricted synthetic burst-serving comparison for Qwen2.5 0.5B FP16, under the fixed worker cap and finite native tuning sweep. The timing pattern is deliberately a burst where short work follows expensive prefills. It establishes neither typical production prevalence nor general superiority over inference engines or peer-size model quality. Conventional admission delay/cost ordering can also be implemented outside Lattice; native execution kernels and batching belong to llama.cpp. Defaults remain unchanged, accelerator support is untested, and Lattice remains an unreleased development build.",
         "Chat framing aligns instruction requests with the model's intended interface; it is not a demonstrated fix for native batching-related numerical divergence. Any output-preservation pass applies only to the recorded finite prompts and configurations, not arbitrary future prompts.",
@@ -276,9 +331,13 @@ def main():
         "See [failed original confirmation](burst_admission_confirmation.md), [boundary regressions](admission_boundaries.md) and [competitive plan](competitive_execution_plan.md). Boundary results used the earlier raw framing and must not be described as chat-framed confirmation evidence.",
         "",
     ]
-    (ROOT / "docs/chat_admission_confirmation.md").write_text("\n".join(lines))
+    (
+        ROOT / protocol.get("report_path", "docs/chat_admission_confirmation.md")
+    ).write_text("\n".join(lines))
     print(json.dumps(report, indent=2))
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--protocol")
+    main(parser.parse_args().protocol)
