@@ -80,6 +80,11 @@ def parser():
             )
             sub.add_argument("--host", default="127.0.0.1")
             sub.add_argument("--port", type=int, default=8000)
+            sub.add_argument(
+                "--allow-unauthenticated",
+                action="store_true",
+                help="Allow binding to non-loopback interface without LATTICE_API_KEY",
+            )
     for name in ["benchmark", "profile"]:
         sub = commands.add_parser(name)
         sub.add_argument("--model", required=True)
@@ -414,9 +419,16 @@ def main():
             from .observability.host import get_host_memory_kb
 
             key = os.environ.get("LATTICE_API_KEY")
-            if args.host not in ("127.0.0.1", "localhost", "::1") and not key:
+            allow_unauth = os.environ.get(
+                "LATTICE_ALLOW_UNAUTHENTICATED"
+            ) == "1" or getattr(args, "allow_unauthenticated", False)
+            if (
+                args.host not in ("127.0.0.1", "localhost", "::1")
+                and not key
+                and not allow_unauth
+            ):
                 raise LatticeError(
-                    "Set LATTICE_API_KEY before binding a non-loopback interface"
+                    "Set LATTICE_API_KEY before binding a non-loopback interface (or pass --allow-unauthenticated)"
                 )
             if getattr(args, "preset", "default") == "chat":
                 if args.admission_policy is None:

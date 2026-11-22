@@ -1,0 +1,28 @@
+services:
+  lattice:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: lattice-inference:latest
+    container_name: lattice-inference
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - LATTICE_ALLOW_UNAUTHENTICATED=1
+      # Optional: set an API key for production
+      # - LATTICE_API_KEY=your-secret-key-here
+    volumes:
+      # Mount host directory containing .gguf models
+      - ./models:/app/models
+      # Persist execution logs and telemetry artifacts
+      - ./artifacts:/app/artifacts
+      # Optional: custom configuration
+      - ./configs:/app/configs
+    command: ["serve", "--preset", "chat", "--host", "0.0.0.0", "--port", "8000", "--allow-unauthenticated"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s

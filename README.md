@@ -136,6 +136,20 @@ uv sync --frozen --extra dev --extra provision
 uv run --no-sync python scripts/provision_cpu.py
 ```
 
+### Option C: Run with Docker
+
+```bash
+git clone https://github.com/MosetiReagan/lattice.git
+cd lattice
+
+# Run with Docker Compose
+docker compose up -d
+
+# Or build and run standalone container
+docker build -t lattice .
+docker run -d -p 8000:8000 -v $(pwd)/models:/app/models lattice
+```
+
 ### 3. Test One-Shot CLI Generation
 
 Verify that the local model generates text properly:
