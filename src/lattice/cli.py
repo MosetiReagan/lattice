@@ -55,6 +55,7 @@ def parser():
                     "priority_cost",
                     "priority_cost_reserve",
                     "priority_cost_coalesce",
+                    "priority_preemptive",
                 ],
                 help="Opt-in admission experiment; default remains priority_fifo",
             )

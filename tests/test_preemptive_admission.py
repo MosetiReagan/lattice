@@ -198,3 +198,20 @@ async def test_runtime_preemption_without_auto_resume(settings: Settings):
     assert done_event["finish_reason"] == "preempted"
     assert runtime.counters["requests_preempted"] >= 1
     assert runtime.counters["requests_resumed"] == 0
+
+
+def test_cli_parser_accepts_priority_preemptive():
+    from lattice.cli import parser
+
+    args = parser().parse_args(
+        [
+            "serve",
+            "--model",
+            "qwen2.5-0.5b-instruct-f16",
+            "--admission-policy",
+            "priority_preemptive",
+        ]
+    )
+    assert args.command == "serve"
+    assert args.model == "qwen2.5-0.5b-instruct-f16"
+    assert args.admission_policy == "priority_preemptive"
