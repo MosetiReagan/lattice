@@ -1,6 +1,6 @@
 # ⚡ Lattice
 
-> **Stop waiting for local LLMs. Get instant chat replies even while heavy background jobs are running.**
+> **Stop waiting for local AI. Get instant chat replies even while heavy background jobs are running.**
 
 [![Status: 0.3.0.dev0](https://img.shields.io/badge/status-Alpha%20Preview-orange.svg)](docs/release_readiness.md)
 [![Python: 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](pyproject.toml)
@@ -12,14 +12,14 @@
 
 ## 💡 What is Lattice? (In 10 Seconds)
 
-Have you ever run an LLM locally (like `llama.cpp` or Ollama), started a heavy task like summarizing a 20-page PDF, and then tried to send a quick chat message?
+Have you ever run an open-weights model locally (such as **Llama 3**, **Qwen 2.5**, or **Mistral**) using runners like **Ollama** or **`llama.cpp`**, kicked off a heavy task like summarizing a 20-page document, and then tried to send a quick chat message?
 
-**Normally, you’re stuck waiting 30 to 60 seconds** for the PDF to finish before your chat even begins answering.
+**Normally, you’re stuck waiting 30 to 60 seconds** for the heavy job to finish before your chat message even begins generating a response.
 
-**Lattice fixes this.** It acts as a smart traffic controller for your local AI:
-1. It **pauses the heavy document task** for a split second.
-2. It **answers your chat query immediately** (in under 2 seconds).
-3. It **resumes your document task right where it left off** without losing any progress or restarting from scratch.
+**Lattice fixes this.** Sitting between your apps and the `llama.cpp` runtime, it acts as a smart air traffic controller:
+1. It **pauses the heavy document task** at a clean token boundary.
+2. It **answers your quick chat message immediately** (in under 2 seconds).
+3. It **resumes your document task right where it left off** without losing any progress or restarting the prompt from scratch.
 
 ---
 
@@ -28,35 +28,35 @@ Have you ever run an LLM locally (like `llama.cpp` or Ollama), started a heavy t
 Imagine a busy coffee shop with only one barista (your CPU):
 
 ```
-❌ WITHOUT LATTICE (Standard FIFO queue):
-[Heavy 1,000-Word Summary] ───► In Progress (takes 45s)...
-[Quick Chat: "Hi!"]         ───► ⏳ WAITING IN LINE... (stuck for 45 seconds!)
+❌ WITHOUT LATTICE (Standard FIFO queue in local runners):
+[Heavy Document Summary] ───► In Progress (takes 45s)...
+[Quick Chat: "Hi!"]       ───► ⏳ WAITING IN LINE... (stuck waiting for 45 seconds!)
 
 
 ✅ WITH LATTICE (Smart Preemption):
-[Heavy 1,000-Word Summary] ───► Pauses gracefully (saves place in memory)
-[Quick Chat: "Hi!"]         ───► ⚡ Answers in 1.8 seconds!
-[Heavy 1,000-Word Summary] ───► Resumes instantly and finishes cleanly
+[Heavy Document Summary] ───► Pauses gracefully (saves place in memory)
+[Quick Chat: "Hi!"]       ───► ⚡ Answers immediately (1.8 seconds)
+[Heavy Document Summary] ───► Resumes instantly from cache and finishes cleanly
 ```
 
-### Measured Real-World Results
+### Measured Real-World Benchmark
 
-In our contention benchmark on a standard CPU machine:
+Under a simulated heavy-workload test on a CPU:
 
-| What happens | Standard Server | With Lattice | Your Experience |
+| What happens | Standard Runner (FIFO) | With Lattice | Your Experience |
 | :--- | :---: | :---: | :--- |
 | **Quick Chat Reply Time** | **875 ms** | **188 ms** | **⚡ 4.7x faster response** |
 | **Heavy Background Task** | Finished | Finished | **Resumed with zero errors** |
-| **Output Quality** | 100% | 100% | **Exact same answers** |
+| **Output Integrity** | 100% | 100% | **Exact same answers** |
 
 ---
 
 ## ✨ Features That Make Life Easy
 
-* 🚀 **Instant Chat Priority:** High-priority chat queries cut the line ahead of background jobs.
-* 🧠 **Zero-Wasted Compute:** When a paused job resumes, Lattice reuses its prompt cache so it doesn't waste time re-reading the prompt.
+* 🚀 **Instant Chat Priority:** High-priority chat queries cut the line ahead of background batch tasks.
+* 🧠 **Zero Wasted Compute:** When a paused job resumes, Lattice reuses its prompt KV cache so it doesn't waste compute re-reading the prompt.
 * 🛡️ **No Memory Crashes (OOM):** Strict memory caps prevent your computer from freezing or crashing when multiple requests arrive.
-* 🔌 **Powered by `llama.cpp`:** Uses the battle-tested, ultra-fast C++ engine from `llama.cpp` under the hood. Any model that runs in `llama.cpp` (GGUF format) runs in Lattice.
+* 🔌 **Powered by `llama.cpp`:** Uses the battle-tested, ultra-fast C++ engine from `llama.cpp` under the hood. Any model you run in `llama.cpp` (GGUF format) works with Lattice.
 
 ---
 
@@ -87,7 +87,7 @@ uv run --no-sync lattice generate \
 ```
 
 ### 4. Run the Contention Benchmark
-See the speedup live on your own machine:
+See the preemption speedup live on your own machine:
 ```bash
 PYTHONPATH=src uv run --no-sync python benchmarks/run_contention_benchmark.py
 ```
@@ -107,7 +107,8 @@ uv run --no-sync lattice serve \
 
 | Feature | Raw `llama-server` | Ollama | **Lattice** |
 | :--- | :---: | :---: | :---: |
-| **Fast Token Generation** | ✅ (C++) | ✅ (C++) | ✅ (via `llama.cpp`) |
+| **Underlying Engine** | `llama.cpp` (C++) | `llama.cpp` (Go/C++) | **`llama.cpp` (C++)** |
+| **Supported Models** | Any GGUF model | Modelfile / Library | **Any GGUF model** |
 | **Interactive Chat Preemption** | ❌ (FIFO only) | ❌ (FIFO only) | **✅ (Pauses & Resumes)** |
 | **Cross-Request Prefix Cache** | ⚠️ (Manual files) | ⚠️ (Basic) | **✅ (Automatic)** |
 | **Strict RAM Ceiling Protection** | ❌ | ❌ | **✅ (Guaranteed)** |
@@ -117,11 +118,11 @@ uv run --no-sync lattice serve \
 
 ## ❓ Frequently Asked Questions
 
-#### Does Lattice make my AI generate words faster?
-No. Raw token generation speed comes from `llama.cpp`'s C++ kernels. What Lattice eliminates is **queue wait time**—meaning you don't have to wait 30 seconds for your turn to start.
+#### Does Lattice make my model generate tokens faster?
+No. Raw token generation speed comes from `llama.cpp`'s C++ matrix kernels. What Lattice eliminates is **queue wait time**—meaning your quick chat queries don't have to wait 30 seconds for a background batch task to finish before generation even starts.
 
-#### What models can I use?
-Any model supported by `llama.cpp` in `.gguf` format (Qwen, Llama 3, Mistral, Gemma, Phi, etc.).
+#### What models can I run?
+Any GGUF-compatible model supported by `llama.cpp` (including **Llama 3 / 3.1**, **Qwen 2.5**, **Mistral**, **Gemma 2**, **Phi 3**, **DeepSeek**, etc.).
 
 #### Is this ready for enterprise production?
 Lattice is currently an open-source research preview (`0.3.0.dev0`). It is stable, thoroughly tested (155+ passing tests), and designed for developers and researchers exploring smart CPU serving.
