@@ -23,6 +23,10 @@ async def test_auth_models_and_validation(app):
         transport=httpx.ASGITransport(app=app), base_url="http://test"
     ) as c:
         assert (await c.get("/health")).status_code == 200
+        metrics_resp = await c.get("/metrics")
+        assert metrics_resp.status_code == 200
+        assert "lattice_requests_total" in metrics_resp.text
+        assert "lattice_queue_depth" in metrics_resp.text
         assert (await c.get("/v1/models")).status_code == 401
         c.headers["Authorization"] = "Bearer test-key"
         models = (await c.get("/v1/models")).json()

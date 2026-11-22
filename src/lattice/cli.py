@@ -102,6 +102,20 @@ def parser():
     compare.add_argument("--trials", type=int, default=30)
     compare.add_argument("--quality", action="store_true")
     commands.add_parser("system-info")
+    init_cmd = commands.add_parser(
+        "init",
+        help="Initialize workspace, calibrate memory, and provision default model",
+    )
+    init_cmd.add_argument(
+        "--dir", help="Target project directory (default: current directory)"
+    )
+    init_cmd.add_argument("--model-path", help="Optional path to existing .gguf model")
+    init_cmd.add_argument(
+        "--backend-binary", help="Optional path to existing llama-server binary"
+    )
+    init_cmd.add_argument(
+        "-y", "--yes", action="store_true", help="Non-interactive setup using defaults"
+    )
     for name in ["status", "ps"]:
         scmd = commands.add_parser(name)
         scmd.add_argument("--json", action="store_true", help="Output status as JSON")
@@ -167,6 +181,16 @@ def main():
                     },
                     indent=2,
                 )
+            )
+            return
+        if args.command == "init":
+            from .init import run_init
+
+            run_init(
+                target_dir=args.dir,
+                backend_path=args.backend_binary,
+                model_path=args.model_path,
+                non_interactive=args.yes,
             )
             return
         settings = load_settings(args.config)

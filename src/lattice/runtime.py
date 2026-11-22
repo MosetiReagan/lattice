@@ -17,6 +17,8 @@ from .config import ModelEntry, Settings, select_model
 from .scheduler.fair import FairSemaphore
 from .types import GenerationRequest, LatticeError
 
+logger = logging.getLogger("lattice.runtime")
+
 
 class Runtime:
     def __init__(
@@ -271,6 +273,19 @@ class Runtime:
                                     preempted_during_stream = True
                                     record["preempted"] = True
                                     self.counters["requests_preempted"] += 1
+                                    logger.info(
+                                        json.dumps(
+                                            {
+                                                "event": "request_preempted",
+                                                "model": request.model,
+                                                "priority": request.priority,
+                                                "tokens_generated": record[
+                                                    "completion_tokens"
+                                                ],
+                                                "timestamp": time.time(),
+                                            }
+                                        )
+                                    )
                                     break
                             elif event["type"] == "backend_done":
                                 record.update(
@@ -307,6 +322,18 @@ class Runtime:
                             break
                         self.counters["requests_resumed"] += 1
                         record["resumed"] = True
+                        logger.info(
+                            json.dumps(
+                                {
+                                    "event": "request_resumed",
+                                    "model": request.model,
+                                    "priority": request.priority,
+                                    "resumed_from_token": len(accumulated_text),
+                                    "remaining_tokens": rem,
+                                    "timestamp": time.time(),
+                                }
+                            )
+                        )
                         from .types import Message
 
                         current_request = request.model_copy(deep=True)

@@ -63,7 +63,7 @@ class RequestLimits:
         if scope["type"] != "http":
             return await self.app(scope, receive, send)
         headers = dict(scope.get("headers", []))
-        if scope["path"] != "/health":
+        if scope["path"] not in ("/health", "/metrics"):
             expected = ("Bearer " + self.api_key).encode() if self.api_key else None
             if expected and not hmac.compare_digest(
                 headers.get(b"authorization", b""), expected
@@ -213,6 +213,30 @@ def create_app(
     @app.get("/v1/metrics")
     async def metrics():
         return runtime.metrics()
+
+    @app.get("/metrics")
+    async def prometheus_metrics():
+        from fastapi.responses import PlainTextResponse
+
+        data = runtime.metrics()
+        lines = [
+            "# HELP lattice_requests_total Total requests submitted",
+            "# TYPE lattice_requests_total counter",
+            f"lattice_requests_total {data.get('requests_submitted', 0)}",
+            "# HELP lattice_requests_completed Total requests completed",
+            "# TYPE lattice_requests_completed counter",
+            f"lattice_requests_completed {data.get('requests_completed', 0)}",
+            "# HELP lattice_requests_preempted Total requests preempted by higher priority traffic",
+            "# TYPE lattice_requests_preempted counter",
+            f"lattice_requests_preempted {data.get('requests_preempted', 0)}",
+            "# HELP lattice_requests_resumed Total preempted requests seamlessly resumed",
+            "# TYPE lattice_requests_resumed counter",
+            f"lattice_requests_resumed {data.get('requests_resumed', 0)}",
+            "# HELP lattice_queue_depth Current requests waiting in admission queue",
+            "# TYPE lattice_queue_depth gauge",
+            f"lattice_queue_depth {data.get('queue_depth', 0)}",
+        ]
+        return PlainTextResponse("\n".join(lines) + "\n")
 
     @app.post("/v1/benchmarks/run", status_code=202)
     async def benchmarks(body: BenchmarkJobRequest):

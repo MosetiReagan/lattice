@@ -8,7 +8,7 @@
 [![Platform: Linux & macOS](https://img.shields.io/badge/platform-Linux%20%7C%20macOS-blue.svg)](docs/hardware_compatibility.md)
 [![Backend: llama.cpp](https://img.shields.io/badge/powered%20by-llama.cpp-green.svg)](https://github.com/ggerganov/llama.cpp)
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
-[![Tests: 167+ Passing](https://img.shields.io/badge/tests-167%2B%20passing-brightgreen.svg)](tests/)
+[![Tests: 168+ Passing](https://img.shields.io/badge/tests-168%2B%20passing-brightgreen.svg)](tests/)
 
 ---
 
@@ -111,7 +111,19 @@ In our formal 3-session, 30-trace empirical evaluation on real Qwen 2.5 0.5B FP1
 
 ## 🚀 Quickstart (Get Started in 2 Minutes)
 
-### 1. Clone & Install Dependencies
+### Option A: Install from PyPI (Recommended)
+
+```bash
+pip install lattice-inference
+
+# Initialize workspace, auto-calibrate memory, and setup base model
+lattice init
+
+# Start serving with instant chat replies
+lattice serve --preset chat
+```
+
+### Option B: Run from Source
 
 ```bash
 git clone https://github.com/MosetiReagan/lattice.git
@@ -119,13 +131,8 @@ cd lattice
 
 # Install dependencies with uv
 uv sync --frozen --extra dev --extra provision
-```
 
-### 2. Provision llama.cpp Backend & Base Model
-
-Download and build the pinned native `llama.cpp` CPU binary and fetch the verified base model (**Qwen 2.5 0.5B Instruct**):
-
-```bash
+# Provision llama.cpp backend & base model
 uv run --no-sync python scripts/provision_cpu.py
 ```
 
@@ -288,6 +295,7 @@ Because Lattice provides standard OpenAI-compatible endpoints (`/v1/chat/complet
 
 | Command | Description | Example |
 | :--- | :--- | :--- |
+| `lattice init` | Initialize workspace, calibrate memory reserve, and setup base model | `lattice init` (or `lattice init -y`) |
 | `lattice serve` | Start the OpenAI-compatible HTTP inference server | `lattice serve --model <model> --preset chat` |
 | `lattice status` | Inspect host CPU/RAM headroom, registered models, and server health | `lattice status` (or `lattice status --json`) |
 | `lattice generate` | Run a single one-shot CLI generation | `lattice generate --model <model> --prompt "Hello"` |

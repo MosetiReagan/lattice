@@ -181,3 +181,43 @@ def test_cli_status_command(settings, tmp_path, monkeypatch, capsys):
     text_out = capsys.readouterr().out
     assert "LATTICE SYSTEM & SERVER STATUS" in text_out
     assert "Registered Models" in text_out
+
+
+def test_init_command(tmp_path, monkeypatch, capsys):
+    from lattice.cli import main
+    from lattice.init import calculate_safe_reserve
+
+    assert calculate_safe_reserve(2048) == 512
+    assert calculate_safe_reserve(4096) == 1024
+    assert calculate_safe_reserve(8192) == 2048
+    assert calculate_safe_reserve(16384) == 4096
+
+    dummy_model = tmp_path / "my-test.gguf"
+    dummy_model.write_bytes(b"GGUF" + b"\x00" * 1024)
+
+    target_dir = tmp_path / "my_project"
+    monkeypatch.setattr(
+        "sys.argv",
+        [
+            "lattice",
+            "init",
+            "--dir",
+            str(target_dir),
+            "--model-path",
+            str(dummy_model),
+            "-y",
+        ],
+    )
+    main()
+    captured = capsys.readouterr().out
+    assert "LATTICE PROJECT INITIALIZER" in captured
+    assert "Lattice initialized successfully!" in captured
+
+    config_path = target_dir / "configs/local.json"
+    assert config_path.is_file()
+    data = json.loads(config_path.read_text())
+    assert data["admission_policy"] == "priority_preemptive"
+    assert data["native_slots"] == 2
+    assert len(data["models"]) == 1
+    assert data["models"][0]["id"] == "my-test"
+    assert data["models"][0]["kv_bytes_per_token"] > 0
