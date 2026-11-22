@@ -2,7 +2,13 @@
 
 ## Current decision
 
-No qualifying competitor win is established. The frozen raw-completion study failed exact-output preservation. The separately prepared chat-framed study has not reached held-out confirmation: focused development was interrupted when sustained CPU steal made the configured four-vCPU environment unavailable. No failed or unfinished observation has been replaced with an estimate or relabeled as a success.
+The frozen raw-completion study failed exact-output preservation. A later, separately versioned cache-budgeted chat study passed its restricted synthetic burst gate against both named native configurations; this does not establish general engine superiority or repair any earlier failed study. The v1-v3 and v6 cache-budgeted runs failed per-arm CPU-steal eligibility; v4-v5 stopped at preflight. All results remain separate.
+
+## Cache-budgeted held-out result, November 21
+
+Protocol v7 completed all three fixed sessions (30 paired traces, 360 responses per arm) under a 0.92-CPU cgroup and one pinned CPU. It passed every frozen gate: latency, throughput, exact token/text/prompt-length and task-classification agreement, actual cached execution, worker memory/no-swap, configured bandwidth and per-arm CPU-steal eligibility. The candidate's outputs matched both native challengers; strict copy-task correctness was 352/360 for each arm. P95 ratios were 0.089 against the native4 throughput challenger and 0.070 against native1. Throughput ratios were 1.077 and 0.966, respectively; the latter's fixed bootstrap lower bound was 0.952 against the 0.95 threshold.
+
+This result is limited to the named Qwen2.5 0.5B FP16 synthetic burst, settings, prompts and shared four-vCPU VM. Sessions are not independent hardware replications. The accompanying [report](chat-cache-budget-confirmation-v7.md), [boundary diagnostics](chat-cache-budget-boundaries-v7.md), raw JSONL and per-arm CPU records retain the complete evidence. Earlier failed results and preflight failures remain unchanged.
 
 ## Observed environment evidence
 
@@ -27,15 +33,15 @@ A second isolated probe at 23:44:30 UTC again failed: 24.65% of requested CPU ti
 - Admission now bounds grace/drain waiters even before native slots are occupied. Defaults stay priority/FIFO with one slot.
 - Current real CPU and mocked/control-plane suite: **159 passed**. These tests establish functionality in their tested scope, not a competitive performance win or GPU support.
 
-## Eligibility and next execution
+## Eligibility and execution record
 
 `scripts/check_benchmark_host.py` performs a bounded CPU probe. The prospective host preflight requires no more than 5% aggregate CPU steal and at least 90% of requested CPU time. A preflight is only a start condition; it does not guarantee future availability.
 
-The chat runner now records whole-VM CPU counters for each complete arm, including startup/warmup as well as measured requests. A future frozen confirmation must additionally require every arm's aggregate steal <=5% and maximum sampled interval steal <=10%. Missing/reset counters are unavailable, never zero. Any failed host gate disqualifies the complete study's win claim; do not exclude or rerun only contaminated traces.
+The chat runner records whole-VM CPU counters for each complete arm, including startup/warmup as well as measured requests. Every frozen confirmation requires each arm's aggregate steal <=5% and maximum sampled interval steal <=10%. Missing/reset counters are unavailable, never zero. A failed host gate disqualifies that complete study; do not exclude or rerun only contaminated traces.
 
-The next protocol remains explicitly **draft** at `benchmarks/workloads/chat-burst-confirmation-v1.draft.json`. Its candidate/baseline choices are provisional. The executable runner refuses to start without a reviewed frozen protocol and a fresh passing host probe. No held-out chat seeds have been generated or measured. Complete a separately named development block on eligible CPU resources, freeze source/configuration and sample budget, then execute confirmation once and report every gate without relaxing thresholds. Do not run repeated confirmations until one happens to pass.
+The cache-budgeted v7 protocol completed its fixed three-session, 30-pair held-out run and passed all gates; the full [report](chat-cache-budget-confirmation-v7.md) and [boundary diagnostics](chat-cache-budget-boundaries-v7.md) include its scope and limitations. Earlier cache-budgeted v1-v3 and v6 runs completed but failed per-arm CPU-steal eligibility. V4-v5 did not start because their stricter preflights failed. None of these outcomes replaces or repairs another study.
 
-Resource availability is an outstanding prerequisite, not a successful result. The project stays at unreleased `0.3.0.dev0`, with no release/tag or remote publication.
+The v7 preflight was eligible and its every-arm CPU records passed, while previous longer-run spikes show why preflight remains only a start condition. The project stays at unreleased `0.3.0.dev0`, with no release/tag or remote publication.
 
 ## Pinned single-CPU follow-up, November 21
 
@@ -47,4 +53,4 @@ The candidate's development interactive P95 was 3,487 ms versus 32,110 ms for th
 
 Crucially, four of the eleven completed pinned development arms still exceeded the unchanged 10% sampled-interval CPU-steal limit; the highest was 13.8%, despite whole-arm means below 5%. All spikes and unfavorable measurements remain in the table/raw records. A passing three-second probe is not sufficient to certify a complete inference experiment. Consequently the fixed three-session confirmation budget was not launched on this unstable allocation.
 
-The separate `chat-single-cpu-confirmation-v1.draft.json` retains thirty paired traces and the 20% latency / 5% throughput targets. It names both the development latency leader and throughput leader as challengers, with the same conditions required against each. Host availability, zero failed requests and exact output preservation remain mandatory; no threshold or result is relaxed to manufacture a win. No held-out chat seeds have been generated or measured.
+The separate `chat-single-cpu-confirmation-v1.draft.json` remains an unexecuted draft. Its one-thread candidate/challenger sweep is preserved as development evidence; the passing v7 result used a distinct cache-enabled protocol and does not reclassify this draft or its measurements.

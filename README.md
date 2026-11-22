@@ -16,7 +16,7 @@ The present workspace is already provisioned. A fresh Linux checkout needs Pytho
 
 - [Competitive baseline and execution plan](docs/competitive_execution_plan.md)
 - [CPU admission experiments](docs/admission_experiments.md), [frozen burst confirmation](docs/burst_admission_confirmation.md) and [boundary diagnostics](docs/admission_boundaries.md)
-- [Current CPU availability concern](docs/benchmark_environment_concern.md) and [chat-framed development](docs/chat_admission_development.md): no qualifying competitor win; chat confirmation remains a draft.
+- [Current CPU availability concern](docs/benchmark_environment_concern.md) and [chat-framed development](docs/chat_admission_development.md); [cache-budgeted held-out confirmation](docs/chat-cache-budget-confirmation-v7.md) passes its restricted synthetic burst gates. This does not establish general engine superiority or a 1.0 release result.
 - [Pinned single-CPU development](docs/single_cpu_admission_development.md) retains both native latency and throughput leaders, alongside all host-eligibility failures.
 - [Fresh CPU precision and batching benchmarks](docs/benchmark_followup_results.md)
 - [Measured results and acceptance gates](docs/benchmark_results.md), [comparison frame](docs/comparison_matrix.md) and [release readiness](docs/release_readiness.md).

@@ -2,6 +2,8 @@
 
 This is a separate resource envelope: backend threads 1, all benchmark/control/native processes pinned to virtual CPU 0, same Qwen2.5 0.5B FP16 checkpoint, sampling, per-request context and worker cap. The failed raw study and unexecuted four-thread chat draft remain separate. No threshold is relaxed and no development observation is held-out evidence.
 
+The later cache-budgeted held-out protocol is reported separately in [v7 confirmation](chat-cache-budget-confirmation-v7.md). That study uses explicit cgroup bandwidth control and actual per-slot cached execution; its passing result does not reclassify this development sweep or the earlier drafts.
+
 The seed 9001 pinned pilot preserved outputs and strict task correctness 12/12, with candidate/native makespans 38.73/38.32 seconds. The complete seed 9002 tuning sweep below determines two native challengers: lowest interactive P95 and highest aggregate throughput. Distinct best configurations are both retained for confirmation; if they coincide, the thin cost-priority queue is the additional challenger. The thin queue is measured in development regardless.
 
 | Arm | Interactive P95 ms | Bulk P95 ms | Tokens/s | Strict task correct | Output mismatches | Errors | Mean / maximum interval CPU steal |
@@ -22,7 +24,7 @@ Prospective challengers selected only from this development sweep: `['native4_b6
 
 The tuning-v1 startup was interrupted after an accidental metadata edit. Its data/interruption marker are preserved; it was not used for selection. Tuning-v2 records the fixed runner, settings hash and affinity. This is provenance recovery, not a favorable-result replacement.
 
-The future confirmation budget is fixed at three sessions of ten paired traces, retaining the earlier study's sample size and performance/output thresholds. It is a new one-thread, chat-framed study, not a repair of the failed four-thread raw study. Every selected native baseline must independently satisfy the same latency and throughput conditions against the candidate. Results remain scoped to this synthetic burst; these conventional heuristics can also be implemented outside Lattice.
+The single-CPU draft's confirmation budget remains three sessions of ten paired traces, retaining the earlier study's sample size and performance/output thresholds. It is a new one-thread, chat-framed study, not a repair of the failed four-thread raw study. Every selected native baseline must independently satisfy the same latency and throughput conditions against the candidate. A separately frozen cache-budgeted confirmation later passed its own gates; this draft and development sweep remain unchanged. Results remain scoped to synthetic burst workloads; these conventional heuristics can also be implemented outside Lattice.
 
 ## Reproduce development
 

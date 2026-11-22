@@ -74,3 +74,5 @@ A new sequential two-block, ten-trial same-source precision matrix and paired on
 ## Direct native baseline audit
 
 [One-slot](direct_lattice_comparison.md), [two-slot](direct_lattice_batching_comparison.md), and [native-cache](adaptive_native_cache_comparison.md) pilots compare Lattice against direct calls to the same pinned llama.cpp implementation with matched execution settings. They do not establish a Lattice-specific performance win. Prior one-slot/two-slot improvements are upstream-configuration/integration evidence. See [the competitive decision and prospective gates](competitive_execution_plan.md); no quality gates or release classification changed.
+
+The later [cache-budgeted chat confirmation](chat-cache-budget-confirmation-v7.md) passed its frozen latency, throughput, output, cache-path, memory and host-eligibility gates against two specifically tuned native configurations on a synthetic burst. It is scoped to that test configuration and is not a general inference-engine comparison or a reclassification of earlier failures.
