@@ -31,6 +31,7 @@ class SlotLease:
     completed: bool = False
     released: bool = False
     cache_enabled: bool = False
+    suspended: bool = False
 
 
 class BatchedLlamaBackend(LlamaCppBackend):
@@ -239,7 +240,7 @@ class BatchedLlamaBackend(LlamaCppBackend):
         if lease.released:
             return
         lease.released = True
-        if not lease.completed:
+        if not lease.completed and not lease.suspended:
             self._prefixes[lease.slot].invalidate()
         self._quarantined.discard(lease)
         self._leases.pop(lease.slot, None)

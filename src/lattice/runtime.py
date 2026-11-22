@@ -34,9 +34,12 @@ class Runtime:
             )
         if settings.native_slots > getattr(backend, "native_slots", 1):
             raise ValueError("Admission capacity exceeds backend slot capacity")
+        is_preemptive = settings.admission_policy == "priority_preemptive"
         self.lock = FairSemaphore(
             settings.native_slots,
-            cost_aware=settings.admission_policy != "priority_fifo",
+            cost_aware=settings.admission_policy
+            not in ("priority_fifo", "priority_preemptive"),
+            preemptive=is_preemptive,
         )
         if (
             settings.admission_policy == "priority_cost_reserve"
@@ -143,108 +146,173 @@ class Runtime:
             "quality": None,
         }
         previous_chunk = None
+        is_preemptive = self.settings.admission_policy == "priority_preemptive"
+        auto_resume = getattr(self.settings, "preemption_auto_resume", True)
+        accumulated_text = ""
+        current_request = request
+        permit = None
         try:
             async with asyncio.timeout(request.timeout_seconds):
-                if self.settings.admission_policy != "priority_fifo":
-                    input_bytes = (
-                        len(request.prompt.encode())
-                        if request.prompt is not None
-                        else sum(
-                            len(message.content.encode())
-                            for message in request.messages or []
-                        )
-                    )
-                    # A deterministic workload-size proxy, not a validated compute
-                    # forecast or task-complexity assessment. Priorities and aging
-                    # outrank this tiebreaker. Limits and model/sampling stay fixed.
-                    estimated_work = input_bytes + 64 * request.max_tokens
-                    is_bulk = input_bytes > 1024 or request.max_tokens > 32
-                    if (
-                        self.settings.admission_policy == "priority_cost_coalesce"
-                        and is_bulk
-                        and request.priority == 0
+                while True:
+                    if self.settings.admission_policy not in (
+                        "priority_fifo",
+                        "priority_preemptive",
                     ):
-                        # Opt-in bounded burst shaping. A short grace interval
-                        # lets small requests enter native slots before expensive
-                        # prefills; it is included in the original timeout/budget.
-                        await asyncio.sleep(0.05)
-                    # An explicit higher priority bypasses the bulk lane; this
-                    # preserves caller ordering rather than inferring task value.
-                    if self.bulk_lock is not None:
-                        if is_bulk and request.priority == 0:
-                            await self.bulk_lock.acquire(
-                                request.priority, estimated_work
+                        input_bytes = (
+                            len(current_request.prompt.encode())
+                            if current_request.prompt is not None
+                            else sum(
+                                len(message.content.encode())
+                                for message in current_request.messages or []
                             )
-                            bulk_acquired = True
-                            # Bound the drain hold so sustained small traffic
-                            # cannot indefinitely stop bulk admissions.
-                            try:
-                                await asyncio.wait_for(self._small_drained.wait(), 5.0)
-                            except TimeoutError:
-                                pass
-                        else:
-                            self._small_pending += 1
-                            small_registered = True
-                            self._small_drained.clear()
-                    await self.lock.acquire(request.priority, estimated_work)
-                else:
-                    await self.lock.acquire(request.priority)
-                acquired = True
-                if request.model != self.model_id:
-                    self.backend.stop()
-                    self.backend = self.backend_factory(
-                        select_model(self.settings, request.model)
-                    )
-                    self.model_id = request.model
-                self.waiting -= 1
-                queued = False
-                record["queue_depth_at_admission"] = self.waiting
-                update_queue = getattr(self.backend, "set_queue_depth", None)
-                if update_queue:
-                    update_queue(self.waiting)
-                record["queue_wait_ms"] = (time.perf_counter() - start) * 1000
-                async with aclosing(self.backend.events(request)) as stream:
-                    async for event in stream:
-                        if event["type"] == "prefill":
-                            record["prompt_tokens"] = event["prompt_tokens"]
-                            record["strategy"] = event.get("strategy", "standard")
-                            record["backend"] = event.get(
-                                "backend", dict(self.backend.identity)
-                            )
-                            record["fallback_reason"] = event.get("fallback_reason")
-                            record["policy"] = event.get("policy")
-                            record["native_slot"] = event.get("native_slot")
-                            record["native_slots"] = event.get("native_slots", 1)
-                            record["worker_startup_ms"] = getattr(
-                                self.backend, "worker_startup_ms", None
-                            )
-                            yield {
-                                "type": "start",
-                                "id": request_id,
-                                "model": self.model_id,
-                                "strategy": record["strategy"],
-                                "backend": record["backend"],
-                            }
-                        elif event["type"] == "token":
-                            now = time.perf_counter()
-                            record["completion_tokens"] += len(event["token_ids"])
-                            if event["text"]:
-                                if record["client_ttft_ms"] is None:
-                                    record["client_ttft_ms"] = (now - start) * 1000
-                                if previous_chunk is not None:
-                                    record["chunk_intervals_ms"].append(
-                                        (now - previous_chunk) * 1000
+                        )
+                        # A deterministic workload-size proxy, not a validated compute
+                        # forecast or task-complexity assessment. Priorities and aging
+                        # outrank this tiebreaker. Limits and model/sampling stay fixed.
+                        estimated_work = input_bytes + 64 * current_request.max_tokens
+                        is_bulk = input_bytes > 1024 or current_request.max_tokens > 32
+                        if (
+                            self.settings.admission_policy == "priority_cost_coalesce"
+                            and is_bulk
+                            and current_request.priority == 0
+                        ):
+                            # Opt-in bounded burst shaping. A short grace interval
+                            # lets small requests enter native slots before expensive
+                            # prefills; it is included in the original timeout/budget.
+                            await asyncio.sleep(0.05)
+                        # An explicit higher priority bypasses the bulk lane; this
+                        # preserves caller ordering rather than inferring task value.
+                        if self.bulk_lock is not None:
+                            if is_bulk and current_request.priority == 0:
+                                await self.bulk_lock.acquire(
+                                    current_request.priority, estimated_work
+                                )
+                                bulk_acquired = True
+                                # Bound the drain hold so sustained small traffic
+                                # cannot indefinitely stop bulk admissions.
+                                try:
+                                    await asyncio.wait_for(self._small_drained.wait(), 5.0)
+                                except TimeoutError:
+                                    pass
+                            else:
+                                self._small_pending += 1
+                                small_registered = True
+                                self._small_drained.clear()
+                        permit = await self.lock.acquire(
+                            current_request.priority, estimated_work
+                        )
+                    else:
+                        permit = await self.lock.acquire(current_request.priority)
+                    acquired = True
+                    if current_request.model != self.model_id:
+                        self.backend.stop()
+                        self.backend = self.backend_factory(
+                            select_model(self.settings, current_request.model)
+                        )
+                        self.model_id = current_request.model
+                    if queued:
+                        self.waiting -= 1
+                        queued = False
+                    record["queue_depth_at_admission"] = self.waiting
+                    update_queue = getattr(self.backend, "set_queue_depth", None)
+                    if update_queue:
+                        update_queue(self.waiting)
+                    if record["queue_wait_ms"] is None:
+                        record["queue_wait_ms"] = (time.perf_counter() - start) * 1000
+
+                    preempted_during_stream = False
+                    async with aclosing(self.backend.events(current_request)) as stream:
+                        async for event in stream:
+                            if event["type"] == "prefill":
+                                if record["prompt_tokens"] is None:
+                                    record["prompt_tokens"] = event["prompt_tokens"]
+                                    record["strategy"] = event.get("strategy", "standard")
+                                    record["backend"] = event.get(
+                                        "backend", dict(self.backend.identity)
                                     )
-                                previous_chunk = now
-                            yield event
-                        elif event["type"] == "backend_done":
-                            record.update(
-                                status="completed",
-                                completion_tokens=event["completion_tokens"],
-                                backend_timings=event["backend_timings"],
+                                    record["fallback_reason"] = event.get("fallback_reason")
+                                    record["policy"] = event.get("policy")
+                                    record["native_slot"] = event.get("native_slot")
+                                    record["native_slots"] = event.get("native_slots", 1)
+                                    record["worker_startup_ms"] = getattr(
+                                        self.backend, "worker_startup_ms", None
+                                    )
+                                    yield {
+                                        "type": "start",
+                                        "id": request_id,
+                                        "model": self.model_id,
+                                        "strategy": record["strategy"],
+                                        "backend": record["backend"],
+                                    }
+                            elif event["type"] == "token":
+                                now = time.perf_counter()
+                                record["completion_tokens"] += len(event["token_ids"])
+                                if event["text"]:
+                                    accumulated_text += event["text"]
+                                    if record["client_ttft_ms"] is None:
+                                        record["client_ttft_ms"] = (now - start) * 1000
+                                    if previous_chunk is not None:
+                                        record["chunk_intervals_ms"].append(
+                                            (now - previous_chunk) * 1000
+                                        )
+                                    previous_chunk = now
+                                yield event
+                                if is_preemptive and getattr(permit, "is_preempted", False):
+                                    preempted_during_stream = True
+                                    record["preempted"] = True
+                                    self.counters["requests_preempted"] += 1
+                                    break
+                            elif event["type"] == "backend_done":
+                                record.update(
+                                    status="completed",
+                                    completion_tokens=record["completion_tokens"],
+                                    backend_timings=event["backend_timings"],
+                                )
+                                record["finish_reason"] = event["finish_reason"]
+                                record["tokens_cached"] = event.get("tokens_cached", 0)
+
+                    if preempted_during_stream:
+                        self.lock.release(permit)
+                        acquired = False
+                        if not auto_resume:
+                            record["status"] = "completed"
+                            record["finish_reason"] = "preempted"
+                            yield {
+                                "type": "backend_done",
+                                "completion_tokens": record["completion_tokens"],
+                                "finish_reason": "preempted",
+                                "backend_timings": {},
+                            }
+                            break
+                        rem = request.max_tokens - record["completion_tokens"]
+                        if rem <= 0:
+                            record["status"] = "completed"
+                            record["finish_reason"] = "length"
+                            yield {
+                                "type": "backend_done",
+                                "completion_tokens": record["completion_tokens"],
+                                "finish_reason": "length",
+                                "backend_timings": {},
+                            }
+                            break
+                        self.counters["requests_resumed"] += 1
+                        record["resumed"] = True
+                        from .types import Message
+
+                        current_request = request.model_copy(deep=True)
+                        if current_request.prompt is not None:
+                            current_request.prompt = (
+                                current_request.prompt + accumulated_text
                             )
-                            record["finish_reason"] = event["finish_reason"]
-                            record["tokens_cached"] = event.get("tokens_cached", 0)
+                        elif current_request.messages is not None:
+                            current_request.messages.append(
+                                Message(role="assistant", content=accumulated_text)
+                            )
+                        current_request.max_tokens = rem
+                        continue
+                    else:
+                        break
+
                 if record["status"] != "completed":
                     raise LatticeError(
                         "Generation ended without a completion",
@@ -275,7 +343,7 @@ class Runtime:
             if queued:
                 self.waiting -= 1
             if acquired:
-                self.lock.release()
+                self.lock.release(permit)
             if bulk_acquired:
                 self.bulk_lock.release()
             if small_registered:
