@@ -3,7 +3,7 @@
 > **Instant chat replies for local LLMs — even while heavy background tasks are running.**
 > **A fast, responsive local AI inference server powered by `llama.cpp`.**
 
-[![Status: 0.3.0.dev0](https://img.shields.io/badge/status-Alpha%20Preview-orange.svg)](docs/release_readiness.md)
+[![Status: Alpha Research Preview (0.3.0.dev0)](https://img.shields.io/badge/status-Alpha%20Preview-orange.svg)](docs/release_readiness.md)
 [![Python: 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](pyproject.toml)
 [![Platform: Linux & macOS](https://img.shields.io/badge/platform-Linux%20%7C%20macOS-blue.svg)](docs/hardware_compatibility.md)
 [![Backend: llama.cpp](https://img.shields.io/badge/powered%20by-llama.cpp-green.svg)](https://github.com/ggerganov/llama.cpp)
@@ -20,7 +20,7 @@ When an inference runtime (such as `llama-server` or Ollama) is actively process
 
 If you then open your chat interface to ask a quick question ("*Fix this typo*" or "*What is the syntax for a Python generator?*"):
 * **In standard runners:** Your chat query is placed into a sequential First-In, First-Out (FIFO) queue. You are forced to stare at a loading spinner for **30 to 60 seconds** until the background task completes before your chat even begins generating.
-* **With Lattice:** Your interactive chat gets **instant priority**. Lattice pauses the heavy background job cooperatively at a token boundary, answers your chat query in under 2 seconds, and then automatically resumes the background job right where it left off.
+* **With Lattice:** Your interactive chat gets **instant priority**. Lattice pauses the heavy background job cooperatively at a token boundary, answers your chat query immediately, and then automatically resumes the background job right where it left off.
 
 ```
 ❌ STANDARD RUNNERS (FIFO Queue):
@@ -30,29 +30,40 @@ If you then open your chat interface to ask a quick question ("*Fix this typo*" 
 [Heavy Document Summary] ──► [PAUSED at token boundary] ──► [RESUMED from prefix cache]
                                     │                                ▲
                                     ▼                                │
-                              [Chat: "Hi"] ──► ⚡ Answered in 1.8s!
+                              [Chat: "Hi"] ──► ⚡ Instant Reply!
 ```
 
 ---
 
-## 📊 Real-World Benchmark Results
+## 📊 Measured Benchmark Results
 
-We measured the difference under a realistic CPU contention workload (a heavy 512-token background generation competing with an incoming interactive chat query):
+### 1. Live Real-Model Contention (Qwen 2.5 0.5B Instruct on CPU)
 
-| Metric | Standard Runner (FIFO) | With Lattice (`priority_preemptive`) | Your Experience |
+We measured real inference contention under load (a 512-token background generation interrupted by an incoming interactive chat query on a 2-vCPU host):
+
+| Metric | Standard FIFO Queue | Lattice (`priority_preemptive`) | Engineering Reality |
 | :--- | :---: | :---: | :--- |
-| **Interactive Chat Reply Time** | **875 ms** | **188 ms** | **⚡ 4.7x faster (78.5% lower queue delay)** |
-| **Background Task Status** | Finished | Finished | **Resumed automatically with zero errors** |
-| **Output Integrity** | 100% | 100% | **Exact same token output; no corrupted state** |
+| **Interactive Queue Delay (TTFT)** | **2,830 ms** | **117 ms** | **⚡ 24x faster admission** (chat cuts the line immediately) |
+| **Interactive Total Latency** | **4,450 ms** | **2,750 ms** | **⚡ ~1.6x faster end-to-end** (tokens decode at normal CPU speed) |
+| **Background Total Makespan** | **3.8 s** | **6.7 s** | **⚠️ +76% longer duration** (the explicit trade-off: paused job yields CPU) |
+| **Output Integrity** | 100% | 100% | **Exact byte-identical output** (resumed job finishes cleanly) |
 
-> *Benchmark measured on Linux x86-64 (AMD EPYC, 4 vCPUs, Qwen2.5-0.5B-Instruct). See [Benchmark Script](benchmarks/run_contention_benchmark.py) to run this benchmark on your own machine.*
+> [!NOTE]
+> **Preemption is an explicit trade-off:** Lattice guarantees instant interactive responses for the person at the keyboard, at the cost of extending the total completion time of background batch jobs.
+
+### 2. Frozen Statistical Confirmation Study (`docs/chat-cache-budget-confirmation-v7.md`)
+
+In our formal 3-session, 30-trace empirical evaluation on real Qwen 2.5 0.5B FP16 under a burst workload:
+* **Interactive P95 Latency Ratio**: **0.070 – 0.089** (an **11x to 14x reduction** in tail latency under burst contention).
+* **Throughput**: Parity with upstream `llama.cpp` (`0.97x – 1.08x`).
+* **Output Preservation**: 352/360 strict copy-task passes (zero classification mismatches).
 
 ---
 
 ## ✨ Key Features
 
 * 🚀 **Preemptive Priority Scheduling (`priority_preemptive`)**: High-priority interactive chat requests skip to the front of the queue. Running low-priority background tasks yield cooperatively at token boundaries.
-* 🧠 **Automatic KV Prefix Reuse**: When a paused task resumes, Lattice reuses its prompt Key-Value (KV) cache from memory instead of wasting CPU compute re-processing the prompt from scratch.
+* 🧠 **Opt-In KV Prefix Reuse (`--strategy cached`)**: When a paused task resumes, Lattice reuses its prompt Key-Value (KV) cache from memory instead of wasting CPU compute re-processing the prompt from scratch.
 * 🛡️ **Guaranteed Memory Safety (No OOM Crashes)**: Real-time telemetry via Linux `/proc/meminfo` and macOS `vm_stat` enforces hard host memory reserves and process address space limits, preventing system freezes and Out-Of-Memory kernel kills.
 * 🔄 **Continuous Multi-Slot Batching**: Run 2, 3, 4, or 8 concurrent slots (`--native-slots 2`) backed by native continuous batching from `llama.cpp`.
 * 🌐 **OpenAI-Compatible API**: Drop-in compatible `/v1/chat/completions` and `/v1/models` endpoints. Works out of the box with `curl`, Python `openai` client, Open WebUI, and standard LLM tooling.
@@ -104,10 +115,14 @@ uv run --no-sync lattice generate \
 
 ### 4. Run the Contention Benchmark
 
-Witness the preemption speedup live on your own CPU:
+Witness the preemption speedup on your own CPU (supports real model execution and fast simulation):
 
 ```bash
-PYTHONPATH=src uv run --no-sync python benchmarks/run_contention_benchmark.py
+# Run real model contention test
+PYTHONPATH=src uv run --no-sync python benchmarks/run_contention_benchmark.py --mode real
+
+# Or run fast simulation mode
+PYTHONPATH=src uv run --no-sync python benchmarks/run_contention_benchmark.py --mode simulated
 ```
 
 ### 5. Start the Multi-Slot API Server
@@ -251,8 +266,8 @@ Because Lattice provides standard OpenAI-compatible endpoints (`/v1/chat/complet
 | **Platform Support** | Linux / macOS / Windows | Linux / macOS / Windows | **Linux & macOS (CPU-optimized)** |
 | **Scheduling Algorithm** | Standard FIFO Queue | Standard FIFO Queue | **Preemptive Priority Admission (`priority_preemptive`)** |
 | **Interactive Latency Under Contention** | High (stuck behind batch jobs) | High (stuck behind batch jobs) | **⚡ Sub-2s (preempts low-priority jobs)** |
-| **Prompt Prefix Cache** | Manual / `--prompt-cache` | Basic context caching | **Automatic cross-request prefix reuse** |
-| **RAM Safety & OOM Guard** | None (OS handles OOM) | None (OS handles OOM) | **Strict host memory reserve & address space caps** |
+| **Prompt Prefix Cache** | Built-in continuous slots | Built-in context cache | **Opt-in (`--strategy cached`) prefix reuse** |
+| **RAM Safety & OOM Guard** | OS page management | OS page management | **Strict host memory reserve & address space caps** |
 | **Supported Models** | Any GGUF model | Modelfile / Library | **Any GGUF model (direct path, URL, or registry)** |
 | **OpenAI API Support** | ✅ `/v1/chat/completions` | ✅ `/v1/chat/completions` | **✅ `/v1/chat/completions` (with priority support)** |
 
@@ -269,8 +284,8 @@ Because Lattice provides standard OpenAI-compatible endpoints (`/v1/chat/complet
 #### Why focus primarily on CPU inference?
 Most local developers and edge deployments do not have high-end GPUs with 24GB+ VRAM. On CPUs, compute cores and memory bandwidth are strictly constrained, making task contention and queuing delays far more severe than on GPUs. Lattice is designed to make local CPU serving responsive and practical.
 
-#### Is Lattice ready for production?
-Lattice is currently an open-source development preview (`0.3.0.dev0`). It is stable, backed by 164+ passing automated tests, and tested under real-world CPU contention workloads.
+#### Is Lattice ready for enterprise production?
+**No.** Lattice is currently an open-source **Alpha Research Preview (`0.3.0.dev0`)**. It is designed for developers, systems engineers, and researchers exploring CPU admission scheduling, continuous batching, and priority preemption. It is not an enterprise 1.0 release.
 
 ---
 

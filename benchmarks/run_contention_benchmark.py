@@ -1,13 +1,20 @@
-"""End-to-end contention benchmark comparing standard FIFO queueing with Preemptive Priority Admission."""
+"""End-to-end contention benchmark comparing standard FIFO queueing with Preemptive Priority Admission.
 
+Supports both real model execution (via llama.cpp backend) and synthetic simulation.
+"""
+
+import argparse
 import asyncio
+import sys
 import tempfile
 import time
 from dataclasses import dataclass
+from pathlib import Path
 
-from lattice.config import ModelEntry, Settings
+from lattice.backends import create_backend
+from lattice.config import ModelEntry, Settings, load_settings, select_model
 from lattice.runtime import Runtime
-from lattice.types import GenerationRequest
+from lattice.types import GenerationRequest, LatticeError
 
 
 class BenchmarkMockBackend:
@@ -49,16 +56,40 @@ class BenchmarkMockBackend:
 
 @dataclass
 class RunStats:
-    interactive_latencies: list[float]
-    background_latencies: list[float]
+    interactive_ttft_ms: float
+    interactive_total_ms: float
+    background_total_ms: float
     background_completed: int
     interactive_completed: int
     preemptions: int
     resumptions: int
+    background_output: str
+    interactive_output: str
 
 
-async def run_scenario(policy: str, slots: int = 1) -> RunStats:
-    with tempfile.TemporaryDirectory() as tmp_dir:
+async def run_scenario(
+    policy: str,
+    slots: int = 1,
+    use_real_backend: bool = False,
+    model_name: str | None = None,
+) -> RunStats:
+    settings = None
+    entry = None
+
+    if use_real_backend:
+        try:
+            settings = load_settings()
+            settings.native_slots = slots
+            settings.admission_policy = policy
+            entry = select_model(settings, model_name or settings.models[0].id)
+            backend = create_backend(settings, entry)
+            await backend.start()
+        except (OSError, LatticeError, ValueError) as exc:
+            print(f"[Notice: real backend unavailable ({exc}), falling back to simulated backend]", file=sys.stderr)
+            use_real_backend = False
+
+    if not use_real_backend:
+        tmp_dir = tempfile.mkdtemp()
         settings = Settings(
             backend_binary="/not/used",
             backend_sha256="0" * 64,
@@ -79,94 +110,158 @@ async def run_scenario(policy: str, slots: int = 1) -> RunStats:
             admission_policy=policy,
             max_queue=16,
         )
+        entry = settings.models[0]
         backend = BenchmarkMockBackend(token_delay_ms=25.0)
-        runtime = Runtime(settings, "bench-model", backend)
 
-        interactive_latencies = []
-        background_latencies = []
-        interactive_done = 0
-        background_done = 0
+    runtime = Runtime(settings, entry.id, backend)
 
-        # 1. Start heavy background task
-        bg_req = GenerationRequest(
-            model="bench-model",
-            prompt="Heavy background document summarization task containing lots of context words " * 10,
-            max_tokens=30,
-            priority=0,
-        )
+    bg_tokens = 40 if use_real_backend else 30
+    chat_tokens = 8 if use_real_backend else 6
 
-        async def exec_bg():
-            nonlocal background_done
-            t0 = time.perf_counter()
-            async for _ in runtime.events(bg_req):
-                pass
-            background_latencies.append((time.perf_counter() - t0) * 1000)
-            background_done += 1
+    bg_req = GenerationRequest(
+        model=entry.id,
+        prompt="Write a concise overview explaining how operating system CPU scheduling algorithms work:"
+        if use_real_backend
+        else "Heavy background document summarization task containing lots of context words " * 10,
+        max_tokens=bg_tokens,
+        priority=0,
+    )
 
+    int_req = GenerationRequest(
+        model=entry.id,
+        prompt="Say hello and count to three:" if use_real_backend else "Short user chat message",
+        max_tokens=chat_tokens,
+        priority=3,
+    )
+
+    bg_text_chunks = []
+    int_text_chunks = []
+    int_ttft = 0.0
+    int_total = 0.0
+    bg_total = 0.0
+    int_done = 0
+    bg_done = 0
+
+    t_int_submit = 0.0
+
+    async def exec_bg():
+        nonlocal bg_done, bg_total
+        t0 = time.perf_counter()
+        async for ev in runtime.events(bg_req):
+            if ev["type"] == "token":
+                bg_text_chunks.append(ev.get("text", ""))
+        bg_total = (time.perf_counter() - t0) * 1000
+        bg_done += 1
+
+    async def exec_int():
+        nonlocal int_done, int_ttft, int_total
+        t_first = None
+        async for ev in runtime.events(int_req):
+            if ev["type"] == "token":
+                if t_first is None:
+                    t_first = time.perf_counter()
+                int_text_chunks.append(ev.get("text", ""))
+        t_end = time.perf_counter()
+        if t_first is not None and t_int_submit > 0:
+            int_ttft = (t_first - t_int_submit) * 1000
+        else:
+            int_ttft = (t_end - t_int_submit) * 1000 if t_int_submit > 0 else 0.0
+        int_total = (t_end - t_int_submit) * 1000 if t_int_submit > 0 else 0.0
+        int_done += 1
+
+    try:
         bg_task = asyncio.create_task(exec_bg())
+        # Let background job acquire slot and generate several tokens
+        await asyncio.sleep(0.3 if use_real_backend else 0.15)
 
-        # Wait for background task to start and get into streaming
-        await asyncio.sleep(0.15)
-
-        # 2. Launch high-priority interactive burst
-        interactive_req = GenerationRequest(
-            model="bench-model",
-            prompt="Short user chat message",
-            max_tokens=6,
-            priority=3,
-        )
-
-        async def exec_interactive():
-            nonlocal interactive_done
-            t0 = time.perf_counter()
-            async for _ in runtime.events(interactive_req):
-                pass
-            interactive_latencies.append((time.perf_counter() - t0) * 1000)
-            interactive_done += 1
-
-        int_task = asyncio.create_task(exec_interactive())
+        t_int_submit = time.perf_counter()
+        int_task = asyncio.create_task(exec_int())
 
         await asyncio.gather(bg_task, int_task)
+    finally:
+        close = getattr(backend, "aclose", None)
+        if close:
+            await close()
+        else:
+            backend.stop()
 
-        return RunStats(
-            interactive_latencies=interactive_latencies,
-            background_latencies=background_latencies,
-            background_completed=background_done,
-            interactive_completed=interactive_done,
-            preemptions=runtime.counters.get("requests_preempted", 0),
-            resumptions=runtime.counters.get("requests_resumed", 0),
-        )
+    return RunStats(
+        interactive_ttft_ms=int_ttft,
+        interactive_total_ms=int_total,
+        background_total_ms=bg_total,
+        background_completed=bg_done,
+        interactive_completed=int_done,
+        preemptions=runtime.counters.get("requests_preempted", 0),
+        resumptions=runtime.counters.get("requests_resumed", 0),
+        background_output="".join(bg_text_chunks),
+        interactive_output="".join(int_text_chunks),
+    )
 
 
 async def main():
-    print("=" * 75)
-    print("LATTICE CONTENTION BENCHMARK: FIFO vs. PREEMPTIVE ADMISSION")
-    print("=" * 75)
+    parser = argparse.ArgumentParser(description="Lattice Contention Benchmark")
+    parser.add_argument(
+        "--mode",
+        choices=["auto", "real", "simulated"],
+        default="auto",
+        help="Benchmark mode: auto (detect real backend), real (require llama.cpp), simulated (BenchmarkMockBackend)",
+    )
+    parser.add_argument("--model", help="Registered model ID to benchmark (for real mode)")
+    args = parser.parse_args()
 
-    print("\nRunning baseline (priority_fifo, standard llama-server queueing)...")
-    fifo_stats = await run_scenario("priority_fifo", slots=1)
+    use_real = False
+    if args.mode in ("auto", "real"):
+        try:
+            cfg = load_settings()
+            m = select_model(cfg, args.model or cfg.models[0].id)
+            if Path(cfg.backend_binary).is_file() and Path(m.path).is_file():
+                use_real = True
+            elif args.mode == "real":
+                print(f"Error: model ({m.path}) or backend ({cfg.backend_binary}) not found. Provision first.", file=sys.stderr)
+                sys.exit(1)
+        except (OSError, LatticeError, ValueError):
+            if args.mode == "real":
+                raise
 
-    print("Running candidate (priority_preemptive, Lattice cooperative preemption)...")
-    preempt_stats = await run_scenario("priority_preemptive", slots=1)
+    print("=" * 78)
+    print("LATTICE CPU CONTENTION BENCHMARK: FIFO QUEUE vs. PREEMPTIVE ADMISSION")
+    print("=" * 78)
+    if use_real:
+        print("Backend: Real CPU Inference (llama.cpp engine + registered GGUF model)")
+    else:
+        print("Backend: Synthetic Simulation (BenchmarkMockBackend, 25ms/tok CPU model simulation)")
+    print("Workload: Low-priority background task (P0) competing with incoming interactive chat (P3)")
+    print("-" * 78)
 
-    fifo_int = fifo_stats.interactive_latencies[0]
-    preempt_int = preempt_stats.interactive_latencies[0]
-    reduction = ((fifo_int - preempt_int) / fifo_int) * 100
+    print("\n1. Running baseline (priority_fifo: standard FIFO queueing)...")
+    fifo = await run_scenario("priority_fifo", slots=1, use_real_backend=use_real, model_name=args.model)
 
-    print("\n" + "=" * 75)
-    print("BENCHMARK RESULTS SUMMARY")
-    print("=" * 75)
-    print(f"{'Metric':<32} | {'FIFO (Standard)':<18} | {'Preemptive (Lattice)':<20}")
-    print("-" * 75)
-    print(f"{'Interactive Query Latency':<32} | {fifo_int:>15.1f} ms | {preempt_int:>17.1f} ms")
-    print(f"{'Background Job Latency':<32} | {fifo_stats.background_latencies[0]:>15.1f} ms | {preempt_stats.background_latencies[0]:>17.1f} ms")
-    print(f"{'Interactive Success Rate':<32} | {fifo_stats.interactive_completed:>17}/1 | {preempt_stats.interactive_completed:>19}/1")
-    print(f"{'Background Success Rate':<32} | {fifo_stats.background_completed:>17}/1 | {preempt_stats.background_completed:>19}/1")
-    print(f"{'Preemptions Triggered':<32} | {fifo_stats.preemptions:>18} | {preempt_stats.preemptions:>20}")
-    print(f"{'Seamless Resumptions':<32} | {fifo_stats.resumptions:>18} | {preempt_stats.resumptions:>20}")
-    print("-" * 75)
-    print(f"\n>>> INTERACTIVE LATENCY REDUCTION: {reduction:.1f}% FASTER ({(fifo_int/preempt_int):.1f}x speedup) <<<")
-    print("=" * 75)
+    print("2. Running candidate (priority_preemptive: cooperative preemption & auto-resume)...")
+    preempt = await run_scenario("priority_preemptive", slots=1, use_real_backend=use_real, model_name=args.model)
+
+    ttft_speedup = fifo.interactive_ttft_ms / max(1.0, preempt.interactive_ttft_ms)
+    total_speedup = fifo.interactive_total_ms / max(1.0, preempt.interactive_total_ms)
+    ttft_reduction = ((fifo.interactive_ttft_ms - preempt.interactive_ttft_ms) / max(1.0, fifo.interactive_ttft_ms)) * 100
+    total_reduction = ((fifo.interactive_total_ms - preempt.interactive_total_ms) / max(1.0, fifo.interactive_total_ms)) * 100
+    bg_makespan_increase = ((preempt.background_total_ms - fifo.background_total_ms) / max(1.0, fifo.background_total_ms)) * 100
+
+    print("\n" + "=" * 78)
+    print("CONTENTION BENCHMARK RESULTS SUMMARY")
+    print("=" * 78)
+    print(f"{'Metric':<34} | {'FIFO (Standard)':<18} | {'Preemptive (Lattice)':<20}")
+    print("-" * 78)
+    print(f"{'Interactive TTFT / Queue Delay':<34} | {fifo.interactive_ttft_ms:>15.1f} ms | {preempt.interactive_ttft_ms:>17.1f} ms")
+    print(f"{'Interactive Total Latency':<34} | {fifo.interactive_total_ms:>15.1f} ms | {preempt.interactive_total_ms:>17.1f} ms")
+    print(f"{'Background Total Makespan':<34} | {fifo.background_total_ms:>15.1f} ms | {preempt.background_total_ms:>17.1f} ms")
+    print(f"{'Preemptions Triggered':<34} | {fifo.preemptions:>18} | {preempt.preemptions:>20}")
+    print(f"{'Seamless Resumptions':<34} | {fifo.resumptions:>18} | {preempt.resumptions:>20}")
+    print(f"{'Interactive Completed':<34} | {fifo.interactive_completed:>17}/1 | {preempt.interactive_completed:>19}/1")
+    print(f"{'Background Completed':<34} | {fifo.background_completed:>17}/1 | {preempt.background_completed:>19}/1")
+    print("-" * 78)
+    print(f"\n>>> INTERACTIVE QUEUE-DELAY REDUCTION: {ttft_reduction:.1f}% FASTER ({ttft_speedup:.1f}x speedup) <<<")
+    print(f">>> INTERACTIVE TOTAL LATENCY REDUCTION: {total_reduction:.1f}% FASTER ({total_speedup:.1f}x speedup) <<<")
+    print(f">>> BACKGROUND MAKESPAN IMPACT: +{bg_makespan_increase:.1f}% (trade-off: yields CPU to chat) <<<")
+    print("=" * 78)
 
 
 if __name__ == "__main__":
