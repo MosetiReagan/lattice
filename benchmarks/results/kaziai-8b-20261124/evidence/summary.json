@@ -1,0 +1,478 @@
+{
+  "scope": "Controlled 8B CPU pilot; medians over three repeats per language. No P95/P99 claim. Cold initial load excluded; preemption reload cost included.",
+  "arms": [
+    {
+      "arm": "native1",
+      "slots": 1,
+      "arm_error": null,
+      "trace_count": 6,
+      "en_ttft_seconds": 10.017697016010061,
+      "en_ttft_range": [
+        9.935927462007385,
+        10.172458073997404
+      ],
+      "en_completion_seconds": 10.277503932011314,
+      "sw_ttft_seconds": 10.26497516699601,
+      "sw_ttft_range": [
+        10.1693041640101,
+        10.310528314992553
+      ],
+      "sw_completion_seconds": 13.006618751009228,
+      "background_seconds": 14.722052000506665,
+      "background_range": [
+        14.282862494001165,
+        14.851018337009009
+      ],
+      "fact_pass_count": 6,
+      "failed_trace_requests": 0,
+      "cancel_peer_preserved": true,
+      "cancel_recovery_pass": true,
+      "cancel_slots": null,
+      "tool_api_status": 200,
+      "output_1024_status": null,
+      "receipt_json": {
+        "vendor": "Nairobi Supplies",
+        "date": "2026-11-22",
+        "total": "KES 1160",
+        "tax": "KES 160",
+        "currency": "KES"
+      },
+      "saturated_ttft_seconds": null,
+      "saturated_math_pass": null,
+      "max_trace_cpu_steal_fraction": 0.00015677667163126126,
+      "observed_swap_kb": 0,
+      "observed_worker_high_water_mib": null,
+      "observed_worker_process_count": 0
+    },
+    {
+      "arm": "lattice_fifo1",
+      "slots": 1,
+      "arm_error": null,
+      "trace_count": 6,
+      "en_ttft_seconds": 9.851375144993654,
+      "en_ttft_range": [
+        9.731578129983973,
+        9.96396116001415
+      ],
+      "en_completion_seconds": 10.110098661010852,
+      "sw_ttft_seconds": 10.771017749997554,
+      "sw_ttft_range": [
+        10.290870586992241,
+        10.789466874004574
+      ],
+      "sw_completion_seconds": 13.538892420008779,
+      "background_seconds": 14.79665028899035,
+      "background_range": [
+        14.457046028022887,
+        14.983969909982989
+      ],
+      "fact_pass_count": 6,
+      "failed_trace_requests": 0,
+      "cancel_peer_preserved": true,
+      "cancel_recovery_pass": true,
+      "cancel_slots": null,
+      "tool_api_status": 422,
+      "output_1024_status": 422,
+      "receipt_json": {
+        "vendor": "Nairobi Supplies",
+        "date": "2026-11-22",
+        "total": "KES 1160",
+        "tax": "KES 160",
+        "currency": "KES"
+      },
+      "saturated_ttft_seconds": null,
+      "saturated_math_pass": null,
+      "max_trace_cpu_steal_fraction": 0.00019435086810054417,
+      "observed_swap_kb": 0,
+      "observed_worker_high_water_mib": 5505.74609375,
+      "observed_worker_process_count": 2
+    },
+    {
+      "arm": "lattice_preempt1",
+      "slots": 1,
+      "arm_error": null,
+      "trace_count": 6,
+      "en_ttft_seconds": 6.107560139003908,
+      "en_ttft_range": [
+        5.998665681021521,
+        6.109254176000832
+      ],
+      "en_completion_seconds": 6.360311425989494,
+      "sw_ttft_seconds": 6.5919916779967025,
+      "sw_ttft_range": [
+        6.460915335017489,
+        6.791399438981898
+      ],
+      "sw_completion_seconds": 9.283556032984052,
+      "background_seconds": 28.02078312849335,
+      "background_range": [
+        26.44852906500455,
+        30.06688785200822
+      ],
+      "fact_pass_count": 6,
+      "failed_trace_requests": 0,
+      "cancel_peer_preserved": true,
+      "cancel_recovery_pass": true,
+      "cancel_slots": null,
+      "tool_api_status": 422,
+      "output_1024_status": 422,
+      "receipt_json": {
+        "vendor": "Nairobi Supplies",
+        "date": "2026-11-22",
+        "total": "KES 1160",
+        "tax": "KES 160",
+        "currency": "KES"
+      },
+      "saturated_ttft_seconds": null,
+      "saturated_math_pass": null,
+      "max_trace_cpu_steal_fraction": 0.00018906272155787683,
+      "observed_swap_kb": 0,
+      "observed_worker_high_water_mib": 5505.609375,
+      "observed_worker_process_count": 9
+    },
+    {
+      "arm": "native2",
+      "slots": 2,
+      "arm_error": null,
+      "trace_count": 6,
+      "en_ttft_seconds": 1.2769965110055637,
+      "en_ttft_range": [
+        1.2090419690066483,
+        1.3064118979964405
+      ],
+      "en_completion_seconds": 1.7563252320105676,
+      "sw_ttft_seconds": 1.7091370640264358,
+      "sw_ttft_range": [
+        1.6828910440090112,
+        1.745137291989522
+      ],
+      "sw_completion_seconds": 6.988988864002749,
+      "background_seconds": 17.35186654049903,
+      "background_range": [
+        15.96442744100932,
+        18.69219477599836
+      ],
+      "fact_pass_count": 6,
+      "failed_trace_requests": 0,
+      "cancel_peer_preserved": true,
+      "cancel_recovery_pass": true,
+      "cancel_slots": {
+        "capacity": 2,
+        "prefix_cache_enabled": false,
+        "prefix_cache": {
+          "0": {
+            "eligible_hits": 0,
+            "misses": 0,
+            "evictions": 0,
+            "native_reused_tokens": 0,
+            "logical_tokens": 0,
+            "logical_kv_bytes": 0,
+            "physical_pool_bytes": null,
+            "physical_allocator": "llama.cpp"
+          },
+          "1": {
+            "eligible_hits": 0,
+            "misses": 0,
+            "evictions": 0,
+            "native_reused_tokens": 0,
+            "logical_tokens": 0,
+            "logical_kv_bytes": 0,
+            "physical_pool_bytes": null,
+            "physical_allocator": "llama.cpp"
+          }
+        },
+        "draining": false,
+        "free": 2,
+        "leased": 0,
+        "quarantined": 0,
+        "cleanup_tasks": 0,
+        "verified_cancellations": 0,
+        "unconfirmed_cleanup": 0,
+        "drained_worker_retirements": 0
+      },
+      "tool_api_status": 200,
+      "output_1024_status": null,
+      "receipt_json": {
+        "vendor": "Nairobi Supplies",
+        "date": "2026-11-22",
+        "total": "KES 1160",
+        "tax": "KES 160",
+        "currency": "KES"
+      },
+      "saturated_ttft_seconds": 17.262547805992654,
+      "saturated_math_pass": true,
+      "max_trace_cpu_steal_fraction": 0.00015661707126076742,
+      "observed_swap_kb": 0,
+      "observed_worker_high_water_mib": 6120.3046875,
+      "observed_worker_process_count": 1
+    },
+    {
+      "arm": "lattice_preempt2",
+      "slots": 2,
+      "arm_error": null,
+      "trace_count": 6,
+      "en_ttft_seconds": 1.2553299769933801,
+      "en_ttft_range": [
+        1.221177594998153,
+        1.2659071270027198
+      ],
+      "en_completion_seconds": 1.7567710840085056,
+      "sw_ttft_seconds": 1.7584044190007262,
+      "sw_ttft_range": [
+        1.757438805012498,
+        1.7680544009781443
+      ],
+      "sw_completion_seconds": 7.058623593999073,
+      "background_seconds": 17.280841461004457,
+      "background_range": [
+        15.893777731980663,
+        18.9851322399918
+      ],
+      "fact_pass_count": 6,
+      "failed_trace_requests": 0,
+      "cancel_peer_preserved": true,
+      "cancel_recovery_pass": true,
+      "cancel_slots": {
+        "capacity": 2,
+        "prefix_cache_enabled": false,
+        "prefix_cache": {
+          "0": {
+            "eligible_hits": 0,
+            "misses": 0,
+            "evictions": 0,
+            "native_reused_tokens": 0,
+            "logical_tokens": 0,
+            "logical_kv_bytes": 0,
+            "physical_pool_bytes": null,
+            "physical_allocator": "llama.cpp"
+          },
+          "1": {
+            "eligible_hits": 0,
+            "misses": 0,
+            "evictions": 0,
+            "native_reused_tokens": 0,
+            "logical_tokens": 0,
+            "logical_kv_bytes": 0,
+            "physical_pool_bytes": null,
+            "physical_allocator": "llama.cpp"
+          }
+        },
+        "draining": false,
+        "free": 2,
+        "leased": 0,
+        "quarantined": 0,
+        "cleanup_tasks": 0,
+        "verified_cancellations": 2,
+        "unconfirmed_cleanup": 0,
+        "drained_worker_retirements": 0
+      },
+      "tool_api_status": 422,
+      "output_1024_status": 422,
+      "receipt_json": {
+        "vendor": "Nairobi Supplies",
+        "date": "2026-11-22",
+        "total": "KES 1160",
+        "tax": "KES 160",
+        "currency": "KES"
+      },
+      "saturated_ttft_seconds": 1.8562781820073724,
+      "saturated_math_pass": true,
+      "max_trace_cpu_steal_fraction": 7.865963973885e-05,
+      "observed_swap_kb": 0,
+      "observed_worker_high_water_mib": 6120.26171875,
+      "observed_worker_process_count": 1
+    }
+  ],
+  "greedy_comparisons_to_native1": [
+    {
+      "arm": "lattice_fifo1",
+      "outcomes": [
+        {
+          "repeat": 0,
+          "language": "en",
+          "background_exact_match": true,
+          "interactive_exact_match": true
+        },
+        {
+          "repeat": 0,
+          "language": "sw",
+          "background_exact_match": true,
+          "interactive_exact_match": true
+        },
+        {
+          "repeat": 1,
+          "language": "en",
+          "background_exact_match": true,
+          "interactive_exact_match": true
+        },
+        {
+          "repeat": 1,
+          "language": "sw",
+          "background_exact_match": true,
+          "interactive_exact_match": true
+        },
+        {
+          "repeat": 2,
+          "language": "en",
+          "background_exact_match": true,
+          "interactive_exact_match": true
+        },
+        {
+          "repeat": 2,
+          "language": "sw",
+          "background_exact_match": true,
+          "interactive_exact_match": true
+        }
+      ]
+    },
+    {
+      "arm": "lattice_preempt1",
+      "outcomes": [
+        {
+          "repeat": 0,
+          "language": "en",
+          "background_exact_match": true,
+          "interactive_exact_match": true
+        },
+        {
+          "repeat": 0,
+          "language": "sw",
+          "background_exact_match": true,
+          "interactive_exact_match": true
+        },
+        {
+          "repeat": 1,
+          "language": "en",
+          "background_exact_match": true,
+          "interactive_exact_match": true
+        },
+        {
+          "repeat": 1,
+          "language": "sw",
+          "background_exact_match": true,
+          "interactive_exact_match": true
+        },
+        {
+          "repeat": 2,
+          "language": "en",
+          "background_exact_match": true,
+          "interactive_exact_match": true
+        },
+        {
+          "repeat": 2,
+          "language": "sw",
+          "background_exact_match": true,
+          "interactive_exact_match": true
+        }
+      ]
+    },
+    {
+      "arm": "native2",
+      "outcomes": [
+        {
+          "repeat": 0,
+          "language": "en",
+          "background_exact_match": true,
+          "interactive_exact_match": true
+        },
+        {
+          "repeat": 0,
+          "language": "sw",
+          "background_exact_match": true,
+          "interactive_exact_match": true
+        },
+        {
+          "repeat": 1,
+          "language": "en",
+          "background_exact_match": true,
+          "interactive_exact_match": true
+        },
+        {
+          "repeat": 1,
+          "language": "sw",
+          "background_exact_match": true,
+          "interactive_exact_match": true
+        },
+        {
+          "repeat": 2,
+          "language": "en",
+          "background_exact_match": true,
+          "interactive_exact_match": true
+        },
+        {
+          "repeat": 2,
+          "language": "sw",
+          "background_exact_match": true,
+          "interactive_exact_match": true
+        }
+      ]
+    },
+    {
+      "arm": "lattice_preempt2",
+      "outcomes": [
+        {
+          "repeat": 0,
+          "language": "en",
+          "background_exact_match": true,
+          "interactive_exact_match": true
+        },
+        {
+          "repeat": 0,
+          "language": "sw",
+          "background_exact_match": true,
+          "interactive_exact_match": true
+        },
+        {
+          "repeat": 1,
+          "language": "en",
+          "background_exact_match": true,
+          "interactive_exact_match": true
+        },
+        {
+          "repeat": 1,
+          "language": "sw",
+          "background_exact_match": true,
+          "interactive_exact_match": true
+        },
+        {
+          "repeat": 2,
+          "language": "en",
+          "background_exact_match": true,
+          "interactive_exact_match": true
+        },
+        {
+          "repeat": 2,
+          "language": "sw",
+          "background_exact_match": true,
+          "interactive_exact_match": true
+        }
+      ]
+    }
+  ],
+  "sampling_comparisons": [
+    {
+      "seed": 7,
+      "exact_output_match": false,
+      "statuses": [
+        "completed",
+        "completed"
+      ]
+    },
+    {
+      "seed": 42,
+      "exact_output_match": true,
+      "statuses": [
+        "completed",
+        "completed"
+      ]
+    },
+    {
+      "seed": 99,
+      "exact_output_match": true,
+      "statuses": [
+        "completed",
+        "completed"
+      ]
+    }
+  ]
+}

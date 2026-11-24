@@ -1,0 +1,26 @@
+[
+  {
+    "seed": 7,
+    "exact_output_match": false,
+    "statuses": [
+      "completed",
+      "completed"
+    ]
+  },
+  {
+    "seed": 42,
+    "exact_output_match": true,
+    "statuses": [
+      "completed",
+      "completed"
+    ]
+  },
+  {
+    "seed": 99,
+    "exact_output_match": true,
+    "statuses": [
+      "completed",
+      "completed"
+    ]
+  }
+]

@@ -1,0 +1,7 @@
+{"arm": "sampling_native1", "seed": 7, "background_status": "completed", "interactive_ms": 6714.8}
+{"arm": "sampling_native1", "seed": 42, "background_status": "completed", "interactive_ms": 6649.5}
+{"arm": "sampling_native1", "seed": 99, "background_status": "completed", "interactive_ms": 6681.4}
+{"arm": "sampling_lattice_preempt1", "seed": 7, "background_status": "completed", "interactive_ms": 5958.6}
+{"arm": "sampling_lattice_preempt1", "seed": 42, "background_status": "completed", "interactive_ms": 6204.8}
+{"arm": "sampling_lattice_preempt1", "seed": 99, "background_status": "completed", "interactive_ms": 6017.3}
+{"sampling_comparison": [{"seed": 7, "exact_output_match": false, "statuses": ["completed", "completed"]}, {"seed": 42, "exact_output_match": true, "statuses": ["completed", "completed"]}, {"seed": 99, "exact_output_match": true, "statuses": ["completed", "completed"]}]}

@@ -1,0 +1,45 @@
+{
+  "source_commit": "4fd5276480b4730240d3011bceac02e69839d1e8",
+  "native_commit": "54cde7106a6b4013a053f13bb4a5d91683e7338d",
+  "model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+  "machine": "Linux-6.18.0+-x86_64-with-glibc2.39",
+  "cpu": ": AMD EPYC",
+  "common_flags": [
+    "--reasoning",
+    "off",
+    "--chat-template-kwargs",
+    "{\"enable_thinking\":false}",
+    "--cache-type-k",
+    "q8_0",
+    "--cache-type-v",
+    "q8_0",
+    "--no-repack",
+    "--load-mode",
+    "mmap",
+    "--flash-attn",
+    "on",
+    "--jinja"
+  ],
+  "threads": 4,
+  "context_per_slot": 8192,
+  "background_cap": 96,
+  "repeats_per_language": 3,
+  "adaptations": "Only native launch flags matched to KaziAI; scheduler cancellation fix recorded separately. No simulation fallback.",
+  "hardware": {
+    "cpu_times": [
+      47981,
+      0,
+      3375,
+      181383273,
+      273,
+      0,
+      471,
+      1062
+    ],
+    "available_memory_kb": 32217712,
+    "swap_free_kb": 1048572,
+    "swap_total_kb": 1048572
+  },
+  "scheduler_patch_sha256": "070794ae8e4eea080772b2050d4cdf366ff07236437f63bc1382569dee611263",
+  "native_library_search_path": "/home/boxd/trial/bin"
+}

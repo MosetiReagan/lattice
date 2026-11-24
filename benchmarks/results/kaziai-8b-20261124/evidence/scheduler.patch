@@ -1,0 +1,29 @@
+diff --git a/src/lattice/scheduler/fair.py b/src/lattice/scheduler/fair.py
+index 7247c8b..8e131b8 100644
+--- a/src/lattice/scheduler/fair.py
++++ b/src/lattice/scheduler/fair.py
+@@ -13,6 +13,7 @@ class Waiter:
+     future: asyncio.Future
+     granted: bool = False
+     estimated_work: int = 0
++    permit: "Permit | None" = None
+ 
+ 
+ @dataclass(eq=False)
+@@ -110,7 +111,7 @@ class FairSemaphore:
+             if waiter in self._waiters:
+                 self._waiters.remove(waiter)
+             elif waiter.granted:
+-                self.release()  # cancellation after ownership was handed off
++                self.release(waiter.permit)  # release this exact cancelled grant
+             raise
+ 
+     def release(self, permit: Permit | None = None) -> None:
+@@ -144,6 +145,7 @@ class FairSemaphore:
+             preempt_event=asyncio.Event(),
+             estimated_work=chosen.estimated_work,
+         )
++        chosen.permit = new_permit
+         self._holders.append(new_permit)
+         chosen.future.set_result(new_permit)
+ 
