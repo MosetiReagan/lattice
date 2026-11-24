@@ -55,12 +55,12 @@ We measured interactive chat latency ($N_{\text{chat}} = 8$ tokens) competing ag
 
 ### 1. Queue Latency Scaling
 
-| Background Workload ($N_{\text{bg}}$) | Standard FIFO Queue Wait | Lattice Preemptive Queue Wait | Speedup Factor |
+| Background Workload ($N_{\text{bg}}$) | Standard FIFO Queue Wait | Lattice Preemptive Queue Wait | Queue Wait Reduction |
 | :--- | :---: | :---: | :---: |
-| **48 Tokens** | 1,120 ms | **12 ms** | **93.3x faster queue** |
-| **96 Tokens** | 2,240 ms | **12 ms** | **186.6x faster queue** |
-| **160 Tokens** | 3,736 ms | **13 ms** | **287.3x faster queue** |
-| **512 Tokens** | 11,950 ms | **14 ms** | **853.5x faster queue** |
+| **48 Tokens** | 1,120 ms | **12 ms** | **93.3x shorter wait** |
+| **96 Tokens** | 2,240 ms | **12 ms** | **186.6x shorter wait** |
+| **160 Tokens** | 3,736 ms | **13 ms** | **287.3x shorter wait** |
+| **512 Tokens** | 11,950 ms | **14 ms** | **853.5x shorter wait** |
 
 In sequential FIFO scheduling, queue wait time scales linearly with background token length:
 $$T_{\text{wait}} \approx N_{\text{bg}} \times t_{\text{token}}$$
@@ -68,12 +68,11 @@ $$T_{\text{wait}} \approx N_{\text{bg}} \times t_{\text{token}}$$
 Under Lattice, queue latency remains flat at $O(1)$:
 $$T_{\text{wait}}(\text{Lattice}) = T_{\text{yield}}(\text{token boundary}) \approx 12\text{--}15\text{ ms}$$
 
-### 2. Time-To-First-Token (TTFT)
+### 2. Time-To-First-Token (TTFT) & End-to-End Chat Completion
 
-Under 160 tokens of background contention:
-* **Standard FIFO Engine**: **3,736 ms** before the first word appears.
-* **Lattice Engine**: **772 ms** (and < 200 ms for small prompts).
-* **Result**: **4.8x faster TTFT** and up to **12.8x faster total chat completion**.
+While queue wait time alone drops by up to **853x** (from 11,950 ms down to 14 ms), the metric the user actually experiences is the **total end-to-end chat turnaround time** (queue wait + prompt prefill + token decode):
+* **At 160 Contention Tokens**: TTFT drops from **3,736 ms** down to **772 ms** (**4.8x faster TTFT**).
+* **At 512 Contention Tokens**: Total completion time drops from **~13.2 seconds** down to **~1.03 seconds** (**12.8x faster end-to-end chat response**).
 
 ### 3. Tail Latency (P95) and Throughput Parity
 

@@ -19,8 +19,9 @@ Stop waiting 10 to 60+ seconds for local models to answer. Standard local LLM ru
 
 ### Why Lattice is So Fast
 
-* ⚡ **Up to 12.8x Faster Response Times**: Cuts interactive queue wait from 12+ seconds down to **12 ms**.
-* ⏱️ **Sub-Second First Token (TTFT)**: Start seeing tokens stream in under 200 ms.
+* ⚡ **Up to 12.8x Faster End-to-End Chat**: Total turnaround time for interactive chat queries drops from 13+ seconds down to ~1 second.
+* ⏱️ **Near-Zero Queue Delay (12 ms vs 12,000+ ms)**: Over 850x reduction in queue wait time, eliminating Head-of-Line stalls entirely.
+* 🚀 **Sub-Second First Token (TTFT)**: Start seeing tokens stream in under 200 ms instead of waiting for background jobs to finish.
 * 🧠 **Zero-Recomputation KV Cache Reuse**: Resumes background tasks instantly without re-processing prompts.
 * 🔄 **Continuous Multi-Slot Batching**: Saturates AVX-512, AMX, and NEON vector CPU instructions across 2 to 8 concurrent slots.
 * 🛡️ **Guaranteed Memory Safety**: Dynamic telemetry prevents OOM crashes on laptops and desktops.
